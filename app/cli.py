@@ -55,15 +55,37 @@ def seed_certifications_from(path: Path) -> int:
     return count
 
 
+def _table_empty(model: Any) -> bool:
+    from sqlalchemy import func
+
+    with _session() as db:
+        return not db.scalar(select(func.count()).select_from(model))
+
+
+IF_EMPTY = typer.Option(
+    False, "--if-empty", help="Only seed when the table is empty (used on container start)"
+)
+
+
 @seed_cli.command("categories")
-def seed_categories(path: Path = ROOT / "seeds" / "categories.yaml") -> None:
-    """Upsert the category list by slug (never deletes)."""
+def seed_categories(path: Path = ROOT / "seeds" / "categories.yaml", if_empty: bool = IF_EMPTY) -> None:
+    """Upsert the category list by slug (never deletes). Overwrites admin edits of seeded slugs."""
+    if if_empty and not _table_empty(Category):
+        typer.echo("categories: already seeded")
+        return
     typer.echo(f"categories: {seed_categories_from(path)}")
 
 
 @seed_cli.command("certifications")
-def seed_certifications(path: Path = ROOT / "seeds" / "certifications.yaml") -> None:
+def seed_certifications(
+    path: Path = ROOT / "seeds" / "certifications.yaml", if_empty: bool = IF_EMPTY
+) -> None:
     """Upsert the certification catalogue by code."""
+    from app.models import Certification
+
+    if if_empty and not _table_empty(Certification):
+        typer.echo("certifications: already seeded")
+        return
     typer.echo(f"certifications: {seed_certifications_from(path)}")
 
 

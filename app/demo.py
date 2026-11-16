@@ -345,7 +345,7 @@ def seed_demo_data(db: Session, count: int = 30) -> int:
         tool = tool_service.create_tool(db, owner, data, claims)
         tool.declarations_accepted_at = utcnow()
         db.flush()
-        final = "pending" if n % 10 == 9 else "published"
+        final = "pending" if n % 10 == 9 and n < 30 else "published"  # stay under the pending limit
         tool_service.transition(db, tool, "submit", owner)
         if final == "published":
             tool_service.transition(db, tool, "approve", moderator)

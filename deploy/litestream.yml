@@ -1,0 +1,14 @@
+# Continuous replication of the SQLite database to EU S3-compatible storage (TECH_SPEC §20.3).
+# Values are expanded from the environment (.env).
+dbs:
+  - path: /data/gitmgf.db
+    replicas:
+      - type: s3
+        bucket: ${LITESTREAM_BUCKET}
+        path: gitmgf.db
+        endpoint: ${LITESTREAM_ENDPOINT}
+        region: ${LITESTREAM_REGION}
+        access-key-id: ${LITESTREAM_ACCESS_KEY_ID}
+        secret-access-key: ${LITESTREAM_SECRET_ACCESS_KEY}
+        retention: 720h
+        snapshot-interval: 24h

@@ -5,6 +5,7 @@ import time
 from typing import Any
 
 from sqlalchemy import select
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
 from app.db import utcnow
@@ -71,7 +72,11 @@ def invalidate() -> None:
 def _load(db: Session) -> dict[str, Any]:
     global _loaded_at
     if not _loaded_at or time.monotonic() - _loaded_at > TTL_SECONDS:
-        rows = db.execute(select(SiteSetting.key, SiteSetting.value)).all()
+        try:
+            rows = db.execute(select(SiteSetting.key, SiteSetting.value)).all()
+        except OperationalError:
+            db.rollback()
+            return {}  # not migrated yet (first deploy): defaults and env values apply
         _cache.clear()
         _cache.update({k: v for k, v in rows})
         _loaded_at = time.monotonic()

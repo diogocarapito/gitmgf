@@ -1,0 +1,17 @@
+# Development stack: http://localhost:8000 — emails are printed to the log (also at /pt/dev/emails).
+services:
+  app:
+    build: .
+    command: ["dev"]
+    user: root  # the bind-mounted source and ./data belong to the host user
+    environment:
+      APP_ENV: dev
+      BASE_URL: http://localhost:8000
+      DATA_DIR: /data
+      DATABASE_PATH: /data/gitmgf.db
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-admin@example.org}
+    volumes:
+      - .:/srv/gitmgf
+      - ./data:/data
+    ports:
+      - "8000:8000"

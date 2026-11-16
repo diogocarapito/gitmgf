@@ -34,7 +34,7 @@
           <fieldset>
             <legend>{{ _("Certificações") }}</legend>
             {% for c in all_certs %}
-            <label class="choice"><input class="filter" type="checkbox" name="cert" value="{{ c.code }}"{% if c.code in params.cert %} checked{% endif %}> <span>{{ c.badge_label }} <span class="muted xsmall">{{ c.name(lang) }}</span></span></label>
+            <label class="choice" title="{{ c.name(lang) }}"><input class="filter" type="checkbox" name="cert" value="{{ c.code }}"{% if c.code in params.cert %} checked{% endif %}> <span>{{ c.badge_label }}<span class="visually-hidden"> — {{ c.name(lang) }}</span></span></label>
             {% endfor %}
           </fieldset>
           <fieldset>

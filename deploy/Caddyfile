@@ -1,0 +1,46 @@
+# TECH_SPEC §20.2. DOMAIN and ACME_EMAIL come from .env (via docker compose).
+{
+	email {$ACME_EMAIL}
+}
+
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	request_body {
+		max_size 12MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		-Server
+	}
+
+	# Access logs contain IP addresses: kept 14 days (Privacy §9).
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 50MiB
+			roll_keep_for 336h
+		}
+		format json
+	}
+
+	# Screenshots only (re-encoded WebP). Never executable, never framed.
+	handle_path /media/* {
+		root * /srv/data/media
+		header Cache-Control "public, max-age=31536000, immutable"
+		header Content-Security-Policy "default-src 'none'; img-src 'self'; sandbox"
+		header X-Content-Type-Options "nosniff"
+		file_server
+	}
+
+	# Everything else (including /static with ?v= cache-busting) is served by the app,
+	# which also sets the CSP and other per-route headers.
+	handle {
+		reverse_proxy app:8000
+	}
+}

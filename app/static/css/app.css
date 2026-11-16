@@ -493,3 +493,5 @@ details.lang-en > summary { cursor: pointer; font-weight: 650; color: var(--c-li
 .grid > .load-more { grid-column: 1 / -1; }
 .tag-suggestions { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .3rem; }
 .tag-suggestions:empty { display: none; }
+fieldset.field { border: 0; padding: 0; margin: 0 0 1rem; min-width: 0; }
+fieldset.field > legend { padding: 0; margin-bottom: .35rem; }
