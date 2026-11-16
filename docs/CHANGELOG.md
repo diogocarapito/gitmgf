@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 — 2026-11-16 · Password login, invite-only registration
+
+- Email + password sign-in (scrypt, rate-limited); registration by invite link (Administração → Convites, `cli invite`), with an option to open it to everyone.
+- Admin-issued one-time set-password links; `cli create-admin` prints one; password change in Definições.
+- Removed magic links and GitHub/Google OAuth. SMTP is now optional; notifications wait in Administração → Emails.
+- Terms and Privacy (PT/EN) updated accordingly. See D26.
+
 ## 0.1.0 — 2026-11-16 · MVP (M0–M7)
 
 - **M0 Foundation** — FastAPI + Jinja2 + HTMX, SQLite (WAL) with Alembic, `/pt` and `/en` routing with hreflang, design system from the mockup (light/dark, mobile-first), SVG logo, legal pages from Markdown, `/healthz`.
