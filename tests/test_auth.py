@@ -292,3 +292,77 @@ def test_cli_change_email_keeps_account_and_signs_out(client, db):
     assert moved.email == "new@example.org" and moved.role == Role.admin
     assert sessions_of(db, moved) == []
     assert post(client, "/login", {"email": "new@example.org", "password": PASSWORD}).status_code == 303
+
+
+# ---------- email flows (D29) ----------
+
+
+def _mail_to(address):
+    from app.services import email
+
+    return [m for m in email.SENT if m["To"] == address]
+
+
+def _link_in(msg):
+    import re
+
+    return re.search(
+        r"http://testserver(/[\w/?=&.-]+)", msg.get_body(preferencelist=("plain",)).get_content()
+    ).group(1)
+
+
+def test_forgot_password_emails_a_one_hour_link_without_enumeration(client, db):
+    with_password(db, make_user(db, "ana@example.org"))
+    known = post(client, "/forgot", {"email": "ana@example.org"})
+    unknown = post(client, "/forgot", {"email": "ninguem@example.org"})
+    assert known.status_code == unknown.status_code == 200
+    assert known.text.replace("ana@example.org", "X") == unknown.text.replace("ninguem@example.org", "X")
+    assert not _mail_to("ninguem@example.org")
+    link = _link_in(_mail_to("ana@example.org")[0])
+    assert link.startswith("/reset/")
+    with time_machine.travel(utcnow() + timedelta(minutes=61), tick=False):
+        assert client.get(link).status_code == 400
+    assert client.get(link).status_code == 200
+
+
+def test_forgot_password_is_rate_limited(client, db):
+    with_password(db, make_user(db, "ana@example.org"))
+    for _ in range(5):
+        post(client, "/forgot", {"email": "ana@example.org"})
+    assert len(_mail_to("ana@example.org")) == 3
+
+
+def test_forgot_page_hidden_without_smtp_in_prod(client, monkeypatch):
+    from app.config import Settings
+
+    monkeypatch.setattr(Settings, "email_backend", property(lambda self: "none"))
+    assert client.get("/forgot").status_code == 404
+    assert "/forgot" not in client.get("/login").text
+
+
+def test_admin_can_email_invite_and_set_password_link(client, db):
+    admin = make_user(db, "admin@example.org", Role.admin)
+    target = make_user(db, "u@example.org")
+    login(client, db, admin)
+    r = post(
+        client,
+        "/admin/invites",
+        {"email": "nova@example.org", "send_email": "1", "invite_lang": "en", "max_uses": "1", "days": "7"},
+    )
+    assert r.status_code == 200 and "nova@example.org" in r.text
+    invite_mail = _mail_to("nova@example.org")[0]
+    assert invite_mail["Subject"] == "Invitation to gitmgf" and "/en/register?invite=" in _link_in(
+        invite_mail
+    )
+    r = post(client, f"/admin/users/{target.id}/reset-email")
+    assert r.status_code == 303 and "reset_emailed" in r.headers["location"]
+    assert _link_in(_mail_to("u@example.org")[0]).startswith("/reset/")
+
+
+def test_cli_send_test_email_requires_smtp(db_path):
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+
+    result = CliRunner().invoke(cli, ["send-test-email", "x@example.org"])
+    assert result.exit_code == 1 and "SMTP_HOST is not set" in result.output

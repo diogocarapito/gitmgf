@@ -663,6 +663,7 @@ def _invite_page(
     created_link: str | None = None,
     errors: dict[str, Any] | None = None,
     status: int = 200,
+    emailed_to: str | None = None,
 ) -> Response:
     from app.models import Invite
 
@@ -673,6 +674,7 @@ def _invite_page(
         {
             "rows": rows,
             "created_link": created_link,
+            "emailed_to": emailed_to,
             "errors": errors or {},
             "registration_open": settings_store.get(db, "site.registration_open"),
             "now": utcnow(),
@@ -687,9 +689,12 @@ def invites(request: Request, db: DB, user: AdminDep) -> Response:
 
 
 @pages.post("/admin/invites")
-def create_invite(request: Request, db: DB, user: AdminDep, form: Form) -> Response:
+def create_invite(
+    request: Request, db: DB, user: AdminDep, form: Form, background: BackgroundTasks
+) -> Response:
     from app.config import get_settings
     from app.services import auth as auth_service
+    from app.services import email as email_service
 
     errors: dict[str, Any] = {}
     address = str(form.get("email") or "").strip() or None
@@ -705,10 +710,15 @@ def create_invite(request: Request, db: DB, user: AdminDep, form: Form) -> Respo
         errors["email"] = ("Indique um email válido.", {})
     if errors:
         return _invite_page(request, db, errors=errors, status=422)
-    _, code = auth_service.create_invite(db, user, address, str(form.get("note") or ""), max_uses, days)
+    invite, code = auth_service.create_invite(db, user, address, str(form.get("note") or ""), max_uses, days)
+    emailed = bool(address and form.get("send_email") == "1" and auth_service.email_enabled())
+    if emailed:
+        auth_service.email_invite(db, invite, code, str(form.get("invite_lang") or request.state.lang), user)
     db.commit()
+    if emailed:
+        background.add_task(email_service.deliver_queued)
     link = f"{get_settings().base_url.rstrip('/')}{lang_prefix(request.state.lang)}/register?invite={code}"
-    return _invite_page(request, db, created_link=link)
+    return _invite_page(request, db, created_link=link, emailed_to=address if emailed else None)
 
 
 @actions.post("/admin/invites/{invite_id}/revoke")
@@ -722,6 +732,23 @@ def revoke_invite(request: Request, db: DB, user: AdminDep, invite_id: int) -> R
     auth_service.revoke_invite(db, invite, user)
     db.commit()
     return _back(request, "/admin/invites", "invite_revoked")
+
+
+@actions.post("/admin/users/{user_id}/reset-email")
+def reset_email(
+    request: Request, db: DB, user: AdminDep, user_id: int, background: BackgroundTasks
+) -> Response:
+    """Email the user a 48 h set-password link (needs SMTP, D29)."""
+    from app.services import auth as auth_service
+    from app.services import email as email_service
+
+    target = _user(db, user_id)
+    if not auth_service.email_enabled():
+        raise HTTPException(status_code=404)
+    auth_service.email_reset_link(db, target, user)
+    db.commit()
+    background.add_task(email_service.deliver_queued)
+    return _back(request, f"/admin/users/{target.id}", "reset_emailed")
 
 
 @pages.post("/admin/users/{user_id}/reset-link")

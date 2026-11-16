@@ -107,11 +107,10 @@ It publishes the pending tool, approves its certification claims, indexes it for
 
 ### Forgotten passwords
 
-There is no self-service reset without email. When someone asks:
+- **With email configured (§2.1):** people use *Esqueceu-se da palavra-passe?* on the login page and get a link valid for 1 hour. Admins can also click *Enviar ligação por email* on the user's page (48 h).
+- **Without email:** confirm it is really them, then Administração → Utilizadores → the user → *Gerar ligação para definir palavra-passe*, and send them the link yourself (48 h, single use; a new link invalidates the previous one).
 
-1. Confirm it is really them (e.g. by a channel you already know).
-2. Administração → Utilizadores → the user → *Gerar ligação para definir palavra-passe*.
-3. Send them the link. It works once, for 48 hours; generating a new one invalidates the previous one. Setting the password signs out their other sessions.
+Setting the password signs out the user's other sessions.
 
 Users change their own password in **Definições → Palavra-passe**.
 
@@ -120,11 +119,31 @@ Users change their own password in **Definições → Palavra-passe**.
 - Administração → Utilizadores → the user → change role (user / moderator / admin). The last admin can't be demoted.
 - *Suspender* (with a reason) blocks sign-in and ends all sessions; *Levantar suspensão* restores access.
 
-### Notifications without email
+### 2.1 Email (Brevo)
 
-Approval, rejection, hide and report-outcome messages are still generated. Without SMTP they are kept in **Administração → Emails** (pruned after 30 days) and never sent. Authors see their tool status and the moderation reason in **As minhas ferramentas**; for important decisions (e.g. hiding a tool), contact the author directly.
+Email is optional. Without it, notifications are kept in **Administração → Emails** (pruned after 30 days) and never sent, and the email features below stay hidden. With it, gitmgf sends notifications (approved, rejected, hidden, report outcomes, moderator digest, certification expiry) and enables *Esqueceu-se da palavra-passe?*, emailed invites and emailed set-password links (D29).
 
-To turn email on later: set `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM` in `.env`, verify the domain with SPF, DKIM and DMARC, and redeploy. Queued messages from the last 30 days will then be sent.
+Brevo is the provider: you need **no mailbox** to send. Setup:
+
+1. **Brevo → Senders, Domains & Dedicated IPs → Domains → Add a domain:** `gitmgf.com`. Brevo shows a few DNS records (a `brevo-code` TXT, two DKIM records, a DMARC TXT).
+2. **Cloudflare → DNS:** add each record exactly as shown, all **DNS only** (grey cloud). If an SPF TXT (`v=spf1 …`) already exists, merge Brevo's `include:` into it instead of adding a second one. Back in Brevo, click *Verify* (can take a few minutes).
+3. **Brevo → Senders → Add a sender:** `noreply@gitmgf.com`, name `gitmgf`. On a verified domain this needs no inbox.
+4. **Brevo → SMTP & API → SMTP:** copy the **login** (looks like `xxxx@smtp-brevo.com`) and **generate an SMTP key**.
+5. On the server, in `.env`:
+   ```
+   SMTP_HOST=smtp-relay.brevo.com
+   SMTP_PORT=587
+   SMTP_SECURITY=starttls
+   SMTP_USER=<Brevo SMTP login>
+   SMTP_PASSWORD=<Brevo SMTP key>
+   SMTP_FROM=gitmgf <noreply@gitmgf.com>
+   LEGAL_EMAIL_PROVIDER=Brevo (Sendinblue SAS)
+   LEGAL_EMAIL_PROVIDER_LOCATION=França
+   ```
+6. `./deploy/deploy.sh`, then test: `dc run --rm app cli send-test-email you@example.org`. It prints the SMTP error if something is wrong. In the received message, *Show original* should say SPF and DKIM **PASS**.
+7. Sign the Brevo DPA (Brevo account → Security / Legal) and keep a copy (content/legal/NOTES.md §2).
+
+Messages queued in the last 30 days are sent once SMTP works. Replies to `noreply@` go nowhere; for the public contact addresses (`contacto@`, `privacidade@`, `seguranca@`), set up free forwarding to your own inbox with **Cloudflare → Email → Email Routing**.
 
 ---
 

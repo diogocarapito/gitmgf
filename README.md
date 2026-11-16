@@ -12,10 +12,10 @@ Stack: Python 3.12 · FastAPI (sync) · Jinja2 · HTMX · SQLAlchemy 2 + Alembic
 - **Sign-in:** email + password (scrypt hashes, rate-limited). No OAuth, no magic links.
 - **Registration:** invite-only by default. Admins create invite links in **Administração → Convites** or with `python -m app.cli invite`. Registration can be opened to everyone in **Administração → Definições → Registos abertos**.
 - **Bootstrap:** addresses in `ADMIN_EMAILS` can register without an invite and become admins.
-- **Forgotten password:** an admin generates a one-time set-password link (48 h) from the user's admin page and sends it to the person.
-- **Email is optional:** without `SMTP_HOST`, notifications stay in the outbox (**Administração → Emails**); authors see status and rejection reasons in **As minhas ferramentas**.
+- **Forgotten password:** with email configured, *Esqueceu-se da palavra-passe?* sends a 1-hour link; otherwise an admin generates a one-time link (48 h) from the user's admin page.
+- **Email is optional:** set `SMTP_HOST` (e.g. Brevo — see [RUNBOOK §2.1](docs/RUNBOOK.md)) to send notifications, password resets and invites; without it, notifications stay in the outbox (**Administração → Emails**). `python -m app.cli send-test-email you@example.org` checks the setup.
 
-See decision D26 in [`docs/DECISIONS.md`](docs/DECISIONS.md).
+See decisions D26 and D29 in [`docs/DECISIONS.md`](docs/DECISIONS.md).
 
 ## Run locally
 

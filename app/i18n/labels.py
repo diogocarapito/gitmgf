@@ -237,5 +237,6 @@ FLASH = {
     "certification_saved": ("ok", N_("Certificação guardada.")),
     "tag_deleted": ("ok", N_("Etiqueta eliminada.")),
     "invite_revoked": ("ok", N_("Convite revogado.")),
+    "reset_emailed": ("ok", N_("Ligação para definir a palavra-passe enviada por email.")),
     "password_changed": ("ok", N_("Palavra-passe alterada. As outras sessões foram terminadas.")),
 }

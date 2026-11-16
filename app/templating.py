@@ -138,6 +138,7 @@ def base_context(request: Request) -> dict[str, Any]:
         "is_htmx": is_htmx(request),
         "settings": get_settings(),
         "flash": request.query_params.get("flash"),
+        "email_enabled": get_settings().email_backend in ("smtp", "memory", "console"),
     }
 
 

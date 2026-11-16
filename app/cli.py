@@ -279,6 +279,39 @@ def settings_list() -> None:
             )
 
 
+@cli.command("send-test-email")
+def send_test_email(to: str, lang: str = typer.Option("pt", help="pt or en")) -> None:
+    """Send one email right now through the configured SMTP server and report the result (D29)."""
+    from app.config import get_settings
+    from app.models import EmailOutbox
+    from app.services import email
+
+    settings = get_settings()
+    typer.echo(
+        f"backend: {settings.email_backend}; host: {settings.smtp_host or '-'}:{settings.smtp_port} ({settings.smtp_security}); from: {settings.smtp_from}"
+    )
+    if settings.email_backend != "smtp":
+        typer.echo("SMTP_HOST is not set: nothing to test.", err=True)
+        raise typer.Exit(1)
+    from app.templating import render_email
+
+    subject, text, html = render_email("test_email", {}, lang)
+    row = EmailOutbox(
+        to_email=to.strip(),
+        locale=lang,
+        template="test_email",
+        subject=subject,
+        body_text=text,
+        body_html=html,
+    )
+    try:
+        email._send(email.build_message(row))
+    except Exception as exc:
+        typer.echo(f"✗ sending failed: {type(exc).__name__}: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(f"✓ sent to {to}. Check the inbox (and spam) and that SPF/DKIM pass in the message headers.")
+
+
 @jobs_cli.command("send-outbox")
 def job_send_outbox() -> None:
     from app import jobs

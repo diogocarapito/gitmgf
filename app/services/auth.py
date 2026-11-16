@@ -169,8 +169,8 @@ def register(db: Session, raw_email: str, password: str, invite_code: str | None
 # ---------- reset / set-password links ----------
 
 
-def create_reset_link(db: Session, user: User, actor: User | None) -> str:
-    """One-time link valid 48 h. Earlier unused links for the user stop working."""
+def create_reset_link(db: Session, user: User, actor: User | None, ttl: timedelta = RESET_TTL) -> str:
+    """One-time link (48 h by default). Earlier unused links for the user stop working."""
     for old in db.scalars(
         select(PasswordResetToken).where(
             PasswordResetToken.user_id == user.id, PasswordResetToken.used_at.is_(None)
@@ -183,12 +183,72 @@ def create_reset_link(db: Session, user: User, actor: User | None) -> str:
             user_id=user.id,
             token_hash=_hash(token),
             created_by=actor.id if actor else None,
-            expires_at=utcnow() + RESET_TTL,
+            expires_at=utcnow() + ttl,
         )
     )
     db.flush()  # autoflush is off: make the new link visible to a later call in this session
-    audit.log(db, actor.id if actor else None, "user.reset_link", "user", user.id)
+    audit.log(db, actor.id if actor else None, "user.reset_link", "user", user.id, self_service=actor is None)
     return token
+
+
+# ---------- email-based flows (only when SMTP is configured, D29) ----------
+
+SELF_SERVICE_RESET_TTL = timedelta(hours=1)
+
+
+def email_enabled() -> bool:
+    return get_settings().email_backend in ("smtp", "memory", "console")
+
+
+def reset_url(lang: str, token: str) -> str:
+    from app.i18n import lang_path
+
+    return get_settings().base_url.rstrip("/") + lang_path(lang, f"/reset/{token}")
+
+
+def invite_url(lang: str, code: str) -> str:
+    from app.i18n import lang_path
+
+    return get_settings().base_url.rstrip("/") + lang_path(lang, f"/register?invite={code}")
+
+
+def request_password_reset(db: Session, raw_email: str, lang: str) -> None:
+    """Self-service reset. Same outcome whether or not the account exists (no enumeration)."""
+    from app.services import email
+
+    user = db.scalar(select(User).where(User.email == normalize_email(raw_email)))
+    if user is None or user.status != UserStatus.active:
+        return
+    token = create_reset_link(db, user, None, ttl=SELF_SERVICE_RESET_TTL)
+    locale = user.locale.value
+    email.enqueue(db, user.email, "password_reset", {"link": reset_url(locale, token), "minutes": 60}, locale)
+
+
+def email_reset_link(db: Session, user: User, actor: User) -> None:
+    """Admin action: email a 48 h set-password link to the user."""
+    from app.services import email
+
+    token = create_reset_link(db, user, actor)
+    locale = user.locale.value
+    email.enqueue(db, user.email, "password_set", {"link": reset_url(locale, token), "hours": 48}, locale)
+
+
+def email_invite(db: Session, invite: Invite, code: str, lang: str, inviter: User | None) -> None:
+    from app.services import email
+
+    assert invite.email, "only invites locked to an address can be emailed"
+    email.enqueue(
+        db,
+        invite.email,
+        "invite",
+        {
+            "link": invite_url(lang, code),
+            "inviter": inviter.display_name if inviter and inviter.display_name else "gitmgf",
+            "days": max(1, (invite.expires_at - utcnow()).days),
+        },
+        lang,
+    )
+    audit.log(db, inviter.id if inviter else None, "invite.email", "invite", invite.id)
 
 
 def find_reset_token(db: Session, token: str) -> PasswordResetToken | None:

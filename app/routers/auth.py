@@ -171,6 +171,42 @@ def register_submit(request: Request, db: DB, form: Form) -> Response:
     return login_response(db, request, user, None)
 
 
+@pages.get("/forgot")
+def forgot_page(request: Request) -> Response:
+    if not auth_service.email_enabled():
+        raise HTTPException(status_code=404)
+    return render(request, "auth/forgot.html", {"errors": {}, "email": ""})
+
+
+@pages.post("/forgot")
+def forgot_submit(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
+    """Self-service reset (D29). Always the same answer, so it can't reveal which emails have accounts."""
+    from pydantic import TypeAdapter
+    from pydantic import ValidationError as PydanticValidationError
+    from pydantic.networks import EmailStr
+
+    if not auth_service.email_enabled():
+        raise HTTPException(status_code=404)
+    raw = str(form.get("email") or "").strip()
+    try:
+        address = auth_service.normalize_email(str(TypeAdapter(EmailStr).validate_python(raw)))
+    except PydanticValidationError:
+        return render(
+            request,
+            "auth/forgot.html",
+            {"errors": {"email": (N_("Indique um email válido."), {})}, "email": raw},
+            422,
+        )
+    email_key = hashlib.sha256(address.encode()).hexdigest()[:16]
+    if ratelimit.hit(ratelimit.FORGOT_IP, "forgot-ip", client_key(request)) and ratelimit.hit(
+        ratelimit.FORGOT_EMAIL, "forgot-email", email_key
+    ):
+        auth_service.request_password_reset(db, address, request.state.lang)
+        db.commit()
+        background.add_task(email.deliver_queued)
+    return render(request, "auth/forgot_sent.html", {"email": address})
+
+
 @pages.get("/reset/{token}")
 def reset_page(request: Request, db: DB, token: str) -> Response:
     row = auth_service.find_reset_token(db, token)

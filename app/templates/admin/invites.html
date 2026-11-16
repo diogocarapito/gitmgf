@@ -12,7 +12,8 @@
   <div class="notice notice--ok" role="status">{{ icon('check') }}<div>
     <p><strong>{{ _("Convite criado. Copie a ligação agora: não volta a ser mostrada.") }}</strong></p>
     <p><code class="kv">{{ created_link }}</code></p>
-    <p class="small">{{ _("Envie-a à pessoa por um canal de confiança (mensagem, email pessoal).") }}</p>
+    {% if emailed_to %}<p class="small">{{ _("Também foi enviada por email para %(email)s.", email=emailed_to) }}</p>
+    {% else %}<p class="small">{{ _("Envie-a à pessoa por um canal de confiança (mensagem, email pessoal).") }}</p>{% endif %}
   </div></div>
   {% endif %}
   <form class="form form-section section--tight" method="post" action="{{ url('/admin/invites') }}">
@@ -24,6 +25,10 @@
       {{ m.text("max_uses", _("Número de utilizações"), {"max_uses": 1}, errors, type="number") }}
       {{ m.text("days", _("Válido durante (dias)"), {"days": 14}, errors, type="number") }}
     </div>
+    {% if email_enabled %}
+    {{ m.checkbox("send_email", _("Enviar o convite por email (só para convites com email)"), True, errors) }}
+    {{ m.select("invite_lang", _("Idioma do email"), [("pt", "Português"), ("en", "English")], {"invite_lang": lang}, errors) }}
+    {% endif %}
     <div class="form-actions"><button class="btn btn--primary" type="submit">{{ icon('plus') }} {{ _("Criar convite") }}</button></div>
   </form>
   <div class="table-wrap section--tight"><table class="table small">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-16 22:47+0000\n"
+"POT-Creation-Date: 2026-11-16 23:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -512,6 +512,9 @@ msgid "Etiqueta eliminada."
 msgstr ""
 
 msgid "Convite revogado."
+msgstr ""
+
+msgid "Ligação para definir a palavra-passe enviada por email."
 msgstr ""
 
 msgid "Palavra-passe alterada. As outras sessões foram terminadas."
@@ -1030,6 +1033,10 @@ msgstr ""
 msgid "Convite criado. Copie a ligação agora: não volta a ser mostrada."
 msgstr ""
 
+#, python-format
+msgid "Também foi enviada por email para %(email)s."
+msgstr ""
+
 msgid "Envie-a à pessoa por um canal de confiança (mensagem, email pessoal)."
 msgstr ""
 
@@ -1046,6 +1053,12 @@ msgid "Número de utilizações"
 msgstr ""
 
 msgid "Válido durante (dias)"
+msgstr ""
+
+msgid "Enviar o convite por email (só para convites com email)"
+msgstr ""
+
+msgid "Idioma do email"
 msgstr ""
 
 msgid "Criar convite"
@@ -1212,6 +1225,9 @@ msgstr ""
 msgid "Gerar ligação para definir palavra-passe"
 msgstr ""
 
+msgid "Enviar ligação por email"
+msgstr ""
+
 msgid ""
 "Ligação válida durante 48 horas e uma única utilização. Copie-a agora: "
 "não volta a ser mostrada."
@@ -1269,6 +1285,34 @@ msgstr ""
 msgid "Idioma da interface e dos emails"
 msgstr ""
 
+msgid "Recuperar palavra-passe"
+msgstr ""
+
+msgid ""
+"Indique o email da sua conta. Se existir, enviamos uma ligação para "
+"definir uma nova palavra-passe, válida durante 1 hora."
+msgstr ""
+
+msgid "Enviar ligação"
+msgstr ""
+
+msgid "Voltar a Entrar"
+msgstr ""
+
+msgid "Verifique o seu email"
+msgstr ""
+
+#, python-format
+msgid ""
+"Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos "
+"uma ligação para definir uma nova palavra-passe."
+msgstr ""
+
+msgid ""
+"A ligação é válida durante 1 hora e só pode ser usada uma vez. Se não a "
+"encontrar, verifique a pasta de spam."
+msgstr ""
+
 msgid "Entrar na gitmgf"
 msgstr ""
 
@@ -1276,6 +1320,9 @@ msgid "Ainda não tem conta?"
 msgstr ""
 
 msgid "Criar conta"
+msgstr ""
+
+msgid "Esqueceu-se da palavra-passe?"
 msgstr ""
 
 msgid ""
@@ -1435,6 +1482,24 @@ msgid ""
 "atualize a ficha:"
 msgstr ""
 
+msgid "Convite para a gitmgf"
+msgstr ""
+
+#, python-format
+msgid ""
+"%(inviter)s convidou-o/a para a gitmgf, o portal onde profissionais de "
+"saúde partilham e descobrem as ferramentas digitais que criaram."
+msgstr ""
+
+msgid "Crie a sua conta com esta ligação:"
+msgstr ""
+
+#, python-format
+msgid ""
+"O convite é válido durante %(days)s dias e funciona apenas com este "
+"endereço de email."
+msgstr ""
+
 #, python-format
 msgid "Ferramenta ocultada automaticamente: %(title)s"
 msgstr ""
@@ -1464,6 +1529,43 @@ msgstr ""
 
 #, python-format
 msgid "Item mais antigo: %(age)s"
+msgstr ""
+
+msgid "Definir uma nova palavra-passe na gitmgf"
+msgstr ""
+
+msgid ""
+"Recebemos um pedido para definir uma nova palavra-passe na sua conta "
+"gitmgf. Use esta ligação:"
+msgstr ""
+
+#, python-format
+msgid ""
+"A ligação é válida durante %(minutes)s minutos e só pode ser usada uma "
+"vez. Ao definir a nova palavra-passe, as outras sessões abertas são "
+"terminadas."
+msgstr ""
+
+msgid ""
+"Se não fez este pedido, pode ignorar este email: a sua palavra-passe "
+"atual continua válida."
+msgstr ""
+
+msgid "Defina a sua palavra-passe na gitmgf"
+msgstr ""
+
+msgid ""
+"Um administrador da gitmgf criou uma ligação para definir a palavra-passe"
+" da sua conta:"
+msgstr ""
+
+#, python-format
+msgid "A ligação é válida durante %(hours)s horas e só pode ser usada uma vez."
+msgstr ""
+
+msgid ""
+"Se não esperava este email, ignore-o e avise-nos respondendo a esta "
+"mensagem."
 msgstr ""
 
 msgid "Recebemos a sua denúncia"
@@ -1543,6 +1645,12 @@ msgid ""
 msgstr ""
 
 msgid "Obrigado por partilhar o seu trabalho."
+msgstr ""
+
+msgid "Email de teste da gitmgf"
+msgstr ""
+
+msgid "Se está a ler isto, o envio de emails da gitmgf está a funcionar."
 msgstr ""
 
 #, python-format

@@ -1,0 +1,6 @@
+{% block subject %}{{ _("Email de teste da gitmgf") }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Se está a ler isto, o envio de emails da gitmgf está a funcionar.") }}
+{% endblock %}

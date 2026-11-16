@@ -125,7 +125,7 @@ Our processors process data in the European Economic Area (EEA). We do not trans
 |---|---|
 | Account and profile | While the account exists. After a deletion request: immediate deactivation and permanent deletion within 30 days |
 | Published tools (text and images) | While published or until you delete them. Permanent deletion 30 days after deletion or after account deletion |
-| Password-reset links | Valid 48 hours, single use; deleted within 3 days |
+| Password-reset links | Valid 1 hour (requested by you) or 48 hours (created by an administrator), single use; deleted within 3 days |
 | Sessions | Up to 30 days of inactivity, or until you sign out |
 | Usage measurement (pseudonymised searches and clicks) | 180 days. After that we keep only aggregate counts per tool per day, which are not personal data |
 | Daily pseudonymisation key | Replaced and deleted every day |

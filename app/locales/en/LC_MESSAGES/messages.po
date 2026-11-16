@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-16 16:59+0000\n"
+"POT-Creation-Date: 2026-11-16 23:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
+
+#, python-format
+msgid "%(inviter)s convidou-o/a para a gitmgf, o portal onde profissionais de saúde partilham e descobrem as ferramentas digitais que criaram."
+msgstr "%(inviter)s invited you to gitmgf, the portal where health professionals share and discover the digital tools they built."
 
 #, python-format
 msgid "%(n)s dias"
@@ -86,6 +90,17 @@ msgstr "The image is larger than 2 MB."
 
 msgid "A licença é coerente com o repositório."
 msgstr "The licence matches the repository."
+
+#, python-format
+msgid "A ligação é válida durante %(hours)s horas e só pode ser usada uma vez."
+msgstr "The link is valid for %(hours)s hours and can only be used once."
+
+#, python-format
+msgid "A ligação é válida durante %(minutes)s minutos e só pode ser usada uma vez. Ao definir a nova palavra-passe, as outras sessões abertas são terminadas."
+msgstr "The link is valid for %(minutes)s minutes and can only be used once. Setting the new password signs out your other open sessions."
+
+msgid "A ligação é válida durante 1 hora e só pode ser usada uma vez. Se não a encontrar, verifique a pasta de spam."
+msgstr "The link is valid for 1 hour and can only be used once. If you can't find it, check your spam folder."
 
 msgid "A palavra-passe atual está incorreta."
 msgstr "The current password is incorrect."
@@ -595,6 +610,9 @@ msgstr "Continue"
 msgid "Convite criado. Copie a ligação agora: não volta a ser mostrada."
 msgstr "Invite created. Copy the link now: it won't be shown again."
 
+msgid "Convite para a gitmgf"
+msgstr "Invitation to gitmgf"
+
 msgid "Convite revogado."
 msgstr "Invite revoked."
 
@@ -615,6 +633,9 @@ msgstr "Create account"
 
 msgid "Criar convite"
 msgstr "Create invite"
+
+msgid "Crie a sua conta com esta ligação:"
+msgstr "Create your account with this link:"
 
 msgid "Cuidados de saúde primários"
 msgstr "Primary care"
@@ -656,8 +677,14 @@ msgstr "Declarations"
 msgid "Declaro que faço esta denúncia de boa-fé e que a informação é, tanto quanto sei, exata e completa."
 msgstr "I declare that I am making this report in good faith and that, to the best of my knowledge, the information is accurate and complete."
 
+msgid "Defina a sua palavra-passe na gitmgf"
+msgstr "Set your gitmgf password"
+
 msgid "Definir palavra-passe"
 msgstr "Set password"
+
+msgid "Definir uma nova palavra-passe na gitmgf"
+msgstr "Set a new gitmgf password"
 
 msgid "Definições"
 msgstr "Settings"
@@ -803,6 +830,9 @@ msgstr "Email"
 msgid "Email automático da gitmgf (%(url)s). Recebe-o porque tem conta ou fez um pedido no site."
 msgstr "Automatic email from gitmgf (%(url)s). You are receiving it because you have an account or made a request on the site."
 
+msgid "Email de teste da gitmgf"
+msgstr "gitmgf test email"
+
 msgid "Email ou palavra-passe incorretos."
 msgstr "Incorrect email or password."
 
@@ -832,6 +862,15 @@ msgstr "Sends data to a server without a GDPR declaration → request changes, u
 
 msgid "Enviar denúncia"
 msgstr "Send report"
+
+msgid "Enviar ligação"
+msgstr "Send link"
+
+msgid "Enviar ligação por email"
+msgstr "Send link by email"
+
+msgid "Enviar o convite por email (só para convites com email)"
+msgstr "Send the invite by email (only for invites with an email)"
 
 msgid "Envie-a à pessoa por um canal de confiança (mensagem, email pessoal)."
 msgstr "Send it to the person through a trusted channel (message, personal email)."
@@ -872,6 +911,9 @@ msgstr "Specialty (optional)"
 
 msgid "Especialidades"
 msgstr "Specialties"
+
+msgid "Esqueceu-se da palavra-passe?"
+msgstr "Forgot your password?"
 
 msgid "Esqueceu-se da palavra-passe? Peça uma ligação de redefinição a um administrador através do"
 msgstr "Forgot your password? Ask an administrator for a reset link through the"
@@ -1131,6 +1173,9 @@ msgstr "Tool language"
 msgid "Idioma da interface e dos emails"
 msgstr "Language for the interface and emails"
 
+msgid "Idioma do email"
+msgstr "Email language"
+
 msgid "Idiomas"
 msgstr "Languages"
 
@@ -1142,6 +1187,9 @@ msgstr "Image"
 
 msgid "Inativa"
 msgstr "Inactive"
+
+msgid "Indique o email da sua conta. Se existir, enviamos uma ligação para definir uma nova palavra-passe, válida durante 1 hora."
+msgstr "Enter your account's email. If it exists, we'll send a link to set a new password, valid for 1 hour."
 
 msgid "Indique pelo menos uma ligação."
 msgstr "Give at least one link."
@@ -1209,6 +1257,9 @@ msgstr "Invalid link"
 
 msgid "Ligação inválida ou expirada"
 msgstr "Invalid or expired link"
+
+msgid "Ligação para definir a palavra-passe enviada por email."
+msgstr "Set-password link sent by email."
 
 msgid "Ligação quebrada"
 msgstr "Broken link"
@@ -1461,6 +1512,10 @@ msgstr "The author has not declared %(name)s for this tool."
 
 msgid "O convite é inválido, já foi usado ou expirou. Peça um novo convite."
 msgstr "The invite is invalid, has already been used or has expired. Ask for a new invite."
+
+#, python-format
+msgid "O convite é válido durante %(days)s dias e funciona apenas com este endereço de email."
+msgstr "The invite is valid for %(days)s days and only works with this email address."
 
 msgid "O ficheiro não é uma imagem válida."
 msgstr "The file is not a valid image."
@@ -1813,8 +1868,14 @@ msgstr "We received your report about the tool “%(title)s” (reason: %(reason
 msgid "Recebemos a sua submissão: %(title)s"
 msgstr "We received your submission: %(title)s"
 
+msgid "Recebemos um pedido para definir uma nova palavra-passe na sua conta gitmgf. Use esta ligação:"
+msgstr "We received a request to set a new password for your gitmgf account. Use this link:"
+
 msgid "Recebida"
 msgstr "Received"
+
+msgid "Recuperar palavra-passe"
+msgstr "Recover password"
 
 #, python-format
 msgid "Referência: #%(id)s"
@@ -1940,6 +2001,19 @@ msgstr "Script / library"
 msgid "Scripts"
 msgstr "Scripts"
 
+msgid "Se está a ler isto, o envio de emails da gitmgf está a funcionar."
+msgstr "If you're reading this, gitmgf email delivery is working."
+
+#, python-format
+msgid "Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos uma ligação para definir uma nova palavra-passe."
+msgstr "If an account exists for <strong>%(email)s</strong>, we sent a link to set a new password."
+
+msgid "Se não esperava este email, ignore-o e avise-nos respondendo a esta mensagem."
+msgstr "If you weren't expecting this email, ignore it and let us know by replying to this message."
+
+msgid "Se não fez este pedido, pode ignorar este email: a sua palavra-passe atual continua válida."
+msgstr "If you didn't make this request, you can ignore this email: your current password still works."
+
 msgid "Se não pediu esta eliminação, responda a este email com urgência."
 msgstr "If you did not request this deletion, reply to this email urgently."
 
@@ -2028,6 +2102,10 @@ msgstr "Open source only"
 
 msgid "Só para este email (opcional)"
 msgstr "Only for this email (optional)"
+
+#, python-format
+msgid "Também foi enviada por email para %(email)s."
+msgstr "It was also emailed to %(email)s."
 
 #, python-format
 msgid "Tem %(num)d ferramenta que vai ser retirada."
@@ -2121,6 +2199,9 @@ msgstr "Title (EN)"
 msgid "Título (PT)"
 msgstr "Title (PT)"
 
+msgid "Um administrador da gitmgf criou uma ligação para definir a palavra-passe da sua conta:"
+msgstr "A gitmgf administrator created a link to set your account password:"
+
 msgid "Uma calculadora, um script ou uma aplicação que resolve um problema real da consulta."
 msgstr "A calculator, a script or an app that solves a real problem in the consultation room."
 
@@ -2187,6 +2268,9 @@ msgstr "See all"
 msgid "Ver versão publicada"
 msgstr "View published version"
 
+msgid "Verifique o seu email"
+msgstr "Check your email"
+
 msgid "Versão"
 msgstr "Version"
 
@@ -2217,6 +2301,9 @@ msgstr "Views 30/90 d"
 
 msgid "Visitas à página (30 d)"
 msgstr "Page views (30 d)"
+
+msgid "Voltar a Entrar"
+msgstr "Back to sign in"
 
 msgid "Voltar ao início"
 msgstr "Back to home"

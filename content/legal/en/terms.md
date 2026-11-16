@@ -32,7 +32,7 @@ The Service is **free**. It has no advertising and no paid placement in results.
 
 3.1. You need an account to publish, give stars or use restricted features. You must be **18 or older**.
 
-3.2. You sign in with your email and a password. During the testing phase, registration may require an invite. You're responsible for keeping your password secret, not reusing it on other services, and for all activity on your account. Tell us immediately if you suspect unauthorised access. If you lose access, an administrator can, after confirming your identity, generate a one-time link to set a new password.
+3.2. You sign in with your email and a password. During the testing phase, registration may require an invite. You're responsible for keeping your password secret, not reusing it on other services, and for all activity on your account. Tell us immediately if you suspect unauthorised access. If you lose access, you can request a one-time link by email to set a new password (“Forgot your password?”), or an administrator can generate one after confirming your identity.
 
 3.3. Profile information must be true. Profession and specialty are **self-declared** and not verified by gitmgf. Don't impersonate another person or organisation.
 

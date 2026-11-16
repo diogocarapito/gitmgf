@@ -123,7 +123,7 @@ Os nossos subcontratantes tratam os dados no Espaço Económico Europeu (EEE). N
 |---|---|
 | Conta e perfil | Enquanto a conta existir. Após pedido de eliminação: inativação imediata e eliminação definitiva em 30 dias |
 | Ferramentas publicadas (texto e imagens) | Enquanto estiverem publicadas ou até as eliminar. Eliminação definitiva 30 dias após a eliminação ou após a eliminação da conta |
-| Ligações de redefinição de palavra-passe | Válidas 48 horas e uma única vez; apagadas em 3 dias |
+| Ligações de redefinição de palavra-passe | Válidas 1 hora (pedidas por si) ou 48 horas (criadas por um administrador), uma única vez; apagadas em 3 dias |
 | Sessões | Até 30 dias sem atividade, ou até terminar sessão |
 | Medição de utilização (pesquisas e cliques pseudonimizados) | 180 dias. Depois disso guardamos apenas contagens agregadas por ferramenta e por dia, que não são dados pessoais |
 | Chave diária de pseudonimização | Substituída e apagada todos os dias |

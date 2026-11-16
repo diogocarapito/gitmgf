@@ -30,7 +30,7 @@ O Serviço é **gratuito**. Não inclui publicidade nem posições pagas nos res
 
 3.1. Para publicar, atribuir estrelas ou aceder a funções reservadas, precisa de uma conta. Deve ter **18 anos ou mais**.
 
-3.2. Inicia sessão com o seu email e uma palavra-passe. Durante a fase de testes, o registo pode exigir um convite. É responsável por manter a palavra-passe secreta, por não a reutilizar noutros serviços e por toda a atividade feita na sua conta. Avise-nos de imediato se suspeitar de acesso indevido. Se perder o acesso, um administrador pode, depois de confirmar a sua identidade, gerar uma ligação única para definir uma nova palavra-passe.
+3.2. Inicia sessão com o seu email e uma palavra-passe. Durante a fase de testes, o registo pode exigir um convite. É responsável por manter a palavra-passe secreta, por não a reutilizar noutros serviços e por toda a atividade feita na sua conta. Avise-nos de imediato se suspeitar de acesso indevido. Se perder o acesso, pode pedir por email uma ligação única para definir uma nova palavra-passe (opção «Esqueceu-se da palavra-passe?»), ou um administrador pode gerá-la depois de confirmar a sua identidade.
 
 3.3. A informação de perfil deve ser verdadeira. A profissão e a especialidade são **declaradas por si** e não são verificadas pela gitmgf. Não se faça passar por outra pessoa ou entidade.
 

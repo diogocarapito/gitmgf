@@ -15,7 +15,8 @@
       <button class="btn btn--primary btn--block" type="submit">{{ icon('lock') }} {{ _("Entrar") }}</button>
     </form>
     <p class="small muted section--tight">{{ _("Ainda não tem conta?") }} <a href="{{ url('/register') }}">{{ _("Criar conta") }}</a>.
-      {{ _("Esqueceu-se da palavra-passe? Peça uma ligação de redefinição a um administrador através do") }} <a href="{{ url('/p/contact') }}">{{ _("contacto") }}</a>.</p>
+      {% if email_enabled %}<a href="{{ url('/forgot') }}">{{ _("Esqueceu-se da palavra-passe?") }}</a>
+      {% else %}{{ _("Esqueceu-se da palavra-passe? Peça uma ligação de redefinição a um administrador através do") }} <a href="{{ url('/p/contact') }}">{{ _("contacto") }}</a>.{% endif %}</p>
   </div>
 </div>
 {% endblock %}
