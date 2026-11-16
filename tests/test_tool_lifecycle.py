@@ -254,3 +254,45 @@ def test_open_source_badge_needs_osi_license_and_repo(db, people):
     assert not make_tool(
         db, owner, status="draft", license_spdx="MIT", repo_url="", title_pt="C"
     ).is_open_source
+
+
+def test_cli_admin_can_self_approve_own_pending_tool(db_path, db):
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+
+    admin = make_user(db, "admin@example.org", Role.admin)
+    tool = make_tool(db, admin, status="pending", repo_url="")
+    result = CliRunner().invoke(cli, ["approve-own-tool", tool.slug, "--as", "Admin@Example.org"])
+    assert result.exit_code == 0, result.output
+    db.expire_all()
+    assert db.get(Tool, tool.id).status == ToolStatus.published
+    entry = db.scalar(
+        select(AuditLog).where(AuditLog.action == "tool.approve", AuditLog.target_id == tool.id)
+    )
+    assert entry.details["self_approved"] is True and entry.actor_id == admin.id
+
+
+def test_cli_self_approval_refuses_non_admins_and_non_pending(db_path, db):
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    pending = make_tool(db, mod, status="pending")
+    assert (
+        CliRunner().invoke(cli, ["approve-own-tool", pending.slug, "--as", "mod@example.org"]).exit_code == 1
+    )
+    admin = make_user(db, "admin@example.org", Role.admin)
+    draft = make_tool(db, admin, status="draft", title_pt="Rascunho do admin")
+    assert (
+        CliRunner().invoke(cli, ["approve-own-tool", str(draft.id), "--as", "admin@example.org"]).exit_code
+        == 1
+    )
+
+
+def test_self_approval_is_not_reachable_from_the_web(client, db):
+    admin = make_user(db, "admin@example.org", Role.admin)
+    tool = make_tool(db, admin, status="pending")
+    login(client, db, admin)
+    assert post(client, f"/mod/tools/{tool.id}/approve").status_code == 403

@@ -95,6 +95,16 @@ docker compose -f deploy/docker-compose.prod.yml --env-file .env run --rm app cl
 - **Revoke:** Administração → Convites → *Revogar*.
 - **Open registration to everyone:** Administração → Definições → *Registos abertos*. Invites are then optional.
 
+### Publishing your own tool (admins, no second moderator yet)
+
+Moderators can't approve their own tools on the site. While you are the only moderator, submit the tool for review as usual, then on the server:
+
+```bash
+dc run --rm app cli approve-own-tool <slug-or-id> --as you@example.org
+```
+
+It publishes the pending tool, approves its certification claims, indexes it for search, syncs GitHub, and records `self_approved` in the audit log (D27). Once you have a second moderator, use the normal review instead.
+
 ### Forgotten passwords
 
 There is no self-service reset without email. When someone asks:

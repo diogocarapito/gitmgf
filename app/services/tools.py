@@ -135,12 +135,18 @@ def transition(
     actor: User | None,
     reason: str | None = None,
     claim_rejections: dict[str, str] | None = None,
+    self_approval: bool = False,
 ) -> Tool:
     key = (tool.status, action)
     if key not in TRANSITIONS:
         raise InvalidTransition(f"{tool.status} -/-> {action}")
     target, who = TRANSITIONS[key]
-    _check_actor(who, tool, actor)
+    if self_approval:
+        # CLI-only escape hatch (D27): an admin publishes their own pending tool. Never exposed on the web.
+        if action != "approve" or actor is None or not actor.is_active or not actor.is_admin:
+            raise InvalidTransition("self-approval is limited to admins approving")
+    else:
+        _check_actor(who, tool, actor)
     if action in REASON_REQUIRED and not (reason and reason.strip()):
         raise InvalidTransition("reason required")
     owner = tool.owner
@@ -197,6 +203,7 @@ def transition(
         "tool",
         tool.id,
         **{"from": previous.value, "to": target.value, "reason": reason},
+        **({"self_approved": True, "via": "cli"} if self_approval else {}),
     )
     return tool
 

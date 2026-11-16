@@ -147,6 +147,47 @@ def invite(
     typer.echo(f"{get_settings().base_url.rstrip('/')}/pt/register?invite={code}")
 
 
+@cli.command("approve-own-tool")
+def approve_own_tool(
+    tool_ref: str = typer.Argument(..., help="Tool slug or id (must be pending review)"),
+    admin_email: str = typer.Option(..., "--as", help="Email of the admin taking responsibility"),
+) -> None:
+    """Publish a pending tool without a second reviewer. Admins only; recorded as self-approved (D27)."""
+    from app.config import get_settings
+    from app.models import Tool
+    from app.models.enums import ToolStatus
+    from app.services import github
+    from app.services import tools as tool_service
+
+    with _session() as db:
+        query = (
+            select(Tool).where(Tool.id == int(tool_ref))
+            if tool_ref.isdigit()
+            else select(Tool).where(Tool.slug == tool_ref)
+        )
+        tool = db.scalar(query)
+        admin = db.scalar(select(User).where(User.email == admin_email.strip().lower()))
+        if tool is None:
+            typer.echo(f"no tool {tool_ref!r}", err=True)
+            raise typer.Exit(1)
+        if admin is None or not admin.is_admin:
+            typer.echo(f"{admin_email} is not an admin", err=True)
+            raise typer.Exit(1)
+        if tool.status != ToolStatus.pending:
+            typer.echo(
+                f"tool is {tool.status.value}; submit it for review first (only pending tools can be approved)",
+                err=True,
+            )
+            raise typer.Exit(1)
+        tool_service.transition(db, tool, "approve", admin, self_approval=True)
+        db.commit()
+        slug, tool_id, has_repo = tool.slug, tool.id, tool.github is not None
+    if has_repo:
+        with _session() as db:
+            github.sync_all(db, tool_id=tool_id, delay=0)  # best effort: stars, last commit, licence
+    typer.echo(f"published: {get_settings().base_url.rstrip('/')}/pt/t/{slug}")
+
+
 @cli.command("reindex")
 def reindex() -> None:
     """Rebuild the full-text search index."""
