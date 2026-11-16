@@ -25,8 +25,11 @@ def _derive(password: str, salt: bytes, n: int, r: int, p: int) -> bytes:
 def hash_password(password: str) -> str:
     salt = secrets.token_bytes(16)
     digest = _derive(password, salt, N, R, P)
-    b64 = lambda b: base64.b64encode(b).decode()  # noqa: E731
-    return f"scrypt${N}${R}${P}${b64(salt)}${b64(digest)}"
+    return f"scrypt${N}${R}${P}${_b64(salt)}${_b64(digest)}"
+
+
+def _b64(data: bytes) -> str:
+    return base64.b64encode(data).decode()
 
 
 def verify_password(password: str, stored: str | None) -> bool:

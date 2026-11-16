@@ -3,19 +3,21 @@ from tests.conftest import csrf_token, login, make_user
 
 def test_post_without_token_is_rejected(client, db):
     csrf_token(client)
-    r = client.post("/auth/magic-link", data={"email": "a@example.org"})
+    r = client.post("/pt/login", data={"email": "a@example.org", "password": "x"})
     assert r.status_code == 403
 
 
 def test_post_with_wrong_token_is_rejected(client):
     csrf_token(client)
-    r = client.post("/auth/magic-link", data={"email": "a@example.org", "csrf_token": "x" * 40})
+    r = client.post("/pt/login", data={"email": "a@example.org", "password": "x", "csrf_token": "x" * 40})
     assert r.status_code == 403
 
 
 def test_post_with_form_token_is_accepted(client):
-    r = client.post("/auth/magic-link", data={"email": "a@example.org", "csrf_token": csrf_token(client)})
-    assert r.status_code == 200
+    r = client.post(
+        "/pt/login", data={"email": "a@example.org", "password": "x", "csrf_token": csrf_token(client)}
+    )
+    assert r.status_code == 401  # past CSRF; wrong credentials
 
 
 def test_htmx_header_token_is_accepted(client, db):
@@ -32,8 +34,8 @@ def test_htmx_header_token_is_accepted(client, db):
 def test_cross_origin_post_is_rejected(client):
     token = csrf_token(client)
     r = client.post(
-        "/auth/magic-link",
-        data={"email": "a@example.org", "csrf_token": token},
+        "/pt/login",
+        data={"email": "a@example.org", "password": "x", "csrf_token": token},
         headers={"Origin": "https://evil.example"},
     )
     assert r.status_code == 403

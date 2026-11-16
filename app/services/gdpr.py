@@ -12,7 +12,7 @@ from app.models import (
     AuditLog,
     EmailOutbox,
     InteractionEvent,
-    MagicLinkToken,
+    PasswordResetToken,
     Report,
     SearchQuery,
     Star,
@@ -21,13 +21,13 @@ from app.models import (
     User,
     UserSession,
 )
-from app.models.enums import EmailStatus, ReportStatus, ToolStatus, UserStatus
+from app.models.enums import ReportStatus, ToolStatus, UserStatus
 from app.services import audit, certifications, email, media, sessions
 from app.services import tools as tool_service
 
 PURGE_AFTER = timedelta(days=30)
 EVENTS_RETENTION = timedelta(days=180)
-MAGIC_LINK_RETENTION = timedelta(days=1)
+MAGIC_LINK_RETENTION = timedelta(days=3)  # reset links: 48 h validity, deleted after 3 days
 OUTBOX_RETENTION = timedelta(days=30)
 REPORT_RETENTION = timedelta(days=730)
 AUDIT_RETENTION = timedelta(days=3 * 365)
@@ -61,10 +61,6 @@ def export(db: Session, user: User) -> dict[str, Any]:
             "created_at": _iso(user.created_at),
             "last_login_at": _iso(user.last_login_at),
         },
-        "linked_providers": [
-            {"provider": a.provider.value, "email": a.provider_email, "linked_at": _iso(a.created_at)}
-            for a in user.oauth_accounts
-        ],
         "tools": [
             {
                 **{k: _iso(v) for k, v in tool_service.snapshot(t).items()},
@@ -137,8 +133,8 @@ def delete_account(db: Session, user: User, actor: User) -> None:
         update(Report).where(Report.reporter_id == user.id).values(reporter_id=None, reporter_email=None)
     )
     sessions.destroy_all(db, user.id)
-    for account in list(user.oauth_accounts):
-        db.delete(account)
+    user.password_hash = None
+    db.execute(delete(PasswordResetToken).where(PasswordResetToken.user_id == user.id))
     marker = pseudonym(user.id)
     for entry in db.scalars(
         select(AuditLog).where(
@@ -188,14 +184,13 @@ def purge(db: Session) -> dict[str, int]:
     )
     run("search_queries", delete(SearchQuery).where(SearchQuery.created_at < now - EVENTS_RETENTION))
     run(
-        "magic_link_tokens",
-        delete(MagicLinkToken).where(MagicLinkToken.created_at < now - MAGIC_LINK_RETENTION),
+        "password_reset_tokens",
+        delete(PasswordResetToken).where(PasswordResetToken.created_at < now - MAGIC_LINK_RETENTION),
     )
     run("sessions", delete(UserSession).where(UserSession.expires_at < now))
     run(
         "email_outbox",
         delete(EmailOutbox).where(
-            ((EmailOutbox.status == EmailStatus.sent) | (EmailOutbox.attempts >= email.MAX_ATTEMPTS)),
             EmailOutbox.created_at < now - OUTBOX_RETENTION,
         ),
     )

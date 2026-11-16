@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Emails") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'emails' %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Emails") }}</h1>
+    <p>{% if smtp %}{{ _("Notificações enviadas pelo servidor de email.") }}{% else %}{{ _("Não há servidor de email configurado: as notificações ficam aqui e não são enviadas. Os autores veem o estado e os motivos em «As minhas ferramentas».") }}{% endif %}</p></header>
+  {% include "admin/_nav.html" %}
+  {% for row in rows %}
+  <details class="panel">
+    <summary><strong>{{ row.subject }}</strong> <span class="muted small">→ {{ row.to_email }} · {{ row.created_at | datetime('short') }} · {{ row.status }}</span></summary>
+    <pre class="small">{{ row.body_text }}</pre>
+  </details>
+  {% else %}<p class="muted">{{ _("Ainda não há emails.") }}</p>{% endfor %}
+  {{ m.pagination(page, has_next, url('/admin/emails')) }}
+</div>
+{% endblock %}

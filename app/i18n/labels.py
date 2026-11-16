@@ -198,9 +198,6 @@ LICENSE_LABEL = dict(LICENSES)
 # Messages shown after a redirect (`?flash=<key>`): stateless, no flash cookie needed.
 FLASH = {
     "saved": ("ok", N_("Alterações guardadas.")),
-    "linked": ("ok", N_("Conta associada.")),
-    "unlinked": ("ok", N_("Conta desassociada. Pode continuar a entrar com a ligação por email.")),
-    "provider_taken": ("danger", N_("Essa conta já está associada a outro utilizador da gitmgf.")),
     "signed_out_all": ("ok", N_("Sessão terminada em todos os dispositivos.")),
     "draft_saved": ("ok", N_("Rascunho guardado.")),
     "submitted": ("ok", N_("Ferramenta submetida para revisão. Vai receber um email com a decisão.")),
@@ -239,4 +236,6 @@ FLASH = {
     "category_saved": ("ok", N_("Categoria guardada.")),
     "certification_saved": ("ok", N_("Certificação guardada.")),
     "tag_deleted": ("ok", N_("Etiqueta eliminada.")),
+    "invite_revoked": ("ok", N_("Convite revogado.")),
+    "password_changed": ("ok", N_("Palavra-passe alterada. As outras sessões foram terminadas.")),
 }

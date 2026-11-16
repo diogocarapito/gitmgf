@@ -61,7 +61,7 @@ def test_retention_matches_privacy_policy():
     section = text[text.index("## 9.") : text.index("## 10.")]
     assert "180 dias" in section and gdpr.EVENTS_RETENTION.days == 180
     assert "30 dias" in section and gdpr.PURGE_AFTER.days == 30 and gdpr.OUTBOX_RETENTION.days == 30
-    assert "15 minutos" in section and "24 horas" in section and gdpr.MAGIC_LINK_RETENTION.days == 1
+    assert "48 horas" in section and "3 dias" in section and gdpr.MAGIC_LINK_RETENTION.days == 3
     assert "2 anos" in section and gdpr.REPORT_RETENTION.days == 730
     assert "3 anos" in section and gdpr.AUDIT_RETENTION.days == 3 * 365
     assert re.search(r"Até 30 dias sem atividade", section)

@@ -106,7 +106,10 @@ def seed_demo(tools: int = 30) -> None:
 
 @cli.command("create-admin")
 def create_admin(email: str) -> None:
-    """Create (or promote) an admin. They complete onboarding on first sign-in."""
+    """Create (or promote) an admin and print a one-time link to set the password (48 h)."""
+    from app.config import get_settings
+    from app.services import auth as auth_service
+
     address = email.strip().lower()
     with _session() as db:
         user = db.scalar(select(User).where(User.email == address))
@@ -120,8 +123,28 @@ def create_admin(email: str) -> None:
                 db, None, "user.role_change", "user", user.id, old=user.role.value, new="admin", via="cli"
             )
             user.role = Role.admin
+        token = auth_service.create_reset_link(db, user, None)
         db.commit()
+    base = get_settings().base_url.rstrip("/")
     typer.echo(f"admin ready: {address}")
+    typer.echo(f"set the password (valid 48 h, single use): {base}/pt/reset/{token}")
+
+
+@cli.command("invite")
+def invite(
+    email: str | None = typer.Option(None, help="Only this address may use it"),
+    uses: int = typer.Option(1, help="How many accounts it can create"),
+    days: int = typer.Option(14, help="Days until it expires"),
+    note: str = typer.Option("", help="Who it is for"),
+) -> None:
+    """Create a registration invite and print its link (shown once)."""
+    from app.config import get_settings
+    from app.services import auth as auth_service
+
+    with _session() as db:
+        _, code = auth_service.create_invite(db, None, email, note, uses, days)
+        db.commit()
+    typer.echo(f"{get_settings().base_url.rstrip('/')}/pt/register?invite={code}")
 
 
 @cli.command("reindex")
@@ -149,9 +172,7 @@ def check_config() -> None:
     if version != current:
         problems.append(f"terms.md version {version!r} != terms.current_version {current!r}")
     typer.echo(f"APP_ENV={settings.app_env} BASE_URL={settings.base_url} DB={settings.db_path}")
-    typer.echo(
-        f"email backend: {settings.email_backend}; GitHub OAuth: {settings.github_enabled}; Google OAuth: {settings.google_enabled}"
-    )
+    typer.echo(f"email backend: {settings.email_backend}")
     if problems:
         for problem in problems:
             typer.echo(f"  ✗ {problem}")

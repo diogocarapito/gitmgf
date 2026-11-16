@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-16 16:00+0000\n"
+"POT-Creation-Date: 2026-11-16 16:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -49,9 +49,6 @@ msgstr[1] "%(num)d tools"
 msgid "1 a 3 frases: quem deve usar, para quê e com que limitações."
 msgstr "1 to 3 sentences: who should use it, for what and with which limitations."
 
-msgid "A autenticação expirou ou é inválida. Tente novamente."
-msgstr "Authentication expired or is invalid. Please try again."
-
 #, python-format
 msgid "A certificação «%(cert)s» declarada na ficha «%(title)s» expira em %(date)s."
 msgstr "The certification “%(cert)s” declared on the listing “%(title)s” expires on %(date)s."
@@ -90,15 +87,17 @@ msgstr "The image is larger than 2 MB."
 msgid "A licença é coerente com o repositório."
 msgstr "The licence matches the repository."
 
-msgid "A ligação por email funciona sempre, mesmo sem contas associadas."
-msgstr "Email sign-in links always work, even without linked accounts."
+msgid "A palavra-passe atual está incorreta."
+msgstr "The current password is incorrect."
 
-#, python-format
-msgid "A ligação é válida durante %(minutes)s minutos e só pode ser usada uma vez."
-msgstr "The link is valid for %(minutes)s minutes and can only be used once."
+msgid "A palavra-passe deve ter pelo menos 10 caracteres."
+msgstr "The password must be at least 10 characters long."
 
-msgid "A ligação é válida durante 15 minutos e só pode ser usada uma vez. Se não a encontrar, verifique a pasta de spam."
-msgstr "The link is valid for 15 minutes and can only be used once. If you can't find it, check your spam folder."
+msgid "A palavra-passe não pode ser igual ao email."
+msgstr "The password can't be the same as the email."
+
+msgid "A palavra-passe é demasiado longa (máx. 128 caracteres)."
+msgstr "The password is too long (max. 128 characters)."
 
 msgid "A pesquisar…"
 msgstr "Searching…"
@@ -114,9 +113,6 @@ msgstr "Your account was deleted. The data will be permanently erased within 30 
 
 msgid "A sua conta gitmgf foi eliminada"
 msgstr "Your gitmgf account was deleted"
-
-msgid "A sua ligação de acesso à gitmgf"
-msgstr "Your gitmgf sign-in link"
 
 msgid "A utilização prevista e o tratamento de dados são plausíveis."
 msgstr "Intended use and data handling are plausible."
@@ -172,11 +168,20 @@ msgstr "Please wait a moment and try again."
 msgid "Ainda não deu estrela a nenhuma ferramenta."
 msgstr "You haven't starred any tools yet."
 
+msgid "Ainda não há convites."
+msgstr "No invites yet."
+
+msgid "Ainda não há emails."
+msgstr "No emails yet."
+
 msgid "Ainda não há ferramentas publicadas. Seja a primeira pessoa a partilhar uma!"
 msgstr "No tools have been published yet. Be the first to share one!"
 
 msgid "Ainda não partilhou nenhuma ferramenta."
 msgstr "You haven't shared any tools yet."
+
+msgid "Ainda não tem conta?"
+msgstr "Don't have an account yet?"
 
 msgid "Ainda sem dados."
 msgstr "No data yet."
@@ -201,6 +206,9 @@ msgstr "Some certifications were not approved:"
 
 msgid "Alterar função"
 msgstr "Change role"
+
+msgid "Alterar palavra-passe"
+msgstr "Change password"
 
 msgid "Alteração"
 msgstr "Edit"
@@ -268,8 +276,8 @@ msgstr "Previous"
 msgid "Anónimo"
 msgstr "Anonymous"
 
-msgid "Ao continuar, aceita os"
-msgstr "By continuing, you accept the"
+msgid "Ao criar conta, aceita os"
+msgstr "By creating an account, you accept the"
 
 msgid "Aparece nas páginas das suas ferramentas."
 msgstr "Shown on your tools' pages."
@@ -350,14 +358,14 @@ msgstr "My stars"
 msgid "As minhas ferramentas"
 msgstr "My tools"
 
+msgid "As outras sessões abertas desta conta serão terminadas."
+msgstr "Other open sessions for this account will be signed out."
+
+msgid "As palavras-passe não coincidem."
+msgstr "The passwords don't match."
+
 msgid "As suas ferramentas deixam de estar públicas de imediato e são apagadas com a conta em 30 dias. As estrelas que deu são removidas e as denúncias que fez ficam anónimas."
 msgstr "Your tools stop being public immediately and are deleted with the account within 30 days. The stars you gave are removed and the reports you filed become anonymous."
-
-msgid "Associada"
-msgstr "Linked"
-
-msgid "Associar"
-msgstr "Link"
 
 msgid "Atingiu o limite de submissões pendentes. Aguarde a revisão das anteriores."
 msgstr "You've reached the limit of pending submissions. Please wait for the previous ones to be reviewed."
@@ -449,9 +457,6 @@ msgstr "Screenshot removed."
 msgid "Capturas de ecrã"
 msgstr "Screenshots"
 
-msgid "Carregue no botão para iniciar sessão neste navegador."
-msgstr "Press the button to sign in on this browser."
-
 msgid "Categoria guardada."
 msgstr "Category saved."
 
@@ -533,9 +538,6 @@ msgstr "Complete your profile to get started. Only your name, profession, specia
 msgid "Confirmamos a eliminação da sua conta. As suas ferramentas deixaram de estar públicas e os dados serão apagados definitivamente em 30 dias, incluindo das cópias de segurança quando estas expirarem."
 msgstr "We confirm your account was deleted. Your tools are no longer public and the data will be permanently erased within 30 days, including from backups as they expire."
 
-msgid "Confirmar entrada"
-msgstr "Confirm sign-in"
-
 msgid "Confirmação obrigatória para submeter."
 msgstr "Confirmation required to submit."
 
@@ -557,23 +559,17 @@ msgstr "Build"
 msgid "Construiu algo útil para a sua prática?"
 msgstr "Built something useful for your practice?"
 
-msgid "Conta associada."
-msgstr "Account linked."
-
-msgid "Conta desassociada. Pode continuar a entrar com a ligação por email."
-msgstr "Account unlinked. You can still sign in with the email link."
-
 msgid "Conta eliminada."
 msgstr "Account deleted."
+
+msgid "Conta:"
+msgstr "Account:"
 
 msgid "Contacto"
 msgstr "Contact"
 
 msgid "Contagens pseudonimizadas: cada visitante conta uma vez por dia e por tipo. As suas próprias visitas não contam."
 msgstr "Pseudonymised counts: each visitor counts once per day and per type. Your own visits don't count."
-
-msgid "Contas associadas"
-msgstr "Linked accounts"
 
 msgid "Contestação: pode contestar esta decisão no prazo de 6 meses, respondendo a este email. Uma pessoa que não participou na decisão original vai analisá-la. Mantém sempre o direito de recorrer aos tribunais."
 msgstr "Appeal: you can appeal this decision within 6 months by replying to this email. Someone who was not involved in the original decision will review it. You always keep the right to go to court."
@@ -596,20 +592,38 @@ msgstr "Illegal content"
 msgid "Continuar"
 msgstr "Continue"
 
-msgid "Continuar com GitHub"
-msgstr "Continue with GitHub"
+msgid "Convite criado. Copie a ligação agora: não volta a ser mostrada."
+msgstr "Invite created. Copy the link now: it won't be shown again."
 
-msgid "Continuar com Google"
-msgstr "Continue with Google"
+msgid "Convite revogado."
+msgstr "Invite revoked."
+
+msgid "Convite válido."
+msgstr "Valid invite."
+
+msgid "Convites"
+msgstr "Invites"
+
+msgid "Criado"
+msgstr "Created"
 
 msgid "Criar"
 msgstr "Create"
+
+msgid "Criar conta"
+msgstr "Create account"
+
+msgid "Criar convite"
+msgstr "Create invite"
 
 msgid "Cuidados de saúde primários"
 msgstr "Primary care"
 
 msgid "Cuidados hospitalares"
 msgstr "Hospital care"
+
+msgid "Código de convite"
+msgstr "Invite code"
 
 msgid "Dados"
 msgstr "Data"
@@ -642,11 +656,17 @@ msgstr "Declarations"
 msgid "Declaro que faço esta denúncia de boa-fé e que a informação é, tanto quanto sei, exata e completa."
 msgstr "I declare that I am making this report in good faith and that, to the best of my knowledge, the information is accurate and complete."
 
+msgid "Definir palavra-passe"
+msgstr "Set password"
+
 msgid "Definições"
 msgstr "Settings"
 
 msgid "Definições do site"
 msgstr "Site settings"
+
+msgid "Demasiadas tentativas. Aguarde um pouco e tente novamente."
+msgstr "Too many attempts. Please wait a moment and try again."
 
 #, python-format
 msgid "Demasiados itens (máx. %(max_length)s)."
@@ -679,9 +699,6 @@ msgstr "Reports that trigger auto-hide"
 
 msgid "Depois dessa data, o selo passa a cinzento (riscado) e a ferramenta deixa de aparecer no filtro respetivo. Se tiver um certificado renovado, atualize a ficha:"
 msgstr "After that date the badge turns grey (slashed) and the tool no longer appears under that filter. If you have a renewed certificate, update the listing:"
-
-msgid "Desassociar"
-msgstr "Unlink"
 
 msgid "Descobrir"
 msgstr "Discover"
@@ -737,6 +754,9 @@ msgstr "Documentation (URL)"
 msgid "Duplicado: já existe uma ficha para esta ferramenta."
 msgstr "Duplicate: a listing for this tool already exists."
 
+msgid "Durante a fase de testes, o registo é feito por convite. Se não tem um, peça-o através do"
+msgstr "During the testing phase, registration is by invite. If you don't have one, ask for it through the"
+
 msgid "Editar"
 msgstr "Edit"
 
@@ -783,6 +803,12 @@ msgstr "Email"
 msgid "Email automático da gitmgf (%(url)s). Recebe-o porque tem conta ou fez um pedido no site."
 msgstr "Automatic email from gitmgf (%(url)s). You are receiving it because you have an account or made a request on the site."
 
+msgid "Email ou palavra-passe incorretos."
+msgstr "Incorrect email or password."
+
+msgid "Emails"
+msgstr "Emails"
+
 msgid "Enfermeiro/a"
 msgstr "Nurse"
 
@@ -807,8 +833,8 @@ msgstr "Sends data to a server without a GDPR declaration → request changes, u
 msgid "Enviar denúncia"
 msgstr "Send report"
 
-msgid "Enviar ligação de acesso"
-msgstr "Send sign-in link"
+msgid "Envie-a à pessoa por um canal de confiança (mensagem, email pessoal)."
+msgstr "Send it to the person through a trusted channel (message, personal email)."
 
 msgid "Erro inesperado"
 msgstr "Unexpected error"
@@ -832,6 +858,9 @@ msgstr "Choose an image file."
 msgid "Escolha uma opção válida."
 msgstr "Choose a valid option."
 
+msgid "Esgotado ou expirado"
+msgstr "Used up or expired"
+
 msgid "Espanhol"
 msgstr "Spanish"
 
@@ -844,8 +873,8 @@ msgstr "Specialty (optional)"
 msgid "Especialidades"
 msgstr "Specialties"
 
-msgid "Essa conta já está associada a outro utilizador da gitmgf."
-msgstr "That account is already linked to another gitmgf user."
+msgid "Esqueceu-se da palavra-passe? Peça uma ligação de redefinição a um administrador através do"
+msgstr "Forgot your password? Ask an administrator for a reset link through the"
 
 msgid "Esta ação não pode ser desfeita."
 msgstr "This cannot be undone."
@@ -853,8 +882,8 @@ msgstr "This cannot be undone."
 msgid "Esta ferramenta está em revisão. Para a editar, retire primeiro a submissão."
 msgstr "This tool is under review. To edit it, withdraw the submission first."
 
-msgid "Esta ligação de acesso é inválida, já foi usada ou expirou. Peça uma nova."
-msgstr "This sign-in link is invalid, has already been used or has expired. Request a new one."
+msgid "Esta ligação é inválida, já foi usada ou expirou. Peça uma nova a um administrador."
+msgstr "This link is invalid, has already been used or has expired. Ask an administrator for a new one."
 
 msgid "Esta medida foi aplicada automaticamente, por meios automáticos, depois de várias denúncias de conteúdo perigoso ou de problemas de segurança, enquanto um moderador analisa o caso."
 msgstr "This measure was applied automatically, by automated means, after several reports of dangerous content or security problems, while a moderator reviews the case."
@@ -876,6 +905,9 @@ msgstr "Status:"
 
 msgid "Estatísticas"
 msgstr "Statistics"
+
+msgid "Este convite foi criado para outro endereço de email."
+msgstr "This invite was created for a different email address."
 
 msgid "Este identificador já está a ser usado."
 msgstr "This handle is already taken."
@@ -907,6 +939,9 @@ msgstr "E.g. MDR {class}"
 
 msgid "Excel"
 msgstr "Excel"
+
+msgid "Expira"
+msgstr "Expires"
 
 #, python-format
 msgid "Expirado em %(date)s"
@@ -1048,6 +1083,9 @@ msgstr "Assurance"
 msgid "Garantia por omissão"
 msgstr "Default assurance"
 
+msgid "Gerar ligação para definir palavra-passe"
+msgstr "Generate a set-password link"
+
 msgid "Google Sheets"
 msgstr "Google Sheets"
 
@@ -1056,6 +1094,9 @@ msgstr "Free"
 
 msgid "Guardar"
 msgstr "Save"
+
+msgid "Guardar e entrar"
+msgstr "Save and sign in"
 
 msgid "Guardar e submeter para revisão"
 msgstr "Save and submit for review"
@@ -1117,9 +1158,6 @@ msgstr "Give a reason (template or free text)."
 msgid "Indique um título com pelo menos 3 caracteres."
 msgstr "Enter a title of at least 3 characters."
 
-msgid "Indisponível"
-msgstr "Unavailable"
-
 msgid "Informação básica"
 msgstr "Basic information"
 
@@ -1141,6 +1179,12 @@ msgstr "Oldest item in the queue"
 #, python-format
 msgid "Item mais antigo: %(age)s"
 msgstr "Oldest item: %(age)s"
+
+msgid "Já existe uma conta com este email. Inicie sessão."
+msgstr "An account with this email already exists. Sign in."
+
+msgid "Já tem conta?"
+msgstr "Already have an account?"
 
 msgid "Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no futuro."
 msgstr "Lowercase letters, numbers and hyphens (3 to 30). Will be used in addresses in the future."
@@ -1171,6 +1215,9 @@ msgstr "Broken link"
 
 msgid "Ligação quebrada ou insegura: uma ou mais ligações não abrem ou não são seguras."
 msgstr "Broken or unsafe link: one or more links don't open or aren't safe."
+
+msgid "Ligação válida durante 48 horas e uma única utilização. Copie-a agora: não volta a ser mostrada."
+msgstr "Link valid for 48 hours, single use. Copy it now: it won't be shown again."
 
 msgid "Ligações"
 msgstr "Links"
@@ -1341,17 +1388,26 @@ msgstr "Submission guidelines:"
 msgid "Nota"
 msgstr "Note"
 
+msgid "Nota (para quem é)"
+msgstr "Note (who it's for)"
+
 msgid "Nota da moderação:"
 msgstr "Moderation note:"
 
 msgid "Nota para o denunciante (opcional)"
 msgstr "Note for the reporter (optional)"
 
+msgid "Notificações enviadas pelo servidor de email."
+msgstr "Notifications sent by the email server."
+
 msgid "Nova"
 msgstr "New"
 
 msgid "Nova categoria"
 msgstr "New category"
+
+msgid "Nova palavra-passe"
+msgstr "New password"
 
 msgid "Novas ferramentas"
 msgstr "New tools"
@@ -1366,17 +1422,20 @@ msgstr "New submissions: %(n)s"
 msgid "Novidades"
 msgstr "Latest"
 
+msgid "Novo convite"
+msgstr "New invite"
+
 msgid "Não aplicável"
 msgstr "Not applicable"
-
-msgid "Não foi possível concluir a autenticação. Tente novamente."
-msgstr "Authentication could not be completed. Please try again."
 
 msgid "Não foi possível enviar. Aguarde uns segundos e tente novamente."
 msgstr "Could not send. Wait a few seconds and try again."
 
 msgid "Não há dados que identifiquem utentes no texto nem nas imagens."
 msgstr "No patient-identifiable data in text or images."
+
+msgid "Não há servidor de email configurado: as notificações ficam aqui e não são enviadas. Os autores veem o estado e os motivos em «As minhas ferramentas»."
+msgstr "No email server is configured: notifications stay here and are not sent. Authors see status and reasons in “My tools”."
 
 msgid "Não pode atribuir estrela à sua própria ferramenta."
 msgstr "You can't star your own tool."
@@ -1393,12 +1452,15 @@ msgstr "You can't sign in with this account. Contact us if you think this is a m
 msgid "Não é possível retirar o último administrador."
 msgstr "The last administrator can't be removed."
 
+msgid "Número de utilizações"
+msgstr "Number of uses"
+
 #, python-format
 msgid "O autor não declarou %(name)s para esta ferramenta."
 msgstr "The author has not declared %(name)s for this tool."
 
-msgid "O email desta conta não está verificado no fornecedor. Use a ligação por email para entrar."
-msgstr "This account's email is not verified with the provider. Use the email link to sign in."
+msgid "O convite é inválido, já foi usado ou expirou. Peça um novo convite."
+msgstr "The invite is invalid, has already been used or has expired. Ask for a new invite."
 
 msgid "O ficheiro não é uma imagem válida."
 msgstr "The file is not a valid image."
@@ -1411,6 +1473,12 @@ msgstr "The notified body number has 4 digits."
 
 msgid "O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, listas, ligações, tabelas). Não inclua dados que identifiquem utentes."
 msgstr "What it does, for whom, how to use it and its limitations. Markdown is supported (headings, lists, links, tables). Don't include data that identifies patients."
+
+msgid "O registo está aberto a todos: os convites não são obrigatórios."
+msgstr "Registration is open to everyone: invites are not required."
+
+msgid "O registo é feito apenas por convite. Pode abri-lo a todos em Definições (Registos abertos)."
+msgstr "Registration is by invite only. You can open it to everyone in Settings (Sign-ups open)."
 
 msgid "O repositório GitHub não foi encontrado."
 msgstr "The GitHub repository was not found."
@@ -1483,9 +1551,6 @@ msgstr "Colleagues find, use and improve the tool. Open source speeds everything
 msgid "Os itens principais aparecem sempre (presentes ou riscados); os adicionais só quando presentes."
 msgstr "Core items always appear (present or slashed); additional items only when present."
 
-msgid "Os novos registos estão temporariamente fechados."
-msgstr "New sign-ups are temporarily closed."
-
 msgid "Os seus dados"
 msgstr "Your data"
 
@@ -1509,6 +1574,15 @@ msgstr "Paid"
 
 msgid "Paginação"
 msgstr "Pagination"
+
+msgid "Palavra-passe"
+msgstr "Password"
+
+msgid "Palavra-passe alterada. As outras sessões foram terminadas."
+msgstr "Password changed. Other sessions were signed out."
+
+msgid "Palavra-passe atual"
+msgstr "Current password"
 
 msgid "Para adicionar itens novos, edite seeds/certifications.yaml e corra «python -m app.cli seed certifications»."
 msgstr "To add new items, edit seeds/certifications.yaml and run “python -m app.cli seed certifications”."
@@ -1543,8 +1617,11 @@ msgstr "Request changes (back to draft)"
 msgid "Pedir alterações ou rejeitar"
 msgstr "Request changes or reject"
 
-msgid "Pedir nova ligação"
-msgstr "Request a new link"
+msgid "Pelo menos 10 caracteres."
+msgstr "At least 10 characters."
+
+msgid "Pelo menos 10 caracteres. Uma frase com várias palavras é fácil de lembrar e difícil de adivinhar."
+msgstr "At least 10 characters. A phrase of several words is easy to remember and hard to guess."
 
 msgid "Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para o podermos avaliar. Não inclua dados de utentes."
 msgstr "At least 20 characters. Explain the problem in enough detail for us to assess it. Don't include patient data."
@@ -1785,6 +1862,9 @@ msgstr "Remove"
 msgid "Remover esta imagem?"
 msgstr "Remove this image?"
 
+msgid "Repetir palavra-passe"
+msgstr "Repeat password"
+
 msgid "Repor a pontuação de popularidade a zero?"
 msgstr "Reset the popularity score to zero?"
 
@@ -1839,6 +1919,12 @@ msgstr "Review"
 msgid "Rever alteração"
 msgstr "Review edit"
 
+msgid "Revogado"
+msgstr "Revoked"
+
+msgid "Revogar"
+msgstr "Revoke"
+
 msgid "Rodapé"
 msgstr "Footer"
 
@@ -1857,13 +1943,6 @@ msgstr "Scripts"
 msgid "Se não pediu esta eliminação, responda a este email com urgência."
 msgstr "If you did not request this deletion, reply to this email urgently."
 
-msgid "Se não pediu este email, pode ignorá-lo: ninguém consegue entrar sem esta ligação."
-msgstr "If you didn't request this email, you can ignore it: nobody can sign in without this link."
-
-#, python-format
-msgid "Se o endereço for válido, enviámos uma ligação de acesso para <strong>%(email)s</strong>."
-msgstr "If the address is valid, we sent a sign-in link to <strong>%(email)s</strong>."
-
 msgid "Seguinte"
 msgstr "Next"
 
@@ -1879,9 +1958,6 @@ msgstr "Without %(name)s"
 
 msgid "Sem diferenças de conteúdo."
 msgstr "No content differences."
-
-msgid "Sem palavras-passe: enviamos uma ligação de acesso para o seu email. Se ainda não tem conta, é criada automaticamente."
-msgstr "No passwords: we email you a sign-in link. If you don't have an account yet, one is created automatically."
 
 msgid "Sem publicidade nem spam."
 msgstr "No advertising or spam."
@@ -1949,6 +2025,9 @@ msgstr "Free only"
 
 msgid "Só open source"
 msgstr "Open source only"
+
+msgid "Só para este email (opcional)"
+msgstr "Only for this email (optional)"
 
 #, python-format
 msgid "Tem %(num)d ferramenta que vai ser retirada."
@@ -2048,17 +2127,14 @@ msgstr "A calculator, a script or an app that solves a real problem in the consu
 msgid "Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de pesquisa."
 msgstr "One sentence, up to 200 characters. Shown on cards and in search results."
 
-msgid "Usar outro email"
-msgstr "Use another email"
-
 msgid "Use 3 a 30 letras minúsculas, números ou hífenes."
 msgstr "Use 3 to 30 lowercase letters, numbers or hyphens."
 
-msgid "Use esta ligação para entrar na gitmgf:"
-msgstr "Use this link to sign in to gitmgf:"
-
 msgid "Uso"
 msgstr "Usage"
+
+msgid "Usos"
+msgstr "Uses"
 
 msgid "Utilizador"
 msgstr "User"
@@ -2111,9 +2187,6 @@ msgstr "See all"
 msgid "Ver versão publicada"
 msgstr "View published version"
 
-msgid "Verifique o seu email"
-msgstr "Check your email"
-
 msgid "Versão"
 msgstr "Version"
 
@@ -2148,6 +2221,9 @@ msgstr "Page views (30 d)"
 msgid "Voltar ao início"
 msgstr "Back to home"
 
+msgid "Válido durante (dias)"
+msgstr "Valid for (days)"
+
 msgid "Web"
 msgstr "Web"
 
@@ -2172,8 +2248,14 @@ msgstr "certification"
 msgid "com sessão"
 msgstr "signed in"
 
+msgid "contacto"
+msgstr "contact page"
+
 msgid "declarado pelo autor"
 msgstr "declared by the author"
+
+msgid "definida"
+msgstr "set"
 
 msgid "e toma conhecimento da"
 msgstr "and acknowledge the"
@@ -2200,15 +2282,18 @@ msgstr "macOS"
 msgid "misto"
 msgstr "mixed"
 
-msgid "ou"
-msgstr "or"
-
 msgid "p. ex. USF X, ULS Y"
 msgstr "e.g. USF X, ULS Y"
 
 #, python-format
 msgid "para «%(q)s»"
 msgstr "for “%(q)s”"
+
+msgid "por definir"
+msgstr "not set"
+
+msgid "qualquer"
+msgstr "any"
 
 msgid "sistema"
 msgstr "system"

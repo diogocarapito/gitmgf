@@ -43,7 +43,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | Categoria | Dados | Origem |
 |---|---|---|
 | **Conta** | Endereço de email; nome a apresentar; identificador público (*handle*); profissão; especialidade (opcional); local de trabalho (opcional); nome de utilizador no GitHub (opcional); idioma preferido; versão e data de aceitação dos Termos | Fornecidos por si |
-| **Autenticação** | Identificador da conta GitHub ou Google e o email verificado associado (se usar esse método); códigos de acesso por email e de sessão, guardados apenas em forma cifrada irreversível (*hash*); tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si e pelo GitHub/Google, com a sua autorização |
+| **Autenticação** | Palavra-passe, guardada apenas em forma cifrada irreversível (*hash* scrypt com sal); códigos de convite e de redefinição de palavra-passe e identificadores de sessão, também guardados apenas em forma irreversível; tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si ou gerados pelo Serviço |
 | **Conteúdo publicado** | Fichas de ferramentas (textos, ligações, licença, plataformas, declarações de tratamento de dados e de certificações), capturas de ecrã e revisões | Fornecidos por si |
 | **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta) | Fornecidos por si |
 | **Medição de utilização (pseudonimizada)** | Pesquisas efetuadas (texto, filtros, número de resultados); cliques em resultados e em ligações para ferramentas; visualizações de páginas de ferramentas — associados a um identificador diário pseudonimizado, nunca ao seu endereço IP | Gerados pela utilização do site |
@@ -91,7 +91,6 @@ Usamos apenas **cookies estritamente necessários** ao funcionamento do site, is
 |---|---|---|
 | `__Host-gitmgf_session` | Manter a sessão iniciada | Até 30 dias sem atividade, ou até terminar sessão |
 | `gitmgf_csrf` | Proteger formulários contra pedidos forjados (CSRF) | Sessão do navegador |
-| `gitmgf_oauth` | Validar o regresso do GitHub ou Google durante a autenticação | 10 minutos |
 | `gitmgf_lang` | Lembrar o idioma escolhido (PT/EN) | 1 ano |
 
 Não usamos cookies de análise, publicidade ou redes sociais, nem tecnologias semelhantes (pixels, *fingerprinting*).
@@ -108,8 +107,6 @@ Não vendemos nem alugamos dados pessoais. Partilhamos dados apenas com:
 | Envio de emails transacionais | [[EMAIL_PROVIDER]] | [[EMAIL_PROVIDER_LOCATION]] (UE) |
 | Armazenamento de cópias de segurança | [[BACKUP_PROVIDER]] | [[BACKUP_LOCATION]] (UE) |
 
-**Fornecedores de autenticação** (GitHub, Inc. e Google LLC), se escolher iniciar sessão com eles. São responsáveis pelo tratamento independentes: a relação com eles rege-se pelas respetivas políticas de privacidade. Recebemos deles apenas o identificador da conta, o nome e o email verificado. Não lhes enviamos dados sobre a sua atividade na gitmgf.
-
 **GitHub (API pública).** Para mostrar estrelas, data da última atualização e licença de repositórios ligados a ferramentas, o nosso servidor consulta a API pública do GitHub. Estes pedidos não incluem dados sobre os utilizadores da gitmgf.
 
 **Público em geral**, para o conteúdo indicado na secção 5.
@@ -120,15 +117,13 @@ Não vendemos nem alugamos dados pessoais. Partilhamos dados apenas com:
 
 Os nossos subcontratantes tratam os dados no Espaço Económico Europeu (EEE). Não transferimos dados pessoais para fora do EEE. Se isso mudar, só o faremos para países com decisão de adequação da Comissão Europeia ou com garantias adequadas (por exemplo, cláusulas contratuais-tipo), e atualizaremos esta política.
 
-Quando usa o GitHub ou o Google para iniciar sessão, a sua relação com esses fornecedores, incluindo eventuais transferências internacionais feitas por eles, rege-se pelas políticas deles.
-
 ## 9. Durante quanto tempo guardamos os dados
 
 | Dados | Prazo |
 |---|---|
 | Conta e perfil | Enquanto a conta existir. Após pedido de eliminação: inativação imediata e eliminação definitiva em 30 dias |
 | Ferramentas publicadas (texto e imagens) | Enquanto estiverem publicadas ou até as eliminar. Eliminação definitiva 30 dias após a eliminação ou após a eliminação da conta |
-| Códigos de acesso por email | Válidos 15 minutos; apagados em 24 horas |
+| Ligações de redefinição de palavra-passe | Válidas 48 horas e uma única vez; apagadas em 3 dias |
 | Sessões | Até 30 dias sem atividade, ou até terminar sessão |
 | Medição de utilização (pesquisas e cliques pseudonimizados) | 180 dias. Depois disso guardamos apenas contagens agregadas por ferramenta e por dia, que não são dados pessoais |
 | Chave diária de pseudonimização | Substituída e apagada todos os dias |
@@ -165,7 +160,7 @@ Para os restantes pedidos, escreva para [[PRIVACY_EMAIL]]. Respondemos no prazo 
 
 ## 11. Segurança
 
-Aplicamos medidas técnicas e organizativas adequadas ao risco, incluindo: ligações cifradas (HTTPS/HSTS); autenticação sem palavra-passe; códigos de acesso e de sessão guardados apenas em forma irreversível (*hash*); cookies protegidos (`Secure`, `HttpOnly`, `SameSite`); proteção contra CSRF e uma política de segurança de conteúdo restritiva; remoção de metadados (por exemplo, localização GPS) das imagens carregadas; acesso restrito e registado às funções de moderação e administração; servidores na UE; cópias de segurança cifradas em trânsito; e atualizações de segurança regulares.
+Aplicamos medidas técnicas e organizativas adequadas ao risco, incluindo: ligações cifradas (HTTPS/HSTS); palavras-passe guardadas apenas com *hash* scrypt com sal e limites de tentativas de início de sessão; códigos de convite, de redefinição e de sessão guardados apenas em forma irreversível (*hash*); cookies protegidos (`Secure`, `HttpOnly`, `SameSite`); proteção contra CSRF e uma política de segurança de conteúdo restritiva; remoção de metadados (por exemplo, localização GPS) das imagens carregadas; acesso restrito e registado às funções de moderação e administração; servidores na UE; cópias de segurança cifradas em trânsito; e atualizações de segurança regulares.
 
 Se ocorrer uma violação de dados pessoais, notificamos a CNPD no prazo de 72 horas quando exigido e informamos os titulares afetados quando houver risco elevado (artigos 33.º e 34.º do RGPD).
 
@@ -175,7 +170,7 @@ A gitmgf destina-se a adultos. É necessário ter pelo menos **18 anos** para cr
 
 ## 13. Alterações a esta política
 
-Podemos atualizar esta política, por exemplo quando mudarmos de prestador de serviços ou acrescentarmos funcionalidades. A versão e a data de atualização estão indicadas no topo. Se as alterações forem relevantes, avisamos com pelo menos **30 dias** de antecedência, por email e no site. As versões anteriores estão disponíveis mediante pedido.
+Podemos atualizar esta política, por exemplo quando mudarmos de prestador de serviços ou acrescentarmos funcionalidades. A versão e a data de atualização estão indicadas no topo. Se as alterações forem relevantes, avisamos com pelo menos **30 dias** de antecedência, no site e, quando possível, por email. As versões anteriores estão disponíveis mediante pedido.
 
 ## 14. Contacto
 

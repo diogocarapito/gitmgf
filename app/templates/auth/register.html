@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Criar conta") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="auth-card">
+    <h1>{{ _("Criar conta") }}</h1>
+    {% if invite_required %}<p class="muted">{{ _("Durante a fase de testes, o registo é feito por convite. Se não tem um, peça-o através do") }} <a href="{{ url('/p/contact') }}">{{ _("contacto") }}</a>.</p>{% endif %}
+    {% if error %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(error) }}</p></div>{% endif %}
+    <form class="form" action="{{ url('/register') }}" method="post">
+      {{ m.csrf() }}
+      {% if invite_required or values.get('invite') %}
+        {% if invite_valid and not errors.get('invite') %}
+        <input type="hidden" name="invite" value="{{ values.get('invite') }}">
+        <div class="notice notice--ok">{{ icon('check') }}<p>{{ _("Convite válido.") }}</p></div>
+        {% else %}
+        {{ m.text("invite", _("Código de convite"), values, errors, required=invite_required, maxlength=100, autocomplete="off") }}
+        {% endif %}
+      {% endif %}
+      {{ m.text("email", _("Email"), values, errors, type="email", required=True, maxlength=254, autocomplete="username") }}
+      {{ m.text("password", _("Palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password", hint=_("Pelo menos 10 caracteres. Uma frase com várias palavras é fácil de lembrar e difícil de adivinhar.")) }}
+      {{ m.text("password_confirm", _("Repetir palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password") }}
+      <button class="btn btn--primary btn--block" type="submit">{{ _("Criar conta") }}</button>
+    </form>
+    <p class="small muted section--tight">{{ _("Já tem conta?") }} <a href="{{ url('/login') }}">{{ _("Entrar") }}</a>.
+      {{ _("Ao criar conta, aceita os") }} <a href="{{ url('/p/terms') }}">{{ _("Termos de Utilização") }}</a> {{ _("e toma conhecimento da") }} <a href="{{ url('/p/privacy') }}">{{ _("Política de Privacidade") }}</a>.</p>
+  </div>
+</div>
+{% endblock %}

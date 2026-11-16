@@ -1,9 +1,7 @@
-"""Magic-link and OAuth sign-in, account linking and admin bootstrap (PRD F1, TECH_SPEC §6)."""
+"""Password sign-in, invite-only registration and admin-issued reset links (docs/DECISIONS.md D26)."""
 
 import hashlib
-import re
 import secrets
-from dataclasses import dataclass
 from datetime import timedelta
 
 from slugify import slugify
@@ -12,16 +10,16 @@ from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.db import utcnow
-from app.models import MagicLinkToken, OAuthAccount, User
-from app.models.enums import Locale, OAuthProvider, Role, UserStatus
-from app.services import audit, email, settings_store
+from app.models import Invite, PasswordResetToken, User
+from app.models.enums import Locale, Role, UserStatus
+from app.services import audit, passwords, sessions, settings_store
 
-MAGIC_LINK_TTL = timedelta(minutes=15)
-HANDLE_RE = re.compile(r"^[a-z0-9-]{3,30}$")
+INVITE_DEFAULT_DAYS = 14
+RESET_TTL = timedelta(hours=48)
 
 
 class AuthError(Exception):
-    """Sign-in refused. `code` maps to a translated message in the router."""
+    """Sign-in or registration refused. `code` maps to a translated message in the router."""
 
     def __init__(self, code: str) -> None:
         super().__init__(code)
@@ -45,63 +43,22 @@ def _hash(token: str) -> str:
     return hashlib.sha256(token.encode()).hexdigest()
 
 
-def request_magic_link(db: Session, raw_email: str, next_path: str | None, lang: str) -> None:
-    address = normalize_email(raw_email)
-    token = secrets.token_urlsafe(32)
-    db.add(
-        MagicLinkToken(
-            email=address,
-            token_hash=_hash(token),
-            next_path=safe_next(next_path),
-            expires_at=utcnow() + MAGIC_LINK_TTL,
-        )
-    )
-    user = db.scalar(select(User).where(User.email == address))
-    if user is not None and user.status != UserStatus.active:
-        return  # same response, no email: suspended/deleted accounts cannot sign in
-    locale = user.locale.value if user else lang
-    link = f"{get_settings().base_url.rstrip('/')}/auth/magic/{token}"
-    email.enqueue(db, address, "magic_link", {"link": link, "minutes": 15}, locale)
+# ---------- sign-in ----------
 
 
-def find_magic_token(db: Session, token: str) -> MagicLinkToken | None:
-    row = db.scalar(select(MagicLinkToken).where(MagicLinkToken.token_hash == _hash(token)))
-    if row is None or row.used_at is not None or row.expires_at <= utcnow():
-        return None
-    return row
+def authenticate(db: Session, raw_email: str, password: str) -> User:
+    """Same work and the same error whether the account exists or not (no enumeration)."""
+    user = db.scalar(select(User).where(User.email == normalize_email(raw_email)))
+    ok = passwords.verify_password(password, user.password_hash if user else None)
+    if user is None or not ok:
+        raise AuthError("bad_credentials")
+    check_can_login(user)
+    return user
 
 
-def consume_magic_token(db: Session, token: str, lang: str) -> tuple[User, str | None, bool]:
-    row = find_magic_token(db, token)
-    if row is None:
-        raise AuthError("invalid_link")
-    row.used_at = utcnow()
-    user, created = find_or_create_by_email(db, row.email, lang)
-    if user.email_verified_at is None:
-        user.email_verified_at = utcnow()
-    return user, row.next_path, created
-
-
-def find_or_create_by_email(
-    db: Session, address: str, lang: str, display_name: str = ""
-) -> tuple[User, bool]:
-    address = normalize_email(address)
-    user = db.scalar(select(User).where(User.email == address))
-    if user is not None:
-        if user.status != UserStatus.active:
-            raise AuthError("suspended")
-        return user, False
-    if not settings_store.get(db, "site.registration_open"):
-        raise AuthError("registration_closed")
-    user = User(
-        email=address,
-        display_name=display_name[:80],
-        locale=Locale(lang) if lang in ("pt", "en") else Locale.pt,
-        email_verified_at=utcnow(),
-    )
-    db.add(user)
-    db.flush()
-    return user, True
+def check_can_login(user: User) -> None:
+    if user.status != UserStatus.active:
+        raise AuthError("suspended")
 
 
 def apply_admin_emails(db: Session, user: User) -> None:
@@ -114,75 +71,150 @@ def apply_admin_emails(db: Session, user: User) -> None:
         )
 
 
-def check_can_login(user: User) -> None:
-    if user.status != UserStatus.active:
-        raise AuthError("suspended")
+def set_password(db: Session, user: User, password: str) -> None:
+    user.password_hash = passwords.hash_password(password)
+    user.password_changed_at = utcnow()
+    audit.log(db, user.id, "user.password_change", "user", user.id)
 
 
-@dataclass(frozen=True)
-class OAuthProfile:
-    provider: OAuthProvider
-    provider_user_id: str
-    email: str | None
-    email_verified: bool
-    name: str
-    github_login: str | None = None
+# ---------- invites ----------
 
 
-def oauth_login(
-    db: Session, profile: OAuthProfile, lang: str, link_to: User | None = None
-) -> tuple[User, bool]:
-    """Linking rule (TECH_SPEC §6.2): existing provider account › verified email match › new user."""
-    account = db.scalar(
-        select(OAuthAccount).where(
-            OAuthAccount.provider == profile.provider,
-            OAuthAccount.provider_user_id == profile.provider_user_id,
+def create_invite(
+    db: Session,
+    actor: User | None,
+    email: str | None = None,
+    note: str | None = None,
+    max_uses: int = 1,
+    days: int = INVITE_DEFAULT_DAYS,
+) -> tuple[Invite, str]:
+    """Returns the invite and its code. The code is shown once; only its hash is stored."""
+    code = secrets.token_urlsafe(12)
+    invite = Invite(
+        code_hash=_hash(code),
+        created_by=actor.id if actor else None,
+        email=normalize_email(email) if email else None,
+        note=(note or "").strip()[:200] or None,
+        max_uses=max(1, min(max_uses, 500)),
+        expires_at=utcnow() + timedelta(days=max(1, min(days, 365))),
+    )
+    db.add(invite)
+    db.flush()
+    audit.log(
+        db,
+        actor.id if actor else None,
+        "invite.create",
+        "invite",
+        invite.id,
+        max_uses=invite.max_uses,
+        locked=bool(invite.email),
+    )
+    return invite, code
+
+
+def find_invite(db: Session, code: str | None) -> Invite | None:
+    if not code:
+        return None
+    invite = db.scalar(select(Invite).where(Invite.code_hash == _hash(code.strip())))
+    if (
+        invite is None
+        or invite.revoked_at is not None
+        or invite.uses >= invite.max_uses
+        or invite.expires_at <= utcnow()
+    ):
+        return None
+    return invite
+
+
+def revoke_invite(db: Session, invite: Invite, actor: User) -> None:
+    invite.revoked_at = utcnow()
+    audit.log(db, actor.id, "invite.revoke", "invite", invite.id)
+
+
+def registration_needs_invite(db: Session, email: str | None = None) -> bool:
+    if email and normalize_email(email) in get_settings().admin_email_set:
+        return False  # bootstrap: the first admin can always register
+    return not settings_store.get(db, "site.registration_open")
+
+
+# ---------- registration ----------
+
+
+def register(db: Session, raw_email: str, password: str, invite_code: str | None, lang: str) -> User:
+    address = normalize_email(raw_email)
+    invite = None
+    if registration_needs_invite(db, address):
+        invite = find_invite(db, invite_code)
+        if invite is None:
+            raise AuthError("invalid_invite")
+        if invite.email and invite.email != address:
+            raise AuthError("invite_email_mismatch")
+    if db.scalar(select(User.id).where(User.email == address)) is not None:
+        raise AuthError("email_taken")
+    user = User(
+        email=address,
+        display_name="",
+        locale=Locale(lang) if lang in ("pt", "en") else Locale.pt,
+        password_hash=passwords.hash_password(password),
+        password_changed_at=utcnow(),
+    )
+    db.add(user)
+    db.flush()
+    if invite is not None:
+        invite.uses += 1
+    audit.log(db, None, "user.register", "user", user.id, invite_id=invite.id if invite else None)
+    return user
+
+
+# ---------- reset / set-password links ----------
+
+
+def create_reset_link(db: Session, user: User, actor: User | None) -> str:
+    """One-time link valid 48 h. Earlier unused links for the user stop working."""
+    for old in db.scalars(
+        select(PasswordResetToken).where(
+            PasswordResetToken.user_id == user.id, PasswordResetToken.used_at.is_(None)
+        )
+    ):
+        old.used_at = utcnow()
+    token = secrets.token_urlsafe(32)
+    db.add(
+        PasswordResetToken(
+            user_id=user.id,
+            token_hash=_hash(token),
+            created_by=actor.id if actor else None,
+            expires_at=utcnow() + RESET_TTL,
         )
     )
-    if link_to is not None:
-        if account is not None and account.user_id != link_to.id:
-            raise AuthError("provider_taken")
-        if account is None:
-            db.add(_account(link_to, profile))
-            audit.log(
-                db, link_to.id, "user.provider_link", "user", link_to.id, provider=profile.provider.value
-            )
-        _prefill(link_to, profile)
-        return link_to, False
-    if account is not None:
-        user = account.user
-        check_can_login(user)
-        return user, False
-    if not profile.email or not profile.email_verified:
-        raise AuthError("unverified_email")
-    user, created = find_or_create_by_email(db, profile.email, lang, display_name=profile.name)
-    db.add(_account(user, profile))
-    _prefill(user, profile)
-    return user, created
+    db.flush()  # autoflush is off: make the new link visible to a later call in this session
+    audit.log(db, actor.id if actor else None, "user.reset_link", "user", user.id)
+    return token
 
 
-def _account(user: User, profile: OAuthProfile) -> OAuthAccount:
-    return OAuthAccount(
-        user_id=user.id,
-        provider=profile.provider,
-        provider_user_id=profile.provider_user_id,
-        provider_email=normalize_email(profile.email) if profile.email else None,
-    )
+def find_reset_token(db: Session, token: str) -> PasswordResetToken | None:
+    row = db.scalar(select(PasswordResetToken).where(PasswordResetToken.token_hash == _hash(token)))
+    if (
+        row is None
+        or row.used_at is not None
+        or row.expires_at <= utcnow()
+        or row.user.status != UserStatus.active
+    ):
+        return None
+    return row
 
 
-def _prefill(user: User, profile: OAuthProfile) -> None:
-    if not user.display_name and profile.name:
-        user.display_name = profile.name[:80]
-    if profile.github_login and not user.github_username:
-        user.github_username = profile.github_login[:39]
+def reset_password(db: Session, token: str, password: str) -> User:
+    row = find_reset_token(db, token)
+    if row is None:
+        raise AuthError("invalid_link")
+    row.used_at = utcnow()
+    user = row.user
+    set_password(db, user, password)
+    sessions.destroy_all(db, user.id)  # everyone else is signed out
+    return user
 
 
-def unlink_provider(db: Session, user: User, provider: OAuthProvider) -> None:
-    """Email magic link always works, so unlinking never locks anyone out."""
-    for account in list(user.oauth_accounts):
-        if account.provider == provider:
-            db.delete(account)
-    audit.log(db, user.id, "user.provider_unlink", "user", user.id, provider=provider.value)
+# ---------- profile helpers ----------
 
 
 def needs_onboarding(db: Session, user: User) -> bool:

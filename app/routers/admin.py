@@ -651,3 +651,121 @@ def audit_log(
             "actors": actors,
         },
     )
+
+
+# ---------- invites & reset links (D26) ----------
+
+
+def _invite_page(
+    request: Request,
+    db: DB,
+    created_link: str | None = None,
+    errors: dict[str, Any] | None = None,
+    status: int = 200,
+) -> Response:
+    from app.models import Invite
+
+    rows = db.scalars(select(Invite).order_by(Invite.created_at.desc()).limit(100)).all()
+    return render(
+        request,
+        "admin/invites.html",
+        {
+            "rows": rows,
+            "created_link": created_link,
+            "errors": errors or {},
+            "registration_open": settings_store.get(db, "site.registration_open"),
+            "now": utcnow(),
+        },
+        status_code=status,
+    )
+
+
+@pages.get("/admin/invites")
+def invites(request: Request, db: DB, user: AdminDep) -> Response:
+    return _invite_page(request, db)
+
+
+@pages.post("/admin/invites")
+def create_invite(request: Request, db: DB, user: AdminDep, form: Form) -> Response:
+    from app.config import get_settings
+    from app.services import auth as auth_service
+
+    errors: dict[str, Any] = {}
+    address = str(form.get("email") or "").strip() or None
+    try:
+        max_uses = int(str(form.get("max_uses") or 1))
+        days = int(str(form.get("days") or auth_service.INVITE_DEFAULT_DAYS))
+        if max_uses < 1 or days < 1:
+            raise ValueError
+    except ValueError:
+        errors["max_uses"] = ("Valor inválido.", {})
+        max_uses, days = 1, auth_service.INVITE_DEFAULT_DAYS
+    if address and "@" not in address:
+        errors["email"] = ("Indique um email válido.", {})
+    if errors:
+        return _invite_page(request, db, errors=errors, status=422)
+    _, code = auth_service.create_invite(db, user, address, str(form.get("note") or ""), max_uses, days)
+    db.commit()
+    link = f"{get_settings().base_url.rstrip('/')}/{request.state.lang}/register?invite={code}"
+    return _invite_page(request, db, created_link=link)
+
+
+@actions.post("/admin/invites/{invite_id}/revoke")
+def revoke_invite(request: Request, db: DB, user: AdminDep, invite_id: int) -> Response:
+    from app.models import Invite
+    from app.services import auth as auth_service
+
+    invite = db.get(Invite, invite_id)
+    if invite is None:
+        raise HTTPException(status_code=404)
+    auth_service.revoke_invite(db, invite, user)
+    db.commit()
+    return _back(request, "/admin/invites", "invite_revoked")
+
+
+@pages.post("/admin/users/{user_id}/reset-link")
+def reset_link(request: Request, db: DB, user: AdminDep, user_id: int) -> Response:
+    from app.config import get_settings
+    from app.services import auth as auth_service
+
+    target = _user(db, user_id)
+    token = auth_service.create_reset_link(db, target, user)
+    db.commit()
+    link = f"{get_settings().base_url.rstrip('/')}/{target.locale.value}/reset/{token}"
+    tools = tool_service.owned_tools(db, target)
+    log = db.scalars(
+        select(AuditLog)
+        .where(
+            or_(
+                AuditLog.actor_id == target.id,
+                (AuditLog.target_type == "user") & (AuditLog.target_id == target.id),
+            )
+        )
+        .order_by(AuditLog.created_at.desc())
+        .limit(30)
+    ).all()
+    return render(
+        request, "admin/user.html", {"target": target, "tools": tools, "log": log, "reset_link": link}
+    )
+
+
+@pages.get("/admin/emails")
+def outbox(request: Request, db: DB, user: AdminDep, page: int = 1) -> Response:
+    """Notifications waiting for delivery (or kept for reference) while SMTP is not configured."""
+    from app.config import get_settings
+    from app.models import EmailOutbox
+
+    page = max(1, page)
+    rows = db.scalars(
+        select(EmailOutbox).order_by(EmailOutbox.id.desc()).offset((page - 1) * PAGE).limit(PAGE + 1)
+    ).all()
+    return render(
+        request,
+        "admin/emails.html",
+        {
+            "rows": rows[:PAGE],
+            "has_next": len(rows) > PAGE,
+            "page": page,
+            "smtp": bool(get_settings().smtp_host),
+        },
+    )

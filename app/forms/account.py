@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Any
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, EmailStr, Field, field_validator
 
@@ -7,10 +7,53 @@ from app.i18n import N_
 from app.models.enums import Locale, Profession
 
 
-class MagicLinkForm(BaseModel):
+class LoginForm(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
     email: EmailStr = Field(max_length=254)
+    password: str = Field(min_length=1, max_length=128)
     next: str | None = None
+
+
+def _check_new_password(password: str, confirm: str, email: str | None) -> None:
+    from app.services.passwords import password_problem
+
+    problem = password_problem(password, email)
+    if problem:
+        raise PasswordError("password", problem)
+    if password != confirm:
+        raise PasswordError("password_confirm", N_("As palavras-passe não coincidem."))
+
+
+class PasswordError(ValueError):
+    def __init__(self, field: str, msgid: str) -> None:
+        super().__init__(msgid)
+        self.field = field
+        self.msgid = msgid
+
+
+class RegisterForm(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+    email: EmailStr = Field(max_length=254)
+    password: str = Field(default="", max_length=128)
+    password_confirm: str = Field(default="", max_length=128)
+    invite: str | None = Field(default=None, max_length=100)
+
+    def password_errors(self) -> dict[str, tuple[str, dict[str, Any]]]:
+        try:
+            _check_new_password(self.password, self.password_confirm, str(self.email))
+        except PasswordError as exc:
+            return {exc.field: (exc.msgid, {})}
+        return {}
+
+
+def new_password_errors(
+    password: str, confirm: str, email: str | None
+) -> dict[str, tuple[str, dict[str, Any]]]:
+    try:
+        _check_new_password(password, confirm, email)
+    except PasswordError as exc:
+        return {exc.field: (exc.msgid, {})}
+    return {}
 
 
 class ProfileForm(BaseModel):

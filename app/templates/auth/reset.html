@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Definir palavra-passe") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="auth-card">
+    <h1>{{ _("Definir palavra-passe") }}</h1>
+    <p class="muted">{{ _("Conta:") }} <strong>{{ account }}</strong>. {{ _("As outras sessões abertas desta conta serão terminadas.") }}</p>
+    <form class="form" action="{{ url('/reset/' ~ token) }}" method="post">
+      {{ m.csrf() }}
+      <input type="text" name="username" value="{{ account }}" autocomplete="username" hidden>
+      {{ m.text("password", _("Nova palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password", hint=_("Pelo menos 10 caracteres.")) }}
+      {{ m.text("password_confirm", _("Repetir palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password") }}
+      <button class="btn btn--primary btn--block" type="submit">{{ _("Guardar e entrar") }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

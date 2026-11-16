@@ -30,7 +30,7 @@ O Serviço é **gratuito**. Não inclui publicidade nem posições pagas nos res
 
 3.1. Para publicar, atribuir estrelas ou aceder a funções reservadas, precisa de uma conta. Deve ter **18 anos ou mais**.
 
-3.2. Pode iniciar sessão com uma ligação enviada por email, com o GitHub ou com o Google. É responsável por manter seguro o acesso ao email e às contas usadas, e por toda a atividade feita na sua conta. Avise-nos de imediato se suspeitar de acesso indevido.
+3.2. Inicia sessão com o seu email e uma palavra-passe. Durante a fase de testes, o registo pode exigir um convite. É responsável por manter a palavra-passe secreta, por não a reutilizar noutros serviços e por toda a atividade feita na sua conta. Avise-nos de imediato se suspeitar de acesso indevido. Se perder o acesso, um administrador pode, depois de confirmar a sua identidade, gerar uma ligação única para definir uma nova palavra-passe.
 
 3.3. A informação de perfil deve ser verdadeira. A profissão e a especialidade são **declaradas por si** e não são verificadas pela gitmgf. Não se faça passar por outra pessoa ou entidade.
 
@@ -106,7 +106,7 @@ Se descobrir uma vulnerabilidade, comunique-a de forma responsável para [[SECUR
 
 8.2. **Medidas possíveis:** pedir alterações; rejeitar uma submissão ou uma declaração de certificação; ocultar ou remover uma ferramenta; repor a pontuação de uma ferramenta; suspender ou encerrar uma conta.
 
-8.3. **Fundamentação.** Sempre que tomarmos uma destas medidas sobre o seu conteúdo ou a sua conta, enviamos-lhe por email uma exposição de motivos: a medida aplicada, os factos e a regra em causa, se a decisão resultou de uma denúncia ou de meios automáticos, e como pode contestá-la (artigo 17.º do Regulamento dos Serviços Digitais).
+8.3. **Fundamentação.** Sempre que tomarmos uma destas medidas sobre o seu conteúdo ou a sua conta, comunicamos-lhe uma exposição de motivos, por email ou na sua área pessoal no Serviço,: a medida aplicada, os factos e a regra em causa, se a decisão resultou de uma denúncia ou de meios automáticos, e como pode contestá-la (artigo 17.º do Regulamento dos Serviços Digitais).
 
 8.4. **Contestação.** Pode contestar qualquer decisão no prazo de **6 meses**, respondendo ao email ou escrevendo para [[CONTACT_EMAIL]]. Uma pessoa que não tenha participado na decisão original analisa a contestação e responde sem demora injustificada. Mantém sempre o direito de recorrer aos tribunais.
 
@@ -159,7 +159,7 @@ Esforçamo-nos por manter o Serviço disponível e seguro, mas não garantimos f
 
 ## 15. Alterações a estes Termos
 
-Podemos alterar estes Termos, por exemplo por mudanças legais ou novas funcionalidades. Avisamos as alterações relevantes com pelo menos **30 dias** de antecedência, por email e no site, e pedimos nova aceitação no início de sessão seguinte. Se não concordar, pode eliminar a conta antes da data de entrada em vigor. As alterações exigidas por lei ou por motivos urgentes de segurança podem aplicar-se mais cedo.
+Podemos alterar estes Termos, por exemplo por mudanças legais ou novas funcionalidades. Avisamos as alterações relevantes com pelo menos **30 dias** de antecedência, no site e, quando possível, por email, e pedimos nova aceitação no início de sessão seguinte. Se não concordar, pode eliminar a conta antes da data de entrada em vigor. As alterações exigidas por lei ou por motivos urgentes de segurança podem aplicar-se mais cedo.
 
 ## 16. Lei aplicável e litígios
 

@@ -1,3 +1,5 @@
+"""Sign-in, invite-only registration, reset links, onboarding (PRD F1/F2 as amended by D26)."""
+
 import hashlib
 from typing import Any
 from urllib.parse import quote
@@ -10,13 +12,12 @@ from sqlalchemy import select
 from app.config import get_settings
 from app.db import utcnow
 from app.deps import DB, CurrentUser, Form, LoginRequired
-from app.forms.account import MagicLinkForm, OnboardingForm
+from app.forms.account import LoginForm, OnboardingForm, RegisterForm, new_password_errors
 from app.forms.common import errors_from, form_to_dict
 from app.i18n import N_
 from app.models import Category, User
-from app.models.enums import OAuthProvider
 from app.services import auth as auth_service
-from app.services import email, oauth, ratelimit, sessions, settings_store
+from app.services import email, ratelimit, sessions, settings_store
 from app.services.auth import AuthError
 from app.templating import render
 
@@ -24,18 +25,15 @@ pages = APIRouter()
 actions = APIRouter()
 
 AUTH_ERRORS = {
-    "invalid_link": N_("Esta ligação de acesso é inválida, já foi usada ou expirou. Peça uma nova."),
+    "bad_credentials": N_("Email ou palavra-passe incorretos."),
     "suspended": N_(
         "Não é possível iniciar sessão com esta conta. Contacte-nos se achar que se trata de um erro."
     ),
-    "registration_closed": N_("Os novos registos estão temporariamente fechados."),
-    "unverified_email": N_(
-        "O email desta conta não está verificado no fornecedor. Use a ligação por email para entrar."
-    ),
-    "provider_taken": N_("Essa conta já está associada a outro utilizador da gitmgf."),
-    "oauth_state": N_("A autenticação expirou ou é inválida. Tente novamente."),
-    "oauth_failed": N_("Não foi possível concluir a autenticação. Tente novamente."),
-    "rate_limited": N_("Demasiados pedidos. Aguarde um pouco e tente novamente."),
+    "invalid_invite": N_("O convite é inválido, já foi usado ou expirou. Peça um novo convite."),
+    "invite_email_mismatch": N_("Este convite foi criado para outro endereço de email."),
+    "email_taken": N_("Já existe uma conta com este email. Inicie sessão."),
+    "invalid_link": N_("Esta ligação é inválida, já foi usada ou expirou. Peça uma nova a um administrador."),
+    "rate_limited": N_("Demasiadas tentativas. Aguarde um pouco e tente novamente."),
 }
 
 
@@ -76,159 +74,122 @@ def login_response(db: DB, request: Request, user: User, next_path: str | None) 
 
 
 def _login_page(request: Request, next_path: str | None, status_code: int = 200, **ctx: Any) -> Response:
-    settings = get_settings()
     return render(
         request,
         "auth/login.html",
+        {"next": auth_service.safe_next(next_path) or "", "errors": {}, "email": "", **ctx},
+        status_code=status_code,
+    )
+
+
+@pages.get("/login")
+def login_page(request: Request, user: CurrentUser, next: str | None = None) -> Response:
+    if user is not None:
+        return RedirectResponse(auth_service.safe_next(next) or f"/{request.state.lang}/", status_code=303)
+    return _login_page(request, next)
+
+
+@pages.post("/login")
+def login_submit(request: Request, db: DB, form: Form) -> Response:
+    raw = form_to_dict(form)
+    next_path = raw.get("next")
+    try:
+        data = LoginForm.model_validate(raw)
+    except ValidationError as exc:
+        return _login_page(request, next_path, 422, errors=errors_from(exc), email=raw.get("email", ""))
+    address = auth_service.normalize_email(str(data.email))
+    email_key = hashlib.sha256(address.encode()).hexdigest()[:16]
+    if not (
+        ratelimit.hit(ratelimit.LOGIN_IP, "login-ip", client_key(request))
+        and ratelimit.hit(ratelimit.LOGIN_EMAIL, "login-email", email_key)
+    ):
+        return _login_page(request, next_path, 429, error=AUTH_ERRORS["rate_limited"], email=address)
+    try:
+        user = auth_service.authenticate(db, address, data.password)
+    except AuthError as exc:
+        return _login_page(
+            request,
+            next_path,
+            401 if exc.code == "bad_credentials" else 403,
+            error=AUTH_ERRORS[exc.code],
+            email=address,
+        )
+    return login_response(db, request, user, data.next)
+
+
+def _register_page(
+    request: Request,
+    db: DB,
+    values: dict[str, Any],
+    errors: dict[str, Any],
+    status_code: int = 200,
+    **ctx: Any,
+) -> Response:
+    invite_code = values.get("invite") or ""
+    return render(
+        request,
+        "auth/register.html",
         {
-            "next": auth_service.safe_next(next_path) or "",
-            "github_enabled": settings.github_enabled,
-            "google_enabled": settings.google_enabled,
+            "values": values,
+            "errors": errors,
+            "invite_required": auth_service.registration_needs_invite(db, values.get("email")),
+            "invite_valid": auth_service.find_invite(db, invite_code) is not None if invite_code else False,
             **ctx,
         },
         status_code=status_code,
     )
 
 
-@pages.get("/login")
-def login_page(
-    request: Request, user: CurrentUser, next: str | None = None, error: str | None = None
-) -> Response:
+@pages.get("/register")
+def register_page(request: Request, db: DB, user: CurrentUser, invite: str | None = None) -> Response:
     if user is not None:
-        return RedirectResponse(auth_service.safe_next(next) or f"/{request.state.lang}/", status_code=303)
-    message = AUTH_ERRORS.get(error or "")
-    return _login_page(request, next, error=message)
+        return RedirectResponse(f"/{request.state.lang}/", status_code=303)
+    return _register_page(request, db, {"invite": invite or ""}, {})
 
 
-@actions.post("/auth/magic-link")
-def magic_link(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
-    lang = request.state.lang
+@pages.post("/register")
+def register_submit(request: Request, db: DB, form: Form) -> Response:
+    raw = form_to_dict(form)
+    raw.pop("csrf_token", None)
+    if not ratelimit.hit(ratelimit.REGISTER_IP, "register", client_key(request)):
+        return _register_page(request, db, raw, {}, 429, error=AUTH_ERRORS["rate_limited"])
     try:
-        data = MagicLinkForm.model_validate(form_to_dict(form))
+        data = RegisterForm.model_validate(raw)
     except ValidationError as exc:
-        errors = errors_from(exc)
-        raw_next = form.get("next")
-        return render(
-            request,
-            "auth/login.html",
-            {
-                "next": auth_service.safe_next(raw_next if isinstance(raw_next, str) else None) or "",
-                "errors": errors,
-                "email": form.get("email", ""),
-                "github_enabled": get_settings().github_enabled,
-                "google_enabled": get_settings().google_enabled,
-            },
-            status_code=422,
-        )
-    address = auth_service.normalize_email(str(data.email))
-    email_key = hashlib.sha256(address.encode()).hexdigest()[:16]
-    allowed = ratelimit.hit(ratelimit.MAGIC_LINK_IP, "magic-ip", client_key(request)) and ratelimit.hit(
-        ratelimit.MAGIC_LINK_EMAIL, "magic-email", email_key
-    )
-    if allowed:
-        auth_service.request_magic_link(db, address, data.next, lang)
-        db.commit()
-        background.add_task(email.deliver_queued)
-    # Identical response whether or not the account exists or the limit was hit (no enumeration).
-    return render(request, "auth/check_email.html", {"email": address})
+        return _register_page(request, db, raw, errors_from(exc), 422)
+    errors = data.password_errors()
+    if errors:
+        return _register_page(request, db, raw, errors, 422)
+    try:
+        user = auth_service.register(db, str(data.email), data.password, data.invite, request.state.lang)
+    except AuthError as exc:
+        db.rollback()
+        field = "email" if exc.code in ("email_taken", "invite_email_mismatch") else "invite"
+        return _register_page(request, db, raw, {field: (AUTH_ERRORS[exc.code], {})}, 422)
+    return login_response(db, request, user, None)
 
 
-@actions.get("/auth/magic/{token}")
-def magic_confirm(request: Request, db: DB, token: str) -> Response:
-    """Shows a POST button: link-prefetching scanners must not consume the token (D7)."""
-    row = auth_service.find_magic_token(db, token)
+@pages.get("/reset/{token}")
+def reset_page(request: Request, db: DB, token: str) -> Response:
+    row = auth_service.find_reset_token(db, token)
     if row is None:
-        return render(request, "auth/magic_invalid.html", {}, status_code=400)
-    return render(request, "auth/magic_confirm.html", {"token": token})
+        return render(request, "auth/reset_invalid.html", {}, status_code=400)
+    return render(request, "auth/reset.html", {"token": token, "errors": {}, "account": row.user.email})
 
 
-@actions.post("/auth/magic/{token}")
-def magic_consume(request: Request, db: DB, token: str) -> Response:
-    try:
-        user, next_path, _created = auth_service.consume_magic_token(db, token, request.state.lang)
-        return login_response(db, request, user, next_path)
-    except AuthError as exc:
-        db.rollback()
-        if exc.code == "invalid_link":
-            return render(request, "auth/magic_invalid.html", {}, status_code=400)
-        return _login_page(request, None, error=AUTH_ERRORS.get(exc.code), status_code=403)
-
-
-def _provider(name: str) -> OAuthProvider:
-    try:
-        provider = OAuthProvider(name)
-    except ValueError as exc:
-        raise HTTPException(status_code=404) from exc
-    if not oauth.enabled(provider):
-        raise HTTPException(status_code=404)
-    return provider
-
-
-@actions.get("/auth/{provider_name}/start")
-def oauth_start(
-    request: Request, user: CurrentUser, provider_name: str, next: str | None = None, link: int = 0
-) -> Response:
-    provider = _provider(provider_name)
-    if link and user is None:
-        raise LoginRequired(request.url.path)
-    url, cookie = oauth.start(provider, auth_service.safe_next(next), request.state.lang, bool(link and user))
-    response = RedirectResponse(url, status_code=302)
-    response.set_cookie(
-        oauth.COOKIE_NAME,
-        cookie,
-        max_age=oauth.COOKIE_MAX_AGE,
-        httponly=True,
-        secure=get_settings().secure_cookies,
-        samesite="lax",
-        path="/auth/",
-    )
-    return response
-
-
-@actions.get("/auth/{provider_name}/callback")
-def oauth_callback(
-    request: Request,
-    db: DB,
-    user: CurrentUser,
-    provider_name: str,
-    code: str | None = None,
-    state: str | None = None,
-    error: str | None = None,
-) -> Response:
-    provider = _provider(provider_name)
-    lang = request.state.lang
-
-    def fail(code_: str) -> Response:
-        response = RedirectResponse(f"/{lang}/login?error={code_}", status_code=303)
-        response.delete_cookie(oauth.COOKIE_NAME, path="/auth/")
-        return response
-
-    if not ratelimit.hit(ratelimit.LOGIN_CALLBACK_IP, "oauth-cb", client_key(request)):
-        return fail("rate_limited")
-    try:
-        data = oauth.read_state(request.cookies.get(oauth.COOKIE_NAME), provider, state)
-        if error or not code:
-            raise AuthError("oauth_failed")
-        with oauth.http_client() as client:
-            access_token = oauth.exchange_code(provider, code, data["v"], client)
-            profile = oauth.fetch_profile(provider, access_token, client)
-        lang = data.get("l") or lang
-        link_to = user if data.get("k") and user is not None else None
-        account_user, _created = auth_service.oauth_login(db, profile, lang, link_to=link_to)
-        if link_to is not None:
-            db.commit()
-            response: Response = RedirectResponse(
-                f"/{link_to.locale.value}/me/settings?flash=linked", status_code=303
-            )
-        else:
-            response = login_response(db, request, account_user, data.get("n"))
-    except AuthError as exc:
-        db.rollback()
-        if exc.code == "provider_taken" and user is not None:
-            return RedirectResponse(f"/{user.locale.value}/me/settings?flash=provider_taken", status_code=303)
-        return fail(exc.code)
-    response.delete_cookie(oauth.COOKIE_NAME, path="/auth/")
-    return response
+@pages.post("/reset/{token}")
+def reset_submit(request: Request, db: DB, token: str, form: Form) -> Response:
+    row = auth_service.find_reset_token(db, token)
+    if row is None:
+        return render(request, "auth/reset_invalid.html", {}, status_code=400)
+    password = str(form.get("password") or "")
+    errors = new_password_errors(password, str(form.get("password_confirm") or ""), row.user.email)
+    if errors:
+        return render(
+            request, "auth/reset.html", {"token": token, "errors": errors, "account": row.user.email}, 422
+        )
+    user = auth_service.reset_password(db, token, password)
+    return login_response(db, request, user, None)
 
 
 @actions.post("/auth/logout")

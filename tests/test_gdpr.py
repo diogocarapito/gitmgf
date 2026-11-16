@@ -109,15 +109,15 @@ def test_purge_job_removes_account_tools_and_files_after_30_days(db):
 
 
 def test_retention_prunes_old_events_and_tokens(db):
-    from app.models import InteractionEvent, MagicLinkToken
+    from app.models import InteractionEvent, PasswordResetToken
 
     tool = make_tool(db)
     old = utcnow() - timedelta(days=181)
     db.add(
         InteractionEvent(tool_id=tool.id, kind="view", visitor_hash="x" * 32, day=old.date(), created_at=old)
     )
-    db.add(MagicLinkToken(email="a@example.org", token_hash="h" * 64, expires_at=old, created_at=old))
+    db.add(PasswordResetToken(user_id=tool.owner_id, token_hash="h" * 64, expires_at=old, created_at=old))
     db.commit()
     counts = gdpr.purge(db)
     db.commit()
-    assert counts["interaction_events"] == 1 and counts["magic_link_tokens"] == 1
+    assert counts["interaction_events"] == 1 and counts["password_reset_tokens"] == 1

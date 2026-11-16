@@ -5,13 +5,14 @@ from limits import parse, storage, strategies
 _storage = storage.MemoryStorage()
 _limiter = strategies.MovingWindowRateLimiter(_storage)
 
-MAGIC_LINK_EMAIL = "5/hour"
-MAGIC_LINK_IP = "20/hour"
+LOGIN_EMAIL = "10 per 15 minutes"
+LOGIN_IP = "30 per 15 minutes"
+REGISTER_IP = "10/hour"
+PASSWORD_CHANGE_USER = "10/hour"  # noqa: S105 - a rate, not a secret
 REPORTS_VISITOR = "10/day"
 TOOL_CREATE_USER = "10/day"
 STAR_USER = "60/minute"
 SEARCH_IP = "120/minute"
-LOGIN_CALLBACK_IP = "30/minute"
 UPLOAD_USER = "60/hour"
 
 

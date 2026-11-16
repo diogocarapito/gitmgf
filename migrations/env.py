@@ -31,6 +31,10 @@ def run_migrations_online() -> None:
 
 
 def _run(connection) -> None:
+    # SQLite batch mode may recreate tables; with foreign keys ON, dropping a parent table would
+    # cascade-delete child rows. Keep them off while migrating.
+    connection.exec_driver_sql("PRAGMA foreign_keys=OFF")
+    connection.commit()
     context.configure(
         connection=connection,
         target_metadata=target_metadata,

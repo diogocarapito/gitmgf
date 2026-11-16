@@ -14,21 +14,15 @@
     <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
   </form>
 
-  <section class="form-section section--tight">
-    <h2 class="form-section__title">{{ _("Contas associadas") }}</h2>
-    <p class="form-section__intro">{{ _("A ligação por email funciona sempre, mesmo sem contas associadas.") }}</p>
-    {% for key, name, enabled in providers %}
-    <div class="row row--between">
-      <span>{{ icon(key) }} {{ name }} {% if key in linked %}<span class="status status--active">{{ _("Associada") }}</span>{% endif %}</span>
-      {% if key in linked %}
-      <form class="inline-form" method="post" action="/me/providers/{{ key }}/unlink">{{ m.csrf() }}<button class="btn btn--sm" type="submit">{{ _("Desassociar") }}</button></form>
-      {% elif enabled %}
-      <a class="btn btn--sm" href="/auth/{{ key }}/start?link=1">{{ _("Associar") }}</a>
-      {% else %}<span class="muted small">{{ _("Indisponível") }}</span>{% endif %}
-    </div>
-    {% if not loop.last %}<hr>{% endif %}
-    {% endfor %}
-  </section>
+  <form class="form form-section section--tight" method="post" action="{{ url('/me/password') }}">
+    {{ m.csrf() }}
+    <h2 class="form-section__title">{{ _("Palavra-passe") }}</h2>
+    <input type="text" name="username" value="{{ user.email }}" autocomplete="username" hidden>
+    {{ m.text("current_password", _("Palavra-passe atual"), {}, errors, type="password", required=True, maxlength=128, autocomplete="current-password") }}
+    {{ m.text("password", _("Nova palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password", hint=_("Pelo menos 10 caracteres.")) }}
+    {{ m.text("password_confirm", _("Repetir palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password") }}
+    <div class="form-actions"><button class="btn" type="submit">{{ _("Alterar palavra-passe") }}</button></div>
+  </form>
 
   <section class="form-section section--tight">
     <h2 class="form-section__title">{{ _("Sessões") }}</h2>

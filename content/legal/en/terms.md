@@ -32,7 +32,7 @@ The Service is **free**. It has no advertising and no paid placement in results.
 
 3.1. You need an account to publish, give stars or use restricted features. You must be **18 or older**.
 
-3.2. You can sign in with a link sent by email, with GitHub or with Google. You're responsible for keeping access to your email and those accounts secure, and for all activity on your account. Tell us immediately if you suspect unauthorised access.
+3.2. You sign in with your email and a password. During the testing phase, registration may require an invite. You're responsible for keeping your password secret, not reusing it on other services, and for all activity on your account. Tell us immediately if you suspect unauthorised access. If you lose access, an administrator can, after confirming your identity, generate a one-time link to set a new password.
 
 3.3. Profile information must be true. Profession and specialty are **self-declared** and not verified by gitmgf. Don't impersonate another person or organisation.
 
@@ -108,7 +108,7 @@ If you find a vulnerability, report it responsibly to [[SECURITY_EMAIL]]. Don't 
 
 8.2. **Possible measures:** requesting changes; rejecting a submission or a certification declaration; hiding or removing a tool; resetting a tool's score; suspending or closing an account.
 
-8.3. **Statement of reasons.** Whenever we take one of these measures on your content or account, we email you a statement of reasons: the measure taken, the facts and the rule involved, whether the decision followed a report or automated means, and how you can challenge it (Article 17 of the Digital Services Act).
+8.3. **Statement of reasons.** Whenever we take one of these measures on your content or account, we give you a statement of reasons, by email or in your personal area on the Service: the measure taken, the facts and the rule involved, whether the decision followed a report or automated means, and how you can challenge it (Article 17 of the Digital Services Act).
 
 8.4. **Appeals.** You can challenge any decision within **6 months** by replying to the email or writing to [[CONTACT_EMAIL]]. Someone who was not involved in the original decision reviews the appeal and replies without undue delay. You always keep the right to go to court.
 
@@ -161,7 +161,7 @@ We work to keep the Service available and secure, but we don't guarantee uninter
 
 ## 15. Changes to these Terms
 
-We may change these Terms, for example because of legal changes or new features. We give at least **30 days'** notice of significant changes by email and on the site, and ask you to accept them again at your next sign-in. If you don't agree, you can delete your account before they take effect. Changes required by law or for urgent security reasons may apply sooner.
+We may change these Terms, for example because of legal changes or new features. We give at least **30 days'** notice of significant changes on the site and, where possible, by email, and ask you to accept them again at your next sign-in. If you don't agree, you can delete your account before they take effect. Changes required by law or for urgent security reasons may apply sooner.
 
 ## 16. Governing law and disputes
 

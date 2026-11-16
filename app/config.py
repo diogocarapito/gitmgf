@@ -23,10 +23,6 @@ class Settings(BaseSettings):
     smtp_from: str = "gitmgf <noreply@gitmgf.com>"
     smtp_security: Literal["starttls", "ssl", "none"] = "starttls"
 
-    github_client_id: str = ""
-    github_client_secret: str = ""
-    google_client_id: str = ""
-    google_client_secret: str = ""
     github_api_token: str = ""
 
     admin_emails: str = ""
@@ -59,18 +55,13 @@ class Settings(BaseSettings):
         return self.is_prod
 
     @property
-    def github_enabled(self) -> bool:
-        return bool(self.github_client_id and self.github_client_secret)
-
-    @property
-    def google_enabled(self) -> bool:
-        return bool(self.google_client_id and self.google_client_secret)
-
-    @property
     def email_backend(self) -> str:
         if self.app_env == "test":
             return "memory"
-        return "smtp" if self.smtp_host else "console"
+        if self.smtp_host:
+            return "smtp"
+        # No SMTP in prod: notifications stay queued in the outbox (readable at /admin/emails).
+        return "none" if self.is_prod else "console"
 
     def config_errors(self) -> list[str]:
         """Problems that must block a production start."""
@@ -80,8 +71,6 @@ class Settings(BaseSettings):
                 errors.append("SECRET_KEY must be set to a random value of at least 32 characters")
             if not self.base_url.startswith("https://"):
                 errors.append("BASE_URL must use https:// in prod")
-            if not self.smtp_host:
-                errors.append("SMTP_HOST is required in prod (magic links are sent by email)")
         return errors
 
 

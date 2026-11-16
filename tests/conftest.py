@@ -14,10 +14,6 @@ os.environ.update(
         "DATA_DIR": str(_TMP / "data"),
         "DATABASE_PATH": str(_TMP / "data" / "unused.db"),
         "ADMIN_EMAILS": "boss@example.org",
-        "GITHUB_CLIENT_ID": "gh-id",
-        "GITHUB_CLIENT_SECRET": "gh-secret",
-        "GOOGLE_CLIENT_ID": "g-id",
-        "GOOGLE_CLIENT_SECRET": "g-secret",
     }
 )
 

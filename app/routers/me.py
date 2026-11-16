@@ -5,14 +5,14 @@ from typing import Any
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from pydantic import ValidationError
+from sqlalchemy import select
 
 from app.config import get_settings
 from app.deps import DB, Form, UserDep
 from app.forms.account import ProfileForm
 from app.forms.common import errors_from, form_to_dict
 from app.i18n import N_
-from app.models import User
-from app.models.enums import OAuthProvider
+from app.models import User, UserSession
 from app.routers.auth import specialty_options
 from app.services import auth as auth_service
 from app.services import sessions
@@ -37,8 +37,6 @@ def _profile_values(user: User) -> dict[str, Any]:
 def _settings_page(
     request: Request, db: DB, user: User, values: dict[str, Any], errors: dict[str, Any], status: int = 200
 ) -> Response:
-    settings = get_settings()
-    linked = {a.provider.value for a in user.oauth_accounts}
     return render(
         request,
         "me/settings.html",
@@ -46,11 +44,6 @@ def _settings_page(
             "values": values,
             "errors": errors,
             "specialties": specialty_options(db),
-            "linked": linked,
-            "providers": [
-                ("github", "GitHub", settings.github_enabled),
-                ("google", "Google", settings.google_enabled),
-            ],
             "session_count": sessions.count_for(db, user.id),
         },
         status_code=status,
@@ -96,15 +89,29 @@ def settings_submit(request: Request, db: DB, user: UserDep, form: Form) -> Resp
     return RedirectResponse(f"/{user.locale.value}/me/settings?flash=saved", status_code=303)
 
 
-@actions.post("/me/providers/{provider}/unlink")
-def unlink(request: Request, db: DB, user: UserDep, provider: str) -> Response:
-    try:
-        prov = OAuthProvider(provider)
-    except ValueError as exc:
-        raise HTTPException(status_code=404) from exc
-    auth_service.unlink_provider(db, user, prov)
+@pages.post("/me/password")
+def change_password(request: Request, db: DB, user: UserDep, form: Form) -> Response:
+    from app.forms.account import new_password_errors
+    from app.services import passwords, ratelimit
+
+    current = str(form.get("current_password") or "")
+    new = str(form.get("password") or "")
+    errors: dict[str, Any] = {}
+    if not ratelimit.hit(ratelimit.PASSWORD_CHANGE_USER, "pw-change", str(user.id)):
+        raise HTTPException(status_code=429)
+    if not passwords.verify_password(current, user.password_hash):
+        errors["current_password"] = (N_("A palavra-passe atual está incorreta."), {})
+    else:
+        errors = new_password_errors(new, str(form.get("password_confirm") or ""), user.email)
+    if errors:
+        return _settings_page(request, db, user, _profile_values(user), errors, status=422)
+    auth_service.set_password(db, user, new)
+    keep = request.cookies.get(get_settings().session_cookie)
+    for row in db.scalars(select(UserSession).where(UserSession.user_id == user.id)).all():
+        if keep is None or row.id != sessions.hash_token(keep):
+            db.delete(row)  # sign out every other device
     db.commit()
-    return RedirectResponse(f"/{request.state.lang}/me/settings?flash=unlinked", status_code=303)
+    return RedirectResponse(f"/{request.state.lang}/me/settings?flash=password_changed", status_code=303)
 
 
 @pages.get("/me/stars")

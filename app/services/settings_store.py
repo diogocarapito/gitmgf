@@ -21,7 +21,7 @@ DEFAULTS: dict[str, Any] = {
     "search.beta_popularity": 1.0,
     "limits.max_pending_per_user": 3,
     "reports.auto_hide_threshold": 3,
-    "site.registration_open": True,
+    "site.registration_open": False,  # False = invite-only (D26)
     "site.banner_pt": "",
     "site.banner_en": "",
     "terms.current_version": "2026-11",

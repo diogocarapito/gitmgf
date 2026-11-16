@@ -111,6 +111,8 @@ def _claim(db: Session, row: EmailOutbox) -> bool:
 
 
 def deliver_queued(db: Session | None = None, limit: int = 50) -> int:
+    if get_settings().email_backend == "none":
+        return 0  # kept queued until SMTP is configured
     own = db is None
     if own:
         get_engine()

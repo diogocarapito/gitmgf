@@ -17,6 +17,7 @@
         <dt>{{ _("Local de trabalho") }}</dt><dd>{{ target.workplace or '—' }}</dd>
         <dt>{{ _("Registo") }}</dt><dd>{{ target.created_at | datetime }}</dd>
         <dt>{{ _("Última entrada") }}</dt><dd>{{ target.last_login_at | datetime if target.last_login_at else '—' }}</dd>
+        <dt>{{ _("Palavra-passe") }}</dt><dd>{% if target.password_hash %}{{ _("definida") }}{% if target.password_changed_at %} · {{ target.password_changed_at | date('medium') }}{% endif %}{% else %}{{ _("por definir") }}{% endif %}</dd>
         <dt>{{ _("Termos") }}</dt><dd>{{ target.terms_version or '—' }}</dd>
         {% if target.suspended_reason %}<dt>{{ _("Motivo da suspensão") }}</dt><dd>{{ target.suspended_reason }}</dd>{% endif %}
       </dl>
@@ -40,6 +41,8 @@
       {% else %}
       <form method="post" action="/admin/users/{{ target.id }}/unsuspend">{{ m.csrf() }}<button class="btn" type="submit">{{ _("Levantar suspensão") }}</button></form>
       {% endif %}
+      <form method="post" action="{{ url('/admin/users/' ~ target.id ~ '/reset-link') }}">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('link') }} {{ _("Gerar ligação para definir palavra-passe") }}</button></form>
+      {% if reset_link %}<div class="notice notice--ok" role="status">{{ icon('check') }}<div><p><strong>{{ _("Ligação válida durante 48 horas e uma única utilização. Copie-a agora: não volta a ser mostrada.") }}</strong></p><p><code class="kv">{{ reset_link }}</code></p></div></div>{% endif %}
       <form method="post" action="/admin/users/{{ target.id }}/delete" data-confirm="{{ _('Eliminar esta conta e retirar as suas ferramentas? Esta ação não pode ser desfeita.') }}">{{ m.csrf() }}<button class="btn btn--danger" type="submit">{{ icon('trash') }} {{ _("Eliminar conta") }}</button></form>
     </section>
   </div>

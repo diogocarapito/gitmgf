@@ -95,12 +95,16 @@ def test_outbox_retries_with_backoff_then_sends(db, monkeypatch):
 
 def test_email_message_is_bilingual_multipart(db):
     row = email.enqueue(
-        db, "a@example.org", "magic_link", {"link": "https://x/auth/magic/t", "minutes": 15}, "en"
+        db,
+        "a@example.org",
+        "tool_approved",
+        {"title": "SCORE2", "slug": "score2", "rejected_claims": ""},
+        "en",
     )
     msg = email.build_message(row)
-    assert msg["Subject"] == "Your gitmgf sign-in link"
+    assert msg["Subject"] == "Tool published: SCORE2"
     assert msg.get_body(preferencelist=("html",)) is not None
-    assert "https://x/auth/magic/t" in msg.get_body(preferencelist=("plain",)).get_content()
+    assert "/en/t/score2" in msg.get_body(preferencelist=("plain",)).get_content()
 
 
 def test_cert_expiry_warns_at_t30_and_on_expiry(db):
