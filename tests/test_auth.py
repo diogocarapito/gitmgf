@@ -366,3 +366,28 @@ def test_cli_send_test_email_requires_smtp(db_path):
 
     result = CliRunner().invoke(cli, ["send-test-email", "x@example.org"])
     assert result.exit_code == 1 and "SMTP_HOST is not set" in result.output
+
+
+def test_cli_create_user_as_moderator(db_path, db):
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+    from app.services import email
+
+    runner = CliRunner()
+    printed = runner.invoke(cli, ["create-user", "Mod.Um@Example.org", "--role", "moderator"])
+    assert printed.exit_code == 0 and "http://testserver/reset/" in printed.output
+    sent = runner.invoke(
+        cli, ["create-user", "mod2@example.org", "--role", "moderator", "--send", "--lang", "en"]
+    )
+    assert sent.exit_code == 0 and "emailed" in sent.output
+    db.expire_all()
+    users = {u.email: u for u in db.query(User).all()}
+    assert (
+        users["mod.um@example.org"].role == Role.moderator and users["mod2@example.org"].locale.value == "en"
+    )
+    assert any(
+        m["To"] == "mod2@example.org" and "/en/reset/" in m.get_body(preferencelist=("plain",)).get_content()
+        for m in email.SENT
+    )
+    assert runner.invoke(cli, ["create-user", "not-an-email", "--role", "moderator"]).exit_code == 1

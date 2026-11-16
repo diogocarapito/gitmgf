@@ -136,27 +136,58 @@ def change_email(old: str, new: str) -> None:
 
 
 def _create_admin(email: str) -> None:
-    from app.config import get_settings
+    _create_user(email, Role.admin, send_email=False, lang="pt")
+
+
+def _create_user(email: str, role: Role, send_email: bool, lang: str) -> None:
+    """Create (or update the role of) an account and hand over a 48 h set-password link."""
+    from app.models.enums import Locale
     from app.services import auth as auth_service
+    from app.services import email as email_service
 
     address = email.strip().lower()
+    if "@" not in address or len(address) > 254:
+        typer.echo(f"invalid email: {email!r}", err=True)
+        raise typer.Exit(1)
     with _session() as db:
         user = db.scalar(select(User).where(User.email == address))
         if user is None:
-            user = User(email=address, display_name="", role=Role.admin)
+            user = User(email=address, display_name="", role=role, locale=Locale(lang))
             db.add(user)
             db.flush()
-            audit.log(db, None, "user.create_admin", "user", user.id, via="cli")
-        elif user.role != Role.admin:
+            audit.log(db, None, "user.create", "user", user.id, role=role.value, via="cli")
+        elif user.role != role:
             audit.log(
-                db, None, "user.role_change", "user", user.id, old=user.role.value, new="admin", via="cli"
+                db, None, "user.role_change", "user", user.id, old=user.role.value, new=role.value, via="cli"
             )
-            user.role = Role.admin
+            user.role = role
+        if send_email and auth_service.email_enabled():
+            auth_service.email_reset_link(db, user, None)
+            db.commit()
+            email_service.deliver_queued(db)
+            typer.echo(f"{role.value} ready: {address} — set-password link emailed (valid 48 h)")
+            return
         token = auth_service.create_reset_link(db, user, None)
         db.commit()
-    base = get_settings().base_url.rstrip("/")
-    typer.echo(f"admin ready: {address}")
-    typer.echo(f"set the password (valid 48 h, single use): {base}/reset/{token}")
+        link = auth_service.reset_url(user.locale.value, token)
+    typer.echo(f"{role.value} ready: {address}")
+    typer.echo(f"set the password (valid 48 h, single use): {link}")
+
+
+@cli.command("create-user")
+def create_user(
+    email: str,
+    role: Role = typer.Option(Role.user, "--role", help="user, moderator or admin"),
+    send: bool = typer.Option(
+        False, "--send", help="Email the set-password link (needs SMTP); otherwise print it"
+    ),
+    lang: str = typer.Option("pt", "--lang", help="Account and email language: pt or en"),
+) -> None:
+    """Create an account with a role (e.g. moderators) and hand over a set-password link."""
+    if lang not in ("pt", "en"):
+        typer.echo("--lang must be pt or en", err=True)
+        raise typer.Exit(1)
+    _create_user(email, role, send, lang)
 
 
 @cli.command("invite")

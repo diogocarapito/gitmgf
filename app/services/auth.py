@@ -224,7 +224,7 @@ def request_password_reset(db: Session, raw_email: str, lang: str) -> None:
     email.enqueue(db, user.email, "password_reset", {"link": reset_url(locale, token), "minutes": 60}, locale)
 
 
-def email_reset_link(db: Session, user: User, actor: User) -> None:
+def email_reset_link(db: Session, user: User, actor: User | None) -> None:
     """Admin action: email a 48 h set-password link to the user."""
     from app.services import email
 
