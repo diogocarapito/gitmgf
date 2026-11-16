@@ -12,7 +12,7 @@ from app.models.tool import (
     ToolRevision,
 )
 from app.models.tracking import InteractionEvent, SearchQuery, ToolDailyStat
-from app.models.user import MagicLinkToken, OAuthAccount, User, UserSession
+from app.models.user import Invite, PasswordResetToken, User, UserSession
 
 __all__ = [
     "PUBLIC_STATUSES",
@@ -21,8 +21,8 @@ __all__ = [
     "Certification",
     "EmailOutbox",
     "InteractionEvent",
-    "MagicLinkToken",
-    "OAuthAccount",
+    "Invite",
+    "PasswordResetToken",
     "Report",
     "SearchQuery",
     "SiteSetting",

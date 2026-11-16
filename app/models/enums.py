@@ -45,11 +45,6 @@ class UserStatus(StrEnum):
     deleted = "deleted"
 
 
-class OAuthProvider(StrEnum):
-    github = "github"
-    google = "google"
-
-
 class ToolStatus(StrEnum):
     draft = "draft"
     pending = "pending"

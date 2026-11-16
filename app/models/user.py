@@ -1,11 +1,11 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, String, UniqueConstraint
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base, utcnow
-from app.models.enums import Locale, OAuthProvider, Profession, Role, UserStatus, str_enum
+from app.models.enums import Locale, Profession, Role, UserStatus, str_enum
 
 if TYPE_CHECKING:
     from app.models.taxonomy import Category
@@ -17,6 +17,8 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(254), unique=True)
     email_verified_at: Mapped[datetime | None]
+    password_hash: Mapped[str | None] = mapped_column(String(200))
+    password_changed_at: Mapped[datetime | None]
     display_name: Mapped[str] = mapped_column(String(80), default="")
     handle: Mapped[str | None] = mapped_column(String(30), unique=True)
     profession: Mapped[Profession | None] = mapped_column(str_enum(Profession, "profession"))
@@ -38,9 +40,6 @@ class User(Base):
     deleted_at: Mapped[datetime | None]
 
     specialty: Mapped["Category | None"] = relationship(lazy="joined")
-    oauth_accounts: Mapped[list["OAuthAccount"]] = relationship(
-        back_populates="user", cascade="all, delete-orphan", passive_deletes=True
-    )
 
     @property
     def is_moderator(self) -> bool:
@@ -58,30 +57,41 @@ class User(Base):
         return f"<User {self.id} {self.role}>"
 
 
-class OAuthAccount(Base):
-    __tablename__ = "oauth_accounts"
-    __table_args__ = (UniqueConstraint("provider", "provider_user_id"),)
+class Invite(Base):
+    """Invite-only registration: the code is shown once to the admin; only its sha256 is stored."""
+
+    __tablename__ = "invites"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    code_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    created_by: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    email: Mapped[str | None] = mapped_column(String(254))  # if set, only this address may use it
+    note: Mapped[str | None] = mapped_column(String(200))
+    max_uses: Mapped[int] = mapped_column(default=1)
+    uses: Mapped[int] = mapped_column(default=0)
+    expires_at: Mapped[datetime]
+    revoked_at: Mapped[datetime | None]
+    created_at: Mapped[datetime] = mapped_column(default=utcnow)
+
+    @property
+    def remaining(self) -> int:
+        return max(0, self.max_uses - self.uses)
+
+
+class PasswordResetToken(Base):
+    """One-time set/reset-password link created by an admin (no email needed)."""
+
+    __tablename__ = "password_reset_tokens"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
-    provider: Mapped[OAuthProvider] = mapped_column(str_enum(OAuthProvider, "oauth_provider"))
-    provider_user_id: Mapped[str] = mapped_column(String(64))
-    provider_email: Mapped[str | None] = mapped_column(String(254))
-    created_at: Mapped[datetime] = mapped_column(default=utcnow)
-
-    user: Mapped[User] = relationship(back_populates="oauth_accounts")
-
-
-class MagicLinkToken(Base):
-    __tablename__ = "magic_link_tokens"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    email: Mapped[str] = mapped_column(String(254), index=True)
     token_hash: Mapped[str] = mapped_column(String(64), unique=True)
-    next_path: Mapped[str | None] = mapped_column(String(500))
+    created_by: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
     expires_at: Mapped[datetime]
     used_at: Mapped[datetime | None]
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
+
+    user: Mapped[User] = relationship(lazy="joined", foreign_keys=[user_id])
 
 
 class UserSession(Base):
