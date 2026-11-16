@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     smtp_password: str = ""
     smtp_from: str = "gitmgf <noreply@gitmgf.com>"
     smtp_security: Literal["starttls", "ssl", "none"] = "starttls"
+    # Where replies to notifications go (appeals are made "by replying"). Falls back to LEGAL_CONTACT_EMAIL.
+    smtp_reply_to: str = ""
 
     github_api_token: str = ""
 
@@ -53,6 +55,12 @@ class Settings(BaseSettings):
     @property
     def secure_cookies(self) -> bool:
         return self.is_prod
+
+    @property
+    def reply_to(self) -> str:
+        import os
+
+        return self.smtp_reply_to or os.environ.get("LEGAL_CONTACT_EMAIL", "")
 
     @property
     def email_backend(self) -> str:

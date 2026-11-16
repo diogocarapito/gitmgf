@@ -60,6 +60,8 @@ def build_message(row: EmailOutbox) -> EmailMessage:
     msg["Date"] = formatdate(localtime=False)
     msg["Message-ID"] = make_msgid(domain=settings.smtp_from.split("@")[-1].strip("> ") or None)
     msg["Auto-Submitted"] = "auto-generated"
+    if settings.reply_to:
+        msg["Reply-To"] = settings.reply_to  # replies (e.g. appeals) reach a read mailbox, not noreply@
     msg.set_content(row.body_text)
     msg.add_alternative(row.body_html, subtype="html")
     return msg

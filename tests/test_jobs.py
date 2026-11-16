@@ -158,3 +158,21 @@ def test_usage_stats_for_authors(client, db):
     page = client.get(f"/me/tools/{tool.id}/stats")
     assert page.status_code == 200 and "Estatísticas" in page.text
     assert "2 / 7" in client.get("/me/tools").text
+
+
+def test_notifications_reply_to_the_contact_address(db, monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.setenv("LEGAL_CONTACT_EMAIL", "contacto@gitmgf.com")
+    get_settings.cache_clear()
+    try:
+        row = email.enqueue(
+            db,
+            "a@example.org",
+            "tool_rejected",
+            {"title": "X", "reason": "r", "tool_id": 1, "returned_to_draft": False},
+            "pt",
+        )
+        assert email.build_message(row)["Reply-To"] == "contacto@gitmgf.com"
+    finally:
+        get_settings.cache_clear()

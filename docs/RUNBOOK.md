@@ -143,7 +143,28 @@ Brevo is the provider: you need **no mailbox** to send. Setup:
 6. `./deploy/deploy.sh`, then test: `dc run --rm app cli send-test-email you@example.org`. It prints the SMTP error if something is wrong. In the received message, *Show original* should say SPF and DKIM **PASS**.
 7. Sign the Brevo DPA (Brevo account → Security / Legal) and keep a copy (content/legal/NOTES.md §2).
 
-Messages queued in the last 30 days are sent once SMTP works. Replies to `noreply@` go nowhere; for the public contact addresses (`contacto@`, `privacidade@`, `seguranca@`), set up free forwarding to your own inbox with **Cloudflare → Email → Email Routing**.
+Messages queued in the last 30 days are sent once SMTP works. Notifications carry `Reply-To: contacto@…` (`SMTP_REPLY_TO`, default `LEGAL_CONTACT_EMAIL`), so appeals made "by replying" reach a read mailbox.
+
+### 2.2 Receiving email (Cloudflare Email Routing)
+
+Brevo only sends. To receive mail at the public addresses, forward them to your own inbox with Cloudflare (free, no mailbox to manage):
+
+| Address | Purpose |
+|---|---|
+| `contacto@` | General contact, DSA single point of contact, appeals (replies to notifications) |
+| `privacidade@` | GDPR requests (Privacy Policy) |
+| `seguranca@` | Vulnerability reports (`/.well-known/security.txt`) |
+| `admin@` | Let's Encrypt notices (`ACME_EMAIL`) |
+| `abuse@`, `postmaster@` | Conventional addresses mail providers and abuse desks expect |
+| `dmarc@` | DMARC aggregate reports (optional; use it in the DMARC `rua=` tag) |
+
+1. **Cloudflare → Email → Email Routing → Get started.** Cloudflare adds its MX records and an SPF TXT record.
+2. **Merge SPF:** a domain may have only **one** `v=spf1` record. Keep a single TXT record containing both senders, e.g. `v=spf1 include:_spf.mx.cloudflare.net include:spf.brevo.com ~all` (use the exact include Brevo shows), and delete any duplicate.
+3. **Destination addresses → Add** your personal inbox and confirm the verification email.
+4. **Routing rules → Custom addresses:** create each address above → *Send to* your inbox. Leave the catch-all off (it attracts spam).
+5. Test: send an email to `contacto@gitmgf.com` from another account; it should arrive in your inbox within a minute.
+
+**Replying as `contacto@`** (optional): in Gmail → Settings → Accounts → *Send mail as* → add `contacto@gitmgf.com`, SMTP server `smtp-relay.brevo.com`, port 587, your Brevo SMTP login and key. Replies then come from the official address.
 
 ---
 
