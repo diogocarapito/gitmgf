@@ -34,22 +34,22 @@ def as_actor(client, db, people, actor):
 
 # (method, path template, expected status per actor)
 MATRIX = [
-    ("GET", "/pt/", dict.fromkeys(ACTORS, 200)),
-    ("GET", "/pt/search?q=publicada", dict.fromkeys(ACTORS, 200)),
-    ("GET", "/pt/t/{published}", dict.fromkeys(ACTORS, 200)),
-    ("GET", "/pt/t/{pending}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
-    ("GET", "/pt/t/{draft}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
-    ("GET", "/pt/t/{hidden}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
-    ("GET", "/pt/t/{published}/report", dict.fromkeys(ACTORS, 200)),
-    ("GET", "/pt/t/{pending}/report", dict.fromkeys(ACTORS, 404)),
+    ("GET", "/", dict.fromkeys(ACTORS, 200)),
+    ("GET", "/search?q=publicada", dict.fromkeys(ACTORS, 200)),
+    ("GET", "/t/{published}", dict.fromkeys(ACTORS, 200)),
+    ("GET", "/t/{pending}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/t/{draft}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/t/{hidden}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/t/{published}/report", dict.fromkeys(ACTORS, 200)),
+    ("GET", "/t/{pending}/report", dict.fromkeys(ACTORS, 404)),
     ("POST", "/t/{published_id}/star", {"visitor": 303, "user": 303, "owner": 403, "mod": 303, "admin": 303}),
-    ("GET", "/pt/me/tools", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
-    ("GET", "/pt/me/stars", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
-    ("GET", "/pt/me/settings", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/me/tools", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/me/stars", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/me/settings", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
     ("GET", "/me/export.json", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
     (
         "GET",
-        "/pt/me/tools/{draft_id}/edit",
+        "/me/tools/{draft_id}/edit",
         {"visitor": 303, "user": 404, "owner": 200, "mod": 404, "admin": 200},
     ),
     (
@@ -62,10 +62,10 @@ MATRIX = [
         "/me/tools/{published_id}/archive",
         {"visitor": 403, "user": 404, "owner": 303, "mod": 404, "admin": 409},
     ),
-    ("GET", "/pt/mod", {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200}),
+    ("GET", "/mod", {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200}),
     (
         "GET",
-        "/pt/mod/tools/{pending_id}",
+        "/mod/tools/{pending_id}",
         {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200},
     ),
     (
@@ -78,18 +78,18 @@ MATRIX = [
         "/mod/tools/{published_id}/reset-score",
         {"visitor": 403, "user": 404, "owner": 404, "mod": 303, "admin": 303},
     ),
-    ("GET", "/pt/admin", {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200}),
-    ("GET", "/pt/admin/searches", {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200}),
-    ("GET", "/pt/admin/users", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
-    ("GET", "/pt/admin/categories", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
-    ("GET", "/pt/admin/tags", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
+    ("GET", "/admin", {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200}),
+    ("GET", "/admin/searches", {"visitor": 303, "user": 404, "owner": 404, "mod": 200, "admin": 200}),
+    ("GET", "/admin/users", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
+    ("GET", "/admin/categories", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
+    ("GET", "/admin/tags", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
     (
         "GET",
-        "/pt/admin/certifications",
+        "/admin/certifications",
         {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200},
     ),
-    ("GET", "/pt/admin/settings", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
-    ("GET", "/pt/admin/audit", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
+    ("GET", "/admin/settings", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
+    ("GET", "/admin/audit", {"visitor": 303, "user": 404, "owner": 404, "mod": 404, "admin": 200}),
     (
         "POST",
         "/admin/users/{user_id}/role",
@@ -125,12 +125,12 @@ def test_moderator_cannot_approve_own_tool_via_route(client, db):
     tool = make_tool(db, mod, status="pending")
     login(client, db, mod)
     assert post(client, f"/mod/tools/{tool.id}/approve").status_code == 403
-    page = client.get(f"/pt/mod/tools/{tool.id}")
+    page = client.get(f"/mod/tools/{tool.id}")
     assert "outra pessoa tem de a moderar" in page.text
 
 
 def test_hidden_resources_return_404_not_403(client, db, world):
     people, tools = world
     login(client, db, people["user"])
-    assert client.get(f"/pt/t/{tools['pending'].slug}").status_code == 404
-    assert client.get("/pt/admin/users").status_code == 404
+    assert client.get(f"/t/{tools['pending'].slug}").status_code == 404
+    assert client.get("/admin/users").status_code == 404

@@ -14,7 +14,7 @@ DETAILS = "A fórmula usa a versão antiga das tabelas e dá valores errados."
 
 
 def _stamp(client, slug):
-    html = client.get(f"/pt/t/{slug}/report").text
+    html = client.get(f"/t/{slug}/report").text
     return re.search(r'name="stamp" value="([^"]+)"', html).group(1)
 
 
@@ -22,7 +22,7 @@ def _report(client, slug, **data):
     stamp = _stamp(client, slug)
     payload = {"stamp": stamp, "reason": "dangerous_content", "details": DETAILS, "good_faith": "1", **data}
     with time_machine.travel(utcnow() + timedelta(seconds=10), tick=False):
-        return post(client, f"/pt/t/{slug}/report", payload)
+        return post(client, f"/t/{slug}/report", payload)
 
 
 def test_anonymous_report_requires_email(client, db):
@@ -54,7 +54,7 @@ def test_honeypot_and_minimum_time(client, db):
     stamp = _stamp(client, tool.slug)
     r = post(
         client,
-        f"/pt/t/{tool.slug}/report",
+        f"/t/{tool.slug}/report",
         {"stamp": stamp, "reason": "spam", "details": DETAILS, "good_faith": "1", "email": "a@example.org"},
     )
     assert r.status_code == 422  # submitted instantly
@@ -90,7 +90,7 @@ def test_auto_hide_at_threshold_and_moderators_emailed(client, db):
         _report(client, tool.slug, email=f"r{i}@example.org")
     db.refresh(tool)
     assert tool.status == ToolStatus.hidden
-    assert client.get(f"/pt/t/{tool.slug}").status_code == 404
+    assert client.get(f"/t/{tool.slug}").status_code == 404
     assert db.scalar(
         select(EmailOutbox).where(
             EmailOutbox.template == "mod_auto_hide", EmailOutbox.to_email == "mod@example.org"

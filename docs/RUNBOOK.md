@@ -69,7 +69,7 @@ Fill in `.env`:
 
 ### 1.4 First admin
 
-Open `https://gitmgf.com/pt/register` and create an account with the address in `ADMIN_EMAILS`: it needs no invite and is promoted to admin on sign-in (audit-logged). Complete onboarding, then check **Administração → Definições** (legal values, banner, limits).
+Open `https://gitmgf.com/register` and create an account with the address in `ADMIN_EMAILS`: it needs no invite and is promoted to admin on sign-in (audit-logged). Complete onboarding, then check **Administração → Definições** (legal values, banner, limits).
 
 Alternative from the server (prints a one-time link, valid 48 h, to set the password):
 
@@ -201,7 +201,7 @@ Record the date, duration (RTO target ≤ 4 h) and any issues in `docs/CHANGELOG
 
 - **Uptime**: external check on `https://gitmgf.com/healthz` every minute (Uptime Kuma, Better Stack, Healthchecks.io). Returns 503 when the DB is unreadable or disk free < 10 %.
 - **Scheduler heartbeat**: set `HEALTHCHECK_PING_URL` (e.g. a Healthchecks.io check with a 10-minute grace period).
-- **Sign-in abuse**: repeated failures are rate-limited (10 per email and 30 per IP per 15 minutes); watch `dc logs app | grep "POST /pt/login"` for spikes.
+- **Sign-in abuse**: repeated failures are rate-limited (10 per email and 30 per IP per 15 minutes); watch `dc logs app | grep -E "POST /(en/)?login"` for spikes.
 - **Outbox**: Administração → Emails. With SMTP configured, `failed` rows retry with backoff up to 5 times.
 - **Moderation backlog**: Administração → Estatísticas shows the oldest queued item (target < 72 h). The daily moderator digest is only emailed when SMTP is set — otherwise check the queue yourself.
 - **Disk**: `df -h` and `docker system df`; prune old images with `docker image prune`.

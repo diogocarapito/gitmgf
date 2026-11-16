@@ -10,6 +10,7 @@ from sqlalchemy import select, text
 from app.config import get_settings
 from app.db import utcnow
 from app.deps import DB
+from app.i18n import lang_prefix
 from app.models import Category, Tool
 from app.models.enums import ToolStatus
 from app.services import settings_store
@@ -42,14 +43,17 @@ def robots() -> str:
         "Disallow: /go/",
         "Disallow: /auth/",
         "Disallow: /me/",
-        "Disallow: /pt/me/",
         "Disallow: /en/me/",
-        "Disallow: /pt/mod",
+        "Disallow: /mod",
         "Disallow: /en/mod",
-        "Disallow: /pt/admin",
+        "Disallow: /admin",
         "Disallow: /en/admin",
-        "Disallow: /pt/login",
+        "Disallow: /login",
         "Disallow: /en/login",
+        "Disallow: /register",
+        "Disallow: /en/register",
+        "Disallow: /reset/",
+        "Disallow: /en/reset/",
         f"Sitemap: {base}/sitemap.xml",
     ]
     return "\n".join(lines) + "\n"
@@ -69,7 +73,7 @@ def security_txt(db: DB) -> str:
     expires = (utcnow() + timedelta(days=365)).strftime("%Y-%m-%dT00:00:00Z")
     return (
         f"Contact: mailto:{contact}\nExpires: {expires}\nPreferred-Languages: pt, en\n"
-        f"Canonical: {base}/.well-known/security.txt\nPolicy: {base}/pt/p/terms\n"
+        f"Canonical: {base}/.well-known/security.txt\nPolicy: {base}/p/terms\n"
     )
 
 
@@ -99,14 +103,12 @@ def sitemap(db: DB) -> Response:
     for path, lastmod in entries:
         for lang in ("pt", "en"):
             out.append("<url>")
-            out.append(f"<loc>{escape(f'{base}/{lang}{path}')}</loc>")
+            out.append(f"<loc>{escape(f'{base}{lang_prefix(lang)}{path}')}</loc>")
             if lastmod:
                 out.append(f"<lastmod>{lastmod}</lastmod>")
-            out.append(f'<xhtml:link rel="alternate" hreflang="pt-PT" href="{escape(f"{base}/pt{path}")}"/>')
+            out.append(f'<xhtml:link rel="alternate" hreflang="pt-PT" href="{escape(f"{base}{path}")}"/>')
             out.append(f'<xhtml:link rel="alternate" hreflang="en" href="{escape(f"{base}/en{path}")}"/>')
-            out.append(
-                f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape(f"{base}/pt{path}")}"/>'
-            )
+            out.append(f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape(f"{base}{path}")}"/>')
             out.append("</url>")
     out.append("</urlset>")
     return Response("\n".join(out), media_type="application/xml")

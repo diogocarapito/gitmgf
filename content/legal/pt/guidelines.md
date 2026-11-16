@@ -8,7 +8,7 @@ last_updated: 2026-11-16
 
 **Versão 2026-11 · Última atualização: 16 de novembro de 2026**
 
-Estas normas complementam os [Termos de Utilização](/pt/p/terms) e explicam o que pode ser publicado na gitmgf e como preparar uma ficha que passe na revisão à primeira. Cada ficha é revista por um moderador antes de ficar pública.
+Estas normas complementam os [Termos de Utilização](/p/terms) e explicam o que pode ser publicado na gitmgf e como preparar uma ficha que passe na revisão à primeira. Cada ficha é revista por um moderador antes de ficar pública.
 
 ## 1. O que aceitamos
 

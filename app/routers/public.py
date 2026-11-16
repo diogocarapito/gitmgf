@@ -10,7 +10,7 @@ from app import i18n
 from app.config import get_settings
 from app.deps import DB, CurrentUser, Form
 from app.forms.search import SearchQueryParams
-from app.i18n import N_
+from app.i18n import N_, lang_prefix
 from app.models import Category, Tool, ToolMedia, tool_categories
 from app.models.enums import EventKind, MediaState, ToolStatus
 from app.routers.auth import client_key
@@ -24,17 +24,23 @@ pages = APIRouter()
 actions = APIRouter()
 
 
-@root.get("/")
-def locale_redirect(request: Request, user: CurrentUser) -> Response:
-    """Cookie › user locale › Accept-Language (any pt* → pt) › pt (TECH_SPEC §13)."""
-    cookie = request.cookies.get(i18n.LANG_COOKIE)
-    if cookie in i18n.LANGS:
-        lang = cookie
-    elif user is not None:
-        lang = user.locale.value
-    else:
-        lang = i18n.negotiate(request.headers.get("accept-language"))
-    return RedirectResponse(f"/{lang}/", status_code=302, headers={"Vary": "Accept-Language, Cookie"})
+@root.api_route("/pt", methods=["GET", "HEAD", "POST"])
+@root.api_route("/pt/{rest:path}", methods=["GET", "HEAD", "POST"])
+def legacy_pt_redirect(request: Request, rest: str = "") -> Response:
+    """Old /pt/… URLs (before D28) → the same page at the root. 308 keeps the method for POSTs."""
+    query = f"?{request.url.query}" if request.url.query else ""
+    return RedirectResponse(f"/{rest}{query}", status_code=308 if request.method == "POST" else 301)
+
+
+def first_visit_redirect(request: Request, user: Any) -> Response | None:
+    """Only on a first visit to the PT home: English browsers go to /en/ (PRD F13). Never on later visits,
+    so choosing PT in the language switcher always sticks."""
+    if request.cookies.get(i18n.LANG_COOKIE) in i18n.LANGS:
+        return None
+    lang = user.locale.value if user is not None else i18n.negotiate(request.headers.get("accept-language"))
+    if lang != "en":
+        return None
+    return RedirectResponse("/en/", status_code=302, headers={"Vary": "Accept-Language, Cookie"})
 
 
 def category_counts(db: DB) -> list[tuple[Category, int]]:
@@ -63,7 +69,11 @@ def _published(db: DB, order: Any, limit: int) -> list[Tool]:
 
 
 @pages.get("/")
-def home(request: Request, db: DB) -> Response:
+def home(request: Request, db: DB, user: CurrentUser) -> Response:
+    if request.state.lang == "pt" and request.url.path == "/":
+        redirect = first_visit_redirect(request, user)
+        if redirect is not None:
+            return redirect
     popular = _published(db, Tool.score.desc(), 6)
     newest = _published(db, Tool.published_at.desc(), 6)
     lang = request.state.lang
@@ -102,7 +112,7 @@ def _search_context(
     def card_href(t: Tool, index: int | None) -> str:
         if search_id:
             return f"/r/{search_id}/{t.id}?pos={offset + (index or 0)}"
-        return f"/{lang}/t/{t.slug}"
+        return f"{lang_prefix(lang)}/t/{t.slug}"
 
     query_pairs: list[tuple[str, Any]] = []
     for key, value in qp.model_dump().items():
@@ -112,7 +122,7 @@ def _search_context(
             query_pairs += [(key, v) for v in value]
         else:
             query_pairs.append((key, "1" if value is True else value))
-    base_path = f"/{lang}/c/{category.slug}" if category else f"/{lang}/search"
+    base_path = f"{lang_prefix(lang)}/c/{category.slug}" if category else f"{lang_prefix(lang)}/search"
     next_url = (
         f"{base_path}?{urlencode([*query_pairs, ('page', result.page + 1)])}" if result.has_next else None
     )
@@ -233,7 +243,7 @@ def feed(request: Request, db: DB) -> Response:
     for t in tools:
         title, _ = i18n.localized(t, "title", lang)
         summary, _ = i18n.localized(t, "summary", lang)
-        link = f"{base}/{lang}/t/{t.slug}"
+        link = f"{base}{lang_prefix(lang)}/t/{t.slug}"
         stamp = (t.published_at or t.created_at).strftime("%Y-%m-%dT%H:%M:%SZ")
         entries.append(
             f'<entry><title>{escape(title)}</title><link href="{escape(link)}"/><id>{escape(link)}</id>'
@@ -243,8 +253,8 @@ def feed(request: Request, db: DB) -> Response:
     title = "gitmgf — " + i18n.t(lang, "Novas ferramentas")
     body = (
         '<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">'
-        f'<title>{escape(title)}</title><link href="{base}/{lang}/"/><link rel="self" href="{base}/{lang}/feed.xml"/>'
-        f"<id>{base}/{lang}/feed.xml</id><updated>{(updated.strftime('%Y-%m-%dT%H:%M:%SZ') if updated else '1970-01-01T00:00:00Z')}</updated>"
+        f'<title>{escape(title)}</title><link href="{base}{lang_prefix(lang)}/"/><link rel="self" href="{base}{lang_prefix(lang)}/feed.xml"/>'
+        f"<id>{base}{lang_prefix(lang)}/feed.xml</id><updated>{(updated.strftime('%Y-%m-%dT%H:%M:%SZ') if updated else '1970-01-01T00:00:00Z')}</updated>"
         + "".join(entries)
         + "</feed>"
     )
@@ -370,8 +380,8 @@ def report_submit(
     db.commit()
     background.add_task(email.deliver_queued)
     target = (
-        f"/{lang}/t/{tool.slug}?flash=reported"
+        f"{lang_prefix(lang)}/t/{tool.slug}?flash=reported"
         if tool.status in ("published", "archived")
-        else f"/{lang}/?flash=reported"
+        else f"{lang_prefix(lang)}/?flash=reported"
     )
     return RedirectResponse(target, status_code=303)

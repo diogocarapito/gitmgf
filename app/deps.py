@@ -33,8 +33,10 @@ def load_user(request: Request, db: DB) -> User | None:
     row = sessions.load(db, token) if token else None
     request.state.user = row.user if row else None
     request.state.session_id = row.id if row else None
-    lang = getattr(request.state, "lang", "pt")
-    request.state.banner = settings_store.get(db, f"site.banner_{lang}") or ""
+    # Both banners: the page language is only fixed later by the page router (D28).
+    request.state.banners = {
+        lang: settings_store.get(db, f"site.banner_{lang}") or "" for lang in ("pt", "en")
+    }
     return request.state.user  # type: ignore[no-any-return]
 
 

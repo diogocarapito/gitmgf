@@ -7,5 +7,5 @@
 {{ _("Denúncias abertas: %(n)s", n=reports) }}
 {% if oldest %}{{ _("Item mais antigo: %(age)s", age=oldest) }}{% endif %}
 
-{{ base_url }}/{{ lang }}/mod
+{{ base_url }}{{ lang_prefix }}/mod
 {% endblock %}

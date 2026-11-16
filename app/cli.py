@@ -156,7 +156,7 @@ def _create_admin(email: str) -> None:
         db.commit()
     base = get_settings().base_url.rstrip("/")
     typer.echo(f"admin ready: {address}")
-    typer.echo(f"set the password (valid 48 h, single use): {base}/pt/reset/{token}")
+    typer.echo(f"set the password (valid 48 h, single use): {base}/reset/{token}")
 
 
 @cli.command("invite")
@@ -173,7 +173,7 @@ def invite(
     with _session() as db:
         _, code = auth_service.create_invite(db, None, email, note, uses, days)
         db.commit()
-    typer.echo(f"{get_settings().base_url.rstrip('/')}/pt/register?invite={code}")
+    typer.echo(f"{get_settings().base_url.rstrip('/')}/register?invite={code}")
 
 
 @cli.command("approve-own-tool")
@@ -214,7 +214,7 @@ def approve_own_tool(
     if has_repo:
         with _session() as db:
             github.sync_all(db, tool_id=tool_id, delay=0)  # best effort: stars, last commit, licence
-    typer.echo(f"published: {get_settings().base_url.rstrip('/')}/pt/t/{slug}")
+    typer.echo(f"published: {get_settings().base_url.rstrip('/')}/t/{slug}")
 
 
 @cli.command("reindex")

@@ -11,7 +11,7 @@ from app.config import get_settings
 from app.deps import DB, Form, UserDep
 from app.forms.account import ProfileForm
 from app.forms.common import errors_from, form_to_dict
-from app.i18n import N_
+from app.i18n import N_, lang_prefix
 from app.models import User, UserSession
 from app.routers.auth import specialty_options
 from app.services import auth as auth_service
@@ -86,7 +86,7 @@ def settings_submit(request: Request, db: DB, user: UserDep, form: Form) -> Resp
         setattr(user, field, getattr(data, field))
     user.locale = data.locale
     db.commit()
-    return RedirectResponse(f"/{user.locale.value}/me/settings?flash=saved", status_code=303)
+    return RedirectResponse(f"{lang_prefix(user.locale.value)}/me/settings?flash=saved", status_code=303)
 
 
 @pages.post("/me/password")
@@ -111,7 +111,9 @@ def change_password(request: Request, db: DB, user: UserDep, form: Form) -> Resp
         if keep is None or row.id != sessions.hash_token(keep):
             db.delete(row)  # sign out every other device
     db.commit()
-    return RedirectResponse(f"/{request.state.lang}/me/settings?flash=password_changed", status_code=303)
+    return RedirectResponse(
+        f"{lang_prefix(request.state.lang)}/me/settings?flash=password_changed", status_code=303
+    )
 
 
 @pages.get("/me/stars")
@@ -183,6 +185,6 @@ def delete_account(
     gdpr.delete_account(db, user, user)
     db.commit()
     background.add_task(email.deliver_queued)
-    response = RedirectResponse(f"/{lang}/?flash=account_deleted", status_code=303)
+    response = RedirectResponse(f"{lang_prefix(lang)}/?flash=account_deleted", status_code=303)
     response.delete_cookie(get_settings().session_cookie, path="/")
     return response

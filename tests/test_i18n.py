@@ -13,28 +13,46 @@ ROOT = Path(__file__).resolve().parents[1]
 @pytest.mark.parametrize(
     ("accept", "expected"),
     [
-        ("pt-PT,pt;q=0.9", "/pt/"),
-        ("pt-BR", "/pt/"),
+        ("pt-PT,pt;q=0.9", None),
+        ("pt-BR", None),
         ("en-GB,en;q=0.8", "/en/"),
         ("fr-FR", "/en/"),
-        ("fr, pt;q=0.5", "/pt/"),
-        (None, "/pt/"),
+        ("fr, pt;q=0.5", None),
+        (None, None),
     ],
 )
-def test_root_redirect_uses_accept_language(client, accept, expected):
+def test_first_visit_to_root_follows_accept_language(client, accept, expected):
+    """D28: PT lives at the root; only a first visit from an English browser is sent to /en/."""
     headers = {"accept-language": accept} if accept else {}
     r = client.get("/", headers=headers)
-    assert r.status_code == 302 and r.headers["location"] == expected
+    if expected is None:
+        assert r.status_code == 200 and '<html lang="pt-PT">' in r.text
+    else:
+        assert r.status_code == 302 and r.headers["location"] == expected
 
 
-def test_language_cookie_wins_over_header(client):
-    client.get("/en/")  # remembers EN
-    r = client.get("/", headers={"accept-language": "pt-PT"})
-    assert r.headers["location"] == "/en/"
+def test_choosing_pt_sticks_even_for_english_browsers(client):
+    client.get("/search")  # a PT page remembers PT
+    r = client.get("/", headers={"accept-language": "en-GB"})
+    assert r.status_code == 200 and '<html lang="pt-PT">' in r.text
+
+
+def test_english_choice_is_remembered_but_root_stays_pt(client):
+    client.get("/en/")  # remembers EN in the cookie
+    r = client.get("/", headers={"accept-language": "en-GB"})
+    assert r.status_code == 200  # an explicit visit to the PT home is never bounced
+
+
+def test_pt_urls_have_no_prefix_and_old_pt_urls_redirect(client):
+    assert 'href="/search"' in client.get("/").text
+    assert 'href="/en/search"' in client.get("/en/").text
+    r = client.get("/pt/p/terms?x=1")
+    assert r.status_code == 301 and r.headers["location"] == "/p/terms?x=1"
+    assert client.get("/pt").headers["location"] == "/"
 
 
 def test_html_lang_and_hreflang(client):
-    r = client.get("/pt/search")
+    r = client.get("/search")
     assert '<html lang="pt-PT">' in r.text
     assert 'hreflang="en" href="http://testserver/en/search"' in r.text
     assert 'hreflang="x-default"' in r.text
@@ -43,7 +61,7 @@ def test_html_lang_and_hreflang(client):
 
 
 def test_language_switcher_keeps_page(client):
-    r = client.get("/pt/p/privacy")
+    r = client.get("/p/privacy")
     assert 'href="/en/p/privacy"' in r.text
 
 
@@ -52,7 +70,7 @@ def test_pt_fallback_pill_when_no_english_text(client, db):
     r = client.get(f"/en/t/{tool.slug}")
     assert r.status_code == 200
     assert 'class="lang-pill"' in r.text
-    r = client.get(f"/pt/t/{tool.slug}")
+    r = client.get(f"/t/{tool.slug}")
     assert "lang-pill" not in r.text.split("<main")[1].split("Detalhes")[0]
 
 

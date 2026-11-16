@@ -51,18 +51,18 @@ def test_owner_and_bots_are_not_counted(client, db):
     client.get(f"/go/{tool.id}/website", headers={"user-agent": ""})
     login(client, db, owner)
     client.get(f"/go/{tool.id}/website", headers=BROWSER)
-    client.get(f"/pt/t/{tool.slug}", headers=BROWSER)
+    client.get(f"/t/{tool.slug}", headers=BROWSER)
     assert events(db) == []
 
 
 def test_search_click_is_recorded_only_for_real_search_ids(client, db):
     tool = make_tool(db, title_pt="Calculadora de vacinas")
-    html = client.get("/pt/search?q=vacinas", headers=BROWSER).text
+    html = client.get("/search?q=vacinas", headers=BROWSER).text
     query = db.scalar(select(SearchQuery))
     assert query is not None and query.results_count == 1
     assert f"/r/{query.id}/{tool.id}?pos=0" in html
     r = client.get(f"/r/{query.id}/{tool.id}?pos=0", headers=BROWSER)
-    assert r.status_code == 302 and r.headers["location"] == f"/pt/t/{tool.slug}"
+    assert r.status_code == 302 and r.headers["location"] == f"/t/{tool.slug}"
     client.get(f"/r/01ARZ3NDEKTSV4RRFFQ69G5FAV/{tool.id}", headers=BROWSER)  # well-formed but unknown
     assert len(events(db, EventKind.search_click)) == 1
 
@@ -70,13 +70,13 @@ def test_search_click_is_recorded_only_for_real_search_ids(client, db):
 def test_keystrokes_refine_the_same_search_row(client, db):
     make_tool(db, title_pt="Diabetes tipo 2")
     for q in ("di", "dia", "diab", "diabetes"):
-        client.get(f"/pt/search?q={q}", headers=BROWSER)
+        client.get(f"/search?q={q}", headers=BROWSER)
     rows = db.scalars(select(SearchQuery)).all()
     assert len(rows) == 1 and rows[0].q == "diabetes"
 
 
 def test_zero_result_searches_are_logged(client, db):
-    client.get("/pt/search?q=inexistentexyz", headers=BROWSER)
+    client.get("/search?q=inexistentexyz", headers=BROWSER)
     assert db.scalar(select(SearchQuery)).results_count == 0
 
 

@@ -3,7 +3,7 @@
 {{ _("Olá,") }}
 
 {{ _("As alterações à ficha «%(title)s» foram aprovadas e já estão publicadas:", title=title) }}
-{{ base_url }}/{{ lang }}/t/{{ slug }}
+{{ base_url }}{{ lang_prefix }}/t/{{ slug }}
 {% if rejected_claims %}
 
 {{ _("Algumas certificações não foram aprovadas:") }}

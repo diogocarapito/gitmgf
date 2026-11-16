@@ -27,11 +27,8 @@ env.install_gettext_callables(gettext=i18n.gettext, ngettext=i18n.ngettext, news
 
 @pass_context
 def _url(ctx: Any, path: str = "/", **query: Any) -> str:
-    """Language-prefixed URL: url('/search', q='x') -> /pt/search?q=x"""
-    lang = ctx.get("lang", i18n.DEFAULT_LANG)
-    if not path.startswith("/"):
-        path = "/" + path
-    base = f"/{lang}{path}"
+    """Page URL in the current language: url('/search', q='x') -> /search?q=x (PT) or /en/search?q=x (EN)."""
+    base = i18n.lang_path(ctx.get("lang", i18n.DEFAULT_LANG), path)
     pairs = [(k, v) for k, v in query.items() if v not in (None, "", [], False)]
     return f"{base}?{urlencode(pairs, doseq=True)}" if pairs else base
 
@@ -137,7 +134,7 @@ def base_context(request: Request) -> dict[str, Any]:
         "url_pt": i18n.swap_lang(path, "pt"),
         "url_en": i18n.swap_lang(path, "en"),
         "base_url": get_settings().base_url.rstrip("/"),
-        "banner": getattr(request.state, "banner", ""),
+        "banner": getattr(request.state, "banners", {}).get(lang, ""),
         "is_htmx": is_htmx(request),
         "settings": get_settings(),
         "flash": request.query_params.get("flash"),
@@ -180,7 +177,7 @@ def text_to_html(text: str) -> Markup:
 def render_email(template: str, context: dict[str, Any], lang: str) -> tuple[str, str, str]:
     """Returns (subject, text, html). Each email template defines `subject` and `body` blocks."""
     base = get_settings().base_url.rstrip("/")
-    ctx = {"lang": lang, "base_url": base, **context}
+    ctx = {"lang": lang, "base_url": base, "lang_prefix": i18n.lang_prefix(lang), **context}
     with i18n.use_lang(lang):
         tmpl = env.get_template(f"emails/{template}.txt")
         tctx = tmpl.new_context(ctx)

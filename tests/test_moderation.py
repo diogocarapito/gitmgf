@@ -17,9 +17,9 @@ def test_queue_lists_pending_items_oldest_first(client, db):
     first = make_tool(db, status="pending", title_pt="Primeira")
     make_tool(db, status="pending", title_pt="Segunda")
     login(client, db, mod)
-    html = client.get("/pt/mod").text
+    html = client.get("/mod").text
     assert html.index("Primeira") < html.index("Segunda")
-    assert f"/pt/mod/tools/{first.id}" in html
+    assert f"/mod/tools/{first.id}" in html
 
 
 def test_approve_with_claim_rejection_emails_owner(client, db):
@@ -94,7 +94,7 @@ def test_revision_review_shows_diff_and_approves(client, db):
     db.commit()
     revision = svc.pending_revision(db, tool)
     login(client, db, mod)
-    html = client.get(f"/pt/mod/revisions/{revision.id}").text
+    html = client.get(f"/mod/revisions/{revision.id}").text
     assert "<ins>" in html and "<del>" in html
     assert post(client, f"/mod/revisions/{revision.id}/approve").status_code == 303
     db.refresh(tool)
@@ -109,7 +109,7 @@ def test_hide_and_unhide_with_audit_and_statement_of_reasons(client, db):
     post(client, f"/mod/tools/{tool.id}/hide", {"reason_template": "patient_data"})
     db.refresh(tool)
     assert tool.status == ToolStatus.hidden
-    assert client.get(f"/pt/t/{tool.slug}").status_code == 200  # moderator still sees it
+    assert client.get(f"/t/{tool.slug}").status_code == 200  # moderator still sees it
     hidden = _emails(db, "tool_hidden")[-1].body_text
     assert "Medida:" in hidden and "Contestação" in hidden
     post(client, f"/mod/tools/{tool.id}/unhide")
@@ -156,10 +156,10 @@ def test_suspension_kills_sessions(client, db):
 
     with TestClient(app, follow_redirects=False) as other:
         login(other, db, user)
-        assert other.get("/pt/me/settings").status_code == 200
+        assert other.get("/me/settings").status_code == 200
         login(client, db, admin)
         post(client, f"/admin/users/{user.id}/suspend", {"reason": "Spam repetido."})
-        assert other.get("/pt/me/settings").status_code == 303
+        assert other.get("/me/settings").status_code == 303
 
 
 def test_admin_adds_category_without_deploy(client, db):
@@ -167,11 +167,11 @@ def test_admin_adds_category_without_deploy(client, db):
     login(client, db, admin)
     r = post(
         client,
-        "/pt/admin/categories",
+        "/admin/categories",
         {"name_pt": "Medicina Desportiva", "name_en": "Sports Medicine", "is_specialty": "1"},
     )
     assert r.status_code == 303
-    assert client.get("/pt/c/medicina-desportiva").status_code == 200
+    assert client.get("/c/medicina-desportiva").status_code == 200
     assert "Sports Medicine" in client.get("/en/c/").text
 
 
@@ -184,11 +184,11 @@ def test_settings_change_is_audited_and_applied(client, db):
     values["site.registration_open"] = "1"
     values["site.banner_pt"] = "Manutenção às 22h"
     values["reports.auto_hide_threshold"] = "5"
-    r = post(client, "/pt/admin/settings", values)
+    r = post(client, "/admin/settings", values)
     assert r.status_code == 303
     settings_store.invalidate()
     assert settings_store.get(db, "reports.auto_hide_threshold") == 5
-    assert "Manutenção às 22h" in client.get("/pt/").text
+    assert "Manutenção às 22h" in client.get("/").text
     assert db.scalar(select(AuditLog).where(AuditLog.action == "settings.change"))
 
 

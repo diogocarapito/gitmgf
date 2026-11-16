@@ -19,7 +19,7 @@ def test_terms_version_matches_current_setting():
 @pytest.mark.parametrize("page", legal.PAGES)
 @pytest.mark.parametrize("lang", ["pt", "en"])
 def test_pages_render(client, page, lang):
-    r = client.get(f"/{lang}/p/{page}")
+    r = client.get(f"{'/en' if lang == 'en' else ''}/p/{page}")
     assert r.status_code == 200
     if lang == "en":
         assert "prevalece a versão em português" in r.text or "Portuguese version prevails" in r.text
@@ -30,7 +30,7 @@ def test_placeholders_are_filled_and_threshold_comes_from_settings(client, db, m
         monkeypatch.setenv(f"LEGAL_{key}", value)
     settings_store.set_value(db, "reports.auto_hide_threshold", 4, None)
     db.commit()
-    html = client.get("/pt/p/terms").text
+    html = client.get("/p/terms").text
     assert "[[" not in html
     assert "valor-controller_name" in html
     assert legal.missing_placeholders(db) == set()
@@ -80,13 +80,13 @@ def test_robots_and_sitemap(client, db):
     tool = make_tool(db)
     assert "Disallow: /go/" in client.get("/robots.txt").text
     xml = client.get("/sitemap.xml").text
-    assert f"/pt/t/{tool.slug}" in xml and 'hreflang="en"' in xml
-    feed = client.get("/pt/feed.xml")
+    assert f"/t/{tool.slug}" in xml and 'hreflang="en"' in xml
+    feed = client.get("/feed.xml")
     assert feed.headers["content-type"].startswith("application/atom+xml") and tool.title_pt in feed.text
 
 
 def test_security_headers(client):
-    r = client.get("/pt/")
+    r = client.get("/")
     csp = r.headers["content-security-policy"]
     assert "script-src 'self'" in csp and "frame-ancestors 'none'" in csp and "unsafe-inline" not in csp
     assert r.headers["x-content-type-options"] == "nosniff"

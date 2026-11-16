@@ -155,6 +155,6 @@ def test_usage_stats_for_authors(client, db):
     usage = stats.usage_for(db, [tool.id])[tool.id]
     assert usage["search_30"] == 2 and usage["search_90"] == 7 and usage["views_30"] == 7
     login(client, db, owner)
-    page = client.get(f"/pt/me/tools/{tool.id}/stats")
+    page = client.get(f"/me/tools/{tool.id}/stats")
     assert page.status_code == 200 and "Estatísticas" in page.text
-    assert "2 / 7" in client.get("/pt/me/tools").text
+    assert "2 / 7" in client.get("/me/tools").text

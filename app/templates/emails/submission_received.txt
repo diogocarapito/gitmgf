@@ -5,7 +5,7 @@
 {{ _("Recebemos a ficha «%(title)s». Um moderador vai revê-la e receberá um email com a decisão.", title=title) }}
 
 {{ _("Enquanto estiver em revisão, a ficha não é pública. Pode acompanhar o estado em:") }}
-{{ base_url }}/{{ lang }}/me/tools
+{{ base_url }}{{ lang_prefix }}/me/tools
 
 {{ _("Obrigado por partilhar o seu trabalho.") }}
 {% endblock %}

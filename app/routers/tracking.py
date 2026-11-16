@@ -6,6 +6,7 @@ from sqlalchemy import select
 
 from app import i18n
 from app.deps import DB, CurrentUser
+from app.i18n import lang_prefix
 from app.models import PUBLIC_STATUSES, SearchQuery, Tool
 from app.models.enums import EventKind, LinkKind
 from app.services import ratelimit, search, tracking
@@ -38,7 +39,7 @@ def search_click(
     if search.ULID_RE.match(search_id) and db.get(SearchQuery, search_id) is not None:
         tracking.record(db, request, tool, EventKind.search_click, user, search_id=search_id, position=pos)
         db.commit()
-    return RedirectResponse(f"/{_lang(request)}/t/{tool.slug}", status_code=302, headers=NO_STORE)
+    return RedirectResponse(f"{lang_prefix(_lang(request))}/t/{tool.slug}", status_code=302, headers=NO_STORE)
 
 
 @router.get("/go/{tool_id}/{link_kind}")
@@ -73,11 +74,12 @@ def star(request: Request, db: DB, user: CurrentUser, tool_id: int) -> Response:
             return Response(
                 status_code=204,
                 headers={
-                    "HX-Redirect": f"/{request.state.lang}/login?next=/{request.state.lang}/t/{tool.slug}"
+                    "HX-Redirect": f"{lang_prefix(request.state.lang)}/login?next={lang_prefix(request.state.lang)}/t/{tool.slug}"
                 },
             )
         return RedirectResponse(
-            f"/{request.state.lang}/login?next=/{request.state.lang}/t/{tool.slug}", status_code=303
+            f"{lang_prefix(request.state.lang)}/login?next={lang_prefix(request.state.lang)}/t/{tool.slug}",
+            status_code=303,
         )
     if not ratelimit.hit(ratelimit.STAR_USER, "star", str(user.id)):
         raise HTTPException(status_code=429)
@@ -90,4 +92,4 @@ def star(request: Request, db: DB, user: CurrentUser, tool_id: int) -> Response:
         return render(
             request, "partials/star_button.html", {"tool": tool, "starred": starred, "can_star": True}
         )
-    return RedirectResponse(f"/{request.state.lang}/t/{tool.slug}", status_code=303)
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/t/{tool.slug}", status_code=303)

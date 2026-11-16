@@ -14,7 +14,7 @@ from app.db import utcnow
 from app.deps import DB, CurrentUser, Form, LoginRequired
 from app.forms.account import LoginForm, OnboardingForm, RegisterForm, new_password_errors
 from app.forms.common import errors_from, form_to_dict
-from app.i18n import N_
+from app.i18n import N_, lang_prefix
 from app.models import Category, User
 from app.services import auth as auth_service
 from app.services import email, ratelimit, sessions, settings_store
@@ -65,9 +65,9 @@ def login_response(db: DB, request: Request, user: User, next_path: str | None) 
     token = sessions.create(db, user, request.headers.get("user-agent"))
     db.commit()
     lang = user.locale.value
-    target = auth_service.safe_next(next_path) or f"/{lang}/"
+    target = auth_service.safe_next(next_path) or f"{lang_prefix(lang)}/"
     if auth_service.needs_onboarding(db, user):
-        target = f"/{lang}/onboarding?next={quote(target, safe='/')}"
+        target = f"{lang_prefix(lang)}/onboarding?next={quote(target, safe='/')}"
     response = RedirectResponse(target, status_code=303)
     _set_session_cookie(response, token)
     return response
@@ -85,7 +85,9 @@ def _login_page(request: Request, next_path: str | None, status_code: int = 200,
 @pages.get("/login")
 def login_page(request: Request, user: CurrentUser, next: str | None = None) -> Response:
     if user is not None:
-        return RedirectResponse(auth_service.safe_next(next) or f"/{request.state.lang}/", status_code=303)
+        return RedirectResponse(
+            auth_service.safe_next(next) or f"{lang_prefix(request.state.lang)}/", status_code=303
+        )
     return _login_page(request, next)
 
 
@@ -143,7 +145,7 @@ def _register_page(
 @pages.get("/register")
 def register_page(request: Request, db: DB, user: CurrentUser, invite: str | None = None) -> Response:
     if user is not None:
-        return RedirectResponse(f"/{request.state.lang}/", status_code=303)
+        return RedirectResponse(f"{lang_prefix(request.state.lang)}/", status_code=303)
     return _register_page(request, db, {"invite": invite or ""}, {})
 
 
@@ -198,7 +200,7 @@ def logout(request: Request, db: DB) -> Response:
     if token:
         sessions.destroy(db, token)
         db.commit()
-    response = RedirectResponse(f"/{request.state.lang}/", status_code=303)
+    response = RedirectResponse(f"{lang_prefix(request.state.lang)}/", status_code=303)
     response.delete_cookie(get_settings().session_cookie, path="/")
     return response
 
@@ -208,7 +210,7 @@ def logout_all(request: Request, db: DB, user: CurrentUser) -> Response:
     if user is not None:
         sessions.destroy_all(db, user.id)
         db.commit()
-    response = RedirectResponse(f"/{request.state.lang}/?flash=signed_out_all", status_code=303)
+    response = RedirectResponse(f"{lang_prefix(request.state.lang)}/?flash=signed_out_all", status_code=303)
     response.delete_cookie(get_settings().session_cookie, path="/")
     return response
 
@@ -306,5 +308,5 @@ def onboarding_submit(
         email.enqueue(db, user.email, "welcome", {"name": user.display_name}, user.locale.value)
     db.commit()
     background.add_task(email.deliver_queued)
-    target = auth_service.safe_next(raw.get("next")) or f"/{user.locale.value}/"
+    target = auth_service.safe_next(raw.get("next")) or f"{lang_prefix(user.locale.value)}/"
     return RedirectResponse(target, status_code=303)

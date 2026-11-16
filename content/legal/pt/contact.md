@@ -11,7 +11,7 @@ Para questões gerais, contestação de decisões de moderação e comunicaçõe
 
 ## Privacidade
 
-Para exercer os seus direitos sobre dados pessoais (acesso, retificação, eliminação, portabilidade, oposição): **[[PRIVACY_EMAIL]]**. Também pode transferir os seus dados e eliminar a conta nas [Definições](/pt/me/settings). Saiba mais na [Política de Privacidade](/pt/p/privacy).
+Para exercer os seus direitos sobre dados pessoais (acesso, retificação, eliminação, portabilidade, oposição): **[[PRIVACY_EMAIL]]**. Também pode transferir os seus dados e eliminar a conta nas [Definições](/me/settings). Saiba mais na [Política de Privacidade](/p/privacy).
 
 ## Segurança
 

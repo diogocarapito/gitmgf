@@ -11,6 +11,7 @@ from sqlalchemy import func, or_, select
 
 from app.db import utcnow
 from app.deps import DB, AdminDep, Form, ModDep
+from app.i18n import lang_prefix
 from app.models import (
     AuditLog,
     Category,
@@ -50,7 +51,7 @@ SETTING_FIELDS: list[tuple[str, str]] = [
 
 def _back(request: Request, path: str, flash: str | None = None) -> RedirectResponse:
     return RedirectResponse(
-        f"/{request.state.lang}{path}{f'?flash={flash}' if flash else ''}", status_code=303
+        f"{lang_prefix(request.state.lang)}{path}{f'?flash={flash}' if flash else ''}", status_code=303
     )
 
 
@@ -706,7 +707,7 @@ def create_invite(request: Request, db: DB, user: AdminDep, form: Form) -> Respo
         return _invite_page(request, db, errors=errors, status=422)
     _, code = auth_service.create_invite(db, user, address, str(form.get("note") or ""), max_uses, days)
     db.commit()
-    link = f"{get_settings().base_url.rstrip('/')}/{request.state.lang}/register?invite={code}"
+    link = f"{get_settings().base_url.rstrip('/')}{lang_prefix(request.state.lang)}/register?invite={code}"
     return _invite_page(request, db, created_link=link)
 
 
@@ -731,7 +732,7 @@ def reset_link(request: Request, db: DB, user: AdminDep, user_id: int) -> Respon
     target = _user(db, user_id)
     token = auth_service.create_reset_link(db, target, user)
     db.commit()
-    link = f"{get_settings().base_url.rstrip('/')}/{target.locale.value}/reset/{token}"
+    link = f"{get_settings().base_url.rstrip('/')}{lang_prefix(target.locale.value)}/reset/{token}"
     tools = tool_service.owned_tools(db, target)
     log = db.scalars(
         select(AuditLog)

@@ -11,10 +11,10 @@ from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.types import Scope
 
-from app import i18n
 from app.config import get_settings
 from app.db import SessionLocal, get_engine
 from app.deps import LoginRequired, OnboardingRequired, csrf_protect, load_user
+from app.i18n import lang_prefix
 from app.middleware import plumbing
 from app.routers import admin, auth, dev, editor, me, mod, public, system, tracking
 from app.services import legal, settings_store
@@ -63,6 +63,16 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     yield
 
 
+def page_language(lang: str) -> Any:
+    """Router dependency: the page's language comes from where it is mounted, not from cookies."""
+
+    def dependency(request: Request) -> None:
+        request.state.lang = lang
+        request.state.page_lang = lang
+
+    return dependency
+
+
 def create_app() -> FastAPI:
     settings = get_settings()
     logging.basicConfig(level=logging.INFO if settings.app_env != "test" else logging.WARNING)
@@ -83,14 +93,19 @@ def create_app() -> FastAPI:
 
     app.include_router(system.router)
     app.include_router(tracking.router)
+    modules = (public, auth, me, editor, mod, admin)
+    if not settings.is_prod:
+        modules = (*modules, dev)
+    # Pages first (D28): PT at the root, EN under /en. Without a prefix, PT pages share the path space
+    # with unprefixed action routes, so pages must win (e.g. POST /me/tools/{id}/edit).
+    for lang in ("en", "pt"):
+        for module in modules:
+            app.include_router(
+                module.pages, prefix=lang_prefix(lang), dependencies=[Depends(page_language(lang))]
+            )
     for module in (public, auth, me, editor, mod, admin):
         app.include_router(module.actions)
-        for lang in i18n.LANGS:
-            app.include_router(module.pages, prefix=f"/{lang}")
-    app.include_router(public.root)
-    if not settings.is_prod:
-        for lang in i18n.LANGS:
-            app.include_router(dev.pages, prefix=f"/{lang}")
+    app.include_router(public.root)  # legacy /pt/… redirects
     register_error_handlers(app)
     return app
 
@@ -101,12 +116,14 @@ ERROR_TEMPLATES = {403: "errors/403.html", 404: "errors/404.html", 429: "errors/
 def register_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(LoginRequired)
     async def _login_required(request: Request, exc: LoginRequired) -> Response:
-        return RedirectResponse(_with_next(f"/{request.state.lang}/login", exc.next_path), status_code=303)
+        return RedirectResponse(
+            _with_next(f"{lang_prefix(request.state.lang)}/login", exc.next_path), status_code=303
+        )
 
     @app.exception_handler(OnboardingRequired)
     async def _onboarding_required(request: Request, exc: OnboardingRequired) -> Response:
         return RedirectResponse(
-            _with_next(f"/{request.state.lang}/onboarding", exc.next_path), status_code=303
+            _with_next(f"{lang_prefix(request.state.lang)}/onboarding", exc.next_path), status_code=303
         )
 
     @app.exception_handler(StarletteHTTPException)

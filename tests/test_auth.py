@@ -28,16 +28,16 @@ def sessions_of(db, user):
 
 def test_login_with_password_sets_session_and_redirects(client, db):
     user = with_password(db, make_user(db, "ana@example.org"))
-    r = post(client, "/pt/login", {"email": "Ana@Example.org", "password": PASSWORD, "next": "/pt/search"})
-    assert r.status_code == 303 and r.headers["location"] == "/pt/search"
+    r = post(client, "/login", {"email": "Ana@Example.org", "password": PASSWORD, "next": "/search"})
+    assert r.status_code == 303 and r.headers["location"] == "/search"
     assert get_cookie(client, "gitmgf_session")
     assert len(sessions_of(db, user)) == 1
 
 
 def test_wrong_password_and_unknown_email_look_the_same(client, db):
     with_password(db, make_user(db, "ana@example.org"))
-    wrong = post(client, "/pt/login", {"email": "ana@example.org", "password": "errada errada"})
-    unknown = post(client, "/pt/login", {"email": "ninguem@example.org", "password": "errada errada"})
+    wrong = post(client, "/login", {"email": "ana@example.org", "password": "errada errada"})
+    unknown = post(client, "/login", {"email": "ninguem@example.org", "password": "errada errada"})
     assert wrong.status_code == unknown.status_code == 401
     assert (
         "Email ou palavra-passe incorretos" in wrong.text
@@ -49,8 +49,8 @@ def test_wrong_password_and_unknown_email_look_the_same(client, db):
 def test_login_is_rate_limited_per_email(client, db):
     with_password(db, make_user(db, "ana@example.org"))
     for _ in range(10):
-        post(client, "/pt/login", {"email": "ana@example.org", "password": "errada errada"})
-    r = post(client, "/pt/login", {"email": "ana@example.org", "password": PASSWORD})
+        post(client, "/login", {"email": "ana@example.org", "password": "errada errada"})
+    r = post(client, "/login", {"email": "ana@example.org", "password": PASSWORD})
     assert r.status_code == 429  # even the right password waits
 
 
@@ -58,26 +58,24 @@ def test_suspended_user_cannot_sign_in(client, db):
     user = with_password(db, make_user(db, "s@example.org"))
     user.status = UserStatus.suspended
     db.commit()
-    r = post(client, "/pt/login", {"email": "s@example.org", "password": PASSWORD})
+    r = post(client, "/login", {"email": "s@example.org", "password": PASSWORD})
     assert r.status_code == 403
     login(client, db, user)  # an old session must not work either
-    assert client.get("/pt/me/settings").status_code == 303
+    assert client.get("/me/settings").status_code == 303
 
 
 def test_new_session_on_every_login(client, db):
     user = with_password(db, make_user(db, "a@example.org"))
     login(client, db, user)
     old = get_cookie(client, "gitmgf_session")
-    post(client, "/pt/login", {"email": "a@example.org", "password": PASSWORD})
+    post(client, "/login", {"email": "a@example.org", "password": PASSWORD})
     assert get_cookie(client, "gitmgf_session") != old
     assert len(sessions_of(db, user)) == 1
 
 
 def test_next_param_must_be_relative(client, db):
     with_password(db, make_user(db, "a@example.org"))
-    r = post(
-        client, "/pt/login", {"email": "a@example.org", "password": PASSWORD, "next": "//evil.example/x"}
-    )
+    r = post(client, "/login", {"email": "a@example.org", "password": PASSWORD, "next": "//evil.example/x"})
     assert "evil" not in r.headers["location"]
 
 
@@ -96,7 +94,7 @@ def test_logout_and_logout_everywhere(client, db):
 
 def _register(client, **data):
     payload = {"email": "nova@example.org", "password": PASSWORD, "password_confirm": PASSWORD, **data}
-    return post(client, "/pt/register", payload)
+    return post(client, "/register", payload)
 
 
 def test_registration_requires_invite_by_default(client, db):
@@ -110,9 +108,9 @@ def test_invite_registers_then_onboarding(client, db):
     admin = make_user(db, "admin@example.org", Role.admin)
     _, code = auth_service.create_invite(db, admin, note="Ana")
     db.commit()
-    assert "Convite válido" in client.get(f"/pt/register?invite={code}").text
+    assert "Convite válido" in client.get(f"/register?invite={code}").text
     r = _register(client, invite=code)
-    assert r.status_code == 303 and r.headers["location"].startswith("/pt/onboarding")
+    assert r.status_code == 303 and r.headers["location"].startswith("/onboarding")
     user = db.scalar(select(User).where(User.email == "nova@example.org"))
     assert user and passwords.verify_password(PASSWORD, user.password_hash)
     db.expire_all()
@@ -174,13 +172,13 @@ def test_reset_link_sets_password_and_signs_out_other_sessions(client, db):
     token = auth_service.create_reset_link(db, user, admin)
     db.commit()
     client.cookies.clear()
-    assert client.get(f"/pt/reset/{token}").status_code == 200
+    assert client.get(f"/reset/{token}").status_code == 200
     new = "nova frase secreta"
-    assert post(client, f"/pt/reset/{token}", {"password": new, "password_confirm": new}).status_code == 303
+    assert post(client, f"/reset/{token}", {"password": new, "password_confirm": new}).status_code == 303
     db.expire_all()
     assert passwords.verify_password(new, db.get(User, user.id).password_hash)
     assert len(sessions_of(db, user)) == 1  # only the new one
-    assert client.get(f"/pt/reset/{token}").status_code == 400  # single use
+    assert client.get(f"/reset/{token}").status_code == 400  # single use
 
 
 def test_reset_link_expires_and_new_link_invalidates_old(client, db):
@@ -188,24 +186,24 @@ def test_reset_link_expires_and_new_link_invalidates_old(client, db):
     first = auth_service.create_reset_link(db, user, None)
     second = auth_service.create_reset_link(db, user, None)
     db.commit()
-    assert client.get(f"/pt/reset/{first}").status_code == 400
+    assert client.get(f"/reset/{first}").status_code == 400
     with time_machine.travel(utcnow() + timedelta(hours=49), tick=False):
-        assert client.get(f"/pt/reset/{second}").status_code == 400
+        assert client.get(f"/reset/{second}").status_code == 400
 
 
 def test_admin_generates_reset_link_from_user_page(client, db):
     admin = make_user(db, "admin@example.org", Role.admin)
     user = make_user(db, "u@example.org")
     login(client, db, admin)
-    r = post(client, f"/pt/admin/users/{user.id}/reset-link")
-    assert r.status_code == 200 and f"/{user.locale.value}/reset/" in r.text
+    r = post(client, f"/admin/users/{user.id}/reset-link")
+    assert r.status_code == 200 and "http://testserver/reset/" in r.text
 
 
 def test_admin_creates_invite_from_admin_page(client, db):
     admin = make_user(db, "admin@example.org", Role.admin)
     login(client, db, admin)
-    r = post(client, "/pt/admin/invites", {"note": "Beta MGF", "max_uses": "5", "days": "30"})
-    assert r.status_code == 200 and "/pt/register?invite=" in r.text
+    r = post(client, "/admin/invites", {"note": "Beta MGF", "max_uses": "5", "days": "30"})
+    assert r.status_code == 200 and "/register?invite=" in r.text
     invite = db.scalar(select(Invite))
     assert invite.max_uses == 5 and invite.note == "Beta MGF"
 
@@ -216,7 +214,7 @@ def test_cli_create_admin_prints_set_password_link(db_path):
     from app.cli import cli
 
     result = CliRunner().invoke(cli, ["create-admin", "Chefe@Example.org"])
-    assert result.exit_code == 0 and "/pt/reset/" in result.output
+    assert result.exit_code == 0 and "/reset/" in result.output
 
 
 # ---------- settings & onboarding ----------
@@ -226,13 +224,9 @@ def test_change_password_requires_current(client, db):
     user = with_password(db, make_user(db, "me@example.org"))
     login(client, db, user)
     new = "outra frase longa"
-    r = post(
-        client, "/pt/me/password", {"current_password": "errada", "password": new, "password_confirm": new}
-    )
+    r = post(client, "/me/password", {"current_password": "errada", "password": new, "password_confirm": new})
     assert r.status_code == 422
-    r = post(
-        client, "/pt/me/password", {"current_password": PASSWORD, "password": new, "password_confirm": new}
-    )
+    r = post(client, "/me/password", {"current_password": PASSWORD, "password": new, "password_confirm": new})
     assert r.status_code == 303
     db.refresh(user)
     assert passwords.verify_password(new, user.password_hash)
@@ -241,11 +235,11 @@ def test_change_password_requires_current(client, db):
 def test_onboarding_completes_profile_and_terms(client, db):
     user = make_user(db, "n@example.org", onboarded=False)
     login(client, db, user)
-    assert client.get("/pt/me/settings").headers["location"].startswith("/pt/onboarding")
+    assert client.get("/me/settings").headers["location"].startswith("/onboarding")
     data = {"display_name": "Nova Pessoa", "handle": "nova-pessoa", "profession": "resident", "locale": "en"}
-    r = post(client, "/pt/onboarding", data)
+    r = post(client, "/onboarding", data)
     assert r.status_code == 422 and "Tem de aceitar" in r.text
-    r = post(client, "/pt/onboarding", {**data, "accept_terms": "1", "next": "/en/search"})
+    r = post(client, "/onboarding", {**data, "accept_terms": "1", "next": "/en/search"})
     assert r.status_code == 303 and r.headers["location"] == "/en/search"
     db.refresh(user)
     assert user.onboarded_at and user.terms_version == "2026-11" and user.locale.value == "en"
@@ -256,7 +250,7 @@ def test_onboarding_rejects_taken_handle(client, db):
     user = make_user(db, "n@example.org", onboarded=False)
     login(client, db, user)
     data = {"display_name": "X Y", "handle": "taken", "profession": "nurse", "accept_terms": "1"}
-    r = post(client, "/pt/onboarding", data)
+    r = post(client, "/onboarding", data)
     assert r.status_code == 422 and "já está a ser usado" in r.text
 
 
@@ -270,12 +264,12 @@ def test_settings_update_profile(client, db):
         "locale": "pt",
         "github_username": "https://github.com/novo",
     }
-    assert post(client, "/pt/me/settings", data).status_code == 303
+    assert post(client, "/me/settings", data).status_code == 303
     db.refresh(user)
     assert user.display_name == "Novo Nome" and user.github_username == "novo"
     assert (
         post(
-            client, "/pt/me/settings", {"display_name": "X", "handle": "Bad Handle!", "profession": "nurse"}
+            client, "/me/settings", {"display_name": "X", "handle": "Bad Handle!", "profession": "nurse"}
         ).status_code
         == 422
     )
@@ -297,4 +291,4 @@ def test_cli_change_email_keeps_account_and_signs_out(client, db):
     moved = db.get(User, user.id)
     assert moved.email == "new@example.org" and moved.role == Role.admin
     assert sessions_of(db, moved) == []
-    assert post(client, "/pt/login", {"email": "new@example.org", "password": PASSWORD}).status_code == 303
+    assert post(client, "/login", {"email": "new@example.org", "password": PASSWORD}).status_code == 303

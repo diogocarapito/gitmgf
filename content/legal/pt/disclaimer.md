@@ -14,7 +14,7 @@ As ferramentas listadas na gitmgf são criadas e publicadas pelos respetivos aut
 
 ## Sem validação clínica
 
-A gitmgf **não valida a correção clínica** das ferramentas, das fórmulas, dos conteúdos nem dos resultados. A moderação verifica o cumprimento das [Normas de Submissão](/pt/p/guidelines), não a exatidão científica.
+A gitmgf **não valida a correção clínica** das ferramentas, das fórmulas, dos conteúdos nem dos resultados. A moderação verifica o cumprimento das [Normas de Submissão](/p/guidelines), não a exatidão científica.
 
 As ferramentas **não substituem o juízo clínico** nem a avaliação individual de cada utente. Confirme sempre os resultados, as doses e as recomendações com fontes de referência e com os protocolos e orientações locais e nacionais em vigor.
 
@@ -32,4 +32,4 @@ Não introduza dados de utentes em ferramentas cujo tratamento de dados não con
 
 ## Responsabilidade
 
-Os limites de responsabilidade da gitmgf estão descritos nos [Termos de Utilização](/pt/p/terms). Se encontrar um problema numa ferramenta, use a ligação "Reportar problema" na página respetiva.
+Os limites de responsabilidade da gitmgf estão descritos nos [Termos de Utilização](/p/terms). Se encontrar um problema numa ferramenta, use a ligação "Reportar problema" na página respetiva.

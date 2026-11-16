@@ -30,9 +30,9 @@ pybabel compile -d app/locales -D messages
 ADMIN_EMAILS=you@example.org uvicorn app.main:app --reload
 ```
 
-Open http://localhost:8000/pt/register and create an account with the address you put in `ADMIN_EMAILS` (no invite needed). To try another account, create an invite in **Administração → Convites** and open the link in a private window.
+Open http://localhost:8000/register and create an account with the address you put in `ADMIN_EMAILS` (no invite needed). To try another account, create an invite in **Administração → Convites** and open the link in a private window.
 
-In dev, notifications are printed in the terminal and listed at `/pt/dev/emails`. Or run everything in Docker: `docker compose up --build`.
+In dev, notifications are printed in the terminal and listed at `/dev/emails`. Or run everything in Docker: `docker compose up --build`.
 
 Useful CLI commands (`python -m app.cli --help`):
 
@@ -66,7 +66,7 @@ cp .env.example .env && nano .env     # SECRET_KEY, ADMIN_EMAILS, DOMAIN, BASE_U
 ./deploy/deploy.sh
 ```
 
-Then register at `https://<your domain>/pt/register` with the `ADMIN_EMAILS` address.
+Then register at `https://<your domain>/register` with the `ADMIN_EMAILS` address.
 
 ## Layout
 

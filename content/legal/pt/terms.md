@@ -8,7 +8,7 @@ last_updated: 2026-11-16
 
 **Versão 2026-11 · Última atualização: 16 de novembro de 2026**
 
-Estes Termos regulam a utilização da gitmgf (<https://gitmgf.com>) (o **"Serviço"**). Ao criar conta, aceita estes Termos, as [Normas de Submissão](/pt/p/guidelines) e toma conhecimento da [Política de Privacidade](/pt/p/privacy). Pode consultar e usar o Serviço sem conta; nesse caso, aplicam-se as secções 4, 6.2, 9, 12, 13 e 16 a 18.
+Estes Termos regulam a utilização da gitmgf (<https://gitmgf.com>) (o **"Serviço"**). Ao criar conta, aceita estes Termos, as [Normas de Submissão](/p/guidelines) e toma conhecimento da [Política de Privacidade](/p/privacy). Pode consultar e usar o Serviço sem conta; nesse caso, aplicam-se as secções 4, 6.2, 9, 12, 13 e 16 a 18.
 
 ---
 

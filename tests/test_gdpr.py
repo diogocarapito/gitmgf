@@ -62,8 +62,8 @@ def test_delete_account_unpublishes_tools_removes_stars_and_anonymises_reports(c
     db.commit()
     assert other.stars_count == 1
     login(client, db, user)
-    assert post(client, "/pt/me/delete-account", {}).status_code == 422  # needs confirmation
-    r = post(client, "/pt/me/delete-account", {"confirm": "1"})
+    assert post(client, "/me/delete-account", {}).status_code == 422  # needs confirmation
+    r = post(client, "/me/delete-account", {"confirm": "1"})
     assert r.status_code == 303 and "account_deleted" in r.headers["location"]
     assert 'gitmgf_session=""' in r.headers["set-cookie"] and "Max-Age=0" in r.headers["set-cookie"]
     db.expire_all()
@@ -82,7 +82,7 @@ def test_delete_account_unpublishes_tools_removes_stars_and_anonymises_reports(c
             EmailOutbox.template == "account_deleted", EmailOutbox.to_email == "me@example.org"
         )
     )
-    assert client.get(f"/pt/t/{mine.slug}").status_code == 404
+    assert client.get(f"/t/{mine.slug}").status_code == 404
 
 
 def test_purge_job_removes_account_tools_and_files_after_30_days(db):

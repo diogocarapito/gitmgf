@@ -3,19 +3,19 @@ from tests.conftest import csrf_token, login, make_user
 
 def test_post_without_token_is_rejected(client, db):
     csrf_token(client)
-    r = client.post("/pt/login", data={"email": "a@example.org", "password": "x"})
+    r = client.post("/login", data={"email": "a@example.org", "password": "x"})
     assert r.status_code == 403
 
 
 def test_post_with_wrong_token_is_rejected(client):
     csrf_token(client)
-    r = client.post("/pt/login", data={"email": "a@example.org", "password": "x", "csrf_token": "x" * 40})
+    r = client.post("/login", data={"email": "a@example.org", "password": "x", "csrf_token": "x" * 40})
     assert r.status_code == 403
 
 
 def test_post_with_form_token_is_accepted(client):
     r = client.post(
-        "/pt/login", data={"email": "a@example.org", "password": "x", "csrf_token": csrf_token(client)}
+        "/login", data={"email": "a@example.org", "password": "x", "csrf_token": csrf_token(client)}
     )
     assert r.status_code == 401  # past CSRF; wrong credentials
 
@@ -34,7 +34,7 @@ def test_htmx_header_token_is_accepted(client, db):
 def test_cross_origin_post_is_rejected(client):
     token = csrf_token(client)
     r = client.post(
-        "/pt/login",
+        "/login",
         data={"email": "a@example.org", "password": "x", "csrf_token": token},
         headers={"Origin": "https://evil.example"},
     )
@@ -42,7 +42,7 @@ def test_cross_origin_post_is_rejected(client):
 
 
 def test_csrf_cookie_flags(client):
-    r = client.get("/pt/")
+    r = client.get("/")
     cookie = r.headers.get("set-cookie", "")
     assert (
         "gitmgf_csrf=" in cookie and "HttpOnly" in cookie and "SameSite=lax" in cookie.replace("Lax", "lax")
@@ -65,14 +65,14 @@ def test_every_rendered_form_carries_the_cookie_token(client, db):
     other = make_user(db, "author@example.org")
     pending = make_tool(db, other, status="pending", title_pt="Pendente")
     published = make_tool(db, other, status="published", title_pt="Publicada", moderator=admin)
-    pages_anon = ["/pt/login", "/pt/register", f"/pt/t/{published.slug}/report"]
+    pages_anon = ["/login", "/register", f"/t/{published.slug}/report"]
     pages_user = [
-        "/pt/me/settings",
-        "/pt/me/tools/new",
-        f"/pt/mod/tools/{pending.id}",
-        "/pt/admin/invites",
-        "/pt/admin/settings",
-        f"/pt/admin/users/{other.id}",
+        "/me/settings",
+        "/me/tools/new",
+        f"/mod/tools/{pending.id}",
+        "/admin/invites",
+        "/admin/settings",
+        f"/admin/users/{other.id}",
     ]
     for path in pages_anon:
         html = client.get(path).text
@@ -93,9 +93,9 @@ def test_browser_like_login_submission_uses_only_the_page_token(client, db):
     user = make_user(db, "ana@example.org")
     user.password_hash = passwords.hash_password("uma frase bastante longa")
     db.commit()
-    token = _form_tokens(client.get("/pt/login").text)[0]
+    token = _form_tokens(client.get("/login").text)[0]
     r = client.post(
-        "/pt/login",
+        "/login",
         data={"csrf_token": token, "email": "ana@example.org", "password": "uma frase bastante longa"},
         headers={"Origin": "http://testserver"},
     )

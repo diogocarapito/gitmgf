@@ -148,7 +148,7 @@ def test_removal_on_published_tool_is_immediate_additions_go_through_revision(db
 
 def test_badges_render_with_accessible_labels(client, db):
     tool = make_tool(db, claims={"mdr": MDR_IIA, "ce": CE})
-    html = client.get(f"/pt/t/{tool.slug}").text
+    html = client.get(f"/t/{tool.slug}").text
     assert "cert--present" in html and "cert--absent" in html
     assert "Com Marcação CE" in html and "Sem Conformidade RGPD (autodeclarada)" in html
     assert "N.º do organismo notificado" in html and "0123" in html
@@ -164,6 +164,6 @@ def test_class_iia_without_notified_body_blocks_submission(client, db):
         "cert_mdr__class": "IIa",
         "cert_mdr__evidence_url": "https://x.example",
     }
-    r = post(client, "/pt/me/tools/new", form)
+    r = post(client, "/me/tools/new", form)
     assert r.status_code == 422
     assert "cert_mdr__nb_number-error" in r.text

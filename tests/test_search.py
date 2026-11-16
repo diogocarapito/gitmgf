@@ -101,18 +101,18 @@ def test_ranking_blends_popularity(db):
 
 
 def test_search_page_without_js_and_htmx_partial(client, db, corpus):
-    r = client.get("/pt/search?q=vacina&sort=new")
+    r = client.get("/search?q=vacina&sort=new")
     assert r.status_code == 200 and "Plano de vacinação" in r.text and '<form id="search-form"' in r.text
-    r = client.get("/pt/search?q=vacina", headers={"HX-Request": "true"})
+    r = client.get("/search?q=vacina", headers={"HX-Request": "true"})
     assert r.text.startswith('<div id="results"') and "<html" not in r.text
 
 
 def test_unknown_filter_values_are_ignored(client, db, corpus):
-    r = client.get("/pt/search?type=nope&platform=xx&cert=%27&page=-3&sort=evil")
+    r = client.get("/search?type=nope&platform=xx&cert=%27&page=-3&sort=evil")
     assert r.status_code == 200
 
 
 def test_category_page_is_prefiltered(client, db, corpus):
-    r = client.get("/pt/c/cardiologia")
+    r = client.get("/c/cardiologia")
     assert r.status_code == 200 and "Calculadora SCORE2" in r.text
-    assert client.get("/pt/c/nao-existe").status_code == 404
+    assert client.get("/c/nao-existe").status_code == 404

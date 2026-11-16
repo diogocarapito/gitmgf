@@ -9,6 +9,7 @@ from starlette.datastructures import UploadFile
 
 from app.deps import DB, Form, UserDep
 from app.forms.tool import DECLARATIONS, parse_tool_form
+from app.i18n import lang_prefix
 from app.models import Category, Tool, ToolMedia, User
 from app.models.enums import ToolStatus
 from app.services import certifications, email, media, permissions, ratelimit, stats
@@ -198,7 +199,7 @@ def _handle_save(
                 request, db, tool, raw, errors, check.warnings, status_code=409, notice=exc.message
             )
         background.add_task(email.deliver_queued)
-        return RedirectResponse(f"/{lang}/me/tools?flash=submitted", status_code=303)
+        return RedirectResponse(f"{lang_prefix(lang)}/me/tools?flash=submitted", status_code=303)
     flash = {"in_place": "draft_saved", "revision": "revision_submitted", "unchanged": "saved"}[outcome]
     if check.warnings and outcome != "unchanged":
         db.refresh(tool)
@@ -211,7 +212,7 @@ def _handle_save(
             check.warnings,
             notice=flash,
         )
-    return RedirectResponse(f"/{lang}/me/tools/{tool.id}/edit?flash={flash}", status_code=303)
+    return RedirectResponse(f"{lang_prefix(lang)}/me/tools/{tool.id}/edit?flash={flash}", status_code=303)
 
 
 def _current_data(db: DB, tool: Tool) -> dict[str, Any]:
@@ -246,7 +247,7 @@ def withdraw_revision(request: Request, db: DB, user: UserDep, tool_id: int) -> 
         raise HTTPException(status_code=404) from exc
     db.commit()
     return RedirectResponse(
-        f"/{request.state.lang}/me/tools/{tool.id}/edit?flash=revision_withdrawn", status_code=303
+        f"{lang_prefix(request.state.lang)}/me/tools/{tool.id}/edit?flash=revision_withdrawn", status_code=303
     )
 
 
@@ -292,7 +293,9 @@ def upload_media(request: Request, db: DB, user: UserDep, tool_id: int, form: Fo
             {"file": (error, {})},
             status_code=422,
         )
-    return RedirectResponse(f"/{lang}/me/tools/{tool.id}/edit?flash=media_added#screenshots", status_code=303)
+    return RedirectResponse(
+        f"{lang_prefix(lang)}/me/tools/{tool.id}/edit?flash=media_added#screenshots", status_code=303
+    )
 
 
 def _owned_media(db: DB, user: User, media_id: int) -> ToolMedia:
@@ -313,7 +316,8 @@ def delete_media(request: Request, db: DB, user: UserDep, media_id: int) -> Resp
         db.rollback()
         raise HTTPException(status_code=409) from exc
     return RedirectResponse(
-        f"/{request.state.lang}/me/tools/{tool_id}/edit?flash=media_removed#screenshots", status_code=303
+        f"{lang_prefix(request.state.lang)}/me/tools/{tool_id}/edit?flash=media_removed#screenshots",
+        status_code=303,
     )
 
 
@@ -328,7 +332,7 @@ def move_media(request: Request, db: DB, user: UserDep, media_id: int, form: For
         db.rollback()
         raise HTTPException(status_code=409) from exc
     return RedirectResponse(
-        f"/{request.state.lang}/me/tools/{item.tool_id}/edit#screenshots", status_code=303
+        f"{lang_prefix(request.state.lang)}/me/tools/{item.tool_id}/edit#screenshots", status_code=303
     )
 
 
@@ -368,14 +372,14 @@ def lifecycle(
         db.rollback()
         key = "pending_limit" if "limite" in exc.message else None
         target = (
-            f"/{lang}/me/tools/{tool.id}/edit?intent=submit"
+            f"{lang_prefix(lang)}/me/tools/{tool.id}/edit?intent=submit"
             if key is None
-            else f"/{lang}/me/tools?flash={key}"
+            else f"{lang_prefix(lang)}/me/tools?flash={key}"
         )
         return RedirectResponse(target, status_code=303)
     except InvalidTransition as exc:
         db.rollback()
         raise HTTPException(status_code=409) from exc
     background.add_task(email.deliver_queued)
-    target = f"/{lang}/me/tools?flash={LIFECYCLE_FLASH[action]}"
+    target = f"{lang_prefix(lang)}/me/tools?flash={LIFECYCLE_FLASH[action]}"
     return RedirectResponse(target, status_code=303)

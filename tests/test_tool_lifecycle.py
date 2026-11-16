@@ -180,13 +180,13 @@ def test_draft_is_invisible_to_public_and_pending_visible_to_owner_and_mods(clie
     draft = make_tool(db, owner, status="draft", title_pt="Rascunho")
     pending = make_tool(db, owner, status="pending", title_pt="Pendente")
     for tool in (draft, pending):
-        assert client.get(f"/pt/t/{tool.slug}").status_code == 404
+        assert client.get(f"/t/{tool.slug}").status_code == 404
     login(client, db, other)
-    assert client.get(f"/pt/t/{pending.slug}").status_code == 404
+    assert client.get(f"/t/{pending.slug}").status_code == 404
     login(client, db, owner)
-    assert client.get(f"/pt/t/{pending.slug}").status_code == 200
+    assert client.get(f"/t/{pending.slug}").status_code == 200
     login(client, db, mod)
-    assert client.get(f"/pt/t/{pending.slug}").status_code == 200
+    assert client.get(f"/t/{pending.slug}").status_code == 200
 
 
 def test_form_submit_flow_and_validation(client, db, people):
@@ -194,19 +194,19 @@ def test_form_submit_flow_and_validation(client, db, people):
     login(client, db, owner)
     r = post(
         client,
-        "/pt/me/tools/new",
+        "/me/tools/new",
         {**tool_form(db, website_url="javascript:alert(1)", repo_url=""), "intent": "save"},
     )
     assert r.status_code == 422 and "http:// ou https://" in r.text
-    r = post(client, "/pt/me/tools/new", {"title_pt": "Rascunho rápido", "intent": "save"})
+    r = post(client, "/me/tools/new", {"title_pt": "Rascunho rápido", "intent": "save"})
     assert r.status_code == 303
     tool = db.scalar(select(Tool).where(Tool.title_pt == "Rascunho rápido"))
     assert tool.status == ToolStatus.draft
-    r = post(client, f"/pt/me/tools/{tool.id}/edit", {"title_pt": "Rascunho rápido", "intent": "submit"})
+    r = post(client, f"/me/tools/{tool.id}/edit", {"title_pt": "Rascunho rápido", "intent": "submit"})
     assert (r.status_code == 422 and "Faltam" in r.text) or "obrigatório" in r.text
     r = post(
         client,
-        f"/pt/me/tools/{tool.id}/edit",
+        f"/me/tools/{tool.id}/edit",
         {**tool_form(db, title_pt="Rascunho rápido"), "intent": "submit"},
     )
     assert r.status_code == 303 and "flash=submitted" in r.headers["location"]
@@ -225,17 +225,17 @@ def test_owner_can_withdraw_archive_and_delete_via_routes(client, db, people):
     post(client, f"/me/tools/{live.id}/archive")
     db.refresh(live)
     assert live.status == ToolStatus.archived
-    assert client.get(f"/pt/t/{live.slug}").status_code == 200  # still reachable with banner
+    assert client.get(f"/t/{live.slug}").status_code == 200  # still reachable with banner
     post(client, f"/me/tools/{live.id}/delete")
     db.refresh(live)
-    assert live.status == ToolStatus.deleted and client.get(f"/pt/t/{live.slug}").status_code == 404
+    assert live.status == ToolStatus.deleted and client.get(f"/t/{live.slug}").status_code == 404
 
 
 def test_other_user_cannot_edit(client, db, people):
     owner, _, _, other = people
     tool = make_tool(db, owner, status="draft")
     login(client, db, other)
-    assert client.get(f"/pt/me/tools/{tool.id}/edit").status_code == 404
+    assert client.get(f"/me/tools/{tool.id}/edit").status_code == 404
     assert post(client, f"/me/tools/{tool.id}/delete").status_code == 404
 
 

@@ -93,20 +93,39 @@ def negotiate(accept_language: str | None) -> str:
     return "en"
 
 
+# URL scheme (D28): Portuguese pages live at the root (/search, /t/x), English under /en (/en/search).
+PREFIXED_LANG = "en"
+
+
+def lang_prefix(lang: str) -> str:
+    """'' for PT, '/en' for EN — prepend to a page path that starts with '/'."""
+    return f"/{PREFIXED_LANG}" if lang == PREFIXED_LANG else ""
+
+
+def lang_path(lang: str, path: str = "/") -> str:
+    """lang_path('en', '/search') → '/en/search'; lang_path('pt', '/search') → '/search'."""
+    return lang_prefix(lang) + (path if path.startswith("/") else "/" + path)
+
+
+def is_en_path(path: str) -> bool:
+    return path == f"/{PREFIXED_LANG}" or path.startswith(f"/{PREFIXED_LANG}/")
+
+
 def lang_from_path(path: str) -> str | None:
-    for lang in LANGS:
-        if path == f"/{lang}" or path.startswith(f"/{lang}/"):
-            return lang
-    return None
+    """'en' for /en/…, None for anything else (unprefixed paths may be PT pages or actions)."""
+    return PREFIXED_LANG if is_en_path(path) else None
+
+
+def strip_lang(path: str) -> str:
+    """The language-neutral page path: /en/search → /search, /search → /search."""
+    if is_en_path(path):
+        return path[len(PREFIXED_LANG) + 1 :] or "/"
+    return path or "/"
 
 
 def swap_lang(path: str, lang: str) -> str:
     """Same page in another language (language switcher, hreflang)."""
-    current = lang_from_path(path)
-    if current is None:
-        return f"/{lang}/"
-    rest = path[len(current) + 1 :]
-    return f"/{lang}{rest or '/'}"
+    return lang_path(lang, strip_lang(path))
 
 
 def localized(obj: Any, field: str, lang: str) -> tuple[str, bool]:

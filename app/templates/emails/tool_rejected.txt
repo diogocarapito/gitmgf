@@ -12,5 +12,5 @@
 {% include "emails/_statement.txt" %}
 
 {{ _("Pode editar a ficha e submetê-la novamente:") }}
-{{ base_url }}/{{ lang }}/me/tools/{{ tool_id }}/edit
+{{ base_url }}{{ lang_prefix }}/me/tools/{{ tool_id }}/edit
 {% endblock %}

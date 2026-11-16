@@ -23,9 +23,16 @@ LANG_COOKIE_MAX_AGE = 365 * 24 * 3600
 
 
 def request_lang(request: Request) -> str:
-    from_path = i18n.lang_from_path(request.url.path)
-    if from_path:
-        return from_path
+    """Default language for non-page routes (actions, redirects, errors). Page routes override it (D28)."""
+    if i18n.is_en_path(request.url.path):
+        return "en"
+    referer = request.headers.get("referer")
+    if referer:
+        from urllib.parse import urlsplit
+
+        parts = urlsplit(referer)
+        if parts.netloc == request.url.netloc:
+            return "en" if i18n.is_en_path(parts.path) else "pt"
     cookie = request.cookies.get(i18n.LANG_COOKIE)
     if cookie in i18n.LANGS:
         return cookie
@@ -55,7 +62,7 @@ async def plumbing(request: Request, call_next: Callable[[Request], Awaitable[Re
             secure=settings.secure_cookies,
             path="/",
         )
-    path_lang = i18n.lang_from_path(request.url.path)
+    path_lang = getattr(request.state, "page_lang", None)  # set only by page routes
     if path_lang and request.cookies.get(i18n.LANG_COOKIE) != path_lang and response.status_code < 400:
         response.set_cookie(
             i18n.LANG_COOKIE,

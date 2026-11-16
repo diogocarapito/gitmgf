@@ -3,5 +3,5 @@
 {{ _("Olá,") }}
 
 {{ _("A ficha «%(title)s» voltou a estar visível ao público:", title=title) }}
-{{ base_url }}/{{ lang }}/t/{{ slug }}
+{{ base_url }}{{ lang_prefix }}/t/{{ slug }}
 {% endblock %}

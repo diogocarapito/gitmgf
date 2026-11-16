@@ -8,7 +8,7 @@ from sqlalchemy import func, select
 
 from app.db import utcnow
 from app.deps import DB, Form, ModDep
-from app.i18n import labels, t
+from app.i18n import labels, lang_prefix, t
 from app.models import Report, Tool, ToolRevision, User
 from app.models.enums import ClaimState, ReportStatus, RevisionStatus, ToolStatus
 from app.services import audit, certifications, email, permissions
@@ -214,7 +214,7 @@ def claim_rejections(form: Any, codes: list[str], lang: str) -> dict[str, str]:
 
 
 def _back(request: Request, path: str, flash: str) -> RedirectResponse:
-    return RedirectResponse(f"/{request.state.lang}{path}?flash={flash}", status_code=303)
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}{path}?flash={flash}", status_code=303)
 
 
 TOOL_ACTIONS = {
