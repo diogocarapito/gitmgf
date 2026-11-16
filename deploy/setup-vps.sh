@@ -40,12 +40,24 @@ ufw allow 443/tcp
 ufw allow 443/udp
 ufw --force enable
 
-# Key-only SSH (only once a key is installed, so we never lock you out)
+# Key-only SSH (only once a key is installed, so we never lock you out).
+# A drop-in is used because Ubuntu's /etc/ssh/sshd_config.d/50-cloud-init.conf would otherwise keep
+# PasswordAuthentication on (the first value read wins, and 00- sorts first). From now on, log in as
+# "$DEPLOY_USER" with your key; root accepts keys only, never passwords.
 if [ -n "$SSH_KEY" ]; then
-    sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
-    sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
-    systemctl reload ssh || systemctl reload sshd
+    cat > /etc/ssh/sshd_config.d/00-gitmgf.conf <<'SSHD'
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PermitRootLogin prohibit-password
+SSHD
+    if sshd -t; then
+        systemctl reload ssh || systemctl reload sshd
+    else
+        rm -f /etc/ssh/sshd_config.d/00-gitmgf.conf
+        echo "sshd config check failed; SSH settings left unchanged" >&2
+    fi
 fi
 
 dpkg-reconfigure -f noninteractive unattended-upgrades
-echo "Done. Log in as $DEPLOY_USER, clone the repo and follow docs/RUNBOOK.md."
+echo "Done. From now on: ssh $DEPLOY_USER@<server-ip> (key only; root passwords are no longer accepted over SSH)."
+echo "Then clone the repo and follow docs/RUNBOOK.md."
