@@ -92,6 +92,7 @@ Usamos apenas **cookies estritamente necessários** ao funcionamento do site, is
 | `__Host-gitmgf_session` | Manter a sessão iniciada | Até 30 dias sem atividade, ou até terminar sessão |
 | `gitmgf_csrf` | Proteger formulários contra pedidos forjados (CSRF) | Sessão do navegador |
 | `gitmgf_lang` | Lembrar o idioma escolhido (PT/EN) | 1 ano |
+| `gitmgf-theme` (armazenamento local do navegador, não é enviado ao servidor) | Lembrar o tema claro ou escuro, se o escolher | Até o apagar no navegador |
 
 Não usamos cookies de análise, publicidade ou redes sociais, nem tecnologias semelhantes (pixels, *fingerprinting*).
 

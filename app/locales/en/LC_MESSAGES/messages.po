@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-16 23:02+0000\n"
+"POT-Creation-Date: 2026-11-16 23:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -267,6 +267,9 @@ msgstr "Changes to the images of a published tool are also reviewed."
 #, python-format
 msgid "Alterações: %(n)s"
 msgstr "Edits: %(n)s"
+
+msgid "Alternar tema claro/escuro"
+msgstr "Toggle light/dark theme"
 
 msgid "Alvo"
 msgstr "Target"

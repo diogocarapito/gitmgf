@@ -75,7 +75,27 @@
     if (box) box.innerHTML = "";
   });
 
+  // Light/dark toggle (theme.js applies the saved choice early; without JS the button stays hidden).
+  function currentTheme() {
+    var set = document.documentElement.getAttribute("data-theme");
+    if (set === "light" || set === "dark") return set;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  function bindThemeToggle() {
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+      btn.hidden = false;
+      btn.setAttribute("aria-pressed", currentTheme() === "dark" ? "true" : "false");
+      btn.addEventListener("click", function () {
+        var next = currentTheme() === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        try { localStorage.setItem("gitmgf-theme", next); } catch (e) { /* not persisted */ }
+        btn.setAttribute("aria-pressed", next === "dark" ? "true" : "false");
+      });
+    });
+  }
+
   onReady(function () {
+    bindThemeToggle();
     syncClaims(document);
     bindAutoSubmit(document);
     liveSearch(document);

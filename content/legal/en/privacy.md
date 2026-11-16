@@ -94,6 +94,7 @@ We only use **strictly necessary cookies**, which are exempt from consent under 
 | `__Host-gitmgf_session` | Keep you signed in | Up to 30 days of inactivity, or until you sign out |
 | `gitmgf_csrf` | Protect forms against cross-site request forgery (CSRF) | Browser session |
 | `gitmgf_lang` | Remember your chosen language (PT/EN) | 1 year |
+| `gitmgf-theme` (browser local storage, never sent to the server) | Remember the light or dark theme, if you choose one | Until you clear it in your browser |
 
 We use no analytics, advertising or social media cookies, and no similar technologies (pixels, fingerprinting).
 

@@ -104,3 +104,20 @@ def test_no_inline_scripts_or_styles_in_templates():
         assert "<script>" not in content and not re.search(r"<script(?![^>]*\ssrc=)", content), path
         assert " style=" not in content, path
         assert "hx-on" not in content, path
+
+
+def test_password_inputs_share_the_text_input_style():
+    from pathlib import Path
+
+    css = (Path(__file__).resolve().parents[1] / "app" / "static" / "css" / "app.css").read_text()
+    rule = next(line for line in css.splitlines() if 'input[type="text"]' in line and "{" in line)
+    assert 'input[type="password"]' in rule
+
+
+def test_theme_toggle_is_rendered_and_safe_without_js(client):
+    html = client.get("/").text
+    assert "data-theme-toggle hidden" in html  # app.js reveals it; no JS → no dead button
+    assert "/static/js/theme.js" in html.split("</head>")[0]  # applied before first paint
+    assert 'class="logo--light"' in html and 'class="logo--dark"' in html
+    css = client.get("/static/css/app.css").text
+    assert ':root[data-theme="dark"] {' in css and ':root:not([data-theme="light"])' in css
