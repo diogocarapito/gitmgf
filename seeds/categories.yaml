@@ -1,0 +1,213 @@
+# Initial category list (PRD F6). Flat for tools; `is_specialty` only feeds the profile dropdown.
+# Re-running `python -m app.cli seed categories` upserts by slug and never deletes.
+
+- slug: internato
+  name_pt: "Internato"
+  name_en: "Residency"
+  is_specialty: false
+  sort_order: 10
+- slug: burocracia
+  name_pt: "Burocracia e documentação"
+  name_en: "Paperwork & documentation"
+  is_specialty: false
+  sort_order: 20
+- slug: gestao-clinica
+  name_pt: "Gestão clínica"
+  name_en: "Clinical management"
+  is_specialty: false
+  sort_order: 30
+- slug: indicadores-dados
+  name_pt: "Indicadores e dados"
+  name_en: "Indicators & data"
+  is_specialty: false
+  sort_order: 40
+- slug: apoio-decisao-clinica
+  name_pt: "Apoio à decisão clínica"
+  name_en: "Clinical decision support"
+  is_specialty: false
+  sort_order: 50
+- slug: calculadoras-scores
+  name_pt: "Calculadoras e scores"
+  name_en: "Calculators & scores"
+  is_specialty: false
+  sort_order: 60
+- slug: prescricao-terapeutica
+  name_pt: "Prescrição e terapêutica"
+  name_en: "Prescribing & therapeutics"
+  is_specialty: false
+  sort_order: 70
+- slug: rastreios-prevencao
+  name_pt: "Rastreios e prevenção"
+  name_en: "Screening & prevention"
+  is_specialty: false
+  sort_order: 80
+- slug: educacao-saude
+  name_pt: "Educação para a saúde"
+  name_en: "Patient education"
+  is_specialty: false
+  sort_order: 90
+- slug: ensino-formacao
+  name_pt: "Ensino e formação"
+  name_en: "Teaching & training"
+  is_specialty: false
+  sort_order: 100
+- slug: investigacao
+  name_pt: "Investigação"
+  name_en: "Research"
+  is_specialty: false
+  sort_order: 110
+- slug: produtividade
+  name_pt: "Produtividade"
+  name_en: "Productivity"
+  is_specialty: false
+  sort_order: 120
+- slug: inteligencia-artificial
+  name_pt: "Inteligência artificial"
+  name_en: "Artificial intelligence"
+  is_specialty: false
+  sort_order: 130
+- slug: telemedicina
+  name_pt: "Telemedicina"
+  name_en: "Telehealth"
+  is_specialty: false
+  sort_order: 140
+- slug: outros
+  name_pt: "Outros"
+  name_en: "Other"
+  is_specialty: false
+  sort_order: 190
+- slug: medicina-geral-familiar
+  name_pt: "Medicina Geral e Familiar"
+  name_en: "General Practice / Family Medicine"
+  is_specialty: true
+  sort_order: 200
+- slug: medicina-interna
+  name_pt: "Medicina Interna"
+  name_en: "Internal Medicine"
+  is_specialty: true
+  sort_order: 210
+- slug: cardiologia
+  name_pt: "Cardiologia"
+  name_en: "Cardiology"
+  is_specialty: true
+  sort_order: 220
+- slug: hematologia
+  name_pt: "Hematologia"
+  name_en: "Haematology"
+  is_specialty: true
+  sort_order: 230
+- slug: endocrinologia-diabetes
+  name_pt: "Endocrinologia e Diabetes"
+  name_en: "Endocrinology & Diabetes"
+  is_specialty: true
+  sort_order: 240
+- slug: pneumologia
+  name_pt: "Pneumologia"
+  name_en: "Pulmonology"
+  is_specialty: true
+  sort_order: 250
+- slug: gastrenterologia
+  name_pt: "Gastrenterologia"
+  name_en: "Gastroenterology"
+  is_specialty: true
+  sort_order: 260
+- slug: nefrologia
+  name_pt: "Nefrologia"
+  name_en: "Nephrology"
+  is_specialty: true
+  sort_order: 270
+- slug: neurologia
+  name_pt: "Neurologia"
+  name_en: "Neurology"
+  is_specialty: true
+  sort_order: 280
+- slug: psiquiatria-saude-mental
+  name_pt: "Psiquiatria e Saúde Mental"
+  name_en: "Psychiatry & Mental Health"
+  is_specialty: true
+  sort_order: 290
+- slug: pediatria
+  name_pt: "Pediatria"
+  name_en: "Paediatrics"
+  is_specialty: true
+  sort_order: 300
+- slug: ginecologia-obstetricia
+  name_pt: "Ginecologia e Obstetrícia"
+  name_en: "Obstetrics & Gynaecology"
+  is_specialty: true
+  sort_order: 310
+- slug: saude-materna-planeamento-familiar
+  name_pt: "Saúde Materna e Planeamento Familiar"
+  name_en: "Maternal Health & Family Planning"
+  is_specialty: true
+  sort_order: 320
+- slug: dermatologia
+  name_pt: "Dermatologia"
+  name_en: "Dermatology"
+  is_specialty: true
+  sort_order: 330
+- slug: reumatologia
+  name_pt: "Reumatologia"
+  name_en: "Rheumatology"
+  is_specialty: true
+  sort_order: 340
+- slug: doencas-infecciosas
+  name_pt: "Doenças Infecciosas"
+  name_en: "Infectious Diseases"
+  is_specialty: true
+  sort_order: 350
+- slug: oncologia
+  name_pt: "Oncologia"
+  name_en: "Oncology"
+  is_specialty: true
+  sort_order: 360
+- slug: geriatria
+  name_pt: "Geriatria"
+  name_en: "Geriatrics"
+  is_specialty: true
+  sort_order: 370
+- slug: cuidados-paliativos
+  name_pt: "Cuidados Paliativos"
+  name_en: "Palliative Care"
+  is_specialty: true
+  sort_order: 380
+- slug: saude-publica
+  name_pt: "Saúde Pública"
+  name_en: "Public Health"
+  is_specialty: true
+  sort_order: 390
+- slug: medicina-trabalho
+  name_pt: "Medicina do Trabalho"
+  name_en: "Occupational Medicine"
+  is_specialty: true
+  sort_order: 400
+- slug: urgencia-emergencia
+  name_pt: "Urgência e Emergência"
+  name_en: "Emergency Medicine"
+  is_specialty: true
+  sort_order: 410
+- slug: ortopedia
+  name_pt: "Ortopedia"
+  name_en: "Orthopaedics"
+  is_specialty: true
+  sort_order: 420
+- slug: oftalmologia
+  name_pt: "Oftalmologia"
+  name_en: "Ophthalmology"
+  is_specialty: true
+  sort_order: 430
+- slug: otorrinolaringologia
+  name_pt: "Otorrinolaringologia"
+  name_en: "Otorhinolaryngology"
+  is_specialty: true
+  sort_order: 440
+- slug: urologia
+  name_pt: "Urologia"
+  name_en: "Urology"
+  is_specialty: true
+  sort_order: 450
+- slug: medicina-fisica-reabilitacao
+  name_pt: "Medicina Física e de Reabilitação"
+  name_en: "Physical & Rehabilitation Medicine"
+  is_specialty: true
+  sort_order: 460

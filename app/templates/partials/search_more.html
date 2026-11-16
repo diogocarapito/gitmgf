@@ -1,0 +1,4 @@
+{% for t in tools %}{% include "partials/tool_card.html" %}{% endfor %}
+{% if next_url %}
+<div class="load-more" id="load-more"><a class="btn" href="{{ next_url }}" hx-get="{{ next_url }}&more=1" hx-target="#load-more" hx-swap="outerHTML" hx-push-url="false">{{ _("Mostrar mais") }}</a></div>
+{% endif %}

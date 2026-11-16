@@ -1,0 +1,13 @@
+{% block subject %}{{ _("Ferramenta ocultada: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Medida: a ficha «%(title)s» foi ocultada. Deixou de estar visível ao público e de aparecer na pesquisa.", title=title) }}
+
+{{ _("Motivo e factos:") }}
+{{ reason }}
+
+{% if automatic %}{{ _("Esta medida foi aplicada automaticamente, por meios automáticos, depois de várias denúncias de conteúdo perigoso ou de problemas de segurança, enquanto um moderador analisa o caso.") }}{% else %}{{ _("A decisão foi tomada por um moderador, na sequência de uma denúncia ou de uma verificação da equipa.") }}{% endif %}
+
+{% include "emails/_statement.txt" %}
+{% endblock %}

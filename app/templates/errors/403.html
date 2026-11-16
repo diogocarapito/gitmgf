@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Acesso recusado") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container error-page">
+  <p class="code">403</p>
+  <h1>{{ _("Acesso recusado") }}</h1>
+  {% if detail in ("csrf", "origin") %}
+  <p class="muted">{{ _("O formulário expirou ou foi enviado de outro site. Volte atrás, atualize a página e tente novamente.") }}</p>
+  {% else %}
+  <p class="muted">{{ _("Não tem permissão para fazer esta ação.") }}</p>
+  {% endif %}
+  <p><a class="btn btn--primary" href="{{ url('/') }}">{{ _("Voltar ao início") }}</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Demasiados pedidos") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container error-page">
+  <p class="code">429</p>
+  <h1>{{ _("Demasiados pedidos") }}</h1>
+  <p class="muted">{{ _("Aguarde um pouco e tente novamente.") }}</p>
+</div>
+{% endblock %}

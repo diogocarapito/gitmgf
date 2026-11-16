@@ -1,0 +1,115 @@
+{# Form and display macros. `errors` maps field -> (msgid, params). #}
+
+{% macro error(errors, name) -%}
+  {%- set e = errors.get(name) if errors else None -%}
+  {%- if e %}<p class="field__error" id="{{ name }}-error">{{ _(e[0], **e[1]) }}</p>{% endif -%}
+{%- endmacro %}
+
+{% macro describedby(errors, name, hint) -%}
+  {%- set ids = [] -%}
+  {%- if hint %}{% do ids.append(name ~ '-hint') %}{% endif -%}
+  {%- if errors and errors.get(name) %}{% do ids.append(name ~ '-error') %}{% endif -%}
+  {%- if ids %} aria-describedby="{{ ids | join(' ') }}"{% endif -%}
+  {%- if errors and errors.get(name) %} aria-invalid="true"{% endif -%}
+{%- endmacro %}
+
+{% macro text(name, label, values, errors, type="text", required=False, maxlength=None, hint=None, autocomplete=None, placeholder=None, lang_attr=None) -%}
+<div class="field{% if errors and errors.get(name) %} field--invalid{% endif %}">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
+  {% if hint %}<p class="field__hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
+  <input id="f-{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ values.get(name, '') if values else '' }}"
+    {%- if required %} required{% endif %}{% if maxlength %} maxlength="{{ maxlength }}"{% endif %}
+    {%- if autocomplete %} autocomplete="{{ autocomplete }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}
+    {%- if lang_attr %} lang="{{ lang_attr }}"{% endif %}{{ describedby(errors, name, hint) }}>
+  {{ error(errors, name) }}
+</div>
+{%- endmacro %}
+
+{% macro textarea(name, label, values, errors, required=False, maxlength=None, hint=None, rows=6, cls="", lang_attr=None) -%}
+<div class="field{% if errors and errors.get(name) %} field--invalid{% endif %}">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
+  {% if hint %}<p class="field__hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
+  <textarea id="f-{{ name }}" name="{{ name }}" rows="{{ rows }}"{% if cls %} class="{{ cls }}"{% endif %}
+    {%- if required %} required{% endif %}{% if maxlength %} maxlength="{{ maxlength }}"{% endif %}
+    {%- if lang_attr %} lang="{{ lang_attr }}"{% endif %}{{ describedby(errors, name, hint) }}>{{ values.get(name, '') if values else '' }}</textarea>
+  {{ error(errors, name) }}
+</div>
+{%- endmacro %}
+
+{% macro select(name, label, options, values, errors, required=False, hint=None, empty=None) -%}
+{# options: list of (value, label_msgid_or_text, translate: bool) or (value, label) #}
+{%- set current = (values.get(name, '') if values else '') | string -%}
+<div class="field{% if errors and errors.get(name) %} field--invalid{% endif %}">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
+  {% if hint %}<p class="field__hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
+  <select id="f-{{ name }}" name="{{ name }}"{% if required %} required{% endif %}{{ describedby(errors, name, hint) }}>
+    {% if empty is not none %}<option value="">{{ empty }}</option>{% endif %}
+    {% for opt in options %}
+    <option value="{{ opt[0] }}"{% if (opt[0] | string) == current %} selected{% endif %}>{{ opt[1] }}</option>
+    {% endfor %}
+  </select>
+  {{ error(errors, name) }}
+</div>
+{%- endmacro %}
+
+{% macro choices(name, label, options, selected, errors, type="checkbox", required=False, hint=None, wide=False) -%}
+{# options: list of (value, label) ; selected: list/set of values (strings) #}
+{%- set sel = (selected or []) | map('string') | list -%}
+<fieldset class="field{% if errors and errors.get(name) %} field--invalid{% endif %}"{{ describedby(errors, name, hint) }}>
+  <legend class="field__label">{{ label }}{% if required %} <span class="req" aria-hidden="true">*</span>{% endif %}</legend>
+  {% if hint %}<p class="field__hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
+  <div class="choices{% if wide %} choices--wide{% endif %}">
+    {% for opt in options %}
+    <label class="choice"><input type="{{ type }}" name="{{ name }}" value="{{ opt[0] }}"{% if (opt[0] | string) in sel %} checked{% endif %}> <span>{{ opt[1] }}</span></label>
+    {% endfor %}
+  </div>
+  {{ error(errors, name) }}
+</fieldset>
+{%- endmacro %}
+
+{% macro checkbox(name, label, checked, errors, hint=None, value="1") -%}
+<div class="field{% if errors and errors.get(name) %} field--invalid{% endif %}">
+  <label class="choice"><input type="checkbox" name="{{ name }}" value="{{ value }}"{% if checked %} checked{% endif %}{{ describedby(errors, name, hint) }}> <span>{{ label }}</span></label>
+  {% if hint %}<p class="field__hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
+  {{ error(errors, name) }}
+</div>
+{%- endmacro %}
+
+{% macro csrf() -%}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{%- endmacro %}
+
+{% macro status(value, mapping) -%}
+<span class="status status--{{ value }}">{{ label(mapping, value) }}</span>
+{%- endmacro %}
+
+{# Certification badge (TECH_SPEC §11.4): text labels only, never the official CE mark or EU emblem. #}
+{% macro cert_badge(badge, size="sm") -%}
+{%- if badge.present -%}
+<span class="cert cert--present{% if size == 'md' %} cert--md{% endif %}" title="{{ badge.name }} — {{ _('declarado pelo autor') if badge.assurance == 'self_declared' else _('certificado por terceiros') }}">
+  <svg class="cert__icon" aria-hidden="true" focusable="false"><use href="{{ static('icons/sprite.svg') }}#check"></use></svg>
+  <span aria-hidden="true">{{ badge.label }}</span>
+  <span class="visually-hidden">{{ _("Com %(name)s", name=badge.name) }}</span>
+</span>
+{%- else -%}
+<span class="cert cert--absent{% if size == 'md' %} cert--md{% endif %}" title="{% if badge.expired %}{{ _('Expirado em %(date)s', date=badge.valid_until | short_date) }}{% else %}{{ _('O autor não declarou %(name)s para esta ferramenta.', name=badge.name) }}{% endif %}">
+  <span aria-hidden="true">{{ badge.label }}</span>
+  <span class="visually-hidden">{% if badge.expired %}{{ _("%(name)s expirada", name=badge.name) }}{% else %}{{ _("Sem %(name)s", name=badge.name) }}{% endif %}</span>
+</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro cert_row(badges, core_only=False, size="sm") -%}
+{%- if badges -%}
+<div class="cert-row" role="list" aria-label="{{ _('Certificações e conformidade') }}">
+  {%- for b in badges if (not core_only or b.is_core) %}<span role="listitem">{{ cert_badge(b, size) }}</span>{% endfor -%}
+</div>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro pagination(page, has_next, base_url) -%}
+{%- if page > 1 or has_next -%}
+<nav class="pagination" aria-label="{{ _('Paginação') }}">
+  {% if page > 1 %}<a class="btn btn--sm" href="{{ base_url }}{{ '&' if '?' in base_url else '?' }}page={{ page - 1 }}">{{ icon('arrow-left') }} {{ _("Anterior") }}</a>{% endif %}
+  {% if has_next %}<a class="btn btn--sm" href="{{ base_url }}{{ '&' if '?' in base_url else '?' }}page={{ page + 1 }}">{{ _("Seguinte") }} {{ icon('arrow-right') }}</a>{% endif %}
+</nav>
+{%- endif -%}
+{%- endmacro %}

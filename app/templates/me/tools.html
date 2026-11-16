@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("As minhas ferramentas") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head row row--between">
+    <div><h1>{{ _("As minhas ferramentas") }}</h1><p>{{ _("Estado, alterações pendentes e utilização nos últimos 30 e 90 dias.") }}</p></div>
+    <a class="btn btn--primary" href="{{ url('/me/tools/new') }}">{{ icon('plus') }} {{ _("Partilhar ferramenta") }}</a>
+  </header>
+  {% if tools %}
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr>
+        <th scope="col">{{ _("Ferramenta") }}</th><th scope="col">{{ _("Estado") }}</th>
+        <th scope="col" class="num" title="{{ _('Cliques a partir da pesquisa') }}">{{ _("Pesquisa 30/90 d") }}</th>
+        <th scope="col" class="num" title="{{ _('Aberturas de ligações externas') }}">{{ _("Aberturas 30/90 d") }}</th>
+        <th scope="col" class="num">{{ _("Visitas 30/90 d") }}</th>
+        <th scope="col" class="num">{{ _("Estrelas") }}</th>
+        <th scope="col">{{ _("Ações") }}</th>
+      </tr></thead>
+      <tbody>
+      {% for t in tools %}{% set u = usage.get(t.id, {}) %}
+      <tr>
+        <td>
+          {% if t.is_public %}<a href="{{ url('/t/' ~ t.slug) }}">{{ t.title_pt }}</a>{% else %}{{ t.title_pt }}{% endif %}
+          {% if revisions.get(t.id) %}<div class="xsmall"><span class="status status--pending">{{ _("Alteração pendente de revisão") }}</span></div>{% endif %}
+          {% if t.rejection_reason and t.status in ('rejected', 'draft') %}<div class="xsmall muted">{{ _("Motivo:") }} {{ t.rejection_reason }}</div>{% endif %}
+          {% if github_errors.get(t.id) == 'not_found' %}<div class="xsmall muted">{{ icon('alert') }} {{ _("O repositório GitHub não foi encontrado.") }}</div>{% endif %}
+        </td>
+        <td>{{ m.status(t.status, labels.TOOL_STATUS) }}</td>
+        <td class="num">{{ u.get('search_30', 0) }} / {{ u.get('search_90', 0) }}</td>
+        <td class="num">{{ u.get('outbound_30', 0) }} / {{ u.get('outbound_90', 0) }}</td>
+        <td class="num">{{ u.get('views_30', 0) }} / {{ u.get('views_90', 0) }}</td>
+        <td class="num">{{ t.stars_count }}</td>
+        <td>
+          <div class="row">
+            {% if t.status != 'pending' %}<a class="btn btn--sm" href="{{ url('/me/tools/' ~ t.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar") }}</a>{% endif %}
+            {% if t.status in ('draft', 'rejected') %}<form method="post" action="/me/tools/{{ t.id }}/submit">{{ m.csrf() }}<button class="btn btn--sm btn--primary" type="submit">{{ _("Submeter") }}</button></form>{% endif %}
+            {% if t.status == 'pending' %}<form method="post" action="/me/tools/{{ t.id }}/withdraw">{{ m.csrf() }}<button class="btn btn--sm" type="submit">{{ _("Retirar") }}</button></form>{% endif %}
+            {% if t.is_public %}<a class="btn btn--sm btn--ghost" href="{{ url('/me/tools/' ~ t.id ~ '/stats') }}">{{ icon('activity') }} {{ _("Estatísticas") }}</a>{% endif %}
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty">{{ icon('layers') }}<p>{{ _("Ainda não partilhou nenhuma ferramenta.") }}</p><a class="btn btn--primary" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a></div>
+  {% endif %}
+</div>
+{% endblock %}

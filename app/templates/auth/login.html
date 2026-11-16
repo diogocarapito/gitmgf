@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Entrar") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="auth-card">
+    <h1>{{ _("Entrar na gitmgf") }}</h1>
+    <p class="muted">{{ _("Sem palavras-passe: enviamos uma ligação de acesso para o seu email. Se ainda não tem conta, é criada automaticamente.") }}</p>
+    {% if error %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(error) }}</p></div>{% endif %}
+    <form class="form" action="/auth/magic-link" method="post">
+      {{ m.csrf() }}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ m.text("email", _("Email"), {"email": email or ""}, errors, type="email", required=True, maxlength=254, autocomplete="email") }}
+      <button class="btn btn--primary btn--block" type="submit">{{ icon('mail') }} {{ _("Enviar ligação de acesso") }}</button>
+    </form>
+    {% if github_enabled or google_enabled %}
+    <div class="divider">{{ _("ou") }}</div>
+    <div class="provider-buttons">
+      {% if github_enabled %}<a class="btn btn--block" href="/auth/github/start{% if next %}?next={{ next | urlencode }}{% endif %}">{{ icon('github') }} {{ _("Continuar com GitHub") }}</a>{% endif %}
+      {% if google_enabled %}<a class="btn btn--block" href="/auth/google/start{% if next %}?next={{ next | urlencode }}{% endif %}">{{ icon('google') }} {{ _("Continuar com Google") }}</a>{% endif %}
+    </div>
+    {% endif %}
+    <p class="small muted section--tight">{{ _("Ao continuar, aceita os") }} <a href="{{ url('/p/terms') }}">{{ _("Termos de Utilização") }}</a> {{ _("e toma conhecimento da") }} <a href="{{ url('/p/privacy') }}">{{ _("Política de Privacidade") }}</a>.</p>
+  </div>
+</div>
+{% endblock %}

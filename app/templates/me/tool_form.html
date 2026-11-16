@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{% if tool %}{{ _("Editar ferramenta") }}{% else %}{{ _("Partilhar ferramenta") }}{% endif %}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set in_place = (not tool) or tool.status in ('draft', 'rejected') %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/me/tools') }}">{{ _("As minhas ferramentas") }}</a></p>
+    <h1>{% if tool %}{{ tool.title_pt }}{% else %}{{ _("Partilhar ferramenta") }}{% endif %}</h1>
+    {% if tool %}<p>{{ m.status(tool.status, labels.TOOL_STATUS) }}{% if tool.is_public %} · <a href="{{ url('/t/' ~ tool.slug) }}">{{ _("Ver página pública") }}</a>{% endif %}</p>
+    {% else %}<p>{{ _("Descreva a ferramenta e indique onde está publicada. A gitmgf guarda apenas a ficha e as ligações: não aloja ficheiros nem código.") }} <a href="{{ url('/p/guidelines') }}">{{ _("Normas de submissão") }}</a></p>{% endif %}
+  </header>
+
+  <div class="stack">
+    {% if notice == "pending" or (tool and tool.status == 'pending') %}
+    <div class="notice notice--warn">{{ icon('clock') }}<div><p>{{ _("Esta ferramenta está em revisão. Para a editar, retire primeiro a submissão.") }}</p>
+      <form method="post" action="/me/tools/{{ tool.id }}/withdraw">{{ m.csrf() }}<button class="btn btn--sm" type="submit">{{ _("Retirar submissão") }}</button></form></div></div>
+    {% elif notice == "draft_saved_incomplete" %}
+    <div class="notice notice--warn" role="alert">{{ icon('alert') }}<p>{{ _("Rascunho guardado, mas faltam campos obrigatórios para submeter. Reveja os campos assinalados.") }}</p></div>
+    {% elif notice in ("draft_saved", "revision_submitted", "saved") %}
+    <div class="notice notice--ok" role="status">{{ icon('check') }}<p>{{ _(labels.FLASH[notice][1]) }}</p></div>
+    {% elif notice %}
+    <div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(notice) }}</p></div>
+    {% endif %}
+    {% if errors and not notice %}
+    <div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _("Há campos a corrigir. Veja as mensagens abaixo.") }}</p></div>
+    {% endif %}
+    {% if revision %}
+    <div class="notice">{{ icon('clock') }}<div><p><strong>{{ _("Alteração pendente de revisão.") }}</strong> {{ _("A versão publicada mantém-se visível até um moderador aprovar as alterações.") }}</p>
+      <form method="post" action="/me/tools/{{ tool.id }}/revision/withdraw">{{ m.csrf() }}<button class="btn btn--sm" type="submit" data-confirm="{{ _('Retirar a alteração pendente?') }}">{{ _("Retirar alteração") }}</button></form></div></div>
+    {% endif %}
+    {% if tool and tool.rejection_reason and tool.status in ('rejected', 'draft') %}
+    <div class="notice notice--warn">{{ icon('info') }}<div><p><strong>{{ _("Comentário da moderação:") }}</strong></p><p>{{ tool.rejection_reason }}</p></div></div>
+    {% endif %}
+    {% for w in warnings %}<div class="notice notice--warn">{{ icon('alert') }}<p>{{ _(w) }}</p></div>{% endfor %}
+  </div>
+
+  {% if not tool or tool.status != 'pending' %}
+  <form class="form section--tight" method="post" action="{% if tool %}{{ url('/me/tools/' ~ tool.id ~ '/edit') }}{% else %}{{ url('/me/tools/new') }}{% endif %}" novalidate>
+    {{ m.csrf() }}
+
+    <fieldset class="form-section">
+      <legend>{{ _("Informação básica") }}</legend>
+      {{ m.text("title_pt", _("Título"), values, errors, required=True, maxlength=80) }}
+      {{ m.text("summary_pt", _("Resumo"), values, errors, required=True, maxlength=200, hint=_("Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de pesquisa.")) }}
+      {{ m.textarea("description_pt", _("Descrição"), values, errors, required=True, maxlength=20000, rows=10, hint=_("O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, listas, ligações, tabelas). Não inclua dados que identifiquem utentes.")) }}
+      <details class="lang-en"{% if values.get('title_en') or values.get('summary_en') or values.get('description_en') or errors.get('title_en') %} open{% endif %}>
+        <summary>{{ _("Versão em inglês (opcional)") }}</summary>
+        {{ m.text("title_en", _("Título (EN)"), values, errors, maxlength=80, lang_attr="en") }}
+        {{ m.text("summary_en", _("Resumo (EN)"), values, errors, maxlength=200, lang_attr="en") }}
+        {{ m.textarea("description_en", _("Descrição (EN)"), values, errors, maxlength=20000, rows=8, lang_attr="en") }}
+      </details>
+    </fieldset>
+
+    <fieldset class="form-section">
+      <legend>{{ _("Classificação") }}</legend>
+      {% set types = [] %}{% for k, v in labels.TOOL_TYPE.items() %}{% do types.append((k, _(v))) %}{% endfor %}
+      {{ m.select("tool_type", _("Tipo de ferramenta"), types, values, errors, required=True, empty=_("— Escolher —")) }}
+      {% set purpose_opts = [] %}{% for c in purposes %}{% do purpose_opts.append((c.id, c.name(lang))) %}{% endfor %}
+      {% set spec_opts = [] %}{% for c in specialties %}{% do spec_opts.append((c.id, c.name(lang))) %}{% endfor %}
+      {{ m.choices("category_ids", _("Categorias (1 a 5): finalidade"), purpose_opts, values.get('category_ids'), errors, required=True) }}
+      {{ m.choices("category_ids", _("Categorias: especialidade"), spec_opts, values.get('category_ids'), {}, hint=_("O total de finalidades e especialidades escolhidas não pode passar de 5.")) }}
+      <div hx-get="/api/tags/suggest" hx-trigger="keyup changed delay:300ms from:#f-tags" hx-target="#tag-suggestions" hx-include="#f-tags">
+      {{ m.text("tags", _("Etiquetas (opcional)"), values, errors, maxlength=500, hint=_("Até 10, separadas por vírgulas. Ex.: score2, risco cardiovascular, hta")) }}
+      </div>
+      <div id="tag-suggestions" class="tag-suggestions" aria-live="polite"></div>
+    </fieldset>
+
+    <fieldset class="form-section">
+      <legend>{{ _("Utilização") }}</legend>
+      {% set settings_opts = [] %}{% for k, v in labels.CARE_SETTING.items() %}{% do settings_opts.append((k, _(v))) %}{% endfor %}
+      {{ m.choices("care_setting", _("Contexto de cuidados"), settings_opts, [values.get('care_setting')], errors, type="radio", required=True) }}
+      {% set plat_opts = [] %}{% for k, v in labels.PLATFORM.items() %}{% do plat_opts.append((k, _(v))) %}{% endfor %}
+      {{ m.choices("platforms", _("Plataformas"), plat_opts, values.get('platforms'), errors, required=True) }}
+      {% set lang_opts = [] %}{% for k, v in labels.TOOL_LANGUAGE.items() %}{% do lang_opts.append((k, _(v))) %}{% endfor %}
+      {{ m.choices("tool_languages", _("Idiomas da ferramenta"), lang_opts, values.get('tool_languages'), errors, required=True) }}
+      {% set price_opts = [] %}{% for k, v in labels.PRICING.items() %}{% do price_opts.append((k, _(v))) %}{% endfor %}
+      {{ m.choices("pricing", _("Preço"), price_opts, [values.get('pricing')], errors, type="radio", required=True) }}
+      {% set lic_opts = [] %}{% for k, v in labels.LICENSES %}{% do lic_opts.append((k, _(v))) %}{% endfor %}
+      {{ m.select("license_spdx", _("Licença"), lic_opts, values, errors, required=True, empty=_("— Escolher —"), hint=_("Com uma licença de código aberto e um repositório público, a ficha recebe o selo Open source.")) }}
+      {% set pd_opts = [] %}{% for k, v in labels.PATIENT_DATA.items() %}{% do pd_opts.append((k, _(v))) %}{% endfor %}
+      {{ m.choices("patient_data", _("Tratamento de dados de utentes"), pd_opts, [values.get('patient_data')], errors, type="radio", required=True, wide=True) }}
+      {{ m.textarea("intended_use", _("Utilização prevista"), values, errors, required=True, maxlength=600, rows=3, hint=_("1 a 3 frases: quem deve usar, para quê e com que limitações.")) }}
+      {{ m.text("version_label", _("Versão / última versão (opcional)"), values, errors, maxlength=40) }}
+    </fieldset>
+
+    <fieldset class="form-section">
+      <legend>{{ _("Ligações") }}</legend>
+      <p class="form-section__intro">{{ _("Pelo menos uma. Use o local onde publica a ferramenta (repositório, site, loja de aplicações), não serviços de partilha de ficheiros nem encurtadores de ligações.") }}</p>
+      {% for name in ("website_url", "repo_url", "download_url", "docs_url") %}
+      {{ m.text(name, _(labels.LINK_FIELD[name]), values, errors, type="url", maxlength=500, placeholder="https://") }}
+      {% endfor %}
+    </fieldset>
+
+    <fieldset class="form-section" id="certificacoes">
+      <legend>{{ _("Certificações e conformidade") }}</legend>
+      <p class="form-section__intro">{{ _("Por omissão, nenhuma certificação é declarada. Ative apenas o que a ferramenta tem de facto e indique a evidência: cada declaração é verificada por um moderador.") }}</p>
+      {% for cert in certs %}
+      {% set on = values.get('cert_' ~ cert.code) %}
+      {% set claim = claim_states.get(cert.code) %}
+      <div class="cert-claim{% if on %} is-on{% endif %}" data-cert-claim>
+        <div class="cert-claim__head">
+          <input type="checkbox" id="f-cert_{{ cert.code }}" name="cert_{{ cert.code }}" value="1" data-cert-toggle="{{ cert.code }}"{% if on %} checked{% endif %}>
+          <div>
+            <label for="f-cert_{{ cert.code }}">{{ cert.badge_label }} — {{ cert.name(lang) }}</label>
+            {% if cert.help(lang) %}<p class="field__hint">{{ cert.help(lang) }}</p>{% endif %}
+            {% if claim %}<p class="xsmall">{{ m.status(claim.state, labels.CLAIM_STATE) }}{% if claim.state == 'rejected' and claim.review_reason %} <span class="muted">{{ claim.review_reason }}</span>{% endif %}</p>{% endif %}
+          </div>
+        </div>
+        <div class="cert-claim__fields">
+          {% for f in cert.field_schema %}
+          {% set fname = 'cert_' ~ cert.code ~ '__' ~ f.key %}
+          {% set flabel = f.get('label_' ~ lang) or f.get('label_pt') or f.key %}
+          {% set req = f.get('required') %}
+          {% if f.type == 'enum' %}
+            {% set opts = [] %}{% for o in f.get('options', []) %}{% if o is mapping %}{% do opts.append((o.value, o.get('label_' ~ lang) or o.get('label_pt') or o.value)) %}{% else %}{% do opts.append((o, o)) %}{% endif %}{% endfor %}
+            {{ m.select(fname, flabel, opts, values, errors, required=req, empty=_("— Escolher —")) }}
+          {% elif f.type == 'bool' %}
+            {{ m.checkbox(fname, flabel, values.get(fname), errors) }}
+          {% elif f.type == 'date' %}
+            {{ m.text(fname, flabel, values, errors, type="date", required=req) }}
+          {% elif f.type == 'url' %}
+            {{ m.text(fname, flabel, values, errors, type="url", required=req, maxlength=500, placeholder="https://") }}
+          {% elif f.type == 'nb_number' %}
+            {{ m.text(fname, flabel, values, errors, maxlength=4, placeholder="0123") }}
+          {% else %}
+            {{ m.text(fname, flabel, values, errors, required=req, maxlength=200) }}
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </fieldset>
+
+    <fieldset class="form-section">
+      <legend>{{ _("Declarações") }}</legend>
+      {{ m.checkbox("decl_author", _("Sou o autor da ferramenta ou estou autorizado/a a publicá-la."), values.get('decl_author'), errors) }}
+      {{ m.checkbox("decl_no_patient_data", _("O texto e as capturas de ecrã não contêm dados que identifiquem utentes."), values.get('decl_no_patient_data'), errors) }}
+      {{ m.checkbox("decl_no_validation", _("Aceito que a gitmgf não valida a correção clínica das ferramentas."), values.get('decl_no_validation'), errors) }}
+    </fieldset>
+
+    <div class="form-actions form-actions--sticky">
+      {% if in_place %}
+      <button class="btn btn--primary" type="submit" name="intent" value="submit">{{ icon('send') }} {{ _("Guardar e submeter para revisão") }}</button>
+      <button class="btn" type="submit" name="intent" value="save">{{ _("Guardar rascunho") }}</button>
+      {% else %}
+      <button class="btn btn--primary" type="submit" name="intent" value="save">{{ icon('send') }} {{ _("Submeter alteração para revisão") }}</button>
+      {% endif %}
+      <a class="btn btn--ghost" href="{{ url('/me/tools') }}">{{ _("Cancelar") }}</a>
+    </div>
+  </form>
+  {% endif %}
+
+  {% if tool and tool.status != 'pending' %}
+  <section class="form-section section--tight" id="screenshots">
+    <h2 class="form-section__title">{{ _("Capturas de ecrã") }}</h2>
+    <p class="form-section__intro">{{ _("Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas e os metadados removidos. Confirme que não mostram dados de utentes.") }}{% if not in_place %} {{ _("Alterações às imagens de uma ferramenta publicada também são revistas.") }}{% endif %}</p>
+    {% if errors.get('file') and media_items | length >= 5 %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors.get('file')[0]) }}</p></div>{% endif %}
+    {% if media_items %}
+    <div class="media-admin">
+      {% for item in media_items %}
+      <figure>
+        <img src="/media/tools/{{ tool.id }}/{{ item.thumb_name }}" alt="{{ item.alt(lang) }}" width="480" height="{{ (480 * item.height / item.width) | int if item.width else 270 }}" loading="lazy">
+        <figcaption>{{ item.alt(lang) }}{% if item.state == 'pending' %} · <span class="status status--pending">{{ _("Nova") }}</span>{% endif %}</figcaption>
+        <div class="row">
+          <form method="post" action="/me/media/{{ item.id }}/move">{{ m.csrf() }}<input type="hidden" name="direction" value="up"><button class="btn btn--sm" type="submit"{% if loop.first %} disabled{% endif %} aria-label="{{ _('Mover para cima') }}">{{ icon('chevron-up') }}</button></form>
+          <form method="post" action="/me/media/{{ item.id }}/move">{{ m.csrf() }}<input type="hidden" name="direction" value="down"><button class="btn btn--sm" type="submit"{% if loop.last %} disabled{% endif %} aria-label="{{ _('Mover para baixo') }}">{{ icon('chevron-down') }}</button></form>
+          <form method="post" action="/me/media/{{ item.id }}/delete" data-confirm="{{ _('Remover esta imagem?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--danger" type="submit">{{ icon('trash') }} {{ _("Remover") }}</button></form>
+        </div>
+      </figure>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if media_items | length < 5 %}
+    <form class="form section--tight" method="post" action="/me/tools/{{ tool.id }}/media" enctype="multipart/form-data">
+      {{ m.csrf() }}
+      <div class="field{% if errors.get('file') %} field--invalid{% endif %}">
+        <label for="f-file">{{ _("Imagem") }}</label>
+        <input id="f-file" type="file" name="file" accept="image/png,image/jpeg,image/webp" required>
+        {{ m.error(errors, 'file') }}
+      </div>
+      {{ m.text("alt_text_pt", _("Texto alternativo (descreva a imagem)"), {}, {}, required=True, maxlength=200) }}
+      {{ m.text("alt_text_en", _("Texto alternativo (EN, opcional)"), {}, {}, maxlength=200, lang_attr="en") }}
+      <div class="form-actions"><button class="btn" type="submit">{{ icon('upload') }} {{ _("Adicionar imagem") }}</button></div>
+    </form>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% if tool %}
+  <section class="form-section section--tight">
+    <h2 class="form-section__title">{{ _("Outras ações") }}</h2>
+    <div class="row">
+      {% if tool.status == 'published' %}
+      <form method="post" action="/me/tools/{{ tool.id }}/archive" data-confirm="{{ _('Arquivar? A página continua acessível, mas deixa de aparecer nas listagens e na pesquisa.') }}">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('archive') }} {{ _("Arquivar") }}</button></form>
+      {% elif tool.status == 'archived' %}
+      <form method="post" action="/me/tools/{{ tool.id }}/unarchive">{{ m.csrf() }}<button class="btn" type="submit">{{ _("Publicar novamente") }}</button></form>
+      {% endif %}
+      <form method="post" action="/me/tools/{{ tool.id }}/delete" data-confirm="{{ _('Eliminar esta ferramenta? Esta ação não pode ser desfeita: a ficha e as imagens são apagadas em 30 dias.') }}">{{ m.csrf() }}<button class="btn btn--danger" type="submit">{{ icon('trash') }} {{ _("Eliminar") }}</button></form>
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

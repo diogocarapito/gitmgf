@@ -1,0 +1,7 @@
+{% block subject %}{{ _("Ferramenta visível novamente: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("A ficha «%(title)s» voltou a estar visível ao público:", title=title) }}
+{{ base_url }}/{{ lang }}/t/{{ slug }}
+{% endblock %}

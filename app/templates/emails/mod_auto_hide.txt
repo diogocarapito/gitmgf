@@ -1,0 +1,8 @@
+{% block subject %}{{ _("Ferramenta ocultada automaticamente: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("A ferramenta «%(title)s» atingiu %(n)s denúncias abertas de conteúdo perigoso ou de segurança e foi ocultada automaticamente. Reveja as denúncias e decida se a ficha deve voltar a ser visível.", title=title, n=count) }}
+
+{{ base_url }}/{{ lang }}/mod?tab=reports
+{% endblock %}

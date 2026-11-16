@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ _("As minhas estrelas") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("As minhas estrelas") }}</h1><p>{{ _("As ferramentas que marcou para encontrar mais tarde.") }}</p></header>
+  {% if tools %}
+  <div class="grid grid--3">{% for t in tools %}{% include "partials/tool_card.html" %}{% endfor %}</div>
+  {% else %}
+  <div class="empty">{{ icon('star') }}<p>{{ _("Ainda não deu estrela a nenhuma ferramenta.") }}</p><a class="btn" href="{{ url('/search') }}">{{ _("Explorar ferramentas") }}</a></div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% block subject %}{{ _("Alteração aprovada: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("As alterações à ficha «%(title)s» foram aprovadas e já estão publicadas:", title=title) }}
+{{ base_url }}/{{ lang }}/t/{{ slug }}
+{% if rejected_claims %}
+
+{{ _("Algumas certificações não foram aprovadas:") }}
+{{ rejected_claims }}
+{% endif %}
+{% endblock %}

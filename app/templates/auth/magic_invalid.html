@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Ligação inválida") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="auth-card">
+    <h1>{{ _("Ligação inválida ou expirada") }}</h1>
+    <p class="muted">{{ _("Esta ligação de acesso é inválida, já foi usada ou expirou. Peça uma nova.") }}</p>
+    <p><a class="btn btn--primary" href="{{ url('/login') }}">{{ _("Pedir nova ligação") }}</a></p>
+  </div>
+</div>
+{% endblock %}

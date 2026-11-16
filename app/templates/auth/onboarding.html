@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Completar perfil") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <h1>{% if reaccept %}{{ _("Atualizámos os Termos") }}{% else %}{{ _("Bem-vindo/a à gitmgf") }}{% endif %}</h1>
+    <p>{% if reaccept %}{{ _("Reveja e aceite a nova versão dos Termos e das Normas de Submissão para continuar.") }}{% else %}{{ _("Complete o seu perfil para começar. Só o nome, a profissão, a especialidade e o GitHub aparecem nas páginas das suas ferramentas.") }}{% endif %}</p>
+  </header>
+  <form class="form" method="post" action="{{ url('/onboarding') }}">
+    {{ m.csrf() }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <fieldset class="form-section">
+      <legend>{{ _("Perfil") }}</legend>
+      {% include "auth/_profile_fields.html" %}
+    </fieldset>
+    <fieldset class="form-section">
+      <legend>{{ _("Termos") }}</legend>
+      {{ m.checkbox("accept_terms", _("Li e aceito os Termos de Utilização e as Normas de Submissão, e tenho 18 anos ou mais."), values.get("accept_terms"), errors) }}
+      <p class="small"><a href="{{ url('/p/terms') }}" target="_blank" rel="noopener">{{ _("Termos de Utilização") }}</a> · <a href="{{ url('/p/guidelines') }}" target="_blank" rel="noopener">{{ _("Normas de Submissão") }}</a> · <a href="{{ url('/p/privacy') }}" target="_blank" rel="noopener">{{ _("Política de Privacidade") }}</a></p>
+    </fieldset>
+    <div class="form-actions"><button class="btn btn--primary btn--lg" type="submit">{{ _("Continuar") }}</button></div>
+  </form>
+</div>
+{% endblock %}

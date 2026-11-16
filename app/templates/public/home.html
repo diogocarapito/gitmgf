@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}gitmgf{% endblock %}
+{% block header_search %}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">{{ icon('plus') }} {{ _("Feito por clínicos, para clínicos") }}</span>
+    <h1>{{ _("As ferramentas que os médicos de família constroem, num só lugar.") }}</h1>
+    <p class="hero__lead">{{ _("Calculadoras, webapps e aplicações criadas por profissionais dos cuidados de saúde primários e do Internato. Preferencialmente open source.") }}</p>
+    <form class="search-box" action="{{ url('/search') }}" method="get" role="search">
+      {{ icon('search') }}
+      <label class="visually-hidden" for="hero-q">{{ _("Pesquisar ferramentas") }}</label>
+      <input id="hero-q" type="search" name="q" maxlength="200" placeholder="{{ _('Pesquisar: risco cardiovascular, vacinação, ICPC-2…') }}">
+      <button class="btn btn--primary" type="submit">{{ _("Pesquisar") }}</button>
+    </form>
+    <div class="quick-chips">
+      <a class="chip" href="{{ url('/search', type='calculator') }}">{{ _("Calculadoras") }}</a>
+      <a class="chip" href="{{ url('/search', type='webapp') }}">{{ _("Webapps") }}</a>
+      <a class="chip" href="{{ url('/search', type='desktop') }}">{{ _("Desktop") }}</a>
+      <a class="chip" href="{{ url('/search', type='spreadsheet') }}">{{ _("Folhas de cálculo") }}</a>
+      <a class="chip" href="{{ url('/search', type='script') }}">{{ _("Scripts") }}</a>
+      <a class="chip" href="{{ url('/c/internato') }}">{{ _("Internato") }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2>{{ _("Em destaque") }}</h2>
+        <p>{{ _("As ferramentas mais usadas pela comunidade nas últimas semanas.") }}</p>
+      </div>
+      <a class="section__more" href="{{ url('/search', sort='popular') }}">{{ _("Ver todas") }} {{ icon('arrow-right') }}</a>
+    </div>
+    {% if popular %}
+    <div class="grid grid--3">
+      {% for t in popular %}{% include "partials/tool_card.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">{{ icon('layers') }}<p>{{ _("Ainda não há ferramentas publicadas. Seja a primeira pessoa a partilhar uma!") }}</p>
+      <a class="btn btn--primary" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a></div>
+    {% endif %}
+  </div>
+</section>
+
+{% if newest %}
+<section class="section section--tight">
+  <div class="container">
+    <div class="section__head">
+      <div><h2>{{ _("Novidades") }}</h2><p>{{ _("Publicadas recentemente.") }}</p></div>
+      <a class="section__more" href="{{ url('/search', sort='new') }}">{{ _("Ver todas") }} {{ icon('arrow-right') }}</a>
+    </div>
+    <div class="grid grid--3">
+      {% for t in newest %}{% include "partials/tool_card.html" %}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if categories %}
+<section class="section section--tight">
+  <div class="container">
+    <div class="section__head"><div><h2>{{ _("Categorias") }}</h2></div>
+      <a class="section__more" href="{{ url('/c/') }}">{{ _("Ver todas") }} {{ icon('arrow-right') }}</a></div>
+    <div class="cat-grid">
+      {% for c, count in categories %}
+      <a class="cat-link" href="{{ url('/c/' ~ c.slug) }}"><span>{{ c.name(lang) }}</span><span class="count">{{ count }}</span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section">
+  <div class="container">
+    <div class="section__head"><h2>{{ _("Como funciona") }}</h2></div>
+    <div class="steps">
+      <div class="step"><div class="step__num">1</div><h3>{{ _("Construir") }}</h3><p>{{ _("Uma calculadora, um script ou uma aplicação que resolve um problema real da consulta.") }}</p></div>
+      <div class="step"><div class="step__num">2</div><h3>{{ _("Partilhar") }}</h3><p>{{ _("Submeta a ligação do repositório ou da webapp, com descrição, licença e categoria. Cada ficha é revista antes de ser publicada.") }}</p></div>
+      <div class="step"><div class="step__num">3</div><h3>{{ _("Descobrir") }}</h3><p>{{ _("Os colegas encontram, usam e melhoram a ferramenta. O código aberto acelera tudo.") }}</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-panel">
+      <div>
+        <h2>{{ _("Construiu algo útil para a sua prática?") }}</h2>
+        <p>{{ _("Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar tempo e a melhorar os cuidados.") }}</p>
+      </div>
+      <a class="btn btn--primary btn--lg" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+{# Shared by onboarding and settings. Needs: values, errors, specialties #}
+{{ m.text("display_name", _("Nome a apresentar"), values, errors, required=True, maxlength=80, autocomplete="name", hint=_("Aparece nas páginas das suas ferramentas.")) }}
+{{ m.text("handle", _("Identificador"), values, errors, required=True, maxlength=30, hint=_("Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no futuro.")) }}
+{% set professions = [] %}{% for k, v in labels.PROFESSION.items() %}{% do professions.append((k, _(v))) %}{% endfor %}
+{{ m.select("profession", _("Profissão"), professions, values, errors, required=True, empty=_("— Escolher —"), hint=_("Declarada por si e mostrada como contexto, não como credencial.")) }}
+{% set specs = [] %}{% for c in specialties %}{% do specs.append((c.id, c.name(lang))) %}{% endfor %}
+{{ m.select("specialty_category_id", _("Especialidade (opcional)"), specs, values, errors, empty=_("— Nenhuma —")) }}
+{{ m.text("workplace", _("Local de trabalho (opcional)"), values, errors, maxlength=120, placeholder=_("p. ex. USF X, ULS Y")) }}
+{{ m.text("github_username", _("Utilizador do GitHub (opcional)"), values, errors, maxlength=39) }}
+{{ m.select("locale", _("Idioma da interface e dos emails"), [("pt", "Português (Portugal)"), ("en", "English")], values, errors) }}

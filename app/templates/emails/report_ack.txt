@@ -1,0 +1,8 @@
+{% block subject %}{{ _("Recebemos a sua denúncia") }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Recebemos a sua denúncia sobre a ferramenta «%(title)s» (motivo: %(reason)s). Vamos analisá-la de forma diligente e objetiva e informamos da decisão.", title=title, reason=reason) }}
+
+{{ _("Referência: #%(id)s", id=report_id) }}
+{% endblock %}

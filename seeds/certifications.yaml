@@ -1,0 +1,215 @@
+# Certification & compliance catalogue (PRD F20, TECH_SPEC §11.5).
+# Admin-editable after seeding; `python -m app.cli seed certifications` upserts by code.
+# Field types: enum | text | url | date | bool | nb_number. Options may be plain values or
+# {value, label_pt, label_en}. `valid_until` and `evidence_url` are mirrored into tool_certifications.
+
+- code: ce
+  badge_label: CE
+  name_pt: Marcação CE
+  name_en: CE marking
+  is_core: true
+  assurance_default: mixed
+  sort_order: 10
+  help_pt: Só para ferramentas que são dispositivos médicos com marcação CE. Indique a base legal, o fabricante e a ligação para a Declaração UE de Conformidade.
+  help_en: Only for tools that are CE-marked medical devices. Give the legal basis, the manufacturer and a link to the EU Declaration of Conformity.
+  field_schema:
+    - key: legal_basis
+      type: enum
+      required: true
+      label_pt: Base legal
+      label_en: Legal basis
+      options:
+        - {value: MDR, label_pt: "MDR — Regulamento (UE) 2017/745", label_en: "MDR — Regulation (EU) 2017/745"}
+        - {value: IVDR, label_pt: "IVDR — Regulamento (UE) 2017/746", label_en: "IVDR — Regulation (EU) 2017/746"}
+        - {value: MDD_legacy, label_pt: "MDD (diretiva anterior, legado)", label_en: "MDD (legacy directive)"}
+        - {value: AIMDD_legacy, label_pt: "AIMDD (diretiva anterior, legado)", label_en: "AIMDD (legacy directive)"}
+    - {key: manufacturer, type: text, required: true, label_pt: Fabricante, label_en: Manufacturer}
+    - {key: evidence_url, type: url, required: true, label_pt: Declaração UE de Conformidade (URL), label_en: EU Declaration of Conformity (URL)}
+    - {key: basic_udi_di, type: text, required: false, label_pt: Basic UDI-DI, label_en: Basic UDI-DI}
+    - {key: eudamed_url, type: url, required: false, label_pt: Registo na EUDAMED (URL), label_en: EUDAMED entry (URL)}
+
+- code: mdr
+  badge_label: MDR
+  label_template: "MDR {class}"
+  name_pt: Dispositivo médico — Regulamento (UE) 2017/745
+  name_en: Medical device — Regulation (EU) 2017/745
+  is_core: true
+  assurance_default: mixed
+  sort_order: 20
+  help_pt: Classe I é autodeclarada pelo fabricante; as classes IIa, IIb e III exigem certificado de um organismo notificado.
+  help_en: Class I is self-declared by the manufacturer; classes IIa, IIb and III need a notified body certificate.
+  field_schema:
+    - key: class
+      type: enum
+      required: true
+      label_pt: Classe
+      label_en: Class
+      options: [I, IIa, IIb, III]
+      assurance_if: {class: {I: self_declared, "*": third_party}}
+    - {key: nb_number, type: nb_number, required_if: {class: [IIa, IIb, III]}, label_pt: N.º do organismo notificado (4 dígitos), label_en: Notified body number (4 digits)}
+    - {key: certificate_no, type: text, required_if: {class: [IIa, IIb, III]}, label_pt: N.º do certificado, label_en: Certificate number}
+    - {key: valid_until, type: date, required_if: {class: [IIa, IIb, III]}, label_pt: Válido até, label_en: Valid until}
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência (URL), label_en: Evidence (URL)}
+
+- code: rgpd
+  badge_label: RGPD
+  name_pt: Conformidade RGPD (autodeclarada)
+  name_en: GDPR compliance (self-declared)
+  is_core: true
+  assurance_default: self_declared
+  sort_order: 30
+  help_pt: Declaração do autor sobre o cumprimento do RGPD. Recomendado sempre que a ferramenta envia dados para um servidor.
+  help_en: The author's statement of GDPR compliance. Recommended whenever the tool sends data to a server.
+  field_schema:
+    - {key: evidence_url, type: url, required: true, label_pt: Política de privacidade (URL), label_en: Privacy policy (URL)}
+    - key: data_location
+      type: enum
+      required: true
+      label_pt: Localização dos dados pessoais
+      label_en: Personal data location
+      options:
+        - {value: no_personal_data, label_pt: Não guarda dados pessoais, label_en: No personal data stored}
+        - {value: eu_eea, label_pt: UE / EEE, label_en: EU / EEA}
+        - {value: outside_eea_safeguards, label_pt: Fora do EEE com garantias adequadas, label_en: Outside the EEA with safeguards}
+    - {key: dpa_available, type: bool, required: false, label_pt: Acordo de tratamento de dados disponível a pedido, label_en: Data processing agreement available on request}
+    - {key: dpo_contact, type: text, required: false, label_pt: Contacto do encarregado de proteção de dados, label_en: DPO contact}
+
+- code: ivdr
+  badge_label: IVDR
+  label_template: "IVDR {class}"
+  name_pt: Dispositivo médico para diagnóstico in vitro — Regulamento (UE) 2017/746
+  name_en: In vitro diagnostic medical device — Regulation (EU) 2017/746
+  is_core: false
+  assurance_default: mixed
+  sort_order: 40
+  help_pt: Classe A é autodeclarada; as classes B, C e D exigem certificado de um organismo notificado.
+  help_en: Class A is self-declared; classes B, C and D need a notified body certificate.
+  field_schema:
+    - key: class
+      type: enum
+      required: true
+      label_pt: Classe
+      label_en: Class
+      options: [A, B, C, D]
+      assurance_if: {class: {A: self_declared, "*": third_party}}
+    - {key: nb_number, type: nb_number, required_if: {class: [B, C, D]}, label_pt: N.º do organismo notificado (4 dígitos), label_en: Notified body number (4 digits)}
+    - {key: certificate_no, type: text, required_if: {class: [B, C, D]}, label_pt: N.º do certificado, label_en: Certificate number}
+    - {key: valid_until, type: date, required_if: {class: [B, C, D]}, label_pt: Válido até, label_en: Valid until}
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência (URL), label_en: Evidence (URL)}
+
+- code: iso13485
+  badge_label: ISO 13485
+  name_pt: Sistema de gestão da qualidade para dispositivos médicos (ISO 13485)
+  name_en: Quality management system for medical devices (ISO 13485)
+  is_core: false
+  assurance_default: third_party
+  sort_order: 50
+  field_schema: &iso_fields
+    - {key: certification_body, type: text, required: true, label_pt: Organismo de certificação, label_en: Certification body}
+    - {key: certificate_no, type: text, required: true, label_pt: N.º do certificado, label_en: Certificate number}
+    - {key: valid_until, type: date, required: true, label_pt: Válido até, label_en: Valid until}
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência (URL), label_en: Evidence (URL)}
+
+- code: iso27001
+  badge_label: ISO 27001
+  name_pt: Segurança da informação (ISO/IEC 27001)
+  name_en: Information security (ISO/IEC 27001)
+  is_core: false
+  assurance_default: third_party
+  sort_order: 60
+  field_schema: *iso_fields
+
+- code: iso27701
+  badge_label: ISO 27701
+  name_pt: Gestão da privacidade da informação (ISO/IEC 27701)
+  name_en: Privacy information management (ISO/IEC 27701)
+  is_core: false
+  assurance_default: third_party
+  sort_order: 70
+  field_schema: *iso_fields
+
+- code: iec62304
+  badge_label: IEC 62304
+  name_pt: Ciclo de vida de software de dispositivo médico (IEC 62304)
+  name_en: Medical device software lifecycle (IEC 62304)
+  is_core: false
+  assurance_default: self_declared
+  sort_order: 80
+  field_schema:
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência ou declaração (URL), label_en: Evidence or statement (URL)}
+    - {key: software_class, type: enum, required: false, options: [A, B, C], label_pt: Classe de segurança do software, label_en: Software safety class}
+
+- code: europrivacy
+  badge_label: Europrivacy
+  name_pt: Selo europeu de proteção de dados (art. 42.º do RGPD)
+  name_en: European Data Protection Seal (GDPR Art. 42)
+  is_core: false
+  assurance_default: third_party
+  sort_order: 90
+  field_schema:
+    - {key: certificate_no, type: text, required: true, label_pt: N.º do certificado, label_en: Certificate number}
+    - {key: valid_until, type: date, required: true, label_pt: Válido até, label_en: Valid until}
+    - {key: evidence_url, type: url, required: true, label_pt: Registo (URL), label_en: Registry (URL)}
+
+- code: ai_act
+  badge_label: AI Act
+  name_pt: Conformidade com o Regulamento da IA (UE) 2024/1689
+  name_en: EU AI Act conformity — Regulation (EU) 2024/1689
+  is_core: false
+  assurance_default: mixed
+  sort_order: 100
+  help_pt: Indique a categoria de risco declarada pelo fornecedor e a evidência de conformidade.
+  help_en: Give the risk category declared by the provider and the conformity evidence.
+  field_schema:
+    - key: risk_category
+      type: enum
+      required: true
+      label_pt: Categoria de risco
+      label_en: Risk category
+      options:
+        - {value: high_risk, label_pt: Risco elevado, label_en: High-risk}
+        - {value: transparency, label_pt: Obrigações de transparência, label_en: Transparency obligations}
+        - {value: minimal, label_pt: Risco mínimo, label_en: Minimal risk}
+    - key: assessment
+      type: enum
+      required: true
+      label_pt: Avaliação
+      label_en: Assessment
+      options:
+        - {value: self_declared, label_pt: Autodeclarada, label_en: Self-declared}
+        - {value: third_party, label_pt: Por terceiros, label_en: Third-party}
+      assurance_if: {assessment: {self_declared: self_declared, "*": third_party}}
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência (URL), label_en: Evidence (URL)}
+
+- code: a11y
+  badge_label: Acessível
+  name_pt: Acessibilidade (EN 301 549 / WCAG 2.1 AA)
+  name_en: Accessibility (EN 301 549 / WCAG 2.1 AA)
+  is_core: false
+  assurance_default: self_declared
+  sort_order: 110
+  field_schema:
+    - {key: evidence_url, type: url, required: true, label_pt: Declaração de acessibilidade (URL), label_en: Accessibility statement (URL)}
+    - {key: standard, type: enum, required: false, options: ["EN 301 549", "WCAG 2.1 AA", "WCAG 2.2 AA"], label_pt: Norma, label_en: Standard}
+
+- code: spms
+  badge_label: SPMS
+  name_pt: Certificação SPMS (p. ex. software de prescrição)
+  name_en: SPMS certification (Portugal, e.g. prescribing software)
+  is_core: false
+  assurance_default: third_party
+  sort_order: 120
+  field_schema:
+    - {key: reference, type: text, required: true, label_pt: Referência do certificado, label_en: Certificate reference}
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência (URL), label_en: Evidence (URL)}
+
+- code: ehds
+  badge_label: EHDS
+  name_pt: Sistema de registo de saúde eletrónico conforme o EHDS — Regulamento (UE) 2025/327
+  name_en: EHDS-conformant EHR system — Regulation (EU) 2025/327
+  is_core: false
+  is_active: false
+  assurance_default: mixed
+  sort_order: 130
+  field_schema:
+    - {key: evidence_url, type: url, required: true, label_pt: Evidência (URL), label_en: Evidence (URL)}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{% if category %}{{ category.name(lang) }}{% elif params.q %}{{ _("Pesquisa: %(q)s", q=params.q) }}{% else %}{{ _("Explorar ferramentas") }}{% endif %}{% endblock %}
+{% block description %}{% if category and category.description(lang) %}{{ category.description(lang) }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block robots %}{% if params.q or result.page > 1 %}<meta name="robots" content="noindex, follow">{% endif %}{% endblock %}
+{% block header_search %}{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head">
+    {% if category %}<p class="breadcrumbs"><a href="{{ url('/c/') }}">{{ _("Categorias") }}</a></p>{% endif %}
+    <h1>{% if category %}{{ category.name(lang) }}{% else %}{{ _("Explorar ferramentas") }}{% endif %}</h1>
+    {% if category and category.description(lang) %}<p>{{ category.description(lang) }}</p>{% endif %}
+  </header>
+  <form id="search-form" class="search-layout" action="{{ form_action }}" method="get" role="search"
+        hx-get="{{ form_action }}" hx-target="#results" hx-swap="outerHTML" hx-push-url="true"
+        hx-trigger="input changed delay:400ms from:#q, change from:.filter, submit" hx-indicator="#search-indicator">
+    <aside>
+      <details class="filters-toggle" open>
+        <summary class="btn btn--sm">{{ icon('filter') }} {{ _("Filtros") }}</summary>
+        <div class="filters">
+          <fieldset>
+            <legend>{{ _("Tipo") }}</legend>
+            <label class="visually-hidden" for="f-type">{{ _("Tipo de ferramenta") }}</label>
+            <select id="f-type" name="type" class="filter">
+              <option value="">{{ _("Todos os tipos") }}</option>
+              {% for k, v in labels.TOOL_TYPE.items() %}<option value="{{ k }}"{% if params.type == k %} selected{% endif %}>{{ _(v) }}</option>{% endfor %}
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>{{ _("Acesso") }}</legend>
+            <label class="choice"><input class="filter" type="checkbox" name="oss" value="1"{% if params.oss %} checked{% endif %}> {{ _("Só open source") }}</label>
+            <label class="choice"><input class="filter" type="checkbox" name="free" value="1"{% if params.free %} checked{% endif %}> {{ _("Só gratuitas") }}</label>
+          </fieldset>
+          <fieldset>
+            <legend>{{ _("Certificações") }}</legend>
+            {% for c in all_certs %}
+            <label class="choice"><input class="filter" type="checkbox" name="cert" value="{{ c.code }}"{% if c.code in params.cert %} checked{% endif %}> <span>{{ c.badge_label }} <span class="muted xsmall">{{ c.name(lang) }}</span></span></label>
+            {% endfor %}
+          </fieldset>
+          <fieldset>
+            <legend>{{ _("Contexto") }}</legend>
+            <label class="choice"><input class="filter" type="radio" name="setting" value=""{% if not params.setting %} checked{% endif %}> {{ _("Qualquer") }}</label>
+            <label class="choice"><input class="filter" type="radio" name="setting" value="primary"{% if params.setting == 'primary' %} checked{% endif %}> {{ _(labels.CARE_SETTING.primary) }}</label>
+            <label class="choice"><input class="filter" type="radio" name="setting" value="hospital"{% if params.setting == 'hospital' %} checked{% endif %}> {{ _(labels.CARE_SETTING.hospital) }}</label>
+          </fieldset>
+          <fieldset>
+            <legend>{{ _("Plataforma") }}</legend>
+            {% for k, v in labels.PLATFORM.items() %}
+            <label class="choice"><input class="filter" type="checkbox" name="platform" value="{{ k }}"{% if k in params.platform %} checked{% endif %}> {{ _(v) }}</label>
+            {% endfor %}
+          </fieldset>
+          <fieldset>
+            <legend>{{ _("Idioma da ferramenta") }}</legend>
+            <label class="visually-hidden" for="f-lang">{{ _("Idioma da ferramenta") }}</label>
+            <select id="f-lang" name="lang" class="filter">
+              <option value="">{{ _("Qualquer idioma") }}</option>
+              {% for k, v in labels.TOOL_LANGUAGE.items() %}<option value="{{ k }}"{% if params.lang == k %} selected{% endif %}>{{ _(v) }}</option>{% endfor %}
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>{{ _("Categorias") }}</legend>
+            {% for c in all_categories if not c.is_specialty %}
+            <label class="choice"><input class="filter" type="checkbox" name="cat" value="{{ c.slug }}"{% if c.slug in params.cat %} checked{% endif %}> {{ c.name(lang) }}</label>
+            {% endfor %}
+            {% set spec_selected = all_categories | selectattr('is_specialty') | selectattr('slug', 'in', params.cat) | list %}
+            <details{% if spec_selected %} open{% endif %}>
+              <summary class="small">{{ _("Especialidades") }}</summary>
+              {% for c in all_categories if c.is_specialty %}
+              <label class="choice"><input class="filter" type="checkbox" name="cat" value="{{ c.slug }}"{% if c.slug in params.cat %} checked{% endif %}> {{ c.name(lang) }}</label>
+              {% endfor %}
+            </details>
+          </fieldset>
+          <div class="row">
+            <button class="btn btn--sm btn--primary" type="submit">{{ _("Aplicar filtros") }}</button>
+            <a class="btn btn--sm btn--ghost" href="{{ form_action }}">{{ _("Limpar") }}</a>
+          </div>
+        </div>
+      </details>
+    </aside>
+    <div class="search-main">
+      <div class="search-box">
+        {{ icon('search') }}
+        <label class="visually-hidden" for="q">{{ _("Pesquisar ferramentas") }}</label>
+        <input id="q" type="search" name="q" value="{{ params.q }}" maxlength="200" autocomplete="off" placeholder="{{ _('Pesquisar: risco cardiovascular, vacinação, ICPC-2…') }}">
+        <button class="btn btn--primary" type="submit">{{ _("Pesquisar") }}</button>
+      </div>
+      <div class="results-head">
+        <span id="search-indicator" class="htmx-indicator small muted">{{ _("A pesquisar…") }}</span>
+        <label class="small row">{{ _("Ordenar") }}
+          <select name="sort" class="filter">
+            {% for k, v in labels.SORTS.items() %}{% if k != 'relevance' or params.q %}<option value="{{ k }}"{% if params.effective_sort == k %} selected{% endif %}>{{ _(v) }}</option>{% endif %}{% endfor %}
+          </select>
+        </label>
+      </div>
+      {% include "partials/search_results.html" %}
+    </div>
+  </form>
+</div>
+{% endblock %}

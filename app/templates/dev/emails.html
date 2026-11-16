@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Dev · outbox{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container section--tight">
+  <h1>Email outbox (dev)</h1>
+  {% for row in rows %}
+  <details class="panel">
+    <summary><strong>{{ row.subject }}</strong> <span class="muted small">→ {{ row.to_email }} · {{ row.template }} · {{ row.status }} · {{ row.created_at | datetime }}</span></summary>
+    <pre class="small">{{ row.body_text }}</pre>
+  </details>
+  {% else %}
+  <p class="muted">No emails yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

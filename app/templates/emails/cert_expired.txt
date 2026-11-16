@@ -1,0 +1,9 @@
+{% block subject %}{{ _("Certificação expirada: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("A certificação «%(cert)s» declarada na ficha «%(title)s» expirou em %(date)s. O selo aparece agora como ausente.", cert=cert, title=title, date=date) }}
+
+{{ _("Para voltar a mostrá-lo, atualize a ficha com a nova data de validade e a evidência:") }}
+{{ base_url }}/{{ lang }}/me/tools/{{ tool_id }}/edit
+{% endblock %}

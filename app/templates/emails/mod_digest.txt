@@ -1,0 +1,11 @@
+{% block subject %}{{ _("gitmgf: %(n)s itens à espera de moderação", n=total) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Novas submissões: %(n)s", n=new) }}
+{{ _("Alterações: %(n)s", n=edits) }}
+{{ _("Denúncias abertas: %(n)s", n=reports) }}
+{% if oldest %}{{ _("Item mais antigo: há %(age)s", age=oldest) }}{% endif %}
+
+{{ base_url }}/{{ lang }}/mod
+{% endblock %}

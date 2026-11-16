@@ -1,0 +1,13 @@
+{% block subject %}{{ _("Alteração não aprovada: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Medida: as alterações propostas à ficha «%(title)s» não foram aprovadas. A versão publicada mantém-se sem alterações.", title=title) }}
+
+{{ _("Motivo e factos:") }}
+{{ reason }}
+
+{{ _("A decisão foi tomada por um moderador (não por meios automáticos).") }}
+
+{% include "emails/_statement.txt" %}
+{% endblock %}

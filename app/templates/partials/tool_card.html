@@ -1,0 +1,22 @@
+{# Needs: t (Tool), badges (dict tool_id -> [Badge]); optional: result_href(t, loop.index) #}
+{% import "_macros.html" as m %}
+{% set title = localized(t, "title") %}
+{% set summary = localized(t, "summary") %}
+{% set href = card_href(t, loop.index if loop is defined else None) if card_href is defined else url('/t/' ~ t.slug) %}
+<article class="card">
+  <div class="card__top">
+    <span class="icon-tile">{{ icon(labels.TOOL_TYPE_ICON.get(t.tool_type or 'other', 'box')) }}</span>
+    {% if t.tool_type %}<span class="type-badge">{{ label(labels.TOOL_TYPE_SHORT, t.tool_type) }}</span>{% endif %}
+  </div>
+  <h3 class="card__title"><a href="{{ href }}"{% if href.startswith('/r/') %} rel="nofollow"{% endif %}>{{ title }}</a>{% if is_fallback(t, "title") %} <span class="lang-pill" title="{{ _('Disponível apenas em português') }}">PT</span>{% endif %}</h3>
+  <p class="card__summary"{% if is_fallback(t, "summary") %} lang="pt-PT"{% endif %}>{{ summary }}</p>
+  {% set derived = card_badges(t) %}
+  {% if derived %}<div class="card__badges">{% for kind, text in derived %}<span class="badge badge--{{ kind }}">{{ _(text) }}</span>{% endfor %}</div>{% endif %}
+  {% if badges is defined and badges.get(t.id) %}<div class="card__badges">{{ m.cert_row(badges.get(t.id), core_only=True) }}</div>{% endif %}
+  <div class="card__foot">
+    <span class="avatar avatar--sm" aria-hidden="true">{{ (t.owner.display_name or '?')[:1] | upper }}</span>
+    <span>{{ t.owner.display_name }}</span>
+    {% if t.license_spdx %}<span class="sep"></span><span>{{ label(labels.LICENSE_LABEL, t.license_spdx) }}</span>{% endif %}
+    <span class="stars" title="{{ _('Estrelas') }}">{{ icon('star') }} {{ t.stars_count }}<span class="visually-hidden"> {{ _('estrelas') }}</span></span>
+  </div>
+</article>

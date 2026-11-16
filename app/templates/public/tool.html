@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% set title = localized(tool, "title") %}
+{% set summary = localized(tool, "summary") %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ summary }}{% endblock %}
+{% block robots %}{% if not tool.is_public or tool.status == 'archived' %}<meta name="robots" content="noindex">{% endif %}{% endblock %}
+{% block og %}
+  <meta property="og:site_name" content="gitmgf">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ summary }}">
+  <meta property="og:url" content="{{ base_url }}{{ path }}">
+  <meta property="og:image" content="{{ base_url }}{% if media %}/media/tools/{{ tool.id }}/{{ media[0].file_name }}{% else %}/static/img/og-default.png{% endif %}">
+  <meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+{% block content %}
+{% set desc_html = tool.description_html_en if lang == 'en' and tool.description_html_en else tool.description_html_pt %}
+{% set desc_fallback = lang == 'en' and not tool.description_html_en %}
+<div class="tool-head">
+  <div class="container">
+    <p class="breadcrumbs"><a href="{{ url('/search') }}">{{ _("Explorar") }}</a>{% if tool.categories %} / <a href="{{ url('/c/' ~ tool.categories[0].slug) }}">{{ tool.categories[0].name(lang) }}</a>{% endif %}</p>
+    <div class="tool-head__row">
+      <div>
+        <h1>{{ title }}{% if is_fallback(tool, "title") %} <span class="lang-pill" title="{{ _('Disponível apenas em português') }}">PT</span>{% endif %}</h1>
+        <p class="tool-head__summary"{% if is_fallback(tool, "summary") %} lang="pt-PT"{% endif %}>{{ summary }}</p>
+        <div class="row">
+          {% if tool.tool_type %}<span class="type-badge">{{ label(labels.TOOL_TYPE, tool.tool_type) }}</span>{% endif %}
+          {% for kind, text in derived %}<span class="badge badge--{{ kind }}">{{ _(text) }}</span>{% endfor %}
+        </div>
+        <div class="section--tight">{{ m.cert_row(badges, size="md") }}</div>
+      </div>
+      <div class="tool-head__actions">
+        {% if primary_link and tool.is_public %}
+        <a class="btn btn--primary btn--lg" href="/go/{{ tool.id }}/{{ primary_link[0] }}" rel="nofollow noopener" target="_blank">{{ icon('download' if primary_link[0] == 'download' else ('code' if primary_link[0] == 'repo' else 'external')) }} {{ _(labels.LINK_KIND[primary_link[0]]) }}</a>
+        {% for kind, href in links[1:] %}
+        <a class="btn" href="/go/{{ tool.id }}/{{ kind }}" rel="nofollow noopener" target="_blank">{{ icon({'download': 'download', 'repo': 'code', 'docs': 'book', 'website': 'external'}[kind]) }} {{ _(labels.LINK_KIND[kind]) }} <span class="muted xsmall">{{ href | domain }}</span></a>
+        {% endfor %}
+        <p class="external-note">{{ icon('external') }} {{ _("Vai abrir um site externo, fora da gitmgf.") }}</p>
+        {% endif %}
+        {% if tool.status == 'published' %}
+          {% if user %}{% include "partials/star_button.html" %}
+          {% else %}<a class="btn star-button" href="{{ url('/login', next=path) }}">{{ icon('star') }} {{ _("Dar estrela") }} <span class="count-pill">{{ tool.stars_count }}</span></a>{% endif %}
+        {% endif %}
+        {% if is_owner %}<a class="btn btn--ghost" href="{{ url('/me/tools/' ~ tool.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar ficha") }}</a>{% endif %}
+        {% if can_moderate %}<a class="btn btn--ghost" href="{{ url('/mod/tools/' ~ tool.id) }}">{{ icon('shield-check') }} {{ _("Moderar") }}</a>{% endif %}
+      </div>
+    </div>
+    {% if tool.status == 'archived' %}
+    <div class="notice notice--warn status-banner">{{ icon('archive') }}<p>{{ _("Ferramenta arquivada pelo autor: pode já não ser mantida. Não aparece nas listagens nem na pesquisa.") }}</p></div>
+    {% elif tool.status != 'published' %}
+    <div class="notice notice--warn status-banner">{{ icon('eye-off') }}<p>{{ _("Esta página não é pública.") }} {{ _("Estado:") }} {{ m.status(tool.status, labels.TOOL_STATUS) }}</p></div>
+    {% endif %}
+    {% if revision %}<div class="notice status-banner">{{ icon('clock') }}<p>{{ _("Tem uma alteração pendente de revisão. Esta página mostra a versão publicada.") }}</p></div>{% endif %}
+  </div>
+</div>
+
+<div class="container">
+  <div class="tool-layout">
+    <div>
+      {% if media %}
+      <div class="gallery" role="region" aria-label="{{ _('Capturas de ecrã') }}" tabindex="0">
+        {% for item in media %}
+        <figure>
+          <a href="/media/tools/{{ tool.id }}/{{ item.file_name }}"><img src="/media/tools/{{ tool.id }}/{{ item.file_name }}" alt="{{ item.alt(lang) }}" width="{{ item.width }}" height="{{ item.height }}" loading="{{ 'eager' if loop.first else 'lazy' }}"></a>
+          <figcaption>{{ item.alt(lang) }}</figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <section class="prose"{% if desc_fallback %} lang="pt-PT"{% endif %}>
+        {% if desc_fallback %}<p class="small muted"><span class="lang-pill">PT</span> {{ _("Descrição disponível apenas em português.") }}</p>{% endif %}
+        {{ desc_html | safe }}
+      </section>
+
+      {% if tool.intended_use %}
+      <section class="panel section--tight">
+        <h2>{{ _("Utilização prevista") }}</h2>
+        <p lang="pt-PT">{{ tool.intended_use }}</p>
+      </section>
+      {% endif %}
+
+      <section class="panel cert-panel" id="conformidade">
+        <h2>{{ _("Conformidade e certificações") }}</h2>
+        {% if cert_panel %}
+        {% for item in cert_panel %}
+        <div class="cert-item">
+          <div class="cert-item__title">{{ m.cert_badge(item.badge, "md") }} {{ item.badge.name }}</div>
+          <dl class="meta-list">
+            <dt>{{ _("Garantia") }}</dt><dd>{{ label(labels.ASSURANCE, item.badge.assurance) }}</dd>
+            {% for lbl, value, ftype in item.rows %}
+            <dt>{{ lbl }}</dt>
+            <dd>{% if ftype == 'url' %}<a href="{{ value }}" rel="nofollow noopener" target="_blank">{{ value | domain }} {{ icon('external') }}</a>{% elif ftype == 'date' %}{{ value }}{% else %}{{ value }}{% endif %}</dd>
+            {% endfor %}
+          </dl>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if absent_core %}
+        <ul class="cert-absent-list">
+          {% for b in absent_core %}<li>{% if b.expired %}{{ _("%(name)s: expirado em %(date)s", name=b.name, date=b.valid_until | short_date) }}{% else %}{{ _("%(name)s: não declarado pelo autor", name=b.name) }}{% endif %}</li>{% endfor %}
+        </ul>
+        {% endif %}
+        <p class="cert-disclaimer">{{ _("Informação declarada pelo autor. A gitmgf verifica a existência das evidências indicadas, mas não certifica nem garante a conformidade da ferramenta.") }}</p>
+      </section>
+    </div>
+
+    <aside>
+      <section class="panel">
+        <h2>{{ _("Detalhes") }}</h2>
+        <dl class="meta-list">
+          {% if tool.tool_type %}<dt>{{ _("Tipo") }}</dt><dd>{{ label(labels.TOOL_TYPE, tool.tool_type) }}</dd>{% endif %}
+          {% if tool.platforms %}<dt>{{ _("Plataformas") }}</dt><dd>{% for p in tool.platforms %}{{ label(labels.PLATFORM, p) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+          {% if tool.tool_languages %}<dt>{{ _("Idiomas") }}</dt><dd>{% for p in tool.tool_languages %}{{ label(labels.TOOL_LANGUAGE, p) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+          {% if tool.care_setting %}<dt>{{ _("Contexto") }}</dt><dd>{{ label(labels.CARE_SETTING, tool.care_setting) }}</dd>{% endif %}
+          {% if tool.license_spdx %}<dt>{{ _("Licença") }}</dt><dd>{{ label(labels.LICENSE_LABEL, tool.license_spdx) }}</dd>{% endif %}
+          {% if tool.pricing %}<dt>{{ _("Preço") }}</dt><dd>{{ label(labels.PRICING, tool.pricing) }}</dd>{% endif %}
+          {% if tool.patient_data %}<dt>{{ _("Dados de utentes") }}</dt><dd>{{ label(labels.PATIENT_DATA, tool.patient_data) }}</dd>{% endif %}
+          {% if tool.version_label %}<dt>{{ _("Versão") }}</dt><dd>{{ tool.version_label }}</dd>{% endif %}
+          {% if tool.categories %}<dt>{{ _("Categorias") }}</dt><dd>{% for c in tool.categories %}<a href="{{ url('/c/' ~ c.slug) }}">{{ c.name(lang) }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+          {% if tool.tags %}<dt>{{ _("Etiquetas") }}</dt><dd>{% for tg in tool.tags %}<a class="chip chip--sm" href="{{ url('/search', q=tg.label) }}">{{ tg.label }}</a> {% endfor %}</dd>{% endif %}
+        </dl>
+      </section>
+
+      <section class="panel">
+        <h2>{{ _("Autor") }}</h2>
+        <div class="author">
+          <span class="avatar" aria-hidden="true">{{ (tool.owner.display_name or '?')[:1] | upper }}</span>
+          <div>
+            <div class="author__name">{{ tool.owner.display_name }}</div>
+            <div class="small muted">{% if tool.owner.profession %}{{ label(labels.PROFESSION, tool.owner.profession) }}{% endif %}{% if tool.owner.specialty %} · {{ tool.owner.specialty.name(lang) }}{% endif %}</div>
+            {% if tool.owner.github_username %}<a class="small" href="https://github.com/{{ tool.owner.github_username }}" rel="nofollow noopener">{{ icon('github') }} {{ tool.owner.github_username }}</a>{% endif %}
+          </div>
+        </div>
+        <p class="xsmall muted section--tight">{{ _("Profissão e especialidade declaradas pelo autor, não verificadas.") }}</p>
+      </section>
+
+      {% if tool.github and tool.github.fetched_at and not tool.github.last_error %}
+      <section class="panel">
+        <h2>{{ icon('github') }} GitHub</h2>
+        <dl class="meta-list">
+          <dt>{{ _("Estrelas") }}</dt><dd>{{ tool.github.stars | number }}</dd>
+          <dt>{{ _("Forks") }}</dt><dd>{{ tool.github.forks | number }}</dd>
+          <dt>{{ _("Problemas abertos") }}</dt><dd>{{ tool.github.open_issues | number }}</dd>
+          {% if tool.github.pushed_at %}<dt>{{ _("Último commit") }}</dt><dd>{{ tool.github.pushed_at | date }}</dd>{% endif %}
+          {% if tool.github.license_spdx and tool.github.license_spdx != 'NOASSERTION' %}<dt>{{ _("Licença no repositório") }}</dt><dd>{{ tool.github.license_spdx }}</dd>{% endif %}
+          {% if tool.github.archived %}<dt>{{ _("Estado") }}</dt><dd>{{ _("Repositório arquivado") }}</dd>{% endif %}
+        </dl>
+      </section>
+      {% endif %}
+
+      <section class="panel">
+        <dl class="meta-list">
+          {% if tool.published_at %}<dt>{{ _("Publicada") }}</dt><dd>{{ tool.published_at | date }}</dd>{% endif %}
+          {% if tool.last_content_update_at %}<dt>{{ _("Atualizada") }}</dt><dd>{{ tool.last_content_update_at | date }}</dd>{% endif %}
+        </dl>
+        {% if tool.is_public %}<p class="small section--tight"><a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Reportar problema") }}</a></p>{% endif %}
+      </section>
+    </aside>
+  </div>
+</div>
+{% endblock %}

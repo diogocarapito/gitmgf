@@ -1,0 +1,11 @@
+{% block subject %}{{ _("Recebemos a sua submissão: %(title)s", title=title) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Recebemos a ficha «%(title)s». Um moderador vai revê-la e receberá um email com a decisão.", title=title) }}
+
+{{ _("Enquanto estiver em revisão, a ficha não é pública. Pode acompanhar o estado em:") }}
+{{ base_url }}/{{ lang }}/me/tools
+
+{{ _("Obrigado por partilhar o seu trabalho.") }}
+{% endblock %}

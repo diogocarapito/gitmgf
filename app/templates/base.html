@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="{{ HTML_LANG[lang] }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}gitmgf{% endblock %}{% if self.title() != "gitmgf" %} · gitmgf{% endif %}</title>
+  <meta name="description" content="{% block description %}{{ _("Ferramentas digitais criadas por clínicos para a prática clínica, com foco na Medicina Geral e Familiar e no Internato.") }}{% endblock %}">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"includeIndicatorStyles":false,"historyCacheSize":0,"selfRequestsOnly":true}'>
+  {% block robots %}{% endblock %}
+  {% block alternates %}
+  <link rel="alternate" hreflang="pt-PT" href="{{ base_url }}{{ url_pt }}">
+  <link rel="alternate" hreflang="en" href="{{ base_url }}{{ url_en }}">
+  <link rel="alternate" hreflang="x-default" href="{{ base_url }}{{ url_pt }}">
+  <link rel="canonical" href="{{ base_url }}{{ path }}">
+  {% endblock %}
+  {% block og %}
+  <meta property="og:site_name" content="gitmgf">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{{ self.description() }}">
+  <meta property="og:url" content="{{ base_url }}{{ path }}">
+  <meta property="og:image" content="{{ base_url }}/static/img/og-default.png">
+  <meta property="og:locale" content="{{ 'pt_PT' if lang == 'pt' else 'en_GB' }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {% endblock %}
+  <link rel="icon" href="{{ static('img/symbol.svg') }}" type="image/svg+xml">
+  <link rel="icon" href="{{ static('img/favicon-32.png') }}" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{{ static('img/apple-touch-icon.png') }}">
+  <link rel="alternate" type="application/atom+xml" title="gitmgf" href="/{{ lang }}/feed.xml">
+  <link rel="stylesheet" href="{{ static('css/app.css') }}">
+  <script src="{{ static('vendor/htmx.min.js') }}" defer></script>
+  <script src="{{ static('js/app.js') }}" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body hx-headers='{"X-CSRF-Token": "{{ csrf_token }}"}'>
+  <a class="skip-link" href="#main">{{ _("Saltar para o conteúdo") }}</a>
+  {% if banner %}<div class="site-banner" role="status"><div class="container">{{ banner }}</div></div>{% endif %}
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="{{ url('/') }}">
+        <picture>
+          <source srcset="{{ static('img/logo-dark.svg') }}" media="(prefers-color-scheme: dark)">
+          <img src="{{ static('img/logo.svg') }}" alt="gitmgf — {{ _('início') }}" width="107" height="30">
+        </picture>
+      </a>
+      <nav class="nav" aria-label="{{ _('Principal') }}">
+        <a href="{{ url('/search') }}" {% if path.endswith('/search') %}aria-current="page"{% endif %}>{{ _("Explorar") }}</a>
+        <a href="{{ url('/c/') }}" {% if '/c/' in path %}aria-current="page"{% endif %}>{{ _("Categorias") }}</a>
+        <a href="{{ url('/p/about') }}" {% if path.endswith('/p/about') %}aria-current="page"{% endif %}>{{ _("Sobre") }}</a>
+      </nav>
+      {% block header_search %}
+      <form class="header-search" action="{{ url('/search') }}" method="get" role="search">
+        {{ icon('search') }}
+        <label class="visually-hidden" for="header-q">{{ _("Pesquisar ferramentas") }}</label>
+        <input id="header-q" type="search" name="q" placeholder="{{ _('Pesquisar ferramentas') }}" maxlength="200">
+      </form>
+      {% endblock %}
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="{{ _('Idioma') }}">
+          {% if lang == 'pt' %}<span aria-current="true">PT</span><a href="{{ alt_url }}" hreflang="en" lang="en">EN</a>
+          {% else %}<a href="{{ alt_url }}" hreflang="pt-PT" lang="pt-PT">PT</a><span aria-current="true">EN</span>{% endif %}
+        </div>
+        {% if user %}
+        <details class="menu">
+          <summary class="btn btn--ghost btn--sm" aria-label="{{ _('Menu da conta') }}">
+            <span class="avatar" aria-hidden="true">{{ (user.display_name or user.email)[:1] | upper }}</span>
+            {{ icon('chevron-down') }}
+          </summary>
+          <div class="menu__panel">
+            <div class="menu__who">{{ user.display_name or user.email }}</div>
+            <a href="{{ url('/me/tools') }}">{{ icon('layers') }} {{ _("As minhas ferramentas") }}</a>
+            <a href="{{ url('/me/stars') }}">{{ icon('star') }} {{ _("As minhas estrelas") }}</a>
+            <a href="{{ url('/me/settings') }}">{{ icon('settings') }} {{ _("Definições") }}</a>
+            {% if user.is_moderator %}<hr><a href="{{ url('/mod') }}">{{ icon('shield-check') }} {{ _("Moderação") }}</a>{% endif %}
+            {% if user.is_admin %}<a href="{{ url('/admin') }}">{{ icon('activity') }} {{ _("Administração") }}</a>{% endif %}
+            <hr>
+            <form action="/auth/logout" method="post">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit">{{ icon('log-out') }} {{ _("Terminar sessão") }}</button>
+            </form>
+          </div>
+        </details>
+        {% else %}
+        <a class="btn btn--ghost btn--sm" href="{{ url('/login') }}">{{ _("Entrar") }}</a>
+        {% endif %}
+        <a class="btn btn--primary btn--sm header-cta" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a>
+        <details class="menu mobile-nav">
+          <summary class="btn btn--ghost btn--sm" aria-label="{{ _('Menu') }}">{{ icon('menu') }}</summary>
+          <div class="menu__panel">
+            <a href="{{ url('/search') }}">{{ icon('search') }} {{ _("Explorar") }}</a>
+            <a href="{{ url('/c/') }}">{{ icon('tag') }} {{ _("Categorias") }}</a>
+            <a href="{{ url('/p/about') }}">{{ icon('info') }} {{ _("Sobre") }}</a>
+            <a href="{{ url('/me/tools/new') }}">{{ icon('plus') }} {{ _("Partilhar ferramenta") }}</a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <div id="flash" class="flash-region" aria-live="polite">{% include "partials/flash.html" %}</div>
+    </div>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__top">
+        <div>gitmgf — {{ _("ferramentas da comunidade MGF") }}</div>
+        <nav aria-label="{{ _('Rodapé') }}">
+          <a href="{{ url('/p/about') }}">{{ _("Sobre") }}</a>
+          <a href="{{ url('/p/guidelines') }}">{{ _("Normas de submissão") }}</a>
+          <a href="{{ url('/p/terms') }}">{{ _("Termos") }}</a>
+          <a href="{{ url('/p/privacy') }}">{{ _("Privacidade") }}</a>
+          <a href="{{ url('/p/disclaimer') }}">{{ _("Aviso legal") }}</a>
+          <a href="{{ url('/p/contact') }}">{{ _("Contacto") }}</a>
+          <a href="https://mgfhub.com" rel="noopener">mgfhub.com</a>
+        </nav>
+      </div>
+      <p class="disclaimer">{{ _("As ferramentas são publicadas pelos respetivos autores. A gitmgf não valida a correção clínica das ferramentas, que não substituem o juízo clínico. Confirme sempre os protocolos locais.") }}</p>
+    </div>
+  </footer>
+</body>
+</html>

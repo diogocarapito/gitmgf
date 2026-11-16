@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Definições") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head"><h1>{{ _("Definições") }}</h1><p class="muted">{{ user.email }}</p></header>
+  <form class="form" method="post" action="{{ url('/me/settings') }}">
+    {{ m.csrf() }}
+    <fieldset class="form-section">
+      <legend>{{ _("Perfil") }}</legend>
+      {% include "auth/_profile_fields.html" %}
+    </fieldset>
+    <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
+  </form>
+
+  <section class="form-section section--tight">
+    <h2 class="form-section__title">{{ _("Contas associadas") }}</h2>
+    <p class="form-section__intro">{{ _("A ligação por email funciona sempre, mesmo sem contas associadas.") }}</p>
+    {% for key, name, enabled in providers %}
+    <div class="row row--between">
+      <span>{{ icon(key) }} {{ name }} {% if key in linked %}<span class="status status--active">{{ _("Associada") }}</span>{% endif %}</span>
+      {% if key in linked %}
+      <form class="inline-form" method="post" action="/me/providers/{{ key }}/unlink">{{ m.csrf() }}<button class="btn btn--sm" type="submit">{{ _("Desassociar") }}</button></form>
+      {% elif enabled %}
+      <a class="btn btn--sm" href="/auth/{{ key }}/start?link=1">{{ _("Associar") }}</a>
+      {% else %}<span class="muted small">{{ _("Indisponível") }}</span>{% endif %}
+    </div>
+    {% if not loop.last %}<hr>{% endif %}
+    {% endfor %}
+  </section>
+
+  <section class="form-section section--tight">
+    <h2 class="form-section__title">{{ _("Sessões") }}</h2>
+    <p class="form-section__intro">{{ ngettext("Tem %(num)d sessão ativa.", "Tem %(num)d sessões ativas.", session_count) }}</p>
+    <form method="post" action="/auth/logout-all">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('log-out') }} {{ _("Terminar sessão em todos os dispositivos") }}</button></form>
+  </section>
+
+  <section class="form-section section--tight">
+    <h2 class="form-section__title">{{ _("Os seus dados") }}</h2>
+    <p class="form-section__intro">{{ _("Pode transferir uma cópia dos seus dados ou eliminar a conta a qualquer momento.") }}</p>
+    <div class="row">
+      <a class="btn" href="/me/export.json">{{ icon('download') }} {{ _("Transferir os meus dados (JSON)") }}</a>
+      <a class="btn btn--danger" href="{{ url('/me/delete-account') }}">{{ icon('trash') }} {{ _("Eliminar conta") }}</a>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% set f = labels.FLASH.get(flash) if flash else None %}
+{% if f %}
+<div class="notice notice--{{ f[0] }}" role="status">{{ icon('check' if f[0] == 'ok' else 'alert') }}<p>{{ _(f[1]) }}</p></div>
+{% endif %}
+{% if flash_message %}
+<div class="notice notice--{{ flash_kind or 'ok' }}" role="status">{{ icon('check' if (flash_kind or 'ok') == 'ok' else 'alert') }}<p>{{ flash_message }}</p></div>
+{% endif %}

@@ -1,0 +1,12 @@
+{% block subject %}{{ _("A sua ligação de acesso à gitmgf") }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Use esta ligação para entrar na gitmgf:") }}
+
+{{ link }}
+
+{{ _("A ligação é válida durante %(minutes)s minutos e só pode ser usada uma vez.", minutes=minutes) }}
+
+{{ _("Se não pediu este email, pode ignorá-lo: ninguém consegue entrar sem esta ligação.") }}
+{% endblock %}

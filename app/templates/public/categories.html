@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Categorias") }}{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Categorias") }}</h1><p>{{ _("Explore as ferramentas por finalidade ou por especialidade.") }}</p></header>
+  <section class="section--tight">
+    <h2>{{ _("Finalidade") }}</h2>
+    <div class="cat-grid">{% for c, n in categories if not c.is_specialty %}<a class="cat-link" href="{{ url('/c/' ~ c.slug) }}"><span>{{ c.name(lang) }}</span><span class="count">{{ n }}</span></a>{% endfor %}</div>
+  </section>
+  <section class="section--tight">
+    <h2>{{ _("Especialidade") }}</h2>
+    <div class="cat-grid">{% for c, n in categories if c.is_specialty %}<a class="cat-link" href="{{ url('/c/' ~ c.slug) }}"><span>{{ c.name(lang) }}</span><span class="count">{{ n }}</span></a>{% endfor %}</div>
+  </section>
+</div>
+{% endblock %}

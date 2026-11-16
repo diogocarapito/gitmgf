@@ -1,0 +1,18 @@
+<div id="results" aria-live="polite">
+  <p class="small muted">{{ ngettext("%(num)d ferramenta", "%(num)d ferramentas", result.total) }}{% if params.q %} {{ _("para «%(q)s»", q=params.q) }}{% endif %}</p>
+  {% if result.partial %}<div class="notice notice--warn">{{ icon('info') }}<p>{{ _("Sem resultados exatos — a mostrar resultados parciais.") }}</p></div>{% endif %}
+  {% if tools %}
+  <div class="grid">
+    {% for t in tools %}{% include "partials/tool_card.html" %}{% endfor %}
+    {% if next_url %}
+    <div class="load-more" id="load-more"><a class="btn" href="{{ next_url }}" hx-get="{{ next_url }}&more=1" hx-target="#load-more" hx-swap="outerHTML" hx-push-url="false">{{ _("Mostrar mais") }}</a></div>
+    {% endif %}
+  </div>
+  {% if result.page > 1 %}<nav class="pagination"><a class="btn btn--sm" href="{{ form_action }}?{{ request.url.query | replace('page=' ~ result.page, 'page=' ~ (result.page - 1)) }}">{{ icon('arrow-left') }} {{ _("Anterior") }}</a></nav>{% endif %}
+  {% else %}
+  <div class="empty">{{ icon('search') }}
+    <p>{{ _("Nenhuma ferramenta encontrada.") }}</p>
+    <p class="small">{{ _("Tente outras palavras ou retire alguns filtros. Conhece uma ferramenta que devia estar aqui?") }} <a href="{{ url('/me/tools/new') }}">{{ _("Partilhe-a") }}</a>.</p>
+  </div>
+  {% endif %}
+</div>

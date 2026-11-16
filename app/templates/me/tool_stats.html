@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Estatísticas") }} · {{ tool.title_pt }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/me/tools') }}">{{ _("As minhas ferramentas") }}</a></p>
+    <h1>{{ _("Estatísticas") }}: {{ tool.title_pt }}</h1>
+    <p class="muted">{{ _("Contagens pseudonimizadas: cada visitante conta uma vez por dia e por tipo. As suas próprias visitas não contam.") }}</p>
+  </header>
+  <div class="stats">
+    <div class="stat"><div class="stat__label">{{ _("Cliques a partir da pesquisa (30 d)") }}</div><div class="stat__value">{{ usage.search_30 }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Aberturas de ligações (30 d)") }}</div><div class="stat__value">{{ usage.outbound_30 }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Visitas à página (30 d)") }}</div><div class="stat__value">{{ usage.views_30 }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Estrelas") }}</div><div class="stat__value">{{ usage.stars }}</div></div>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">{{ _("Utilização diária nos últimos 90 dias") }}</caption>
+      <thead><tr><th scope="col">{{ _("Dia") }}</th><th scope="col" class="num">{{ _("Pesquisa") }}</th><th scope="col" class="num">{{ _("Aberturas") }}</th><th scope="col" class="num">{{ _("Visitas") }}</th></tr></thead>
+      <tbody>
+      {% for d in daily | reverse %}
+      <tr><td>{{ d.day | date('medium') }}</td><td class="num">{{ d.search }}</td><td class="num">{{ d.outbound }}</td><td class="num">{{ d.views }}</td></tr>
+      {% else %}<tr><td colspan="4" class="muted">{{ _("Ainda sem dados.") }}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

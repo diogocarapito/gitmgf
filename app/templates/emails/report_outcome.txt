@@ -1,0 +1,13 @@
+{% block subject %}{{ _("Decisão sobre a sua denúncia #%(id)s", id=report_id) }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{% if resolved %}{{ _("Analisámos a sua denúncia sobre «%(title)s» e tomámos medidas.", title=title) }}{% else %}{{ _("Analisámos a sua denúncia sobre «%(title)s» e concluímos que não é necessária nenhuma medida.", title=title) }}{% endif %}
+{% if note %}
+
+{{ _("Nota da moderação:") }}
+{{ note }}
+{% endif %}
+
+{{ _("Pode contestar esta decisão no prazo de 6 meses, respondendo a este email.") }}
+{% endblock %}
