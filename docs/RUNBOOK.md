@@ -103,7 +103,7 @@ Moderators can't approve their own tools on the site. While you are the only mod
 dc run --rm app cli approve-own-tool <slug-or-id> --as you@example.org
 ```
 
-It publishes the pending tool, approves its certification claims, indexes it for search, syncs GitHub, and records `self_approved` in the audit log (D27). Once you have a second moderator, use the normal review instead.
+It publishes a pending tool — or, for a published tool with a pending edit, applies that edit — approves its certification claims, reindexes it for search, syncs GitHub, and records `self_approved` in the audit log (D27). Once you have a second moderator, use the normal review instead.
 
 ### Forgotten passwords
 

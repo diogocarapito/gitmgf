@@ -296,3 +296,24 @@ def test_self_approval_is_not_reachable_from_the_web(client, db):
     tool = make_tool(db, admin, status="pending")
     login(client, db, admin)
     assert post(client, f"/mod/tools/{tool.id}/approve").status_code == 403
+
+
+def test_cli_admin_can_self_approve_own_pending_edit(db_path, db):
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+
+    admin = make_user(db, "admin@example.org", Role.admin)
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    tool = make_tool(db, admin, status="published", title_pt="Antes", repo_url="", moderator=mod)
+    svc.save_edit(db, tool, admin, tool_data(db, title_pt="Depois", repo_url=""), {}, True)
+    db.commit()
+    runner = CliRunner()
+    result = runner.invoke(cli, ["approve-own-tool", str(tool.id), "--as", "admin@example.org"])
+    assert result.exit_code == 0 and "edit approved" in result.output, result.output
+    db.expire_all()
+    assert db.get(Tool, tool.id).title_pt == "Depois"
+    entry = db.scalar(select(AuditLog).where(AuditLog.action == "revision.approve"))
+    assert entry.details["self_approved"] is True
+    again = runner.invoke(cli, ["approve-own-tool", str(tool.id), "--as", "admin@example.org"])
+    assert again.exit_code == 1  # nothing pending any more

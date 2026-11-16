@@ -467,10 +467,20 @@ def withdraw_revision(db: Session, revision: ToolRevision, actor: User) -> None:
 
 
 def approve_revision(
-    db: Session, revision: ToolRevision, actor: User, claim_rejections: dict[str, str] | None = None
+    db: Session,
+    revision: ToolRevision,
+    actor: User,
+    claim_rejections: dict[str, str] | None = None,
+    self_approval: bool = False,
 ) -> None:
     tool = revision.tool
-    if revision.status != RevisionStatus.pending or not permissions.can_moderate(actor, tool):
+    if revision.status != RevisionStatus.pending:
+        raise InvalidTransition("cannot approve revision")
+    if self_approval:
+        # CLI-only escape hatch (D27), as for new tools.
+        if not (actor.is_active and actor.is_admin):
+            raise InvalidTransition("self-approval is limited to admins")
+    elif not permissions.can_moderate(actor, tool):
         raise InvalidTransition("cannot approve revision")
     data = revision.data
     apply_data(db, tool, data)
@@ -515,6 +525,7 @@ def approve_revision(
         tool.id,
         revision_id=revision.id,
         rejected_claims=[c for c, _ in rejected],
+        **({"self_approved": True, "via": "cli"} if self_approval else {}),
     )
 
 

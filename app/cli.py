@@ -212,7 +212,7 @@ def approve_own_tool(
     tool_ref: str = typer.Argument(..., help="Tool slug or id (must be pending review)"),
     admin_email: str = typer.Option(..., "--as", help="Email of the admin taking responsibility"),
 ) -> None:
-    """Publish a pending tool without a second reviewer. Admins only; recorded as self-approved (D27)."""
+    """Publish your pending tool, or approve its pending edit, without a second reviewer. Admins only; self-approved (D27)."""
     from app.config import get_settings
     from app.models import Tool
     from app.models.enums import ToolStatus
@@ -233,19 +233,26 @@ def approve_own_tool(
         if admin is None or not admin.is_admin:
             typer.echo(f"{admin_email} is not an admin", err=True)
             raise typer.Exit(1)
-        if tool.status != ToolStatus.pending:
+        revision = tool_service.pending_revision(db, tool)
+        if tool.status == ToolStatus.pending:
+            tool_service.transition(db, tool, "approve", admin, self_approval=True)
+            what = "published"
+        elif revision is not None:
+            tool_service.approve_revision(db, revision, admin, self_approval=True)
+            what = "edit approved"
+        else:
             typer.echo(
-                f"tool is {tool.status.value}; submit it for review first (only pending tools can be approved)",
+                f"tool is {tool.status.value} with no pending edit: nothing to approve "
+                "(submit it for review, or save an edit first)",
                 err=True,
             )
             raise typer.Exit(1)
-        tool_service.transition(db, tool, "approve", admin, self_approval=True)
         db.commit()
         slug, tool_id, has_repo = tool.slug, tool.id, tool.github is not None
     if has_repo:
         with _session() as db:
             github.sync_all(db, tool_id=tool_id, delay=0)  # best effort: stars, last commit, licence
-    typer.echo(f"published: {get_settings().base_url.rstrip('/')}/t/{slug}")
+    typer.echo(f"{what}: {get_settings().base_url.rstrip('/')}/t/{slug}")
 
 
 @cli.command("reindex")
