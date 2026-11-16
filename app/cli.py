@@ -107,6 +107,35 @@ def seed_demo(tools: int = 30) -> None:
 @cli.command("create-admin")
 def create_admin(email: str) -> None:
     """Create (or promote) an admin and print a one-time link to set the password (48 h)."""
+    _create_admin(email)
+
+
+@cli.command("change-email")
+def change_email(old: str, new: str) -> None:
+    """Move an account to a new email address (keeps tools, role and history; signs out its sessions)."""
+    from app.services import sessions
+
+    old_address, new_address = old.strip().lower(), new.strip().lower()
+    if "@" not in new_address or len(new_address) > 254:
+        typer.echo(f"invalid email: {new!r}", err=True)
+        raise typer.Exit(1)
+    with _session() as db:
+        user = db.scalar(select(User).where(User.email == old_address))
+        if user is None:
+            typer.echo(f"no account with email {old_address}", err=True)
+            raise typer.Exit(1)
+        if db.scalar(select(User.id).where(User.email == new_address)) is not None:
+            typer.echo(f"{new_address} is already used by another account", err=True)
+            raise typer.Exit(1)
+        user.email = new_address
+        sessions.destroy_all(db, user.id)
+        audit.log(db, None, "user.email_change", "user", user.id, via="cli")
+        db.commit()
+    typer.echo(f"email changed: {old_address} -> {new_address} (signed out everywhere)")
+    typer.echo("Remember to update ADMIN_EMAILS in .env and redeploy.")
+
+
+def _create_admin(email: str) -> None:
     from app.config import get_settings
     from app.services import auth as auth_service
 

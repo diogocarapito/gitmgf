@@ -279,3 +279,22 @@ def test_settings_update_profile(client, db):
         ).status_code
         == 422
     )
+
+
+def test_cli_change_email_keeps_account_and_signs_out(client, db):
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+
+    user = with_password(db, make_user(db, "old@example.org", Role.admin))
+    login(client, db, user)
+    make_user(db, "taken@example.org")
+    runner = CliRunner()
+    assert runner.invoke(cli, ["change-email", "old@example.org", "taken@example.org"]).exit_code == 1
+    result = runner.invoke(cli, ["change-email", "Old@Example.org", "New@Example.org"])
+    assert result.exit_code == 0, result.output
+    db.expire_all()
+    moved = db.get(User, user.id)
+    assert moved.email == "new@example.org" and moved.role == Role.admin
+    assert sessions_of(db, moved) == []
+    assert post(client, "/pt/login", {"email": "new@example.org", "password": PASSWORD}).status_code == 303

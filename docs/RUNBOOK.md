@@ -144,6 +144,8 @@ alias dc='docker compose -f deploy/docker-compose.prod.yml --env-file .env --pro
 | Roll back | `git checkout <previous-sha> && ./deploy/deploy.sh` (migrations are forward-only; see §6) |
 | Run a job now | `dc run --rm app cli jobs recompute-scores` (also `send-outbox`, `sync-github`, `prune`, `cert-expiry`, `mod-digest`) |
 | Create an invite | `dc run --rm app cli invite --uses 5` |
+| Change an account's email | `dc run --rm app cli change-email old@example.org new@example.org` (then update `ADMIN_EMAILS` if it was listed) |
+| Set a password for someone | `dc run --rm app cli create-admin <email>` for admins; for others, the button on their admin page |
 | Rebuild search index | `dc run --rm app cli reindex` |
 | Change a setting | `dc run --rm app cli settings set reports.auto_hide_threshold 3 --json` |
 | SQLite shell (read-only) | `dc exec app sqlite3 -readonly /data/gitmgf.db` |
