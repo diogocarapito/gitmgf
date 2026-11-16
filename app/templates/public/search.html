@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import "_macros.html" as m %}
+{% import "_macros.html" as m with context %}
 {% block title %}{% if category %}{{ category.name(lang) }}{% elif params.q %}{{ _("Pesquisa: %(q)s", q=params.q) }}{% else %}{{ _("Explorar ferramentas") }}{% endif %}{% endblock %}
 {% block description %}{% if category and category.description(lang) %}{{ category.description(lang) }}{% else %}{{ super() }}{% endif %}{% endblock %}
 {% block robots %}{% if params.q or result.page > 1 %}<meta name="robots" content="noindex, follow">{% endif %}{% endblock %}

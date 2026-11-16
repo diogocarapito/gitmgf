@@ -1,5 +1,5 @@
 {# Needs: t (Tool), badges (dict tool_id -> [Badge]); optional: result_href(t, loop.index) #}
-{% import "_macros.html" as m %}
+{% import "_macros.html" as m with context %}
 {% set title = localized(t, "title") %}
 {% set summary = localized(t, "summary") %}
 {% set href = card_href(t, loop.index if loop is defined else None) if card_href is defined else url('/t/' ~ t.slug) %}

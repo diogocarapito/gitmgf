@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import "_macros.html" as m %}
+{% import "_macros.html" as m with context %}
 {% block title %}{% if tool %}{{ _("Editar ferramenta") }}{% else %}{{ _("Partilhar ferramenta") }}{% endif %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}

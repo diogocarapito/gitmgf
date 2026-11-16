@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import "_macros.html" as m %}
+{% import "_macros.html" as m with context %}
 {% set title = localized(tool, "title") %}
 {% set summary = localized(tool, "summary") %}
 {% block title %}{{ title }}{% endblock %}

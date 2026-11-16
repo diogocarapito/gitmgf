@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% import "_macros.html" as m %}
-{% import "mod/_macros.html" as mm %}
+{% import "_macros.html" as m with context %}
+{% import "mod/_macros.html" as mm with context %}
 {% block title %}{{ _("Rever alteração") }}: {{ tool.title_pt }}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
