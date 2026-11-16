@@ -235,4 +235,8 @@ FLASH = {
         N_("Atingiu o limite de submissões pendentes. Aguarde a revisão das anteriores."),
     ),
     "rate_limited": ("danger", N_("Demasiados pedidos. Aguarde um pouco e tente novamente.")),
+    "reason_required": ("danger", N_("Indique um motivo (modelo ou texto livre).")),
+    "category_saved": ("ok", N_("Categoria guardada.")),
+    "certification_saved": ("ok", N_("Certificação guardada.")),
+    "tag_deleted": ("ok", N_("Etiqueta eliminada.")),
 }

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Certificações") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'certifications' %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Catálogo de certificações") }}</h1><p>{{ _("Os itens principais aparecem sempre (presentes ou riscados); os adicionais só quando presentes.") }}</p></header>
+  {% include "admin/_nav.html" %}
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th scope="col">{{ _("Ordem") }}</th><th scope="col">{{ _("Selo") }}</th><th scope="col">{{ _("Nome") }}</th><th scope="col">{{ _("Linha") }}</th><th scope="col">{{ _("Estado") }}</th><th scope="col"></th></tr></thead>
+    <tbody>{% for c in rows %}<tr><td>{{ c.sort_order }}</td><td><strong>{{ c.badge_label }}</strong></td><td class="small">{{ c.name(lang) }}</td>
+      <td class="small">{% if c.is_core %}{{ _("Principal") }}{% else %}{{ _("Adicional") }}{% endif %}</td>
+      <td>{% if c.is_active %}<span class="status status--active">{{ _("Ativa") }}</span>{% else %}<span class="status status--archived">{{ _("Inativa") }}</span>{% endif %}</td>
+      <td><a class="btn btn--sm" href="{{ url('/admin/certifications/' ~ c.id) }}">{{ _("Editar") }}</a></td></tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="small muted section--tight">{{ _("Para adicionar itens novos, edite seeds/certifications.yaml e corra «python -m app.cli seed certifications».") }}</p>
+</div>
+{% endblock %}

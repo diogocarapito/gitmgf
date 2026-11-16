@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Eliminar conta") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head"><h1>{{ _("Eliminar conta") }}</h1></header>
+  <div class="notice notice--danger">{{ icon('alert') }}<div>
+    <p><strong>{{ _("Esta ação não pode ser desfeita.") }}</strong></p>
+    <p>{{ _("As suas ferramentas deixam de estar públicas de imediato e são apagadas com a conta em 30 dias. As estrelas que deu são removidas e as denúncias que fez ficam anónimas.") }}</p>
+    {% if tools %}<p>{{ ngettext("Tem %(num)d ferramenta que vai ser retirada.", "Tem %(num)d ferramentas que vão ser retiradas.", tools | length) }}</p>{% endif %}
+    <p>{{ _("Pode transferir primeiro uma cópia dos seus dados:") }} <a href="/me/export.json">{{ _("Transferir os meus dados (JSON)") }}</a></p>
+  </div></div>
+  <form class="form form-section section--tight" method="post" action="{{ url('/me/delete-account') }}">
+    {{ m.csrf() }}
+    {{ m.checkbox("confirm", _("Sim, quero eliminar a minha conta e as minhas ferramentas."), False, errors) }}
+    <div class="form-actions"><button class="btn btn--danger" type="submit">{{ icon('trash') }} {{ _("Eliminar conta definitivamente") }}</button><a class="btn btn--ghost" href="{{ url('/me/settings') }}">{{ _("Cancelar") }}</a></div>
+  </form>
+</div>
+{% endblock %}

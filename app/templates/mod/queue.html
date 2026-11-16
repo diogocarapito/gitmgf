@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Moderação") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Moderação") }}</h1><p>{{ _("Mais antigos primeiro. Não pode moderar as suas próprias ferramentas.") }}</p></header>
+  {% include "mod/_nav.html" %}
+  {% if items %}
+  <div class="table-wrap"><table class="table">
+    <thead><tr>
+      {% if tab == 'reports' %}<th scope="col">{{ _("Motivo") }}</th><th scope="col">{{ _("Ferramenta") }}</th><th scope="col">{{ _("Recebida") }}</th><th scope="col"></th>
+      {% else %}<th scope="col">{{ _("Ferramenta") }}</th><th scope="col">{{ _("Autor") }}</th><th scope="col">{{ _("Há") }}</th><th scope="col"></th>{% endif %}
+    </tr></thead>
+    <tbody>
+    {% for item in items %}
+      {% if tab == 'new' %}
+      <tr><td>{{ item.title_pt }}<div class="xsmall muted">{{ label(labels.TOOL_TYPE, item.tool_type) }}</div></td><td>{{ item.owner.display_name }}{% if item.owner_id == user.id %} <span class="status">{{ _("sua") }}</span>{% endif %}</td>
+        <td class="nowrap">{{ item.submitted_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/tools/' ~ item.id) }}">{{ _("Rever") }}</a></td></tr>
+      {% elif tab == 'edits' %}
+      <tr><td>{{ item.tool.title_pt }}</td><td>{{ item.tool.owner.display_name }}{% if item.tool.owner_id == user.id %} <span class="status">{{ _("sua") }}</span>{% endif %}</td>
+        <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/revisions/' ~ item.id) }}">{{ _("Rever") }}</a></td></tr>
+      {% else %}
+      <tr><td>{% if item.csam %}<span class="status status--rejected">CSAM</span> {% endif %}{{ label(labels.REPORT_REASON, item.reason) }}</td><td>{{ item.tool.title_pt }}</td>
+        <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/reports/' ~ item.id) }}">{{ _("Analisar") }}</a></td></tr>
+      {% endif %}
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}
+  <div class="empty">{{ icon('check') }}<p>{{ _("Nada pendente nesta fila.") }}</p></div>
+  {% endif %}
+</div>
+{% endblock %}

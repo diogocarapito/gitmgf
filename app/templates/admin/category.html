@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ cat.name_pt }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'categories' %}
+<div class="container container--narrow">
+  <header class="page-head"><p class="breadcrumbs"><a href="{{ url('/admin/categories') }}">{{ _("Categorias") }}</a></p><h1>{{ cat.name_pt }}</h1></header>
+  <form class="form form-section" method="post" action="{{ url('/admin/categories/' ~ cat.id) }}">
+    {{ m.csrf() }}
+    <div class="form-grid form-grid--2">
+      {{ m.text("name_pt", _("Nome (PT)"), values, errors, required=True, maxlength=80) }}
+      {{ m.text("name_en", _("Nome (EN)"), values, errors, required=True, maxlength=80) }}
+    </div>
+    {{ m.textarea("description_pt", _("Descrição (PT)"), values, errors, rows=3, maxlength=500) }}
+    {{ m.textarea("description_en", _("Descrição (EN)"), values, errors, rows=3, maxlength=500) }}
+    <div class="form-grid form-grid--2">
+      {{ m.text("slug", _("Identificador"), values, errors, maxlength=80, hint=_("Mudar o identificador muda o endereço da página da categoria.")) }}
+      {{ m.text("sort_order", _("Ordem"), values, errors, type="number") }}
+    </div>
+    {{ m.checkbox("is_specialty", _("É uma especialidade"), values.get('is_specialty'), errors) }}
+    {{ m.checkbox("is_active", _("Ativa (desativar esconde-a da pesquisa e dos formulários)"), values.get('is_active'), errors) }}
+    <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
+  </form>
+</div>
+{% endblock %}

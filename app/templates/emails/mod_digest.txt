@@ -5,7 +5,7 @@
 {{ _("Novas submissões: %(n)s", n=new) }}
 {{ _("Alterações: %(n)s", n=edits) }}
 {{ _("Denúncias abertas: %(n)s", n=reports) }}
-{% if oldest %}{{ _("Item mais antigo: há %(age)s", age=oldest) }}{% endif %}
+{% if oldest %}{{ _("Item mais antigo: %(age)s", age=oldest) }}{% endif %}
 
 {{ base_url }}/{{ lang }}/mod
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Etiquetas") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'tags' %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Etiquetas") }}</h1><p>{{ _("Selecione etiquetas duplicadas e escolha a etiqueta de destino para as fundir.") }}</p></header>
+  {% include "admin/_nav.html" %}
+  <form class="row section--tight" method="get" action="{{ url('/admin/tags') }}"><input type="search" name="q" value="{{ q }}" aria-label="{{ _('Pesquisar') }}"><button class="btn" type="submit">{{ _("Filtrar") }}</button></form>
+  <form method="post" action="/admin/tags/merge">
+    {{ m.csrf() }}
+    <div class="table-wrap"><table class="table">
+      <thead><tr><th scope="col">{{ _("Fundir") }}</th><th scope="col">{{ _("Destino") }}</th><th scope="col">{{ _("Etiqueta") }}</th><th scope="col" class="num">{{ _("Uso") }}</th><th scope="col"></th></tr></thead>
+      <tbody>{% for t in rows %}<tr>
+        <td><input type="checkbox" name="source" value="{{ t.id }}" aria-label="{{ _('Fundir') }} {{ t.label }}"></td>
+        <td><input type="radio" name="target" value="{{ t.id }}" aria-label="{{ _('Destino') }} {{ t.label }}"></td>
+        <td>{{ t.label }} <span class="xsmall muted">{{ t.slug }}</span></td><td class="num">{{ t.usage_count }}</td>
+        <td><button class="btn btn--sm btn--danger" type="submit" formaction="/admin/tags/{{ t.id }}/delete" formnovalidate data-confirm="{{ _('Eliminar esta etiqueta de todas as ferramentas?') }}">{{ icon('trash') }}</button></td>
+      </tr>{% else %}<tr><td colspan="5" class="muted">—</td></tr>{% endfor %}</tbody>
+    </table></div>
+    <div class="form-actions section--tight"><button class="btn btn--primary" type="submit">{{ _("Fundir selecionadas no destino") }}</button></div>
+  </form>
+</div>
+{% endblock %}

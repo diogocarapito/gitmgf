@@ -1,0 +1,33 @@
+{% macro reason_fields(prefix="") -%}
+<div class="field">
+  <label for="{{ prefix }}reason_template">{{ _("Motivo") }}</label>
+  <select id="{{ prefix }}reason_template" name="reason_template">
+    <option value="">{{ _("— Escolher modelo —") }}</option>
+    {% for key, text in labels.REJECTION_REASONS.items() %}<option value="{{ key }}">{{ _(text) }}</option>{% endfor %}
+  </select>
+</div>
+<div class="field">
+  <label for="{{ prefix }}reason_text">{{ _("Detalhes para o autor (opcional)") }}</label>
+  <textarea id="{{ prefix }}reason_text" name="reason_text" rows="3" maxlength="2000"></textarea>
+  <p class="field__hint">{{ _("O texto final é enviado por email ao autor, no idioma da conta, como fundamentação da decisão.") }}</p>
+</div>
+{%- endmacro %}
+
+{% macro claim_decisions(claims) -%}
+{% for c in claims %}
+<fieldset class="cert-claim">
+  <legend class="cert-claim__head"><strong>{{ c.label }}</strong> — {{ c.cert.name(lang) }}{% if c.state %} · <span class="status status--{{ c.state }}">{{ label(labels.CLAIM_STATE, c.state) }}</span>{% endif %}</legend>
+  <dl class="meta-list small">
+    {% for lbl, value, ftype in c.rows %}
+    <dt>{{ lbl }}</dt><dd>{% if ftype == 'url' %}<a href="{{ value }}" rel="nofollow noopener noreferrer" target="_blank">{{ value | domain }} {{ icon('external') }}</a> <span class="muted xsmall">{{ value }}</span>{% else %}{{ value }}{% endif %}</dd>
+    {% endfor %}
+  </dl>
+  <div class="row section--tight">
+    <label class="choice"><input type="radio" name="claim_{{ c.code }}" value="approve" checked> {{ _("Aprovar declaração") }}</label>
+    <label class="choice"><input type="radio" name="claim_{{ c.code }}" value="reject"> {{ _("Rejeitar declaração") }}</label>
+  </div>
+  <label class="visually-hidden" for="claim_{{ c.code }}_reason">{{ _("Motivo da rejeição") }}</label>
+  <input id="claim_{{ c.code }}_reason" type="text" name="claim_{{ c.code }}_reason" maxlength="500" placeholder="{{ _('Motivo, se rejeitar (p. ex. a evidência não abre)') }}">
+</fieldset>
+{% endfor %}
+{%- endmacro %}

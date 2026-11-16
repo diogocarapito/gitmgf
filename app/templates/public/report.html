@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Reportar problema") }}: {{ localized(tool, "title") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/t/' ~ tool.slug) }}">{{ localized(tool, "title") }}</a></p>
+    <h1>{{ _("Reportar problema") }}</h1>
+    <p>{{ _("Qualquer pessoa pode denunciar conteúdo ilegal ou contrário aos Termos. Analisamos cada denúncia de forma diligente e informamos da decisão.") }}</p>
+  </header>
+  {% if errors.get('__all__') %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors['__all__'][0]) }}</p></div>{% endif %}
+  <form class="form form-section" method="post" action="{{ url('/t/' ~ tool.slug ~ '/report') }}">
+    {{ m.csrf() }}
+    <input type="hidden" name="stamp" value="{{ stamp }}">
+    <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" type="text" name="website" tabindex="-1" autocomplete="off"></div>
+    {% set reasons = [] %}{% for k, v in labels.REPORT_REASON.items() %}{% do reasons.append((k, _(v))) %}{% endfor %}
+    {{ m.select("reason", _("Motivo"), reasons, values, errors, required=True, empty=_("— Escolher —")) }}
+    {{ m.textarea("details", _("Explicação"), values, errors, required=True, maxlength=2000, rows=6, hint=_("Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para o podermos avaliar. Não inclua dados de utentes.")) }}
+    {% if not user %}
+    {{ m.text("email", _("O seu email"), values, errors, type="email", maxlength=254, autocomplete="email", hint=_("Para confirmarmos a receção e comunicarmos a decisão. Não é obrigatório em denúncias de abuso sexual de crianças.")) }}
+    {% endif %}
+    {{ m.checkbox("csam", _("A denúncia diz respeito a material de abuso sexual de crianças"), values.get('csam'), errors) }}
+    {{ m.checkbox("good_faith", _("Declaro que faço esta denúncia de boa-fé e que a informação é, tanto quanto sei, exata e completa."), values.get('good_faith'), errors) }}
+    <div class="form-actions"><button class="btn btn--primary" type="submit">{{ icon('flag') }} {{ _("Enviar denúncia") }}</button><a class="btn btn--ghost" href="{{ url('/t/' ~ tool.slug) }}">{{ _("Cancelar") }}</a></div>
+  </form>
+</div>
+{% endblock %}

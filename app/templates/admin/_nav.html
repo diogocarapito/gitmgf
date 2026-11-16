@@ -1,0 +1,12 @@
+<nav class="admin-nav" aria-label="{{ _('Administração') }}">
+  <a class="btn btn--sm{% if active == 'dashboard' %} btn--primary{% endif %}" href="{{ url('/admin') }}">{{ _("Estatísticas") }}</a>
+  <a class="btn btn--sm{% if active == 'searches' %} btn--primary{% endif %}" href="{{ url('/admin/searches') }}">{{ _("Pesquisas") }}</a>
+  {% if user.is_admin %}
+  <a class="btn btn--sm{% if active == 'users' %} btn--primary{% endif %}" href="{{ url('/admin/users') }}">{{ _("Utilizadores") }}</a>
+  <a class="btn btn--sm{% if active == 'categories' %} btn--primary{% endif %}" href="{{ url('/admin/categories') }}">{{ _("Categorias") }}</a>
+  <a class="btn btn--sm{% if active == 'tags' %} btn--primary{% endif %}" href="{{ url('/admin/tags') }}">{{ _("Etiquetas") }}</a>
+  <a class="btn btn--sm{% if active == 'certifications' %} btn--primary{% endif %}" href="{{ url('/admin/certifications') }}">{{ _("Certificações") }}</a>
+  <a class="btn btn--sm{% if active == 'settings' %} btn--primary{% endif %}" href="{{ url('/admin/settings') }}">{{ _("Definições") }}</a>
+  <a class="btn btn--sm{% if active == 'audit' %} btn--primary{% endif %}" href="{{ url('/admin/audit') }}">{{ _("Registo de auditoria") }}</a>
+  {% endif %}
+</nav>

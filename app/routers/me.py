@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from pydantic import ValidationError
 
@@ -126,3 +126,56 @@ def my_stars(request: Request, db: DB, user: UserDep) -> Response:
     )
     badges = certifications.badges_for(db, [t.id for t in tools], request.state.lang)
     return render(request, "me/stars.html", {"tools": tools, "badges": badges})
+
+
+@actions.get("/me/export.json")
+def export_data(db: DB, user: UserDep) -> Response:
+    """GDPR Art. 15/20: everything we hold about the account, as JSON."""
+    import json
+
+    from app.services import gdpr
+
+    body = json.dumps(gdpr.export(db, user), ensure_ascii=False, indent=2, default=str)
+    return Response(
+        body,
+        media_type="application/json",
+        headers={
+            "Content-Disposition": 'attachment; filename="gitmgf-dados.json"',
+            "Cache-Control": "no-store",
+        },
+    )
+
+
+@pages.get("/me/delete-account")
+def delete_account_page(request: Request, db: DB, user: UserDep) -> Response:
+    from app.services import tools as tool_service
+
+    return render(
+        request, "me/delete_account.html", {"tools": tool_service.owned_tools(db, user), "errors": {}}
+    )
+
+
+@pages.post("/me/delete-account")
+def delete_account(
+    request: Request, db: DB, user: UserDep, form: Form, background: BackgroundTasks
+) -> Response:
+    from app.services import email, gdpr
+    from app.services import tools as tool_service
+
+    if form.get("confirm") != "1":
+        return render(
+            request,
+            "me/delete_account.html",
+            {
+                "tools": tool_service.owned_tools(db, user),
+                "errors": {"confirm": (N_("Confirme que quer eliminar a conta."), {})},
+            },
+            status_code=422,
+        )
+    lang = user.locale.value
+    gdpr.delete_account(db, user, user)
+    db.commit()
+    background.add_task(email.deliver_queued)
+    response = RedirectResponse(f"/{lang}/?flash=account_deleted", status_code=303)
+    response.delete_cookie(get_settings().session_cookie, path="/")
+    return response

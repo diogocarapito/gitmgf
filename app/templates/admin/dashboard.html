@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Administração") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'dashboard' %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Administração") }}</h1></header>
+  {% include "admin/_nav.html" %}
+  <div class="stats">
+    <div class="stat"><div class="stat__label">{{ _("Utilizadores") }}</div><div class="stat__value">{{ users_total | number }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Publicadas") }}</div><div class="stat__value">{{ by_status.get('published', 0) | number }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Em revisão") }}</div><div class="stat__value">{{ by_status.get('pending', 0) | number }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Rascunhos") }}</div><div class="stat__value">{{ by_status.get('draft', 0) | number }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Ocultadas / arquivadas") }}</div><div class="stat__value">{{ (by_status.get('hidden', 0) + by_status.get('archived', 0)) | number }}</div></div>
+    <div class="stat"><div class="stat__label">{{ _("Item mais antigo na fila") }}</div><div class="stat__value small">{{ oldest | relative if oldest else '—' }}</div></div>
+  </div>
+  <div class="two-col">
+    <section class="panel">
+      <h2>{{ _("Registos e submissões por semana") }}</h2>
+      <table class="table">
+        <thead><tr><th scope="col">{{ _("Semana de") }}</th><th scope="col" class="num">{{ _("Registos") }}</th><th scope="col" class="num">{{ _("Submissões") }}</th></tr></thead>
+        <tbody>{% for w in weeks %}<tr><td>{{ w.start | date('short') }}</td><td class="num">{{ w.signups }}</td><td class="num">{{ w.submissions }}</td></tr>{% endfor %}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <h2>{{ _("Ferramentas mais populares") }}</h2>
+      <ol class="small">{% for t in top_tools %}<li><a href="{{ url('/t/' ~ t.slug) }}">{{ t.title_pt }}</a> <span class="muted">{{ '%.1f' | format(t.score) }}</span></li>{% else %}<li class="muted">—</li>{% endfor %}</ol>
+    </section>
+    <section class="panel">
+      <h2>{{ _("Pesquisas mais frequentes (7 dias)") }}</h2>
+      <ol class="small">{% for q, n in top_searches %}<li>{{ q }} <span class="muted">({{ n }})</span></li>{% else %}<li class="muted">—</li>{% endfor %}</ol>
+    </section>
+    <section class="panel">
+      <h2>{{ _("Pesquisas sem resultados (7 dias)") }}</h2>
+      <p class="small muted">{{ _("Pistas sobre ferramentas que a comunidade procura e ainda não existem.") }}</p>
+      <ol class="small">{% for q, n in zero_searches %}<li>{{ q }} <span class="muted">({{ n }})</span></li>{% else %}<li class="muted">—</li>{% endfor %}</ol>
+    </section>
+  </div>
+</div>
+{% endblock %}

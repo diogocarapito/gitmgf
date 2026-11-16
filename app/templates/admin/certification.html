@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ cert.badge_label }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head"><p class="breadcrumbs"><a href="{{ url('/admin/certifications') }}">{{ _("Certificações") }}</a></p><h1>{{ cert.badge_label }} <span class="muted small">{{ cert.code }}</span></h1></header>
+  <form class="form form-section" method="post" action="{{ url('/admin/certifications/' ~ cert.id) }}">
+    {{ m.csrf() }}
+    <div class="form-grid form-grid--2">
+      {{ m.text("badge_label", _("Texto do selo"), values, errors, required=True, maxlength=30) }}
+      {{ m.text("label_template", _("Modelo do texto (opcional)"), values, errors, maxlength=60, hint=_("Ex.: MDR {class}")) }}
+      {{ m.text("name_pt", _("Nome (PT)"), values, errors, required=True, maxlength=200) }}
+      {{ m.text("name_en", _("Nome (EN)"), values, errors, required=True, maxlength=200) }}
+    </div>
+    {{ m.textarea("help_pt", _("Ajuda no formulário (PT)"), values, errors, rows=3) }}
+    {{ m.textarea("help_en", _("Ajuda no formulário (EN)"), values, errors, rows=3) }}
+    <div class="form-grid form-grid--2">
+      {{ m.select("assurance_default", _("Garantia por omissão"), [("self_declared", _("autodeclarado")), ("third_party", _("certificado por terceiros")), ("mixed", _("misto"))], values, errors) }}
+      {{ m.text("sort_order", _("Ordem"), values, errors, type="number") }}
+    </div>
+    {{ m.checkbox("is_core", _("Principal: mostrar sempre, presente ou riscado"), cert.is_core, errors) }}
+    {{ m.checkbox("is_active", _("Ativa"), cert.is_active, errors) }}
+    {{ m.textarea("field_schema", _("Campos (JSON)"), values, errors, rows=16, cls="tall", hint=_("Lista de campos: key, type (enum, text, url, date, bool, nb_number), label_pt, label_en, required, required_if, options, assurance_if.")) }}
+    <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
+  </form>
+</div>
+{% endblock %}

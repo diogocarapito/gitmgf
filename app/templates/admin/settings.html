@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Definições do site") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'settings' %}
+{% set setting_labels = {
+  "score.w_search_click": _("Peso: clique a partir da pesquisa"),
+  "score.w_outbound_click": _("Peso: abertura de ligação"),
+  "score.w_star": _("Peso: estrela"),
+  "score.w_github": _("Peso: estrelas no GitHub (× log10)"),
+  "score.half_life_days": _("Meia-vida da popularidade (dias)"),
+  "search.beta_popularity": _("Peso da popularidade na relevância"),
+  "limits.max_pending_per_user": _("Máximo de submissões pendentes por utilizador"),
+  "reports.auto_hide_threshold": _("Denúncias para ocultação automática"),
+  "site.registration_open": _("Registos abertos"),
+  "site.banner_pt": _("Aviso no topo do site (PT)"),
+  "site.banner_en": _("Aviso no topo do site (EN)"),
+  "terms.current_version": _("Versão atual dos Termos (alterar obriga a nova aceitação)"),
+} %}
+<div class="container container--narrow">
+  <header class="page-head"><h1>{{ _("Definições do site") }}</h1></header>
+  {% include "admin/_nav.html" %}
+  <form class="form" method="post" action="{{ url('/admin/settings') }}">
+    {{ m.csrf() }}
+    <fieldset class="form-section">
+      <legend>{{ _("Funcionamento") }}</legend>
+      {% for key, kind in fields %}
+        {% if kind == 'bool' %}{{ m.checkbox(key, setting_labels[key], values.get(key), errors) }}
+        {% else %}{{ m.text(key, setting_labels[key], values, errors, type="number" if kind in ('int', 'float') else "text") }}{% endif %}
+      {% endfor %}
+    </fieldset>
+    <fieldset class="form-section">
+      <legend>{{ _("Páginas legais") }}</legend>
+      <p class="form-section__intro">{{ _("Valores dos marcadores [[CHAVE]] nos Termos e na Política de Privacidade. Em produção, o site não arranca se faltar algum.") }}</p>
+      {% for key in legal_keys %}{{ m.text("legal." ~ key, key, values, errors, maxlength=300) }}{% endfor %}
+    </fieldset>
+    <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
+  </form>
+</div>
+{% endblock %}

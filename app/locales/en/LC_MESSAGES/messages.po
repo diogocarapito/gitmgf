@@ -1,0 +1,2243 @@
+# English translations for gitmgf.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the gitmgf project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gitmgf VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-16 16:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#, python-format
+msgid "%(n)s dias"
+msgstr "%(n)s days"
+
+#, python-format
+msgid "%(name)s expirada"
+msgstr "%(name)s expired"
+
+#, python-format
+msgid "%(name)s: expirado em %(date)s"
+msgstr "%(name)s: expired on %(date)s"
+
+#, python-format
+msgid "%(name)s: não declarado pelo autor"
+msgstr "%(name)s: not declared by the author"
+
+#, python-format
+msgid "%(num)d denúncia aberta."
+msgid_plural "%(num)d denúncias abertas."
+msgstr[0] "%(num)d open report."
+msgstr[1] "%(num)d open reports."
+
+#, python-format
+msgid "%(num)d ferramenta"
+msgid_plural "%(num)d ferramentas"
+msgstr[0] "%(num)d tool"
+msgstr[1] "%(num)d tools"
+
+msgid "1 a 3 frases: quem deve usar, para quê e com que limitações."
+msgstr "1 to 3 sentences: who should use it, for what and with which limitations."
+
+msgid "A autenticação expirou ou é inválida. Tente novamente."
+msgstr "Authentication expired or is invalid. Please try again."
+
+#, python-format
+msgid "A certificação «%(cert)s» declarada na ficha «%(title)s» expira em %(date)s."
+msgstr "The certification “%(cert)s” declared on the listing “%(title)s” expires on %(date)s."
+
+#, python-format
+msgid "A certificação «%(cert)s» declarada na ficha «%(title)s» expirou em %(date)s. O selo aparece agora como ausente."
+msgstr "The certification “%(cert)s” declared on the listing “%(title)s” expired on %(date)s. The badge is now shown as absent."
+
+msgid "A decisão foi tomada por um moderador (não por meios automáticos)."
+msgstr "The decision was made by a moderator (not by automated means)."
+
+msgid "A decisão foi tomada por um moderador, na sequência de uma denúncia ou de uma verificação da equipa."
+msgstr "The decision was made by a moderator, following a report or a check by the team."
+
+msgid "A denúncia diz respeito a material de abuso sexual de crianças"
+msgstr "The report concerns child sexual abuse material"
+
+msgid "A ferramenta envia dados para um servidor mas não tem declaração RGPD. O moderador pode pedir alterações."
+msgstr "The tool sends data to a server but has no GDPR declaration. The moderator may request changes."
+
+#, python-format
+msgid "A ferramenta «%(title)s» atingiu %(n)s denúncias abertas de conteúdo perigoso ou de segurança e foi ocultada automaticamente. Reveja as denúncias e decida se a ficha deve voltar a ser visível."
+msgstr "The tool “%(title)s” reached %(n)s open reports of dangerous content or security problems and was hidden automatically. Review the reports and decide whether the listing should be visible again."
+
+#, python-format
+msgid "A ficha «%(title)s» foi aprovada e já está publicada:"
+msgstr "The listing “%(title)s” was approved and is now published:"
+
+#, python-format
+msgid "A ficha «%(title)s» voltou a estar visível ao público:"
+msgstr "The listing “%(title)s” is visible to the public again:"
+
+msgid "A imagem excede 2 MB."
+msgstr "The image is larger than 2 MB."
+
+msgid "A licença é coerente com o repositório."
+msgstr "The licence matches the repository."
+
+msgid "A ligação por email funciona sempre, mesmo sem contas associadas."
+msgstr "Email sign-in links always work, even without linked accounts."
+
+#, python-format
+msgid "A ligação é válida durante %(minutes)s minutos e só pode ser usada uma vez."
+msgstr "The link is valid for %(minutes)s minutes and can only be used once."
+
+msgid "A ligação é válida durante 15 minutos e só pode ser usada uma vez. Se não a encontrar, verifique a pasta de spam."
+msgstr "The link is valid for 15 minutes and can only be used once. If you can't find it, check your spam folder."
+
+msgid "A pesquisar…"
+msgstr "Searching…"
+
+msgid "A página que procura não existe ou não está disponível."
+msgstr "The page you are looking for doesn't exist or isn't available."
+
+msgid "A sua conta está pronta. Pode pesquisar ferramentas, guardar as preferidas com uma estrela e partilhar as que construiu."
+msgstr "Your account is ready. You can search for tools, star your favourites and share the ones you built."
+
+msgid "A sua conta foi eliminada. Os dados serão apagados definitivamente em 30 dias."
+msgstr "Your account was deleted. The data will be permanently erased within 30 days."
+
+msgid "A sua conta gitmgf foi eliminada"
+msgstr "Your gitmgf account was deleted"
+
+msgid "A sua ligação de acesso à gitmgf"
+msgstr "Your gitmgf sign-in link"
+
+msgid "A utilização prevista e o tratamento de dados são plausíveis."
+msgstr "Intended use and data handling are plausible."
+
+msgid "A versão publicada mantém-se visível até um moderador aprovar as alterações."
+msgstr "The published version stays visible until a moderator approves the changes."
+
+msgid "Aberta"
+msgstr "Open"
+
+msgid "Aberturas"
+msgstr "Opens"
+
+msgid "Aberturas 30/90 d"
+msgstr "Opens 30/90 d"
+
+msgid "Aberturas de ligações (30 d)"
+msgstr "Link opens (30 d)"
+
+msgid "Aberturas de ligações externas"
+msgstr "External link opens"
+
+msgid "Abrir aplicação"
+msgstr "Open app"
+
+msgid "Abrir revisão da ferramenta"
+msgstr "Open tool review"
+
+msgid "Aceito que a gitmgf não valida a correção clínica das ferramentas."
+msgstr "I accept that gitmgf does not validate the clinical correctness of tools."
+
+msgid "Acesso"
+msgstr "Access"
+
+msgid "Acesso recusado"
+msgstr "Access denied"
+
+msgid "Adicional"
+msgstr "Additional"
+
+msgid "Adicionar imagem"
+msgstr "Add image"
+
+msgid "Administrador/a"
+msgstr "Administrator"
+
+msgid "Administração"
+msgstr "Administration"
+
+msgid "Aguarde um pouco e tente novamente."
+msgstr "Please wait a moment and try again."
+
+msgid "Ainda não deu estrela a nenhuma ferramenta."
+msgstr "You haven't starred any tools yet."
+
+msgid "Ainda não há ferramentas publicadas. Seja a primeira pessoa a partilhar uma!"
+msgstr "No tools have been published yet. Be the first to share one!"
+
+msgid "Ainda não partilhou nenhuma ferramenta."
+msgstr "You haven't shared any tools yet."
+
+msgid "Ainda sem dados."
+msgstr "No data yet."
+
+msgid "Ajuda no formulário (EN)"
+msgstr "Form help (EN)"
+
+msgid "Ajuda no formulário (PT)"
+msgstr "Form help (PT)"
+
+msgid "Alegações clínicas enganadoras."
+msgstr "Misleading clinical claims."
+
+msgid "Algo correu mal do nosso lado. Tente novamente dentro de momentos."
+msgstr "Something went wrong on our side. Please try again in a moment."
+
+msgid "Algumas certificações declaradas não foram aprovadas e não aparecem na ficha:"
+msgstr "Some declared certifications were not approved and don't appear on the listing:"
+
+msgid "Algumas certificações não foram aprovadas:"
+msgstr "Some certifications were not approved:"
+
+msgid "Alterar função"
+msgstr "Change role"
+
+msgid "Alteração"
+msgstr "Edit"
+
+#, python-format
+msgid "Alteração aprovada: %(title)s"
+msgstr "Edit approved: %(title)s"
+
+#, python-format
+msgid "Alteração não aprovada: %(title)s"
+msgstr "Edit not approved: %(title)s"
+
+msgid "Alteração pendente"
+msgstr "Pending edit"
+
+msgid "Alteração pendente de revisão"
+msgstr "Edit pending review"
+
+msgid "Alteração pendente de revisão."
+msgstr "Edit pending review."
+
+msgid "Alteração pendente retirada."
+msgstr "Pending edit withdrawn."
+
+msgid "Alteração submetida. A versão publicada mantém-se até à aprovação."
+msgstr "Edit submitted. The published version stays live until it is approved."
+
+msgid "Alterações"
+msgstr "Edits"
+
+msgid "Alterações guardadas."
+msgstr "Changes saved."
+
+#, python-format
+msgid "Alterações pedidas: %(title)s"
+msgstr "Changes requested: %(title)s"
+
+msgid "Alterações às imagens de uma ferramenta publicada também são revistas."
+msgstr "Changes to the images of a published tool are also reviewed."
+
+#, python-format
+msgid "Alterações: %(n)s"
+msgstr "Edits: %(n)s"
+
+msgid "Alvo"
+msgstr "Target"
+
+msgid "Analisar"
+msgstr "Review"
+
+#, python-format
+msgid "Analisámos a sua denúncia sobre «%(title)s» e concluímos que não é necessária nenhuma medida."
+msgstr "We reviewed your report about “%(title)s” and concluded that no action is needed."
+
+#, python-format
+msgid "Analisámos a sua denúncia sobre «%(title)s» e tomámos medidas."
+msgstr "We reviewed your report about “%(title)s” and took action."
+
+msgid "Android"
+msgstr "Android"
+
+msgid "Anterior"
+msgstr "Previous"
+
+msgid "Anónimo"
+msgstr "Anonymous"
+
+msgid "Ao continuar, aceita os"
+msgstr "By continuing, you accept the"
+
+msgid "Aparece nas páginas das suas ferramentas."
+msgstr "Shown on your tools' pages."
+
+msgid "Aplicar filtros"
+msgstr "Apply filters"
+
+msgid "Aplicação de computador"
+msgstr "Desktop app"
+
+msgid "Aplicação móvel"
+msgstr "Mobile app"
+
+msgid "Aplicação web"
+msgstr "Web app"
+
+msgid "Aprovada"
+msgstr "Approved"
+
+msgid "Aprovado."
+msgstr "Approved."
+
+msgid "Aprovar"
+msgstr "Approve"
+
+msgid "Aprovar alteração"
+msgstr "Approve edit"
+
+msgid "Aprovar declaração"
+msgstr "Approve claim"
+
+msgid "Aprovar e publicar"
+msgstr "Approve and publish"
+
+msgid "Aprovar e publicar alterações"
+msgstr "Approve and publish changes"
+
+msgid "Arquivada"
+msgstr "Archived"
+
+msgid "Arquivada sem ação"
+msgstr "Dismissed"
+
+msgid "Arquivar"
+msgstr "Archive"
+
+msgid "Arquivar sem ação"
+msgstr "Dismiss"
+
+msgid "Arquivar? A página continua acessível, mas deixa de aparecer nas listagens e na pesquisa."
+msgstr "Archive? The page stays reachable but no longer appears in listings or search."
+
+#, python-format
+msgid "As alterações à ficha «%(title)s» foram aprovadas e já estão publicadas:"
+msgstr "The changes to the listing “%(title)s” were approved and are now published:"
+
+msgid "As ferramentas mais usadas pela comunidade nas últimas semanas."
+msgstr "The tools most used by the community in recent weeks."
+
+msgid "As ferramentas que marcou para encontrar mais tarde."
+msgstr "The tools you starred to find again later."
+
+msgid "As ferramentas que os médicos de família constroem, num só lugar."
+msgstr "The tools family doctors build, in one place."
+
+msgid "As ferramentas são publicadas pelos respetivos autores. A gitmgf não valida a correção clínica das ferramentas, que não substituem o juízo clínico. Confirme sempre os protocolos locais."
+msgstr "Tools are published by their authors. gitmgf does not validate the clinical correctness of tools, which do not replace clinical judgement. Always check local protocols."
+
+msgid "As ligações funcionam e apontam para o que é descrito."
+msgstr "Links work and point to what is described."
+
+msgid "As ligações são do local de publicação do autor (não espelhos de partilha de ficheiros nem encurtadores)."
+msgstr "Links point to the author's own publication place (no file-sharing mirrors or URL shorteners)."
+
+msgid "As minhas estrelas"
+msgstr "My stars"
+
+msgid "As minhas ferramentas"
+msgstr "My tools"
+
+msgid "As suas ferramentas deixam de estar públicas de imediato e são apagadas com a conta em 30 dias. As estrelas que deu são removidas e as denúncias que fez ficam anónimas."
+msgstr "Your tools stop being public immediately and are deleted with the account within 30 days. The stars you gave are removed and the reports you filed become anonymous."
+
+msgid "Associada"
+msgstr "Linked"
+
+msgid "Associar"
+msgstr "Link"
+
+msgid "Atingiu o limite de submissões pendentes. Aguarde a revisão das anteriores."
+msgstr "You've reached the limit of pending submissions. Please wait for the previous ones to be reviewed."
+
+msgid "Ativa"
+msgstr "Active"
+
+msgid "Ativa (desativar esconde-a da pesquisa e dos formulários)"
+msgstr "Active (deactivating hides it from search and forms)"
+
+msgid "Ativo"
+msgstr "Active"
+
+msgid "Atualizada"
+msgstr "Updated"
+
+msgid "Atualizadas recentemente"
+msgstr "Recently updated"
+
+msgid "Atualizámos os Termos"
+msgstr "We've updated the Terms"
+
+msgid "Até 10, separadas por vírgulas. Ex.: score2, risco cardiovascular, hta"
+msgstr "Up to 10, separated by commas. E.g. score2, cardiovascular risk, hypertension"
+
+msgid "Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas e os metadados removidos. Confirme que não mostram dados de utentes."
+msgstr "Up to 5 PNG, JPEG or WebP images, 2 MB max each. They are converted and their metadata removed. Make sure they show no patient data."
+
+msgid "Autor"
+msgstr "Author"
+
+msgid "Autor:"
+msgstr "Author:"
+
+msgid "Aviso legal"
+msgstr "Legal disclaimer"
+
+msgid "Aviso no topo do site (EN)"
+msgstr "Site banner (EN)"
+
+msgid "Aviso no topo do site (PT)"
+msgstr "Site banner (PT)"
+
+msgid "Ação"
+msgstr "Action"
+
+msgid "Ação (ex.: tool.)"
+msgstr "Action (e.g. tool.)"
+
+msgid "Ações"
+msgstr "Actions"
+
+msgid "Bem-vindo/a à gitmgf"
+msgstr "Welcome to gitmgf"
+
+msgid "Cada certificação declarada tem evidência que abre e corresponde à ferramenta, ao fabricante e à classe."
+msgstr "Every declared certification has evidence that opens and matches the tool, manufacturer and class."
+
+msgid "Cada etiqueta deve ter entre 2 e 40 caracteres."
+msgstr "Each tag must be between 2 and 40 characters."
+
+msgid "Calculadora"
+msgstr "Calculator"
+
+msgid "Calculadora online"
+msgstr "Online calculator"
+
+msgid "Calculadoras"
+msgstr "Calculators"
+
+msgid "Calculadoras, webapps e aplicações criadas por profissionais dos cuidados de saúde primários e do Internato. Preferencialmente open source."
+msgstr "Calculators, web apps and other tools made by primary care professionals and residents. Open source whenever possible."
+
+msgid "Campo obrigatório."
+msgstr "Required field."
+
+msgid "Campos (JSON)"
+msgstr "Fields (JSON)"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Captura de ecrã adicionada."
+msgstr "Screenshot added."
+
+msgid "Captura de ecrã removida."
+msgstr "Screenshot removed."
+
+msgid "Capturas de ecrã"
+msgstr "Screenshots"
+
+msgid "Carregue no botão para iniciar sessão neste navegador."
+msgstr "Press the button to sign in on this browser."
+
+msgid "Categoria guardada."
+msgstr "Category saved."
+
+msgid "Categorias"
+msgstr "Categories"
+
+msgid "Categorias (1 a 5): finalidade"
+msgstr "Categories (1 to 5): purpose"
+
+msgid "Categorias: especialidade"
+msgstr "Categories: specialty"
+
+msgid "Catálogo de certificações"
+msgstr "Certification catalogue"
+
+#, python-format
+msgid "Certificação a expirar: %(title)s"
+msgstr "Certification expiring: %(title)s"
+
+#, python-format
+msgid "Certificação expirada: %(title)s"
+msgstr "Certification expired: %(title)s"
+
+msgid "Certificação guardada."
+msgstr "Certification saved."
+
+msgid "Certificação incorreta"
+msgstr "Incorrect certification claim"
+
+msgid "Certificação removida."
+msgstr "Certification removed."
+
+msgid "Certificação sem evidência válida: a evidência indicada não abre ou não corresponde à ferramenta, fabricante ou classe."
+msgstr "Certification without valid evidence: the evidence given does not open or does not match the tool, manufacturer or class."
+
+msgid "Certificações"
+msgstr "Certifications"
+
+msgid "Certificações declaradas — aprove ou rejeite cada uma:"
+msgstr "Declared certifications — approve or reject each one:"
+
+msgid "Certificações e conformidade"
+msgstr "Certifications and compliance"
+
+msgid "Certificações novas ou alteradas:"
+msgstr "New or changed certifications:"
+
+msgid "Classificação"
+msgstr "Classification"
+
+msgid "Cliques a partir da pesquisa"
+msgstr "Clicks from search"
+
+msgid "Cliques a partir da pesquisa (30 d)"
+msgstr "Clicks from search (30 d)"
+
+#, python-format
+msgid "Com %(name)s"
+msgstr "With %(name)s"
+
+msgid "Com estrela"
+msgstr "Starred"
+
+msgid "Com uma licença de código aberto e um repositório público, a ficha recebe o selo Open source."
+msgstr "With an open-source licence and a public repository, the listing gets the Open source badge."
+
+msgid "Comentário da moderação:"
+msgstr "Moderation comment:"
+
+msgid "Como funciona"
+msgstr "How it works"
+
+msgid "Completar perfil"
+msgstr "Complete your profile"
+
+msgid "Complete o seu perfil para começar. Só o nome, a profissão, a especialidade e o GitHub aparecem nas páginas das suas ferramentas."
+msgstr "Complete your profile to get started. Only your name, profession, specialty and GitHub appear on your tools' pages."
+
+msgid "Confirmamos a eliminação da sua conta. As suas ferramentas deixaram de estar públicas e os dados serão apagados definitivamente em 30 dias, incluindo das cópias de segurança quando estas expirarem."
+msgstr "We confirm your account was deleted. Your tools are no longer public and the data will be permanently erased within 30 days, including from backups as they expire."
+
+msgid "Confirmar entrada"
+msgstr "Confirm sign-in"
+
+msgid "Confirmação obrigatória para submeter."
+msgstr "Confirmation required to submit."
+
+msgid "Confirme que faz a denúncia de boa-fé."
+msgstr "Please confirm that you are reporting in good faith."
+
+msgid "Confirme que quer eliminar a conta."
+msgstr "Please confirm that you want to delete your account."
+
+msgid "Conformidade e certificações"
+msgstr "Compliance and certifications"
+
+msgid "Conjunto de dados"
+msgstr "Dataset"
+
+msgid "Construir"
+msgstr "Build"
+
+msgid "Construiu algo útil para a sua prática?"
+msgstr "Built something useful for your practice?"
+
+msgid "Conta associada."
+msgstr "Account linked."
+
+msgid "Conta desassociada. Pode continuar a entrar com a ligação por email."
+msgstr "Account unlinked. You can still sign in with the email link."
+
+msgid "Conta eliminada."
+msgstr "Account deleted."
+
+msgid "Contacto"
+msgstr "Contact"
+
+msgid "Contagens pseudonimizadas: cada visitante conta uma vez por dia e por tipo. As suas próprias visitas não contam."
+msgstr "Pseudonymised counts: each visitor counts once per day and per type. Your own visits don't count."
+
+msgid "Contas associadas"
+msgstr "Linked accounts"
+
+msgid "Contestação: pode contestar esta decisão no prazo de 6 meses, respondendo a este email. Uma pessoa que não participou na decisão original vai analisá-la. Mantém sempre o direito de recorrer aos tribunais."
+msgstr "Appeal: you can appeal this decision within 6 months by replying to this email. Someone who was not involved in the original decision will review it. You always keep the right to go to court."
+
+msgid "Contexto"
+msgstr "Setting"
+
+msgid "Contexto de cuidados"
+msgstr "Care setting"
+
+msgid "Conteúdo"
+msgstr "Content"
+
+msgid "Conteúdo clínico incorreto ou perigoso"
+msgstr "Incorrect or dangerous clinical content"
+
+msgid "Conteúdo ilegal"
+msgstr "Illegal content"
+
+msgid "Continuar"
+msgstr "Continue"
+
+msgid "Continuar com GitHub"
+msgstr "Continue with GitHub"
+
+msgid "Continuar com Google"
+msgstr "Continue with Google"
+
+msgid "Criar"
+msgstr "Create"
+
+msgid "Cuidados de saúde primários"
+msgstr "Primary care"
+
+msgid "Cuidados hospitalares"
+msgstr "Hospital care"
+
+msgid "Dados"
+msgstr "Data"
+
+msgid "Dados de utentes"
+msgstr "Patient data"
+
+msgid "Dados de utentes visíveis: o texto ou as capturas de ecrã contêm dados que podem identificar utentes."
+msgstr "Patient data visible: the text or screenshots contain data that could identify patients."
+
+msgid "Dar estrela"
+msgstr "Star"
+
+msgid "Data inválida (use AAAA-MM-DD)."
+msgstr "Invalid date (use YYYY-MM-DD)."
+
+msgid "Data inválida."
+msgstr "Invalid date."
+
+#, python-format
+msgid "Decisão sobre a sua denúncia #%(id)s"
+msgstr "Decision on your report #%(id)s"
+
+msgid "Declarada por si e mostrada como contexto, não como credencial."
+msgstr "Self-declared and shown as context, not as a credential."
+
+msgid "Declarações"
+msgstr "Declarations"
+
+msgid "Declaro que faço esta denúncia de boa-fé e que a informação é, tanto quanto sei, exata e completa."
+msgstr "I declare that I am making this report in good faith and that, to the best of my knowledge, the information is accurate and complete."
+
+msgid "Definições"
+msgstr "Settings"
+
+msgid "Definições do site"
+msgstr "Site settings"
+
+#, python-format
+msgid "Demasiados itens (máx. %(max_length)s)."
+msgstr "Too many items (max. %(max_length)s)."
+
+msgid "Demasiados pedidos"
+msgstr "Too many requests"
+
+msgid "Demasiados pedidos. Aguarde um pouco e tente novamente."
+msgstr "Too many requests. Please wait a moment and try again."
+
+msgid "Denunciante"
+msgstr "Reporter"
+
+msgid "Denúncia"
+msgstr "Report"
+
+msgid "Denúncia fechada. O denunciante foi notificado."
+msgstr "Report closed. The reporter has been notified."
+
+msgid "Denúncias"
+msgstr "Reports"
+
+#, python-format
+msgid "Denúncias abertas: %(n)s"
+msgstr "Open reports: %(n)s"
+
+msgid "Denúncias para ocultação automática"
+msgstr "Reports that trigger auto-hide"
+
+msgid "Depois dessa data, o selo passa a cinzento (riscado) e a ferramenta deixa de aparecer no filtro respetivo. Se tiver um certificado renovado, atualize a ficha:"
+msgstr "After that date the badge turns grey (slashed) and the tool no longer appears under that filter. If you have a renewed certificate, update the listing:"
+
+msgid "Desassociar"
+msgstr "Unlink"
+
+msgid "Descobrir"
+msgstr "Discover"
+
+msgid "Desconhecida"
+msgstr "Unknown"
+
+msgid "Desconhecido"
+msgstr "Unknown"
+
+msgid "Descreva a ferramenta e indique onde está publicada. A gitmgf guarda apenas a ficha e as ligações: não aloja ficheiros nem código."
+msgstr "Describe the tool and say where it is published. gitmgf only keeps the listing and the links: it does not host files or code."
+
+msgid "Descrição"
+msgstr "Description"
+
+msgid "Descrição (EN)"
+msgstr "Description (EN)"
+
+msgid "Descrição (PT)"
+msgstr "Description (PT)"
+
+msgid "Descrição disponível apenas em português."
+msgstr "Description available in Portuguese only."
+
+msgid "Desktop"
+msgstr "Desktop"
+
+msgid "Destino"
+msgstr "Target"
+
+msgid "Detalhes"
+msgstr "Details"
+
+msgid "Detalhes para o autor (opcional)"
+msgstr "Details for the author (optional)"
+
+msgid "Dia"
+msgstr "Day"
+
+msgid "Diferenças em relação à versão publicada"
+msgstr "Differences from the published version"
+
+msgid "Disponível apenas em português"
+msgstr "Available in Portuguese only"
+
+msgid "Documentação"
+msgstr "Documentation"
+
+msgid "Documentação (URL)"
+msgstr "Documentation (URL)"
+
+msgid "Duplicado: já existe uma ficha para esta ferramenta."
+msgstr "Duplicate: a listing for this tool already exists."
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "Editar ferramenta"
+msgstr "Edit tool"
+
+msgid "Editar ficha"
+msgstr "Edit listing"
+
+msgid "Eliminada"
+msgstr "Deleted"
+
+msgid "Eliminado"
+msgstr "Deleted"
+
+msgid "Eliminar"
+msgstr "Delete"
+
+msgid "Eliminar conta"
+msgstr "Delete account"
+
+msgid "Eliminar conta definitivamente"
+msgstr "Delete account permanently"
+
+msgid "Eliminar esta conta e retirar as suas ferramentas? Esta ação não pode ser desfeita."
+msgstr "Delete this account and withdraw its tools? This cannot be undone."
+
+msgid "Eliminar esta etiqueta de todas as ferramentas?"
+msgstr "Remove this tag from all tools?"
+
+msgid "Eliminar esta ferramenta? Esta ação não pode ser desfeita: a ficha e as imagens são apagadas em 30 dias."
+msgstr "Delete this tool? This cannot be undone: the listing and images are erased within 30 days."
+
+msgid "Em destaque"
+msgstr "Featured"
+
+msgid "Em revisão"
+msgstr "Under review"
+
+msgid "Email"
+msgstr "Email"
+
+#, python-format
+msgid "Email automático da gitmgf (%(url)s). Recebe-o porque tem conta ou fez um pedido no site."
+msgstr "Automatic email from gitmgf (%(url)s). You are receiving it because you have an account or made a request on the site."
+
+msgid "Enfermeiro/a"
+msgstr "Nurse"
+
+msgid "Engenheiro/a / Developer"
+msgstr "Engineer / Developer"
+
+msgid "Enquanto estiver em revisão, a ficha não é pública. Pode acompanhar o estado em:"
+msgstr "While it is under review, the listing is not public. You can follow its status at:"
+
+msgid "Entrar"
+msgstr "Sign in"
+
+msgid "Entrar na gitmgf"
+msgstr "Sign in to gitmgf"
+
+msgid "Envia dados para um servidor"
+msgstr "Sends data to a server"
+
+msgid "Envia dados para um servidor sem declaração RGPD → pedir alterações, salvo explicação."
+msgstr "Sends data to a server without a GDPR declaration → request changes, unless explained."
+
+msgid "Enviar denúncia"
+msgstr "Send report"
+
+msgid "Enviar ligação de acesso"
+msgstr "Send sign-in link"
+
+msgid "Erro inesperado"
+msgstr "Unexpected error"
+
+msgid "Escolha entre 1 e 5 categorias."
+msgstr "Choose between 1 and 5 categories."
+
+#, python-format
+msgid "Escolha pelo menos %(min_length)s."
+msgstr "Choose at least %(min_length)s."
+
+msgid "Escolha pelo menos um idioma."
+msgstr "Choose at least one language."
+
+msgid "Escolha pelo menos uma plataforma."
+msgstr "Choose at least one platform."
+
+msgid "Escolha um ficheiro de imagem."
+msgstr "Choose an image file."
+
+msgid "Escolha uma opção válida."
+msgstr "Choose a valid option."
+
+msgid "Espanhol"
+msgstr "Spanish"
+
+msgid "Especialidade"
+msgstr "Specialty"
+
+msgid "Especialidade (opcional)"
+msgstr "Specialty (optional)"
+
+msgid "Especialidades"
+msgstr "Specialties"
+
+msgid "Essa conta já está associada a outro utilizador da gitmgf."
+msgstr "That account is already linked to another gitmgf user."
+
+msgid "Esta ação não pode ser desfeita."
+msgstr "This cannot be undone."
+
+msgid "Esta ferramenta está em revisão. Para a editar, retire primeiro a submissão."
+msgstr "This tool is under review. To edit it, withdraw the submission first."
+
+msgid "Esta ligação de acesso é inválida, já foi usada ou expirou. Peça uma nova."
+msgstr "This sign-in link is invalid, has already been used or has expired. Request a new one."
+
+msgid "Esta medida foi aplicada automaticamente, por meios automáticos, depois de várias denúncias de conteúdo perigoso ou de problemas de segurança, enquanto um moderador analisa o caso."
+msgstr "This measure was applied automatically, by automated means, after several reports of dangerous content or security problems, while a moderator reviews the case."
+
+msgid "Esta página não é pública."
+msgstr "This page is not public."
+
+msgid "Esta é uma tradução. Em caso de divergência, prevalece a versão em português."
+msgstr "This is a translation. In case of discrepancy, the Portuguese version prevails."
+
+msgid "Estado"
+msgstr "Status"
+
+msgid "Estado, alterações pendentes e utilização nos últimos 30 e 90 dias."
+msgstr "Status, pending edits and usage over the last 30 and 90 days."
+
+msgid "Estado:"
+msgstr "Status:"
+
+msgid "Estatísticas"
+msgstr "Statistics"
+
+msgid "Este identificador já está a ser usado."
+msgstr "This handle is already taken."
+
+msgid "Estrelas"
+msgstr "Stars"
+
+msgid "Estudante de Medicina"
+msgstr "Medical student"
+
+msgid "Etiqueta"
+msgstr "Tag"
+
+msgid "Etiqueta eliminada."
+msgstr "Tag deleted."
+
+msgid "Etiquetas"
+msgstr "Tags"
+
+msgid "Etiquetas (opcional)"
+msgstr "Tags (optional)"
+
+msgid "Etiquetas fundidas."
+msgstr "Tags merged."
+
+#, python-brace-format
+msgid "Ex.: MDR {class}"
+msgstr "E.g. MDR {class}"
+
+msgid "Excel"
+msgstr "Excel"
+
+#, python-format
+msgid "Expirado em %(date)s"
+msgstr "Expired on %(date)s"
+
+msgid "Explicação"
+msgstr "Explanation"
+
+msgid "Explorar"
+msgstr "Explore"
+
+msgid "Explorar ferramentas"
+msgstr "Explore tools"
+
+msgid "Explore as ferramentas por finalidade ou por especialidade."
+msgstr "Explore tools by purpose or by specialty."
+
+msgid "Extensão"
+msgstr "Extension"
+
+msgid "Extensão de navegador"
+msgstr "Browser extension"
+
+msgid "Faltam campos obrigatórios. Reveja o formulário antes de submeter."
+msgstr "Required fields are missing. Review the form before submitting."
+
+msgid "Farmacêutico/a"
+msgstr "Pharmacist"
+
+msgid "Feito por clínicos, para clínicos"
+msgstr "Made by clinicians, for clinicians"
+
+msgid "Ferramenta"
+msgstr "Tool"
+
+msgid "Ferramenta arquivada pelo autor: pode já não ser mantida. Não aparece nas listagens nem na pesquisa."
+msgstr "Tool archived by its author: it may no longer be maintained. It does not appear in listings or search."
+
+msgid "Ferramenta arquivada."
+msgstr "Tool archived."
+
+msgid "Ferramenta de IA: considere declarar a conformidade com o Regulamento da IA (AI Act)."
+msgstr "AI tool: consider declaring conformity with the EU AI Act."
+
+msgid "Ferramenta eliminada."
+msgstr "Tool deleted."
+
+#, python-format
+msgid "Ferramenta ocultada automaticamente: %(title)s"
+msgstr "Tool hidden automatically: %(title)s"
+
+msgid "Ferramenta ocultada. O autor foi notificado."
+msgstr "Tool hidden. The author has been notified."
+
+#, python-format
+msgid "Ferramenta ocultada: %(title)s"
+msgstr "Tool hidden: %(title)s"
+
+msgid "Ferramenta publicada novamente."
+msgstr "Tool published again."
+
+#, python-format
+msgid "Ferramenta publicada: %(title)s"
+msgstr "Tool published: %(title)s"
+
+msgid "Ferramenta submetida para revisão. Vai receber um email com a decisão."
+msgstr "Tool submitted for review. You'll receive an email with the decision."
+
+msgid "Ferramenta visível novamente."
+msgstr "Tool visible again."
+
+#, python-format
+msgid "Ferramenta visível novamente: %(title)s"
+msgstr "Tool visible again: %(title)s"
+
+msgid "Ferramentas"
+msgstr "Tools"
+
+msgid "Ferramentas digitais criadas por clínicos para a prática clínica, com foco na Medicina Geral e Familiar e no Internato."
+msgstr "Digital tools made by clinicians for clinical practice, focused on General Practice / Family Medicine and residency."
+
+msgid "Ferramentas mais populares"
+msgstr "Most popular tools"
+
+msgid "Fila de moderação"
+msgstr "Moderation queue"
+
+msgid "Filtrar"
+msgstr "Filter"
+
+msgid "Filtros"
+msgstr "Filters"
+
+msgid "Finalidade"
+msgstr "Purpose"
+
+msgid "Folha de cálculo / modelo"
+msgstr "Spreadsheet / template"
+
+msgid "Folhas de cálculo"
+msgstr "Spreadsheets"
+
+msgid "Fora do âmbito: a ferramenta não está relacionada com a saúde."
+msgstr "Out of scope: the tool is not related to health."
+
+msgid "Forks"
+msgstr "Forks"
+
+msgid "Formato inválido."
+msgstr "Invalid format."
+
+msgid "Formato não suportado. Use PNG, JPEG ou WebP."
+msgstr "Unsupported format. Use PNG, JPEG or WebP."
+
+msgid "Francês"
+msgstr "French"
+
+msgid "Freemium"
+msgstr "Freemium"
+
+msgid "Funcionamento"
+msgstr "Operation"
+
+msgid "Fundir"
+msgstr "Merge"
+
+msgid "Fundir selecionadas no destino"
+msgstr "Merge selected into target"
+
+msgid "Função"
+msgstr "Role"
+
+msgid "Função alterada."
+msgstr "Role changed."
+
+msgid "Garantia"
+msgstr "Assurance"
+
+msgid "Garantia por omissão"
+msgstr "Default assurance"
+
+msgid "Google Sheets"
+msgstr "Google Sheets"
+
+msgid "Gratuita"
+msgstr "Free"
+
+msgid "Guardar"
+msgstr "Save"
+
+msgid "Guardar e submeter para revisão"
+msgstr "Save and submit for review"
+
+msgid "Guardar rascunho"
+msgstr "Save draft"
+
+msgid "Há"
+msgstr "Waiting"
+
+msgid "Há campos a corrigir. Veja as mensagens abaixo."
+msgstr "Some fields need fixing. See the messages below."
+
+msgid "IA"
+msgstr "AI"
+
+msgid "ID do utilizador"
+msgstr "User ID"
+
+msgid "Identificador"
+msgstr "Handle"
+
+msgid "Identificador (opcional)"
+msgstr "Handle (optional)"
+
+msgid "Idioma"
+msgstr "Language"
+
+msgid "Idioma da ferramenta"
+msgstr "Tool language"
+
+msgid "Idioma da interface e dos emails"
+msgstr "Language for the interface and emails"
+
+msgid "Idiomas"
+msgstr "Languages"
+
+msgid "Idiomas da ferramenta"
+msgstr "Tool languages"
+
+msgid "Imagem"
+msgstr "Image"
+
+msgid "Inativa"
+msgstr "Inactive"
+
+msgid "Indique pelo menos uma ligação."
+msgstr "Give at least one link."
+
+msgid "Indique um email válido."
+msgstr "Enter a valid email address."
+
+msgid "Indique um endereço http:// ou https:// válido (máx. 500 caracteres)."
+msgstr "Enter a valid http:// or https:// address (max. 500 characters)."
+
+msgid "Indique um motivo (modelo ou texto livre)."
+msgstr "Give a reason (template or free text)."
+
+msgid "Indique um título com pelo menos 3 caracteres."
+msgstr "Enter a title of at least 3 characters."
+
+msgid "Indisponível"
+msgstr "Unavailable"
+
+msgid "Informação básica"
+msgstr "Basic information"
+
+msgid "Informação declarada pelo autor. A gitmgf verifica a existência das evidências indicadas, mas não certifica nem garante a conformidade da ferramenta."
+msgstr "Information declared by the author. gitmgf checks that the evidence given exists, but does not certify or guarantee the tool's compliance."
+
+msgid "Informação incompleta: faltam dados necessários para avaliar a ferramenta."
+msgstr "Incomplete information: data needed to assess the tool is missing."
+
+msgid "Inglês"
+msgstr "English"
+
+msgid "Internato"
+msgstr "Residency"
+
+msgid "Item mais antigo na fila"
+msgstr "Oldest item in the queue"
+
+#, python-format
+msgid "Item mais antigo: %(age)s"
+msgstr "Oldest item: %(age)s"
+
+msgid "Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no futuro."
+msgstr "Lowercase letters, numbers and hyphens (3 to 30). Will be used in addresses in the future."
+
+msgid "Levantar suspensão"
+msgstr "Lift suspension"
+
+msgid "Li e aceito os Termos de Utilização e as Normas de Submissão, e tenho 18 anos ou mais."
+msgstr "I have read and accept the Terms of Use and the Submission Guidelines, and I am 18 or older."
+
+msgid "LibreOffice"
+msgstr "LibreOffice"
+
+msgid "Licença"
+msgstr "Licence"
+
+msgid "Licença no repositório"
+msgstr "Licence in the repository"
+
+msgid "Ligação inválida"
+msgstr "Invalid link"
+
+msgid "Ligação inválida ou expirada"
+msgstr "Invalid or expired link"
+
+msgid "Ligação quebrada"
+msgstr "Broken link"
+
+msgid "Ligação quebrada ou insegura: uma ou mais ligações não abrem ou não são seguras."
+msgstr "Broken or unsafe link: one or more links don't open or aren't safe."
+
+msgid "Ligações"
+msgstr "Links"
+
+msgid "Limpar"
+msgstr "Clear"
+
+msgid "Linha"
+msgstr "Row"
+
+msgid "Linux"
+msgstr "Linux"
+
+msgid "Lista de campos: key, type (enum, text, url, date, bool, nb_number), label_pt, label_en, required, required_if, options, assurance_if."
+msgstr "List of fields: key, type (enum, text, url, date, bool, nb_number), label_pt, label_en, required, required_if, options, assurance_if."
+
+msgid "Lista de verificação"
+msgstr "Checklist"
+
+msgid "Lista única para as ferramentas. As especialidades também aparecem no perfil dos utilizadores."
+msgstr "One flat list for tools. Specialties also appear in user profiles."
+
+msgid "Local de trabalho"
+msgstr "Workplace"
+
+msgid "Local de trabalho (opcional)"
+msgstr "Workplace (optional)"
+
+msgid "Mais antigos primeiro. Não pode moderar as suas próprias ferramentas."
+msgstr "Oldest first. You can't moderate your own tools."
+
+msgid "Mais estrelas"
+msgstr "Most starred"
+
+msgid "Mais frequentes"
+msgstr "Most frequent"
+
+msgid "Mais recentes"
+msgstr "Newest"
+
+msgid "Mantida"
+msgstr "Maintained"
+
+#, python-format
+msgid "Medida: a ficha «%(title)s» foi ocultada. Deixou de estar visível ao público e de aparecer na pesquisa."
+msgstr "Measure: the listing “%(title)s” was hidden. It is no longer visible to the public or shown in search."
+
+#, python-format
+msgid "Medida: a ficha «%(title)s» não foi aprovada para publicação."
+msgstr "Measure: the listing “%(title)s” was not approved for publication."
+
+#, python-format
+msgid "Medida: a ficha «%(title)s» não foi publicada e voltou a rascunho, para que a possa corrigir."
+msgstr "Measure: the listing “%(title)s” was not published and went back to draft so you can fix it."
+
+#, python-format
+msgid "Medida: as alterações propostas à ficha «%(title)s» não foram aprovadas. A versão publicada mantém-se sem alterações."
+msgstr "Measure: the proposed changes to the listing “%(title)s” were not approved. The published version stays unchanged."
+
+msgid "Meia-vida da popularidade (dias)"
+msgstr "Popularity half-life (days)"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Menu da conta"
+msgstr "Account menu"
+
+msgid "Modelo"
+msgstr "Template"
+
+msgid "Modelo do texto (opcional)"
+msgstr "Label template (optional)"
+
+msgid "Moderador/a"
+msgstr "Moderator"
+
+msgid "Moderar"
+msgstr "Moderate"
+
+msgid "Moderação"
+msgstr "Moderation"
+
+msgid "Mostrar mais"
+msgstr "Show more"
+
+msgid "Motivo"
+msgstr "Reason"
+
+msgid "Motivo da rejeição"
+msgstr "Rejection reason"
+
+msgid "Motivo da suspensão"
+msgstr "Suspension reason"
+
+msgid "Motivo e factos:"
+msgstr "Reason and facts:"
+
+msgid "Motivo, se rejeitar (p. ex. a evidência não abre)"
+msgstr "Reason, if rejecting (e.g. the evidence doesn't open)"
+
+msgid "Motivo:"
+msgstr "Reason:"
+
+msgid "Mover para baixo"
+msgstr "Move down"
+
+msgid "Mover para cima"
+msgstr "Move up"
+
+msgid "Mudar o identificador muda o endereço da página da categoria."
+msgstr "Changing the handle changes the category page address."
+
+msgid "Máximo de 10 etiquetas."
+msgstr "Maximum 10 tags."
+
+msgid "Máximo de 5 capturas de ecrã por ferramenta."
+msgstr "Maximum 5 screenshots per tool."
+
+msgid "Máximo de submissões pendentes por utilizador"
+msgstr "Maximum pending submissions per user"
+
+msgid "Médico/a especialista"
+msgstr "Specialist physician"
+
+msgid "Médico/a interno/a"
+msgstr "Resident physician"
+
+msgid "Móvel"
+msgstr "Mobile"
+
+msgid "Nada pendente nesta fila."
+msgstr "Nothing pending in this queue."
+
+msgid "Nenhuma ferramenta encontrada."
+msgstr "No tools found."
+
+msgid "Nome"
+msgstr "Name"
+
+msgid "Nome (EN)"
+msgstr "Name (EN)"
+
+msgid "Nome (PT / EN)"
+msgstr "Name (PT / EN)"
+
+msgid "Nome (PT)"
+msgstr "Name (PT)"
+
+msgid "Nome a apresentar"
+msgstr "Display name"
+
+msgid "Nome de utilizador do GitHub inválido."
+msgstr "Invalid GitHub username."
+
+msgid "Nome, email ou identificador"
+msgstr "Name, email or handle"
+
+msgid "Normas de Submissão"
+msgstr "Submission Guidelines"
+
+msgid "Normas de submissão"
+msgstr "Submission guidelines"
+
+msgid "Normas de submissão:"
+msgstr "Submission guidelines:"
+
+msgid "Nota"
+msgstr "Note"
+
+msgid "Nota da moderação:"
+msgstr "Moderation note:"
+
+msgid "Nota para o denunciante (opcional)"
+msgstr "Note for the reporter (optional)"
+
+msgid "Nova"
+msgstr "New"
+
+msgid "Nova categoria"
+msgstr "New category"
+
+msgid "Novas ferramentas"
+msgstr "New tools"
+
+msgid "Novas submissões"
+msgstr "New submissions"
+
+#, python-format
+msgid "Novas submissões: %(n)s"
+msgstr "New submissions: %(n)s"
+
+msgid "Novidades"
+msgstr "Latest"
+
+msgid "Não aplicável"
+msgstr "Not applicable"
+
+msgid "Não foi possível concluir a autenticação. Tente novamente."
+msgstr "Authentication could not be completed. Please try again."
+
+msgid "Não foi possível enviar. Aguarde uns segundos e tente novamente."
+msgstr "Could not send. Wait a few seconds and try again."
+
+msgid "Não há dados que identifiquem utentes no texto nem nas imagens."
+msgstr "No patient-identifiable data in text or images."
+
+msgid "Não pode atribuir estrela à sua própria ferramenta."
+msgstr "You can't star your own tool."
+
+msgid "Não tem permissão para fazer esta ação."
+msgstr "You don't have permission to do this."
+
+msgid "Não trata dados de utentes"
+msgstr "Does not process patient data"
+
+msgid "Não é possível iniciar sessão com esta conta. Contacte-nos se achar que se trata de um erro."
+msgstr "You can't sign in with this account. Contact us if you think this is a mistake."
+
+msgid "Não é possível retirar o último administrador."
+msgstr "The last administrator can't be removed."
+
+#, python-format
+msgid "O autor não declarou %(name)s para esta ferramenta."
+msgstr "The author has not declared %(name)s for this tool."
+
+msgid "O email desta conta não está verificado no fornecedor. Use a ligação por email para entrar."
+msgstr "This account's email is not verified with the provider. Use the email link to sign in."
+
+msgid "O ficheiro não é uma imagem válida."
+msgstr "The file is not a valid image."
+
+msgid "O formulário expirou ou foi enviado de outro site. Volte atrás, atualize a página e tente novamente."
+msgstr "The form expired or was sent from another site. Go back, reload the page and try again."
+
+msgid "O número do organismo notificado tem 4 dígitos."
+msgstr "The notified body number has 4 digits."
+
+msgid "O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, listas, ligações, tabelas). Não inclua dados que identifiquem utentes."
+msgstr "What it does, for whom, how to use it and its limitations. Markdown is supported (headings, lists, links, tables). Don't include data that identifies patients."
+
+msgid "O repositório GitHub não foi encontrado."
+msgstr "The GitHub repository was not found."
+
+msgid "O seu email"
+msgstr "Your email"
+
+msgid "O texto alternativo em português é obrigatório."
+msgstr "Alternative text in Portuguese is required."
+
+msgid "O texto e as capturas de ecrã não contêm dados que identifiquem utentes."
+msgstr "The text and screenshots contain no patient-identifiable data."
+
+msgid "O texto final é enviado por email ao autor, no idioma da conta, como fundamentação da decisão."
+msgstr "The final text is emailed to the author in their account language, as the statement of reasons."
+
+msgid "O total de finalidades e especialidades escolhidas não pode passar de 5."
+msgstr "Purposes and specialties together can't exceed 5."
+
+msgid "Obrigado por contribuir para a comunidade."
+msgstr "Thank you for contributing to the community."
+
+msgid "Obrigado por fazer parte da comunidade."
+msgstr "Thank you for being part of the community."
+
+msgid "Obrigado por partilhar o seu trabalho."
+msgstr "Thank you for sharing your work."
+
+msgid "Obrigado. Recebemos a sua denúncia e vamos analisá-la."
+msgstr "Thank you. We received your report and will review it."
+
+msgid "Ocultada"
+msgstr "Hidden"
+
+#, python-format
+msgid "Ocultada automaticamente após %(n)s denúncias abertas de conteúdo clínico perigoso ou de problemas de segurança, enquanto um moderador analisa o caso."
+msgstr "Hidden automatically after %(n)s open reports of dangerous clinical content or security problems, while a moderator reviews the case."
+
+msgid "Ocultadas / arquivadas"
+msgstr "Hidden / archived"
+
+msgid "Ocultar"
+msgstr "Hide"
+
+msgid "Ocultar ferramenta"
+msgstr "Hide tool"
+
+#, python-format
+msgid "Olá %(name)s,"
+msgstr "Hello %(name)s,"
+
+msgid "Olá,"
+msgstr "Hello,"
+
+msgid "Open source"
+msgstr "Open source"
+
+msgid "Ordem"
+msgstr "Order"
+
+msgid "Ordem alterada."
+msgstr "Order changed."
+
+msgid "Ordenar"
+msgstr "Sort"
+
+msgid "Os colegas encontram, usam e melhoram a ferramenta. O código aberto acelera tudo."
+msgstr "Colleagues find, use and improve the tool. Open source speeds everything up."
+
+msgid "Os itens principais aparecem sempre (presentes ou riscados); os adicionais só quando presentes."
+msgstr "Core items always appear (present or slashed); additional items only when present."
+
+msgid "Os novos registos estão temporariamente fechados."
+msgstr "New sign-ups are temporarily closed."
+
+msgid "Os seus dados"
+msgstr "Your data"
+
+msgid "Outra"
+msgstr "Other"
+
+msgid "Outras ações"
+msgstr "Other actions"
+
+msgid "Outro"
+msgstr "Other"
+
+msgid "Outro motivo (ver detalhes)."
+msgstr "Other reason (see details)."
+
+msgid "Outro profissional de saúde"
+msgstr "Other health professional"
+
+msgid "Paga"
+msgstr "Paid"
+
+msgid "Paginação"
+msgstr "Pagination"
+
+msgid "Para adicionar itens novos, edite seeds/certifications.yaml e corra «python -m app.cli seed certifications»."
+msgstr "To add new items, edit seeds/certifications.yaml and run “python -m app.cli seed certifications”."
+
+msgid "Para confirmarmos a receção e comunicarmos a decisão. Não é obrigatório em denúncias de abuso sexual de crianças."
+msgstr "So we can acknowledge receipt and tell you the decision. Not required for reports about child sexual abuse."
+
+msgid "Para ocultar a ferramenta, use a página de revisão (o autor recebe a fundamentação). Depois feche aqui a denúncia."
+msgstr "To hide the tool, use its review page (the author receives the statement of reasons). Then close the report here."
+
+msgid "Para voltar a mostrá-lo, atualize a ficha com a nova data de validade e a evidência:"
+msgstr "To show it again, update the listing with the new validity date and evidence:"
+
+msgid "Partilhar"
+msgstr "Share"
+
+msgid "Partilhar ferramenta"
+msgstr "Share a tool"
+
+msgid "Partilhar uma ferramenta:"
+msgstr "Share a tool:"
+
+msgid "Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar tempo e a melhorar os cuidados."
+msgstr "Share the link to the repository or web app. Help colleagues save time and improve care."
+
+msgid "Partilhe-a"
+msgstr "Share it"
+
+msgid "Pedir alterações (volta a rascunho)"
+msgstr "Request changes (back to draft)"
+
+msgid "Pedir alterações ou rejeitar"
+msgstr "Request changes or reject"
+
+msgid "Pedir nova ligação"
+msgstr "Request a new link"
+
+msgid "Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para o podermos avaliar. Não inclua dados de utentes."
+msgstr "At least 20 characters. Explain the problem in enough detail for us to assess it. Don't include patient data."
+
+msgid "Pelo menos uma. Use o local onde publica a ferramenta (repositório, site, loja de aplicações), não serviços de partilha de ficheiros nem encurtadores de ligações."
+msgstr "At least one. Use the place where you publish the tool (repository, website, app store), not file-sharing services or URL shorteners."
+
+msgid "Perfil"
+msgstr "Profile"
+
+msgid "Peso da popularidade na relevância"
+msgstr "Weight of popularity in relevance"
+
+msgid "Peso: abertura de ligação"
+msgstr "Weight: link open"
+
+msgid "Peso: clique a partir da pesquisa"
+msgstr "Weight: click from search"
+
+msgid "Peso: estrela"
+msgstr "Weight: star"
+
+msgid "Peso: estrelas no GitHub (× log10)"
+msgstr "Weight: GitHub stars (× log10)"
+
+msgid "Pesquisa"
+msgstr "Search"
+
+msgid "Pesquisa 30/90 d"
+msgstr "Search 30/90 d"
+
+#, python-format
+msgid "Pesquisa: %(q)s"
+msgstr "Search: %(q)s"
+
+msgid "Pesquisar"
+msgstr "Search"
+
+msgid "Pesquisar ferramentas"
+msgstr "Search tools"
+
+msgid "Pesquisar: risco cardiovascular, vacinação, ICPC-2…"
+msgstr "Search: cardiovascular risk, vaccination, ICPC-2…"
+
+msgid "Pesquisas"
+msgstr "Searches"
+
+msgid "Pesquisas mais frequentes (7 dias)"
+msgstr "Top searches (7 days)"
+
+msgid "Pesquisas sem resultados (7 dias)"
+msgstr "Searches with no results (7 days)"
+
+msgid "Pistas sobre ferramentas que a comunidade procura e ainda não existem."
+msgstr "Hints about tools the community is looking for that don't exist yet."
+
+msgid "Plataforma"
+msgstr "Platform"
+
+msgid "Plataformas"
+msgstr "Platforms"
+
+msgid "Pode contestar esta decisão no prazo de 6 meses, respondendo a este email."
+msgstr "You can appeal this decision within 6 months by replying to this email."
+
+msgid "Pode corrigi-las editando a ficha; as alterações voltam a ser revistas."
+msgstr "You can fix them by editing the listing; the changes will be reviewed again."
+
+msgid "Pode editar a ficha e submetê-la novamente:"
+msgstr "You can edit the listing and submit it again:"
+
+msgid "Pode transferir primeiro uma cópia dos seus dados:"
+msgstr "You can download a copy of your data first:"
+
+msgid "Pode transferir uma cópia dos seus dados ou eliminar a conta a qualquer momento."
+msgstr "You can download a copy of your data or delete your account at any time."
+
+msgid "Política de Privacidade"
+msgstr "Privacy Policy"
+
+msgid "Pontuação atual:"
+msgstr "Current score:"
+
+msgid "Pontuação reposta."
+msgstr "Score reset."
+
+msgid "Populares"
+msgstr "Popular"
+
+msgid "Por omissão, nenhuma certificação é declarada. Ative apenas o que a ferramenta tem de facto e indique a evidência: cada declaração é verificada por um moderador."
+msgstr "By default, no certification is declared. Switch on only what the tool really has and give the evidence: each claim is checked by a moderator."
+
+msgid "Português"
+msgstr "Portuguese"
+
+msgid "Preço"
+msgstr "Pricing"
+
+msgid "Primários e hospitalares"
+msgstr "Primary and hospital care"
+
+msgid "Principal"
+msgstr "Core"
+
+msgid "Principal: mostrar sempre, presente ou riscado"
+msgstr "Core: always shown, present or slashed"
+
+msgid "Privacidade"
+msgstr "Privacy"
+
+msgid "Problema de direitos de autor ou de licença."
+msgstr "Copyright or licence problem."
+
+msgid "Problema de segurança ou privacidade"
+msgstr "Security or privacy concern"
+
+msgid "Problemas abertos"
+msgstr "Open issues"
+
+msgid "Profissão"
+msgstr "Profession"
+
+msgid "Profissão e especialidade declaradas pelo autor, não verificadas."
+msgstr "Profession and specialty declared by the author, not verified."
+
+msgid "Prompt / assistente de IA"
+msgstr "AI prompt / assistant"
+
+msgid "Proprietária / código fechado"
+msgstr "Proprietary / closed source"
+
+msgid "Publicada"
+msgstr "Published"
+
+msgid "Publicadas"
+msgstr "Published"
+
+msgid "Publicadas recentemente."
+msgstr "Recently published."
+
+msgid "Publicar novamente"
+msgstr "Publish again"
+
+msgid "Página não encontrada"
+msgstr "Page not found"
+
+msgid "Páginas legais"
+msgstr "Legal pages"
+
+msgid "Qualquer"
+msgstr "Any"
+
+msgid "Qualquer idioma"
+msgstr "Any language"
+
+msgid "Qualquer pessoa pode denunciar conteúdo ilegal ou contrário aos Termos. Analisamos cada denúncia de forma diligente e informamos da decisão."
+msgstr "Anyone can report illegal content or content that breaches the Terms. We review each report diligently and let you know the decision."
+
+msgid "Quando"
+msgstr "When"
+
+msgid "Quem"
+msgstr "Who"
+
+msgid "Rascunho"
+msgstr "Draft"
+
+msgid "Rascunho guardado, mas faltam campos obrigatórios para submeter. Reveja os campos assinalados."
+msgstr "Draft saved, but required fields are missing for submission. Check the highlighted fields."
+
+msgid "Rascunho guardado."
+msgstr "Draft saved."
+
+msgid "Rascunhos"
+msgstr "Drafts"
+
+#, python-format
+msgid "Recebemos a ficha «%(title)s». Um moderador vai revê-la e receberá um email com a decisão."
+msgstr "We received the listing “%(title)s”. A moderator will review it and you'll receive an email with the decision."
+
+msgid "Recebemos a sua denúncia"
+msgstr "We received your report"
+
+#, python-format
+msgid "Recebemos a sua denúncia sobre a ferramenta «%(title)s» (motivo: %(reason)s). Vamos analisá-la de forma diligente e objetiva e informamos da decisão."
+msgstr "We received your report about the tool “%(title)s” (reason: %(reason)s). We will review it diligently and objectively and let you know the decision."
+
+#, python-format
+msgid "Recebemos a sua submissão: %(title)s"
+msgstr "We received your submission: %(title)s"
+
+msgid "Recebida"
+msgstr "Received"
+
+#, python-format
+msgid "Referência: #%(id)s"
+msgstr "Reference: #%(id)s"
+
+msgid "Registo"
+msgstr "Signed up"
+
+msgid "Registo de auditoria"
+msgstr "Audit log"
+
+msgid "Registos"
+msgstr "Sign-ups"
+
+msgid "Registos abertos"
+msgstr "Sign-ups open"
+
+msgid "Registos e submissões por semana"
+msgstr "Sign-ups and submissions per week"
+
+msgid "Regras aplicáveis: Termos de Utilização e Normas de Submissão da gitmgf."
+msgstr "Applicable rules: gitmgf Terms of Use and Submission Guidelines."
+
+msgid "Rejeitada"
+msgstr "Rejected"
+
+msgid "Rejeitado. O autor foi notificado."
+msgstr "Rejected. The author has been notified."
+
+msgid "Rejeitar"
+msgstr "Reject"
+
+msgid "Rejeitar alteração"
+msgstr "Reject edit"
+
+msgid "Rejeitar declaração"
+msgstr "Reject claim"
+
+msgid "Relevância"
+msgstr "Relevance"
+
+msgid "Remover"
+msgstr "Remove"
+
+msgid "Remover esta imagem?"
+msgstr "Remove this image?"
+
+msgid "Repor a pontuação de popularidade a zero?"
+msgstr "Reset the popularity score to zero?"
+
+msgid "Repor pontuação"
+msgstr "Reset score"
+
+msgid "Reportar problema"
+msgstr "Report a problem"
+
+msgid "Repositório (URL)"
+msgstr "Repository (URL)"
+
+msgid "Repositório arquivado"
+msgstr "Repository archived"
+
+msgid "Resolver (foram tomadas medidas)"
+msgstr "Resolve (action taken)"
+
+msgid "Resolvida"
+msgstr "Resolved"
+
+msgid "Resumo"
+msgstr "Summary"
+
+msgid "Resumo (EN)"
+msgstr "Summary (EN)"
+
+msgid "Resumo (PT)"
+msgstr "Summary (PT)"
+
+msgid "Retirar"
+msgstr "Withdraw"
+
+msgid "Retirar a alteração pendente?"
+msgstr "Withdraw the pending edit?"
+
+msgid "Retirar alteração"
+msgstr "Withdraw edit"
+
+msgid "Retirar submissão"
+msgstr "Withdraw submission"
+
+msgid "Retire a submissão para a poder editar."
+msgstr "Withdraw the submission to edit it."
+
+msgid "Reveja e aceite a nova versão dos Termos e das Normas de Submissão para continuar."
+msgstr "Review and accept the new version of the Terms and the Submission Guidelines to continue."
+
+msgid "Rever"
+msgstr "Review"
+
+msgid "Rever alteração"
+msgstr "Review edit"
+
+msgid "Rodapé"
+msgstr "Footer"
+
+msgid "Saltar para o conteúdo"
+msgstr "Skip to content"
+
+msgid "Script"
+msgstr "Script"
+
+msgid "Script / biblioteca"
+msgstr "Script / library"
+
+msgid "Scripts"
+msgstr "Scripts"
+
+msgid "Se não pediu esta eliminação, responda a este email com urgência."
+msgstr "If you did not request this deletion, reply to this email urgently."
+
+msgid "Se não pediu este email, pode ignorá-lo: ninguém consegue entrar sem esta ligação."
+msgstr "If you didn't request this email, you can ignore it: nobody can sign in without this link."
+
+#, python-format
+msgid "Se o endereço for válido, enviámos uma ligação de acesso para <strong>%(email)s</strong>."
+msgstr "If the address is valid, we sent a sign-in link to <strong>%(email)s</strong>."
+
+msgid "Seguinte"
+msgstr "Next"
+
+msgid "Selecione etiquetas duplicadas e escolha a etiqueta de destino para as fundir."
+msgstr "Select duplicate tags and choose the target tag to merge them into."
+
+msgid "Selo"
+msgstr "Badge"
+
+#, python-format
+msgid "Sem %(name)s"
+msgstr "Without %(name)s"
+
+msgid "Sem diferenças de conteúdo."
+msgstr "No content differences."
+
+msgid "Sem palavras-passe: enviamos uma ligação de acesso para o seu email. Se ainda não tem conta, é criada automaticamente."
+msgstr "No passwords: we email you a sign-in link. If you don't have an account yet, one is created automatically."
+
+msgid "Sem publicidade nem spam."
+msgstr "No advertising or spam."
+
+msgid "Sem resultados"
+msgstr "No results"
+
+msgid "Sem resultados exatos — a mostrar resultados parciais."
+msgstr "No exact matches — showing partial results."
+
+msgid "Semana de"
+msgstr "Week of"
+
+msgid "Sessão terminada em todos os dispositivos."
+msgstr "Signed out on all devices."
+
+msgid "Sessões"
+msgstr "Sessions"
+
+msgid "Sim, quero eliminar a minha conta e as minhas ferramentas."
+msgstr "Yes, I want to delete my account and my tools."
+
+msgid "Site ou aplicação (URL)"
+msgstr "Website or app (URL)"
+
+msgid "Sobre"
+msgstr "About"
+
+msgid "Sou o autor da ferramenta ou estou autorizado/a a publicá-la."
+msgstr "I am the author of the tool or I am authorised to publish it."
+
+msgid "Spam"
+msgstr "Spam"
+
+msgid "Submeta a ligação do repositório ou da webapp, com descrição, licença e categoria. Cada ficha é revista antes de ser publicada."
+msgstr "Submit the link to the repository or web app, with a description, licence and category. Every listing is reviewed before it is published."
+
+msgid "Submeter"
+msgstr "Submit"
+
+msgid "Submeter alteração para revisão"
+msgstr "Submit edit for review"
+
+#, python-format
+msgid "Submissão não aprovada: %(title)s"
+msgstr "Submission not approved: %(title)s"
+
+msgid "Submissão retirada. A ferramenta voltou a rascunho."
+msgstr "Submission withdrawn. The tool is back to draft."
+
+msgid "Submissões"
+msgstr "Submissions"
+
+msgid "Suspender"
+msgstr "Suspend"
+
+msgid "Suspenso"
+msgstr "Suspended"
+
+msgid "Suspensão levantada."
+msgstr "Suspension lifted."
+
+msgid "Só gratuitas"
+msgstr "Free only"
+
+msgid "Só open source"
+msgstr "Open source only"
+
+#, python-format
+msgid "Tem %(num)d ferramenta que vai ser retirada."
+msgid_plural "Tem %(num)d ferramentas que vão ser retiradas."
+msgstr[0] "You have %(num)d tool that will be withdrawn."
+msgstr[1] "You have %(num)d tools that will be withdrawn."
+
+#, python-format
+msgid "Tem %(num)d sessão ativa."
+msgid_plural "Tem %(num)d sessões ativas."
+msgstr[0] "You have %(num)d active session."
+msgstr[1] "You have %(num)d active sessions."
+
+msgid "Tem de aceitar os Termos e as Normas de Submissão para continuar."
+msgstr "You must accept the Terms and the Submission Guidelines to continue."
+
+msgid "Tem uma alteração pendente de revisão. Esta página mostra a versão publicada."
+msgstr "You have an edit pending review. This page shows the published version."
+
+msgid "Tente outras palavras ou retire alguns filtros. Conhece uma ferramenta que devia estar aqui?"
+msgstr "Try other words or remove some filters. Know a tool that should be here?"
+
+msgid "Terminar sessão"
+msgstr "Sign out"
+
+msgid "Terminar sessão em todos os dispositivos"
+msgstr "Sign out on all devices"
+
+msgid "Termos"
+msgstr "Terms"
+
+msgid "Termos de Utilização"
+msgstr "Terms of Use"
+
+msgid "Texto alternativo (EN, opcional)"
+msgstr "Alternative text (EN, optional)"
+
+msgid "Texto alternativo (descreva a imagem)"
+msgstr "Alternative text (describe the image)"
+
+#, python-format
+msgid "Texto demasiado curto (mín. %(min_length)s caracteres)."
+msgstr "Text too short (min. %(min_length)s characters)."
+
+#, python-format
+msgid "Texto demasiado longo (máx. %(max_length)s caracteres)."
+msgstr "Text too long (max. %(max_length)s characters)."
+
+msgid "Texto do selo"
+msgstr "Badge text"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Tipo de ferramenta"
+msgstr "Tool type"
+
+msgid "Todas as funções"
+msgstr "All roles"
+
+msgid "Todos os estados"
+msgstr "All statuses"
+
+msgid "Todos os tipos"
+msgstr "All types"
+
+msgid "Tornar visível"
+msgstr "Make visible"
+
+msgid "Transferir"
+msgstr "Download"
+
+msgid "Transferir os meus dados (JSON)"
+msgstr "Download my data (JSON)"
+
+msgid "Transferência / versões (URL)"
+msgstr "Download / releases (URL)"
+
+msgid "Trata dados apenas localmente"
+msgstr "Processes data locally only"
+
+msgid "Tratamento de dados de utentes"
+msgstr "Patient data handling"
+
+msgid "Título"
+msgstr "Title"
+
+msgid "Título (EN)"
+msgstr "Title (EN)"
+
+msgid "Título (PT)"
+msgstr "Title (PT)"
+
+msgid "Uma calculadora, um script ou uma aplicação que resolve um problema real da consulta."
+msgstr "A calculator, a script or an app that solves a real problem in the consultation room."
+
+msgid "Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de pesquisa."
+msgstr "One sentence, up to 200 characters. Shown on cards and in search results."
+
+msgid "Usar outro email"
+msgstr "Use another email"
+
+msgid "Use 3 a 30 letras minúsculas, números ou hífenes."
+msgstr "Use 3 to 30 lowercase letters, numbers or hyphens."
+
+msgid "Use esta ligação para entrar na gitmgf:"
+msgstr "Use this link to sign in to gitmgf:"
+
+msgid "Uso"
+msgstr "Usage"
+
+msgid "Utilizador"
+msgstr "User"
+
+msgid "Utilizador do GitHub (opcional)"
+msgstr "GitHub username (optional)"
+
+msgid "Utilizador suspenso."
+msgstr "User suspended."
+
+msgid "Utilizadores"
+msgstr "Users"
+
+msgid "Utilização"
+msgstr "Usage"
+
+msgid "Utilização diária nos últimos 90 dias"
+msgstr "Daily usage over the last 90 days"
+
+msgid "Utilização prevista"
+msgstr "Intended use"
+
+msgid "Vai abrir um site externo, fora da gitmgf."
+msgstr "You are about to open an external site, outside gitmgf."
+
+msgid "Valor inválido."
+msgstr "Invalid value."
+
+msgid "Valores dos marcadores [[CHAVE]] nos Termos e na Política de Privacidade. Em produção, o site não arranca se faltar algum."
+msgstr "Values for the [[KEY]] placeholders in the Terms and the Privacy Policy. In production, the site won't start if any is missing."
+
+msgid "Ver"
+msgstr "View"
+
+msgid "Ver código"
+msgstr "View code"
+
+msgid "Ver em português"
+msgstr "View in Portuguese"
+
+msgid "Ver página"
+msgstr "View page"
+
+msgid "Ver página pública"
+msgstr "View public page"
+
+msgid "Ver todas"
+msgstr "See all"
+
+msgid "Ver versão publicada"
+msgstr "View published version"
+
+msgid "Verifique o seu email"
+msgstr "Check your email"
+
+msgid "Versão"
+msgstr "Version"
+
+#, python-format
+msgid "Versão %(v)s"
+msgstr "Version %(v)s"
+
+msgid "Versão / última versão (opcional)"
+msgstr "Version / latest release (optional)"
+
+msgid "Versão atual dos Termos (alterar obriga a nova aceitação)"
+msgstr "Current Terms version (changing it requires re-acceptance)"
+
+msgid "Versão em inglês (opcional)"
+msgstr "English version (optional)"
+
+msgid "Violação das Normas de Submissão."
+msgstr "Breach of the Submission Guidelines."
+
+msgid "Violação de direitos de autor / licença"
+msgstr "Copyright / licence violation"
+
+msgid "Visitas"
+msgstr "Views"
+
+msgid "Visitas 30/90 d"
+msgstr "Views 30/90 d"
+
+msgid "Visitas à página (30 d)"
+msgstr "Page views (30 d)"
+
+msgid "Voltar ao início"
+msgstr "Back to home"
+
+msgid "Web"
+msgstr "Web"
+
+msgid "Webapp"
+msgstr "Web app"
+
+msgid "Webapps"
+msgstr "Web apps"
+
+msgid "Windows"
+msgstr "Windows"
+
+msgid "autodeclarado"
+msgstr "self-declared"
+
+msgid "certificado por terceiros"
+msgstr "certified by a third party"
+
+msgid "certification"
+msgstr "certification"
+
+msgid "com sessão"
+msgstr "signed in"
+
+msgid "declarado pelo autor"
+msgstr "declared by the author"
+
+msgid "e toma conhecimento da"
+msgstr "and acknowledge the"
+
+msgid "estrelas"
+msgstr "stars"
+
+msgid "ferramentas da comunidade MGF"
+msgstr "tools from the GP community"
+
+#, python-format
+msgid "gitmgf: %(n)s itens à espera de moderação"
+msgstr "gitmgf: %(n)s items awaiting moderation"
+
+msgid "iOS"
+msgstr "iOS"
+
+msgid "início"
+msgstr "home"
+
+msgid "macOS"
+msgstr "macOS"
+
+msgid "misto"
+msgstr "mixed"
+
+msgid "ou"
+msgstr "or"
+
+msgid "p. ex. USF X, ULS Y"
+msgstr "e.g. USF X, ULS Y"
+
+#, python-format
+msgid "para «%(q)s»"
+msgstr "for “%(q)s”"
+
+msgid "sistema"
+msgstr "system"
+
+msgid "sua"
+msgstr "yours"
+
+msgid "É o autor desta ferramenta: outra pessoa tem de a moderar."
+msgstr "You are the author of this tool: someone else has to moderate it."
+
+msgid "É uma especialidade"
+msgstr "It is a specialty"
+
+#, python-format
+msgid "Última atualização: %(d)s"
+msgstr "Last updated: %(d)s"
+
+msgid "Última entrada"
+msgstr "Last sign-in"
+
+msgid "Último commit"
+msgstr "Last commit"
+
+msgid "— Escolher modelo —"
+msgstr "— Choose template —"
+
+msgid "— Escolher —"
+msgstr "— Choose —"
+
+msgid "— Nenhuma —"
+msgstr "— None —"
+

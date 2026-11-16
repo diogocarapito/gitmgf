@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Denúncia") }} #{{ report.id }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/mod', tab='reports') }}">{{ _("Moderação") }}</a></p>
+    <h1>{{ _("Denúncia") }} #{{ report.id }}</h1>
+    <p>{{ m.status(report.status, labels.REPORT_STATUS) }} · {{ report.created_at | datetime }}</p>
+  </header>
+  <section class="panel">
+    <dl class="meta-list">
+      <dt>{{ _("Ferramenta") }}</dt><dd><a href="{{ url('/mod/tools/' ~ tool.id) }}">{{ tool.title_pt }}</a> · {{ m.status(tool.status, labels.TOOL_STATUS) }}</dd>
+      <dt>{{ _("Motivo") }}</dt><dd>{{ label(labels.REPORT_REASON, report.reason) }}{% if report.csam %} · <strong>CSAM</strong>{% endif %}</dd>
+      <dt>{{ _("Denunciante") }}</dt><dd>{% if reporter %}{{ reporter.display_name }} ({{ _("com sessão") }}){% elif report.reporter_email %}{{ report.reporter_email }}{% else %}{{ _("Anónimo") }}{% endif %}</dd>
+      <dt>{{ _("Detalhes") }}</dt><dd>{{ report.details }}</dd>
+      {% if report.resolution_note %}<dt>{{ _("Nota") }}</dt><dd>{{ report.resolution_note }}</dd>{% endif %}
+    </dl>
+  </section>
+  {% if report.status == 'open' and can_act %}
+  <form class="panel form" method="post" action="/mod/reports/{{ report.id }}/resolve">
+    {{ m.csrf() }}
+    <div class="field"><label for="note">{{ _("Nota para o denunciante (opcional)") }}</label><textarea id="note" name="note" rows="3" maxlength="2000"></textarea></div>
+    <p class="small muted">{{ _("Para ocultar a ferramenta, use a página de revisão (o autor recebe a fundamentação). Depois feche aqui a denúncia.") }}</p>
+    <div class="row">
+      <button class="btn btn--primary" type="submit">{{ _("Resolver (foram tomadas medidas)") }}</button>
+      <button class="btn" type="submit" formaction="/mod/reports/{{ report.id }}/dismiss">{{ _("Arquivar sem ação") }}</button>
+      <a class="btn btn--ghost" href="{{ url('/mod/tools/' ~ tool.id) }}">{{ _("Abrir revisão da ferramenta") }}</a>
+    </div>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

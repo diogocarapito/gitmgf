@@ -242,3 +242,60 @@ def test_oauth_state_cookie_is_signed():
 
 def test_csrf_token_cookie_is_set(client):
     assert csrf_token(client)
+
+
+def test_registration_closed_blocks_new_accounts_only(client, db):
+    from app.services import settings_store
+
+    make_user(db, "old@example.org")
+    settings_store.set_value(db, "site.registration_open", False, None)
+    db.commit()
+    post(client, "/auth/magic-link", {"email": "new@example.org"})
+    r = post(client, f"/auth/magic/{_magic_token()}")
+    assert r.status_code == 403 and "fechados" in r.text
+    post(client, "/auth/magic-link", {"email": "old@example.org"})
+    assert post(client, f"/auth/magic/{_magic_token()}").status_code == 303
+
+
+@respx.mock
+def test_link_and_unlink_provider_from_settings(client, db):
+    user = make_user(db, "me@example.org")
+    login(client, db, user)
+    respx.post("https://github.com/login/oauth/access_token").mock(
+        return_value=httpx.Response(200, json={"access_token": "t"})
+    )
+    respx.get("https://api.github.com/user").mock(
+        return_value=httpx.Response(200, json={"id": 7, "login": "megh"})
+    )
+    respx.get("https://api.github.com/user/emails").mock(return_value=httpx.Response(200, json=[]))
+    r = client.get("/auth/github/start?link=1")
+    state = re.search(r"state=([^&]+)", r.headers["location"]).group(1)
+    r = client.get(f"/auth/github/callback?code=abc&state={state}")
+    assert r.status_code == 303 and "flash=linked" in r.headers["location"]
+    db.refresh(user)
+    assert [a.provider.value for a in user.oauth_accounts] == ["github"] and user.github_username == "megh"
+    assert "Associada" in client.get("/pt/me/settings").text
+    post(client, "/me/providers/github/unlink")
+    db.expire_all()
+    assert db.scalars(select(OAuthAccount)).all() == []
+
+
+def test_settings_update_profile(client, db):
+    user = make_user(db, "me@example.org")
+    login(client, db, user)
+    r = post(
+        client,
+        "/pt/me/settings",
+        {
+            "display_name": "Novo Nome",
+            "handle": "novo-nome",
+            "profession": "nurse",
+            "locale": "pt",
+            "github_username": "https://github.com/novo",
+        },
+    )
+    assert r.status_code == 303
+    db.refresh(user)
+    assert user.display_name == "Novo Nome" and user.github_username == "novo"
+    r = post(client, "/pt/me/settings", {"display_name": "X", "handle": "Bad Handle!", "profession": "nurse"})
+    assert r.status_code == 422

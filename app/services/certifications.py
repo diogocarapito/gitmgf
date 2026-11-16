@@ -239,16 +239,18 @@ def save_draft_claims(
             db.delete(row)
     for code, details in claims.items():
         cert = certs[code]
-        row = existing.get(code)
-        if row is None:
+        found = existing.get(code)
+        if found is None:
             row = ToolCertification(
                 certification_id=cert.id, state=ClaimState.pending, assurance=Assurance.self_declared
             )
             row.certification = cert
             tool.claims.append(row)
-        elif row.details != details:
-            row.state = ClaimState.pending
-            row.review_reason = None
+        else:
+            row = found
+            if row.details != details:
+                row.state = ClaimState.pending
+                row.review_reason = None
         _mirror(row, cert, details)
 
 

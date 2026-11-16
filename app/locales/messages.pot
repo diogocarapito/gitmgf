@@ -1,0 +1,2420 @@
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-16 16:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Use 3 a 30 letras minúsculas, números ou hífenes."
+msgstr ""
+
+msgid "Nome de utilizador do GitHub inválido."
+msgstr ""
+
+msgid "Tem de aceitar os Termos e as Normas de Submissão para continuar."
+msgstr ""
+
+msgid "Campo obrigatório."
+msgstr ""
+
+#, python-format
+msgid "Texto demasiado curto (mín. %(min_length)s caracteres)."
+msgstr ""
+
+#, python-format
+msgid "Texto demasiado longo (máx. %(max_length)s caracteres)."
+msgstr ""
+
+msgid "Escolha uma opção válida."
+msgstr ""
+
+msgid "Valor inválido."
+msgstr ""
+
+#, python-format
+msgid "Demasiados itens (máx. %(max_length)s)."
+msgstr ""
+
+#, python-format
+msgid "Escolha pelo menos %(min_length)s."
+msgstr ""
+
+msgid "Formato inválido."
+msgstr ""
+
+msgid "Data inválida."
+msgstr ""
+
+msgid "Indique um endereço http:// ou https:// válido (máx. 500 caracteres)."
+msgstr ""
+
+msgid "Indique um email válido."
+msgstr ""
+
+msgid "Confirme que faz a denúncia de boa-fé."
+msgstr ""
+
+msgid "Máximo de 10 etiquetas."
+msgstr ""
+
+msgid "Cada etiqueta deve ter entre 2 e 40 caracteres."
+msgstr ""
+
+msgid "Escolha entre 1 e 5 categorias."
+msgstr ""
+
+msgid "Escolha pelo menos uma plataforma."
+msgstr ""
+
+msgid "Escolha pelo menos um idioma."
+msgstr ""
+
+msgid "Indique pelo menos uma ligação."
+msgstr ""
+
+msgid "Confirmação obrigatória para submeter."
+msgstr ""
+
+msgid "Indique um título com pelo menos 3 caracteres."
+msgstr ""
+
+msgid "Médico/a especialista"
+msgstr ""
+
+msgid "Médico/a interno/a"
+msgstr ""
+
+msgid "Enfermeiro/a"
+msgstr ""
+
+msgid "Farmacêutico/a"
+msgstr ""
+
+msgid "Estudante de Medicina"
+msgstr ""
+
+msgid "Outro profissional de saúde"
+msgstr ""
+
+msgid "Engenheiro/a / Developer"
+msgstr ""
+
+msgid "Outro"
+msgstr ""
+
+msgid "Utilizador"
+msgstr ""
+
+msgid "Moderador/a"
+msgstr ""
+
+msgid "Administrador/a"
+msgstr ""
+
+msgid "Ativo"
+msgstr ""
+
+msgid "Suspenso"
+msgstr ""
+
+msgid "Eliminado"
+msgstr ""
+
+msgid "Rascunho"
+msgstr ""
+
+msgid "Em revisão"
+msgstr ""
+
+msgid "Publicada"
+msgstr ""
+
+msgid "Rejeitada"
+msgstr ""
+
+msgid "Ocultada"
+msgstr ""
+
+msgid "Arquivada"
+msgstr ""
+
+msgid "Eliminada"
+msgstr ""
+
+msgid "Aplicação web"
+msgstr ""
+
+msgid "Calculadora online"
+msgstr ""
+
+msgid "Aplicação de computador"
+msgstr ""
+
+msgid "Aplicação móvel"
+msgstr ""
+
+msgid "Folha de cálculo / modelo"
+msgstr ""
+
+msgid "Script / biblioteca"
+msgstr ""
+
+msgid "Extensão de navegador"
+msgstr ""
+
+msgid "Prompt / assistente de IA"
+msgstr ""
+
+msgid "Conjunto de dados"
+msgstr ""
+
+msgid "Webapp"
+msgstr ""
+
+msgid "Calculadora"
+msgstr ""
+
+msgid "Desktop"
+msgstr ""
+
+msgid "Móvel"
+msgstr ""
+
+msgid "Modelo"
+msgstr ""
+
+msgid "Script"
+msgstr ""
+
+msgid "Extensão"
+msgstr ""
+
+msgid "IA"
+msgstr ""
+
+msgid "Dados"
+msgstr ""
+
+msgid "Cuidados de saúde primários"
+msgstr ""
+
+msgid "Cuidados hospitalares"
+msgstr ""
+
+msgid "Primários e hospitalares"
+msgstr ""
+
+msgid "Não aplicável"
+msgstr ""
+
+msgid "Web"
+msgstr ""
+
+msgid "Windows"
+msgstr ""
+
+msgid "macOS"
+msgstr ""
+
+msgid "Linux"
+msgstr ""
+
+msgid "Android"
+msgstr ""
+
+msgid "iOS"
+msgstr ""
+
+msgid "Excel"
+msgstr ""
+
+msgid "Google Sheets"
+msgstr ""
+
+msgid "LibreOffice"
+msgstr ""
+
+msgid "Outra"
+msgstr ""
+
+msgid "Português"
+msgstr ""
+
+msgid "Inglês"
+msgstr ""
+
+msgid "Espanhol"
+msgstr ""
+
+msgid "Francês"
+msgstr ""
+
+msgid "Gratuita"
+msgstr ""
+
+msgid "Freemium"
+msgstr ""
+
+msgid "Paga"
+msgstr ""
+
+msgid "Não trata dados de utentes"
+msgstr ""
+
+msgid "Trata dados apenas localmente"
+msgstr ""
+
+msgid "Envia dados para um servidor"
+msgstr ""
+
+msgid "Desconhecido"
+msgstr ""
+
+msgid "Abrir aplicação"
+msgstr ""
+
+msgid "Transferir"
+msgstr ""
+
+msgid "Ver código"
+msgstr ""
+
+msgid "Documentação"
+msgstr ""
+
+msgid "Site ou aplicação (URL)"
+msgstr ""
+
+msgid "Repositório (URL)"
+msgstr ""
+
+msgid "Transferência / versões (URL)"
+msgstr ""
+
+msgid "Documentação (URL)"
+msgstr ""
+
+msgid "autodeclarado"
+msgstr ""
+
+msgid "certificado por terceiros"
+msgstr ""
+
+msgid "misto"
+msgstr ""
+
+msgid "Aprovada"
+msgstr ""
+
+msgid "Ligação quebrada"
+msgstr ""
+
+msgid "Conteúdo clínico incorreto ou perigoso"
+msgstr ""
+
+msgid "Problema de segurança ou privacidade"
+msgstr ""
+
+msgid "Certificação incorreta"
+msgstr ""
+
+msgid "Spam"
+msgstr ""
+
+msgid "Violação de direitos de autor / licença"
+msgstr ""
+
+msgid "Conteúdo ilegal"
+msgstr ""
+
+msgid "Aberta"
+msgstr ""
+
+msgid "Resolvida"
+msgstr ""
+
+msgid "Arquivada sem ação"
+msgstr ""
+
+msgid "Informação incompleta: faltam dados necessários para avaliar a ferramenta."
+msgstr ""
+
+msgid ""
+"Ligação quebrada ou insegura: uma ou mais ligações não abrem ou não são "
+"seguras."
+msgstr ""
+
+msgid ""
+"Dados de utentes visíveis: o texto ou as capturas de ecrã contêm dados "
+"que podem identificar utentes."
+msgstr ""
+
+msgid "Duplicado: já existe uma ficha para esta ferramenta."
+msgstr ""
+
+msgid "Fora do âmbito: a ferramenta não está relacionada com a saúde."
+msgstr ""
+
+msgid "Violação das Normas de Submissão."
+msgstr ""
+
+msgid "Alegações clínicas enganadoras."
+msgstr ""
+
+msgid "Problema de direitos de autor ou de licença."
+msgstr ""
+
+msgid ""
+"Certificação sem evidência válida: a evidência indicada não abre ou não "
+"corresponde à ferramenta, fabricante ou classe."
+msgstr ""
+
+msgid "Outro motivo (ver detalhes)."
+msgstr ""
+
+msgid "Relevância"
+msgstr ""
+
+msgid "Populares"
+msgstr ""
+
+msgid "Mais recentes"
+msgstr ""
+
+msgid "Mais estrelas"
+msgstr ""
+
+msgid "Atualizadas recentemente"
+msgstr ""
+
+msgid "Proprietária / código fechado"
+msgstr ""
+
+msgid "Desconhecida"
+msgstr ""
+
+msgid "Alterações guardadas."
+msgstr ""
+
+msgid "Conta associada."
+msgstr ""
+
+msgid "Conta desassociada. Pode continuar a entrar com a ligação por email."
+msgstr ""
+
+msgid "Essa conta já está associada a outro utilizador da gitmgf."
+msgstr ""
+
+msgid "Sessão terminada em todos os dispositivos."
+msgstr ""
+
+msgid "Rascunho guardado."
+msgstr ""
+
+msgid "Ferramenta submetida para revisão. Vai receber um email com a decisão."
+msgstr ""
+
+msgid "Alteração submetida. A versão publicada mantém-se até à aprovação."
+msgstr ""
+
+msgid "Alteração pendente retirada."
+msgstr ""
+
+msgid "Submissão retirada. A ferramenta voltou a rascunho."
+msgstr ""
+
+msgid "Ferramenta arquivada."
+msgstr ""
+
+msgid "Ferramenta publicada novamente."
+msgstr ""
+
+msgid "Ferramenta eliminada."
+msgstr ""
+
+msgid "Captura de ecrã adicionada."
+msgstr ""
+
+msgid "Captura de ecrã removida."
+msgstr ""
+
+msgid "Certificação removida."
+msgstr ""
+
+msgid "Aprovado."
+msgstr ""
+
+msgid "Rejeitado. O autor foi notificado."
+msgstr ""
+
+msgid "Ferramenta ocultada. O autor foi notificado."
+msgstr ""
+
+msgid "Ferramenta visível novamente."
+msgstr ""
+
+msgid "Pontuação reposta."
+msgstr ""
+
+msgid "Denúncia fechada. O denunciante foi notificado."
+msgstr ""
+
+msgid "Obrigado. Recebemos a sua denúncia e vamos analisá-la."
+msgstr ""
+
+msgid "Função alterada."
+msgstr ""
+
+msgid "Utilizador suspenso."
+msgstr ""
+
+msgid "Suspensão levantada."
+msgstr ""
+
+msgid "Conta eliminada."
+msgstr ""
+
+msgid ""
+"A sua conta foi eliminada. Os dados serão apagados definitivamente em 30 "
+"dias."
+msgstr ""
+
+msgid "Etiquetas fundidas."
+msgstr ""
+
+msgid "Não é possível retirar o último administrador."
+msgstr ""
+
+msgid ""
+"Atingiu o limite de submissões pendentes. Aguarde a revisão das "
+"anteriores."
+msgstr ""
+
+msgid "Demasiados pedidos. Aguarde um pouco e tente novamente."
+msgstr ""
+
+msgid "Indique um motivo (modelo ou texto livre)."
+msgstr ""
+
+msgid "Categoria guardada."
+msgstr ""
+
+msgid "Certificação guardada."
+msgstr ""
+
+msgid "Etiqueta eliminada."
+msgstr ""
+
+msgid "Esta ligação de acesso é inválida, já foi usada ou expirou. Peça uma nova."
+msgstr ""
+
+msgid ""
+"Não é possível iniciar sessão com esta conta. Contacte-nos se achar que "
+"se trata de um erro."
+msgstr ""
+
+msgid "Os novos registos estão temporariamente fechados."
+msgstr ""
+
+msgid ""
+"O email desta conta não está verificado no fornecedor. Use a ligação por "
+"email para entrar."
+msgstr ""
+
+msgid "A autenticação expirou ou é inválida. Tente novamente."
+msgstr ""
+
+msgid "Não foi possível concluir a autenticação. Tente novamente."
+msgstr ""
+
+msgid "Este identificador já está a ser usado."
+msgstr ""
+
+msgid "Confirme que quer eliminar a conta."
+msgstr ""
+
+msgid "certification"
+msgstr ""
+
+msgid "Novas ferramentas"
+msgstr ""
+
+msgid "Não foi possível enviar. Aguarde uns segundos e tente novamente."
+msgstr ""
+
+msgid "Open source"
+msgstr ""
+
+msgid "Nova"
+msgstr ""
+
+msgid "Mantida"
+msgstr ""
+
+msgid "Data inválida (use AAAA-MM-DD)."
+msgstr ""
+
+msgid "O número do organismo notificado tem 4 dígitos."
+msgstr ""
+
+msgid ""
+"A ferramenta envia dados para um servidor mas não tem declaração RGPD. O "
+"moderador pode pedir alterações."
+msgstr ""
+
+msgid ""
+"Ferramenta de IA: considere declarar a conformidade com o Regulamento da "
+"IA (AI Act)."
+msgstr ""
+
+msgid "A imagem excede 2 MB."
+msgstr ""
+
+msgid "Escolha um ficheiro de imagem."
+msgstr ""
+
+msgid "Formato não suportado. Use PNG, JPEG ou WebP."
+msgstr ""
+
+msgid "O ficheiro não é uma imagem válida."
+msgstr ""
+
+#, python-format
+msgid ""
+"Ocultada automaticamente após %(n)s denúncias abertas de conteúdo clínico"
+" perigoso ou de problemas de segurança, enquanto um moderador analisa o "
+"caso."
+msgstr ""
+
+msgid "Faltam campos obrigatórios. Reveja o formulário antes de submeter."
+msgstr ""
+
+msgid "Retire a submissão para a poder editar."
+msgstr ""
+
+msgid "Máximo de 5 capturas de ecrã por ferramenta."
+msgstr ""
+
+msgid "O texto alternativo em português é obrigatório."
+msgstr ""
+
+msgid "Título (PT)"
+msgstr ""
+
+msgid "Título (EN)"
+msgstr ""
+
+msgid "Resumo (PT)"
+msgstr ""
+
+msgid "Resumo (EN)"
+msgstr ""
+
+msgid "Descrição (PT)"
+msgstr ""
+
+msgid "Descrição (EN)"
+msgstr ""
+
+msgid "Tipo de ferramenta"
+msgstr ""
+
+msgid "Contexto de cuidados"
+msgstr ""
+
+msgid "Plataformas"
+msgstr ""
+
+msgid "Idiomas da ferramenta"
+msgstr ""
+
+msgid "Licença"
+msgstr ""
+
+msgid "Preço"
+msgstr ""
+
+msgid "Dados de utentes"
+msgstr ""
+
+msgid "Utilização prevista"
+msgstr ""
+
+msgid "Versão"
+msgstr ""
+
+msgid "Categorias"
+msgstr ""
+
+msgid "Etiquetas"
+msgstr ""
+
+msgid "Certificações"
+msgstr ""
+
+msgid "Capturas de ecrã"
+msgstr ""
+
+msgid "declarado pelo autor"
+msgstr ""
+
+#, python-format
+msgid "Com %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Expirado em %(date)s"
+msgstr ""
+
+#, python-format
+msgid "O autor não declarou %(name)s para esta ferramenta."
+msgstr ""
+
+#, python-format
+msgid "%(name)s expirada"
+msgstr ""
+
+#, python-format
+msgid "Sem %(name)s"
+msgstr ""
+
+msgid "Certificações e conformidade"
+msgstr ""
+
+msgid "Paginação"
+msgstr ""
+
+msgid "Anterior"
+msgstr ""
+
+msgid "Seguinte"
+msgstr ""
+
+msgid ""
+"Ferramentas digitais criadas por clínicos para a prática clínica, com "
+"foco na Medicina Geral e Familiar e no Internato."
+msgstr ""
+
+msgid "Saltar para o conteúdo"
+msgstr ""
+
+msgid "início"
+msgstr ""
+
+msgid "Principal"
+msgstr ""
+
+msgid "Explorar"
+msgstr ""
+
+msgid "Sobre"
+msgstr ""
+
+msgid "Pesquisar ferramentas"
+msgstr ""
+
+msgid "Idioma"
+msgstr ""
+
+msgid "Menu da conta"
+msgstr ""
+
+msgid "As minhas ferramentas"
+msgstr ""
+
+msgid "As minhas estrelas"
+msgstr ""
+
+msgid "Definições"
+msgstr ""
+
+msgid "Moderação"
+msgstr ""
+
+msgid "Administração"
+msgstr ""
+
+msgid "Terminar sessão"
+msgstr ""
+
+msgid "Entrar"
+msgstr ""
+
+msgid "Partilhar ferramenta"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+msgid "ferramentas da comunidade MGF"
+msgstr ""
+
+msgid "Rodapé"
+msgstr ""
+
+msgid "Normas de submissão"
+msgstr ""
+
+msgid "Termos"
+msgstr ""
+
+msgid "Privacidade"
+msgstr ""
+
+msgid "Aviso legal"
+msgstr ""
+
+msgid "Contacto"
+msgstr ""
+
+msgid ""
+"As ferramentas são publicadas pelos respetivos autores. A gitmgf não "
+"valida a correção clínica das ferramentas, que não substituem o juízo "
+"clínico. Confirme sempre os protocolos locais."
+msgstr ""
+
+msgid "Estatísticas"
+msgstr ""
+
+msgid "Pesquisas"
+msgstr ""
+
+msgid "Utilizadores"
+msgstr ""
+
+msgid "Registo de auditoria"
+msgstr ""
+
+msgid "Ação (ex.: tool.)"
+msgstr ""
+
+msgid "Ação"
+msgstr ""
+
+msgid "ID do utilizador"
+msgstr ""
+
+msgid "Filtrar"
+msgstr ""
+
+msgid "Quando"
+msgstr ""
+
+msgid "Quem"
+msgstr ""
+
+msgid "Alvo"
+msgstr ""
+
+msgid "Detalhes"
+msgstr ""
+
+msgid "sistema"
+msgstr ""
+
+msgid ""
+"Lista única para as ferramentas. As especialidades também aparecem no "
+"perfil dos utilizadores."
+msgstr ""
+
+msgid "Ordem"
+msgstr ""
+
+msgid "Nome (PT / EN)"
+msgstr ""
+
+msgid "Tipo"
+msgstr ""
+
+msgid "Ferramentas"
+msgstr ""
+
+msgid "Estado"
+msgstr ""
+
+msgid "Mover para cima"
+msgstr ""
+
+msgid "Mover para baixo"
+msgstr ""
+
+msgid "Especialidade"
+msgstr ""
+
+msgid "Finalidade"
+msgstr ""
+
+msgid "Ativa"
+msgstr ""
+
+msgid "Inativa"
+msgstr ""
+
+msgid "Editar"
+msgstr ""
+
+msgid "Nova categoria"
+msgstr ""
+
+msgid "Nome (PT)"
+msgstr ""
+
+msgid "Nome (EN)"
+msgstr ""
+
+msgid "Identificador (opcional)"
+msgstr ""
+
+msgid "É uma especialidade"
+msgstr ""
+
+msgid "Criar"
+msgstr ""
+
+msgid "Identificador"
+msgstr ""
+
+msgid "Mudar o identificador muda o endereço da página da categoria."
+msgstr ""
+
+msgid "Ativa (desativar esconde-a da pesquisa e dos formulários)"
+msgstr ""
+
+msgid "Guardar"
+msgstr ""
+
+msgid "Texto do selo"
+msgstr ""
+
+msgid "Modelo do texto (opcional)"
+msgstr ""
+
+#, python-brace-format
+msgid "Ex.: MDR {class}"
+msgstr ""
+
+msgid "Ajuda no formulário (PT)"
+msgstr ""
+
+msgid "Ajuda no formulário (EN)"
+msgstr ""
+
+msgid "Garantia por omissão"
+msgstr ""
+
+msgid "Principal: mostrar sempre, presente ou riscado"
+msgstr ""
+
+msgid "Campos (JSON)"
+msgstr ""
+
+msgid ""
+"Lista de campos: key, type (enum, text, url, date, bool, nb_number), "
+"label_pt, label_en, required, required_if, options, assurance_if."
+msgstr ""
+
+msgid "Catálogo de certificações"
+msgstr ""
+
+msgid ""
+"Os itens principais aparecem sempre (presentes ou riscados); os "
+"adicionais só quando presentes."
+msgstr ""
+
+msgid "Selo"
+msgstr ""
+
+msgid "Nome"
+msgstr ""
+
+msgid "Linha"
+msgstr ""
+
+msgid "Adicional"
+msgstr ""
+
+msgid ""
+"Para adicionar itens novos, edite seeds/certifications.yaml e corra "
+"«python -m app.cli seed certifications»."
+msgstr ""
+
+msgid "Publicadas"
+msgstr ""
+
+msgid "Rascunhos"
+msgstr ""
+
+msgid "Ocultadas / arquivadas"
+msgstr ""
+
+msgid "Item mais antigo na fila"
+msgstr ""
+
+msgid "Registos e submissões por semana"
+msgstr ""
+
+msgid "Semana de"
+msgstr ""
+
+msgid "Registos"
+msgstr ""
+
+msgid "Submissões"
+msgstr ""
+
+msgid "Ferramentas mais populares"
+msgstr ""
+
+msgid "Pesquisas mais frequentes (7 dias)"
+msgstr ""
+
+msgid "Pesquisas sem resultados (7 dias)"
+msgstr ""
+
+msgid "Pistas sobre ferramentas que a comunidade procura e ainda não existem."
+msgstr ""
+
+#, python-format
+msgid "%(n)s dias"
+msgstr ""
+
+msgid "Sem resultados"
+msgstr ""
+
+msgid "Mais frequentes"
+msgstr ""
+
+msgid "Definições do site"
+msgstr ""
+
+msgid "Peso: clique a partir da pesquisa"
+msgstr ""
+
+msgid "Peso: abertura de ligação"
+msgstr ""
+
+msgid "Peso: estrela"
+msgstr ""
+
+msgid "Peso: estrelas no GitHub (× log10)"
+msgstr ""
+
+msgid "Meia-vida da popularidade (dias)"
+msgstr ""
+
+msgid "Peso da popularidade na relevância"
+msgstr ""
+
+msgid "Máximo de submissões pendentes por utilizador"
+msgstr ""
+
+msgid "Denúncias para ocultação automática"
+msgstr ""
+
+msgid "Registos abertos"
+msgstr ""
+
+msgid "Aviso no topo do site (PT)"
+msgstr ""
+
+msgid "Aviso no topo do site (EN)"
+msgstr ""
+
+msgid "Versão atual dos Termos (alterar obriga a nova aceitação)"
+msgstr ""
+
+msgid "Funcionamento"
+msgstr ""
+
+msgid "Páginas legais"
+msgstr ""
+
+msgid ""
+"Valores dos marcadores [[CHAVE]] nos Termos e na Política de Privacidade."
+" Em produção, o site não arranca se faltar algum."
+msgstr ""
+
+msgid ""
+"Selecione etiquetas duplicadas e escolha a etiqueta de destino para as "
+"fundir."
+msgstr ""
+
+msgid "Pesquisar"
+msgstr ""
+
+msgid "Fundir"
+msgstr ""
+
+msgid "Destino"
+msgstr ""
+
+msgid "Etiqueta"
+msgstr ""
+
+msgid "Uso"
+msgstr ""
+
+msgid "Eliminar esta etiqueta de todas as ferramentas?"
+msgstr ""
+
+msgid "Fundir selecionadas no destino"
+msgstr ""
+
+msgid "Perfil"
+msgstr ""
+
+msgid "Profissão"
+msgstr ""
+
+msgid "Local de trabalho"
+msgstr ""
+
+msgid "Registo"
+msgstr ""
+
+msgid "Última entrada"
+msgstr ""
+
+msgid "Motivo da suspensão"
+msgstr ""
+
+msgid "Ações"
+msgstr ""
+
+msgid "Função"
+msgstr ""
+
+msgid "Alterar função"
+msgstr ""
+
+msgid "Suspender"
+msgstr ""
+
+msgid "Levantar suspensão"
+msgstr ""
+
+msgid ""
+"Eliminar esta conta e retirar as suas ferramentas? Esta ação não pode ser"
+" desfeita."
+msgstr ""
+
+msgid "Eliminar conta"
+msgstr ""
+
+msgid "Nome, email ou identificador"
+msgstr ""
+
+msgid "Todas as funções"
+msgstr ""
+
+msgid "Todos os estados"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Nome a apresentar"
+msgstr ""
+
+msgid "Aparece nas páginas das suas ferramentas."
+msgstr ""
+
+msgid ""
+"Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no"
+" futuro."
+msgstr ""
+
+msgid "— Escolher —"
+msgstr ""
+
+msgid "Declarada por si e mostrada como contexto, não como credencial."
+msgstr ""
+
+msgid "Especialidade (opcional)"
+msgstr ""
+
+msgid "— Nenhuma —"
+msgstr ""
+
+msgid "Local de trabalho (opcional)"
+msgstr ""
+
+msgid "p. ex. USF X, ULS Y"
+msgstr ""
+
+msgid "Utilizador do GitHub (opcional)"
+msgstr ""
+
+msgid "Idioma da interface e dos emails"
+msgstr ""
+
+msgid "Verifique o seu email"
+msgstr ""
+
+#, python-format
+msgid ""
+"Se o endereço for válido, enviámos uma ligação de acesso para "
+"<strong>%(email)s</strong>."
+msgstr ""
+
+msgid ""
+"A ligação é válida durante 15 minutos e só pode ser usada uma vez. Se não"
+" a encontrar, verifique a pasta de spam."
+msgstr ""
+
+msgid "Usar outro email"
+msgstr ""
+
+msgid "Entrar na gitmgf"
+msgstr ""
+
+msgid ""
+"Sem palavras-passe: enviamos uma ligação de acesso para o seu email. Se "
+"ainda não tem conta, é criada automaticamente."
+msgstr ""
+
+msgid "Enviar ligação de acesso"
+msgstr ""
+
+msgid "ou"
+msgstr ""
+
+msgid "Continuar com GitHub"
+msgstr ""
+
+msgid "Continuar com Google"
+msgstr ""
+
+msgid "Ao continuar, aceita os"
+msgstr ""
+
+msgid "Termos de Utilização"
+msgstr ""
+
+msgid "e toma conhecimento da"
+msgstr ""
+
+msgid "Política de Privacidade"
+msgstr ""
+
+msgid "Confirmar entrada"
+msgstr ""
+
+msgid "Carregue no botão para iniciar sessão neste navegador."
+msgstr ""
+
+msgid "Ligação inválida"
+msgstr ""
+
+msgid "Ligação inválida ou expirada"
+msgstr ""
+
+msgid "Pedir nova ligação"
+msgstr ""
+
+msgid "Completar perfil"
+msgstr ""
+
+msgid "Atualizámos os Termos"
+msgstr ""
+
+msgid "Bem-vindo/a à gitmgf"
+msgstr ""
+
+msgid ""
+"Reveja e aceite a nova versão dos Termos e das Normas de Submissão para "
+"continuar."
+msgstr ""
+
+msgid ""
+"Complete o seu perfil para começar. Só o nome, a profissão, a "
+"especialidade e o GitHub aparecem nas páginas das suas ferramentas."
+msgstr ""
+
+msgid ""
+"Li e aceito os Termos de Utilização e as Normas de Submissão, e tenho 18 "
+"anos ou mais."
+msgstr ""
+
+msgid "Normas de Submissão"
+msgstr ""
+
+msgid "Continuar"
+msgstr ""
+
+#, python-format
+msgid ""
+"Email automático da gitmgf (%(url)s). Recebe-o porque tem conta ou fez um"
+" pedido no site."
+msgstr ""
+
+msgid "Regras aplicáveis: Termos de Utilização e Normas de Submissão da gitmgf."
+msgstr ""
+
+msgid ""
+"Contestação: pode contestar esta decisão no prazo de 6 meses, respondendo"
+" a este email. Uma pessoa que não participou na decisão original vai "
+"analisá-la. Mantém sempre o direito de recorrer aos tribunais."
+msgstr ""
+
+msgid "A sua conta gitmgf foi eliminada"
+msgstr ""
+
+msgid "Olá,"
+msgstr ""
+
+msgid ""
+"Confirmamos a eliminação da sua conta. As suas ferramentas deixaram de "
+"estar públicas e os dados serão apagados definitivamente em 30 dias, "
+"incluindo das cópias de segurança quando estas expirarem."
+msgstr ""
+
+msgid "Se não pediu esta eliminação, responda a este email com urgência."
+msgstr ""
+
+#, python-format
+msgid "Certificação expirada: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"A certificação «%(cert)s» declarada na ficha «%(title)s» expirou em "
+"%(date)s. O selo aparece agora como ausente."
+msgstr ""
+
+msgid ""
+"Para voltar a mostrá-lo, atualize a ficha com a nova data de validade e a"
+" evidência:"
+msgstr ""
+
+#, python-format
+msgid "Certificação a expirar: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"A certificação «%(cert)s» declarada na ficha «%(title)s» expira em "
+"%(date)s."
+msgstr ""
+
+msgid ""
+"Depois dessa data, o selo passa a cinzento (riscado) e a ferramenta deixa"
+" de aparecer no filtro respetivo. Se tiver um certificado renovado, "
+"atualize a ficha:"
+msgstr ""
+
+msgid "A sua ligação de acesso à gitmgf"
+msgstr ""
+
+msgid "Use esta ligação para entrar na gitmgf:"
+msgstr ""
+
+#, python-format
+msgid ""
+"A ligação é válida durante %(minutes)s minutos e só pode ser usada uma "
+"vez."
+msgstr ""
+
+msgid ""
+"Se não pediu este email, pode ignorá-lo: ninguém consegue entrar sem esta"
+" ligação."
+msgstr ""
+
+#, python-format
+msgid "Ferramenta ocultada automaticamente: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"A ferramenta «%(title)s» atingiu %(n)s denúncias abertas de conteúdo "
+"perigoso ou de segurança e foi ocultada automaticamente. Reveja as "
+"denúncias e decida se a ficha deve voltar a ser visível."
+msgstr ""
+
+#, python-format
+msgid "gitmgf: %(n)s itens à espera de moderação"
+msgstr ""
+
+#, python-format
+msgid "Novas submissões: %(n)s"
+msgstr ""
+
+#, python-format
+msgid "Alterações: %(n)s"
+msgstr ""
+
+#, python-format
+msgid "Denúncias abertas: %(n)s"
+msgstr ""
+
+#, python-format
+msgid "Item mais antigo: %(age)s"
+msgstr ""
+
+msgid "Recebemos a sua denúncia"
+msgstr ""
+
+#, python-format
+msgid ""
+"Recebemos a sua denúncia sobre a ferramenta «%(title)s» (motivo: "
+"%(reason)s). Vamos analisá-la de forma diligente e objetiva e informamos "
+"da decisão."
+msgstr ""
+
+#, python-format
+msgid "Referência: #%(id)s"
+msgstr ""
+
+#, python-format
+msgid "Decisão sobre a sua denúncia #%(id)s"
+msgstr ""
+
+#, python-format
+msgid "Analisámos a sua denúncia sobre «%(title)s» e tomámos medidas."
+msgstr ""
+
+#, python-format
+msgid ""
+"Analisámos a sua denúncia sobre «%(title)s» e concluímos que não é "
+"necessária nenhuma medida."
+msgstr ""
+
+msgid "Nota da moderação:"
+msgstr ""
+
+msgid "Pode contestar esta decisão no prazo de 6 meses, respondendo a este email."
+msgstr ""
+
+#, python-format
+msgid "Alteração aprovada: %(title)s"
+msgstr ""
+
+#, python-format
+msgid "As alterações à ficha «%(title)s» foram aprovadas e já estão publicadas:"
+msgstr ""
+
+msgid "Algumas certificações não foram aprovadas:"
+msgstr ""
+
+#, python-format
+msgid "Alteração não aprovada: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Medida: as alterações propostas à ficha «%(title)s» não foram aprovadas. "
+"A versão publicada mantém-se sem alterações."
+msgstr ""
+
+msgid "Motivo e factos:"
+msgstr ""
+
+msgid "A decisão foi tomada por um moderador (não por meios automáticos)."
+msgstr ""
+
+#, python-format
+msgid "Recebemos a sua submissão: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Recebemos a ficha «%(title)s». Um moderador vai revê-la e receberá um "
+"email com a decisão."
+msgstr ""
+
+msgid ""
+"Enquanto estiver em revisão, a ficha não é pública. Pode acompanhar o "
+"estado em:"
+msgstr ""
+
+msgid "Obrigado por partilhar o seu trabalho."
+msgstr ""
+
+#, python-format
+msgid "Ferramenta publicada: %(title)s"
+msgstr ""
+
+#, python-format
+msgid "A ficha «%(title)s» foi aprovada e já está publicada:"
+msgstr ""
+
+msgid ""
+"Algumas certificações declaradas não foram aprovadas e não aparecem na "
+"ficha:"
+msgstr ""
+
+msgid "Pode corrigi-las editando a ficha; as alterações voltam a ser revistas."
+msgstr ""
+
+msgid "Obrigado por contribuir para a comunidade."
+msgstr ""
+
+#, python-format
+msgid "Ferramenta ocultada: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Medida: a ficha «%(title)s» foi ocultada. Deixou de estar visível ao "
+"público e de aparecer na pesquisa."
+msgstr ""
+
+msgid ""
+"Esta medida foi aplicada automaticamente, por meios automáticos, depois "
+"de várias denúncias de conteúdo perigoso ou de problemas de segurança, "
+"enquanto um moderador analisa o caso."
+msgstr ""
+
+msgid ""
+"A decisão foi tomada por um moderador, na sequência de uma denúncia ou de"
+" uma verificação da equipa."
+msgstr ""
+
+#, python-format
+msgid "Alterações pedidas: %(title)s"
+msgstr ""
+
+#, python-format
+msgid "Submissão não aprovada: %(title)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Medida: a ficha «%(title)s» não foi publicada e voltou a rascunho, para "
+"que a possa corrigir."
+msgstr ""
+
+#, python-format
+msgid "Medida: a ficha «%(title)s» não foi aprovada para publicação."
+msgstr ""
+
+msgid "Pode editar a ficha e submetê-la novamente:"
+msgstr ""
+
+#, python-format
+msgid "Ferramenta visível novamente: %(title)s"
+msgstr ""
+
+#, python-format
+msgid "A ficha «%(title)s» voltou a estar visível ao público:"
+msgstr ""
+
+#, python-format
+msgid "Olá %(name)s,"
+msgstr ""
+
+msgid ""
+"A sua conta está pronta. Pode pesquisar ferramentas, guardar as "
+"preferidas com uma estrela e partilhar as que construiu."
+msgstr ""
+
+msgid "Partilhar uma ferramenta:"
+msgstr ""
+
+msgid "Normas de submissão:"
+msgstr ""
+
+msgid "Obrigado por fazer parte da comunidade."
+msgstr ""
+
+msgid "Acesso recusado"
+msgstr ""
+
+msgid ""
+"O formulário expirou ou foi enviado de outro site. Volte atrás, atualize "
+"a página e tente novamente."
+msgstr ""
+
+msgid "Não tem permissão para fazer esta ação."
+msgstr ""
+
+msgid "Voltar ao início"
+msgstr ""
+
+msgid "Página não encontrada"
+msgstr ""
+
+msgid "A página que procura não existe ou não está disponível."
+msgstr ""
+
+msgid "Demasiados pedidos"
+msgstr ""
+
+msgid "Aguarde um pouco e tente novamente."
+msgstr ""
+
+msgid "Erro inesperado"
+msgstr ""
+
+msgid "Algo correu mal do nosso lado. Tente novamente dentro de momentos."
+msgstr ""
+
+msgid "Esta ação não pode ser desfeita."
+msgstr ""
+
+msgid ""
+"As suas ferramentas deixam de estar públicas de imediato e são apagadas "
+"com a conta em 30 dias. As estrelas que deu são removidas e as denúncias "
+"que fez ficam anónimas."
+msgstr ""
+
+#, python-format
+msgid "Tem %(num)d ferramenta que vai ser retirada."
+msgid_plural "Tem %(num)d ferramentas que vão ser retiradas."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Pode transferir primeiro uma cópia dos seus dados:"
+msgstr ""
+
+msgid "Transferir os meus dados (JSON)"
+msgstr ""
+
+msgid "Sim, quero eliminar a minha conta e as minhas ferramentas."
+msgstr ""
+
+msgid "Eliminar conta definitivamente"
+msgstr ""
+
+msgid "Cancelar"
+msgstr ""
+
+msgid "Contas associadas"
+msgstr ""
+
+msgid "A ligação por email funciona sempre, mesmo sem contas associadas."
+msgstr ""
+
+msgid "Associada"
+msgstr ""
+
+msgid "Desassociar"
+msgstr ""
+
+msgid "Associar"
+msgstr ""
+
+msgid "Indisponível"
+msgstr ""
+
+msgid "Sessões"
+msgstr ""
+
+#, python-format
+msgid "Tem %(num)d sessão ativa."
+msgid_plural "Tem %(num)d sessões ativas."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Terminar sessão em todos os dispositivos"
+msgstr ""
+
+msgid "Os seus dados"
+msgstr ""
+
+msgid ""
+"Pode transferir uma cópia dos seus dados ou eliminar a conta a qualquer "
+"momento."
+msgstr ""
+
+msgid "As ferramentas que marcou para encontrar mais tarde."
+msgstr ""
+
+msgid "Ainda não deu estrela a nenhuma ferramenta."
+msgstr ""
+
+msgid "Explorar ferramentas"
+msgstr ""
+
+msgid "Editar ferramenta"
+msgstr ""
+
+msgid "Ver página pública"
+msgstr ""
+
+msgid ""
+"Descreva a ferramenta e indique onde está publicada. A gitmgf guarda "
+"apenas a ficha e as ligações: não aloja ficheiros nem código."
+msgstr ""
+
+msgid ""
+"Esta ferramenta está em revisão. Para a editar, retire primeiro a "
+"submissão."
+msgstr ""
+
+msgid "Retirar submissão"
+msgstr ""
+
+msgid ""
+"Rascunho guardado, mas faltam campos obrigatórios para submeter. Reveja "
+"os campos assinalados."
+msgstr ""
+
+msgid "Há campos a corrigir. Veja as mensagens abaixo."
+msgstr ""
+
+msgid "Alteração pendente de revisão."
+msgstr ""
+
+msgid ""
+"A versão publicada mantém-se visível até um moderador aprovar as "
+"alterações."
+msgstr ""
+
+msgid "Retirar a alteração pendente?"
+msgstr ""
+
+msgid "Retirar alteração"
+msgstr ""
+
+msgid "Comentário da moderação:"
+msgstr ""
+
+msgid "Informação básica"
+msgstr ""
+
+msgid "Título"
+msgstr ""
+
+msgid "Resumo"
+msgstr ""
+
+msgid ""
+"Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de "
+"pesquisa."
+msgstr ""
+
+msgid "Descrição"
+msgstr ""
+
+msgid ""
+"O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, "
+"listas, ligações, tabelas). Não inclua dados que identifiquem utentes."
+msgstr ""
+
+msgid "Versão em inglês (opcional)"
+msgstr ""
+
+msgid "Classificação"
+msgstr ""
+
+msgid "Categorias (1 a 5): finalidade"
+msgstr ""
+
+msgid "Categorias: especialidade"
+msgstr ""
+
+msgid "O total de finalidades e especialidades escolhidas não pode passar de 5."
+msgstr ""
+
+msgid "Etiquetas (opcional)"
+msgstr ""
+
+msgid "Até 10, separadas por vírgulas. Ex.: score2, risco cardiovascular, hta"
+msgstr ""
+
+msgid "Utilização"
+msgstr ""
+
+msgid ""
+"Com uma licença de código aberto e um repositório público, a ficha recebe"
+" o selo Open source."
+msgstr ""
+
+msgid "Tratamento de dados de utentes"
+msgstr ""
+
+msgid "1 a 3 frases: quem deve usar, para quê e com que limitações."
+msgstr ""
+
+msgid "Versão / última versão (opcional)"
+msgstr ""
+
+msgid "Ligações"
+msgstr ""
+
+msgid ""
+"Pelo menos uma. Use o local onde publica a ferramenta (repositório, site,"
+" loja de aplicações), não serviços de partilha de ficheiros nem "
+"encurtadores de ligações."
+msgstr ""
+
+msgid ""
+"Por omissão, nenhuma certificação é declarada. Ative apenas o que a "
+"ferramenta tem de facto e indique a evidência: cada declaração é "
+"verificada por um moderador."
+msgstr ""
+
+msgid "Declarações"
+msgstr ""
+
+msgid "Sou o autor da ferramenta ou estou autorizado/a a publicá-la."
+msgstr ""
+
+msgid "O texto e as capturas de ecrã não contêm dados que identifiquem utentes."
+msgstr ""
+
+msgid "Aceito que a gitmgf não valida a correção clínica das ferramentas."
+msgstr ""
+
+msgid "Guardar e submeter para revisão"
+msgstr ""
+
+msgid "Guardar rascunho"
+msgstr ""
+
+msgid "Submeter alteração para revisão"
+msgstr ""
+
+msgid ""
+"Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas"
+" e os metadados removidos. Confirme que não mostram dados de utentes."
+msgstr ""
+
+msgid "Alterações às imagens de uma ferramenta publicada também são revistas."
+msgstr ""
+
+msgid "Remover esta imagem?"
+msgstr ""
+
+msgid "Remover"
+msgstr ""
+
+msgid "Imagem"
+msgstr ""
+
+msgid "Texto alternativo (descreva a imagem)"
+msgstr ""
+
+msgid "Texto alternativo (EN, opcional)"
+msgstr ""
+
+msgid "Adicionar imagem"
+msgstr ""
+
+msgid "Outras ações"
+msgstr ""
+
+msgid ""
+"Arquivar? A página continua acessível, mas deixa de aparecer nas "
+"listagens e na pesquisa."
+msgstr ""
+
+msgid "Arquivar"
+msgstr ""
+
+msgid "Publicar novamente"
+msgstr ""
+
+msgid ""
+"Eliminar esta ferramenta? Esta ação não pode ser desfeita: a ficha e as "
+"imagens são apagadas em 30 dias."
+msgstr ""
+
+msgid "Eliminar"
+msgstr ""
+
+msgid ""
+"Contagens pseudonimizadas: cada visitante conta uma vez por dia e por "
+"tipo. As suas próprias visitas não contam."
+msgstr ""
+
+msgid "Cliques a partir da pesquisa (30 d)"
+msgstr ""
+
+msgid "Aberturas de ligações (30 d)"
+msgstr ""
+
+msgid "Visitas à página (30 d)"
+msgstr ""
+
+msgid "Estrelas"
+msgstr ""
+
+msgid "Utilização diária nos últimos 90 dias"
+msgstr ""
+
+msgid "Dia"
+msgstr ""
+
+msgid "Pesquisa"
+msgstr ""
+
+msgid "Aberturas"
+msgstr ""
+
+msgid "Visitas"
+msgstr ""
+
+msgid "Ainda sem dados."
+msgstr ""
+
+msgid "Estado, alterações pendentes e utilização nos últimos 30 e 90 dias."
+msgstr ""
+
+msgid "Ferramenta"
+msgstr ""
+
+msgid "Cliques a partir da pesquisa"
+msgstr ""
+
+msgid "Pesquisa 30/90 d"
+msgstr ""
+
+msgid "Aberturas de ligações externas"
+msgstr ""
+
+msgid "Aberturas 30/90 d"
+msgstr ""
+
+msgid "Visitas 30/90 d"
+msgstr ""
+
+msgid "Alteração pendente de revisão"
+msgstr ""
+
+msgid "Motivo:"
+msgstr ""
+
+msgid "O repositório GitHub não foi encontrado."
+msgstr ""
+
+msgid "Submeter"
+msgstr ""
+
+msgid "Retirar"
+msgstr ""
+
+msgid "Ainda não partilhou nenhuma ferramenta."
+msgstr ""
+
+msgid "Motivo"
+msgstr ""
+
+msgid "— Escolher modelo —"
+msgstr ""
+
+msgid "Detalhes para o autor (opcional)"
+msgstr ""
+
+msgid ""
+"O texto final é enviado por email ao autor, no idioma da conta, como "
+"fundamentação da decisão."
+msgstr ""
+
+msgid "Aprovar declaração"
+msgstr ""
+
+msgid "Rejeitar declaração"
+msgstr ""
+
+msgid "Motivo da rejeição"
+msgstr ""
+
+msgid "Motivo, se rejeitar (p. ex. a evidência não abre)"
+msgstr ""
+
+msgid "Fila de moderação"
+msgstr ""
+
+msgid "Novas submissões"
+msgstr ""
+
+msgid "Alterações"
+msgstr ""
+
+msgid "Denúncias"
+msgstr ""
+
+msgid "Mais antigos primeiro. Não pode moderar as suas próprias ferramentas."
+msgstr ""
+
+msgid "Recebida"
+msgstr ""
+
+msgid "Autor"
+msgstr ""
+
+msgid "Há"
+msgstr ""
+
+msgid "sua"
+msgstr ""
+
+msgid "Rever"
+msgstr ""
+
+msgid "Analisar"
+msgstr ""
+
+msgid "Nada pendente nesta fila."
+msgstr ""
+
+msgid "Denúncia"
+msgstr ""
+
+msgid "Denunciante"
+msgstr ""
+
+msgid "com sessão"
+msgstr ""
+
+msgid "Anónimo"
+msgstr ""
+
+msgid "Nota"
+msgstr ""
+
+msgid "Nota para o denunciante (opcional)"
+msgstr ""
+
+msgid ""
+"Para ocultar a ferramenta, use a página de revisão (o autor recebe a "
+"fundamentação). Depois feche aqui a denúncia."
+msgstr ""
+
+msgid "Resolver (foram tomadas medidas)"
+msgstr ""
+
+msgid "Arquivar sem ação"
+msgstr ""
+
+msgid "Abrir revisão da ferramenta"
+msgstr ""
+
+msgid "Rever alteração"
+msgstr ""
+
+msgid "Alteração"
+msgstr ""
+
+msgid "Ver versão publicada"
+msgstr ""
+
+msgid "É o autor desta ferramenta: outra pessoa tem de a moderar."
+msgstr ""
+
+msgid "Diferenças em relação à versão publicada"
+msgstr ""
+
+msgid "Ordem alterada."
+msgstr ""
+
+msgid "Sem diferenças de conteúdo."
+msgstr ""
+
+msgid "Aprovar alteração"
+msgstr ""
+
+msgid "Certificações novas ou alteradas:"
+msgstr ""
+
+msgid "Aprovar e publicar alterações"
+msgstr ""
+
+msgid "Rejeitar alteração"
+msgstr ""
+
+msgid "Rejeitar"
+msgstr ""
+
+msgid "Autor:"
+msgstr ""
+
+msgid "Ver página"
+msgstr ""
+
+msgid "Alteração pendente"
+msgstr ""
+
+#, python-format
+msgid "%(num)d denúncia aberta."
+msgid_plural "%(num)d denúncias abertas."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Ver"
+msgstr ""
+
+msgid "Conteúdo"
+msgstr ""
+
+msgid "Lista de verificação"
+msgstr ""
+
+msgid "As ligações funcionam e apontam para o que é descrito."
+msgstr ""
+
+msgid "Não há dados que identifiquem utentes no texto nem nas imagens."
+msgstr ""
+
+msgid "A utilização prevista e o tratamento de dados são plausíveis."
+msgstr ""
+
+msgid "A licença é coerente com o repositório."
+msgstr ""
+
+msgid ""
+"As ligações são do local de publicação do autor (não espelhos de partilha"
+" de ficheiros nem encurtadores)."
+msgstr ""
+
+msgid "Sem publicidade nem spam."
+msgstr ""
+
+msgid ""
+"Cada certificação declarada tem evidência que abre e corresponde à "
+"ferramenta, ao fabricante e à classe."
+msgstr ""
+
+msgid ""
+"Envia dados para um servidor sem declaração RGPD → pedir alterações, "
+"salvo explicação."
+msgstr ""
+
+msgid "Aprovar"
+msgstr ""
+
+msgid "Certificações declaradas — aprove ou rejeite cada uma:"
+msgstr ""
+
+msgid "Aprovar e publicar"
+msgstr ""
+
+msgid "Pedir alterações ou rejeitar"
+msgstr ""
+
+msgid "Pedir alterações (volta a rascunho)"
+msgstr ""
+
+msgid "Ocultar ferramenta"
+msgstr ""
+
+msgid "Ocultar"
+msgstr ""
+
+msgid "Tornar visível"
+msgstr ""
+
+msgid "Repor a pontuação de popularidade a zero?"
+msgstr ""
+
+msgid "Pontuação atual:"
+msgstr ""
+
+msgid "Repor pontuação"
+msgstr ""
+
+#, python-format
+msgid "Versão %(v)s"
+msgstr ""
+
+#, python-format
+msgid "Última atualização: %(d)s"
+msgstr ""
+
+msgid ""
+"Esta é uma tradução. Em caso de divergência, prevalece a versão em "
+"português."
+msgstr ""
+
+msgid "Ver em português"
+msgstr ""
+
+msgid "Mostrar mais"
+msgstr ""
+
+#, python-format
+msgid "%(num)d ferramenta"
+msgid_plural "%(num)d ferramentas"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "para «%(q)s»"
+msgstr ""
+
+msgid "Sem resultados exatos — a mostrar resultados parciais."
+msgstr ""
+
+msgid "Nenhuma ferramenta encontrada."
+msgstr ""
+
+msgid ""
+"Tente outras palavras ou retire alguns filtros. Conhece uma ferramenta "
+"que devia estar aqui?"
+msgstr ""
+
+msgid "Partilhe-a"
+msgstr ""
+
+msgid "Não pode atribuir estrela à sua própria ferramenta."
+msgstr ""
+
+msgid "Com estrela"
+msgstr ""
+
+msgid "Dar estrela"
+msgstr ""
+
+msgid "Disponível apenas em português"
+msgstr ""
+
+msgid "estrelas"
+msgstr ""
+
+msgid "Explore as ferramentas por finalidade ou por especialidade."
+msgstr ""
+
+msgid "Feito por clínicos, para clínicos"
+msgstr ""
+
+msgid "As ferramentas que os médicos de família constroem, num só lugar."
+msgstr ""
+
+msgid ""
+"Calculadoras, webapps e aplicações criadas por profissionais dos cuidados"
+" de saúde primários e do Internato. Preferencialmente open source."
+msgstr ""
+
+msgid "Pesquisar: risco cardiovascular, vacinação, ICPC-2…"
+msgstr ""
+
+msgid "Calculadoras"
+msgstr ""
+
+msgid "Webapps"
+msgstr ""
+
+msgid "Folhas de cálculo"
+msgstr ""
+
+msgid "Scripts"
+msgstr ""
+
+msgid "Internato"
+msgstr ""
+
+msgid "Em destaque"
+msgstr ""
+
+msgid "As ferramentas mais usadas pela comunidade nas últimas semanas."
+msgstr ""
+
+msgid "Ver todas"
+msgstr ""
+
+msgid ""
+"Ainda não há ferramentas publicadas. Seja a primeira pessoa a partilhar "
+"uma!"
+msgstr ""
+
+msgid "Novidades"
+msgstr ""
+
+msgid "Publicadas recentemente."
+msgstr ""
+
+msgid "Como funciona"
+msgstr ""
+
+msgid "Construir"
+msgstr ""
+
+msgid ""
+"Uma calculadora, um script ou uma aplicação que resolve um problema real "
+"da consulta."
+msgstr ""
+
+msgid "Partilhar"
+msgstr ""
+
+msgid ""
+"Submeta a ligação do repositório ou da webapp, com descrição, licença e "
+"categoria. Cada ficha é revista antes de ser publicada."
+msgstr ""
+
+msgid "Descobrir"
+msgstr ""
+
+msgid ""
+"Os colegas encontram, usam e melhoram a ferramenta. O código aberto "
+"acelera tudo."
+msgstr ""
+
+msgid "Construiu algo útil para a sua prática?"
+msgstr ""
+
+msgid ""
+"Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar "
+"tempo e a melhorar os cuidados."
+msgstr ""
+
+msgid "Reportar problema"
+msgstr ""
+
+msgid ""
+"Qualquer pessoa pode denunciar conteúdo ilegal ou contrário aos Termos. "
+"Analisamos cada denúncia de forma diligente e informamos da decisão."
+msgstr ""
+
+msgid "Explicação"
+msgstr ""
+
+msgid ""
+"Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para"
+" o podermos avaliar. Não inclua dados de utentes."
+msgstr ""
+
+msgid "O seu email"
+msgstr ""
+
+msgid ""
+"Para confirmarmos a receção e comunicarmos a decisão. Não é obrigatório "
+"em denúncias de abuso sexual de crianças."
+msgstr ""
+
+msgid "A denúncia diz respeito a material de abuso sexual de crianças"
+msgstr ""
+
+msgid ""
+"Declaro que faço esta denúncia de boa-fé e que a informação é, tanto "
+"quanto sei, exata e completa."
+msgstr ""
+
+msgid "Enviar denúncia"
+msgstr ""
+
+#, python-format
+msgid "Pesquisa: %(q)s"
+msgstr ""
+
+msgid "Filtros"
+msgstr ""
+
+msgid "Todos os tipos"
+msgstr ""
+
+msgid "Acesso"
+msgstr ""
+
+msgid "Só open source"
+msgstr ""
+
+msgid "Só gratuitas"
+msgstr ""
+
+msgid "Contexto"
+msgstr ""
+
+msgid "Qualquer"
+msgstr ""
+
+msgid "Plataforma"
+msgstr ""
+
+msgid "Idioma da ferramenta"
+msgstr ""
+
+msgid "Qualquer idioma"
+msgstr ""
+
+msgid "Especialidades"
+msgstr ""
+
+msgid "Aplicar filtros"
+msgstr ""
+
+msgid "Limpar"
+msgstr ""
+
+msgid "A pesquisar…"
+msgstr ""
+
+msgid "Ordenar"
+msgstr ""
+
+msgid "Vai abrir um site externo, fora da gitmgf."
+msgstr ""
+
+msgid "Editar ficha"
+msgstr ""
+
+msgid "Moderar"
+msgstr ""
+
+msgid ""
+"Ferramenta arquivada pelo autor: pode já não ser mantida. Não aparece nas"
+" listagens nem na pesquisa."
+msgstr ""
+
+msgid "Esta página não é pública."
+msgstr ""
+
+msgid "Estado:"
+msgstr ""
+
+msgid ""
+"Tem uma alteração pendente de revisão. Esta página mostra a versão "
+"publicada."
+msgstr ""
+
+msgid "Descrição disponível apenas em português."
+msgstr ""
+
+msgid "Conformidade e certificações"
+msgstr ""
+
+msgid "Garantia"
+msgstr ""
+
+#, python-format
+msgid "%(name)s: expirado em %(date)s"
+msgstr ""
+
+#, python-format
+msgid "%(name)s: não declarado pelo autor"
+msgstr ""
+
+msgid ""
+"Informação declarada pelo autor. A gitmgf verifica a existência das "
+"evidências indicadas, mas não certifica nem garante a conformidade da "
+"ferramenta."
+msgstr ""
+
+msgid "Idiomas"
+msgstr ""
+
+msgid "Profissão e especialidade declaradas pelo autor, não verificadas."
+msgstr ""
+
+msgid "Forks"
+msgstr ""
+
+msgid "Problemas abertos"
+msgstr ""
+
+msgid "Último commit"
+msgstr ""
+
+msgid "Licença no repositório"
+msgstr ""
+
+msgid "Repositório arquivado"
+msgstr ""
+
+msgid "Atualizada"
+msgstr ""
+

@@ -15,3 +15,7 @@ D1–D10 are in TECH_SPEC §23. Deviations and implementation choices made while
 | D19 | "My tools" and the editor live in `routers/editor.py`; `routers/me.py` keeps settings, stars and GDPR. | `me.py` was getting too large. |
 | D20 | The logo is an SVG recreated from the supplied raster PDF; the wordmark is Roboto Slab (Apache-2.0) glyphs converted to paths. No font file is shipped. | Crisp at any size, dark-mode variant, and no external or self-hosted font needed. |
 | D21 | FTS rows use `rowid = tools.id` (the `tool_id` column is kept). | Join on rowid is the fastest FTS5 lookup. |
+| D22 | Report spam protection is a honeypot field plus a signed form timestamp (≥ 3 s, ≤ 24 h), no CAPTCHA. | PRD Q6 default; nothing third-party on the page. |
+| D23 | Audit entries referring to a deleted user are pseudonymised (`deleted-user-<hash>`) at deletion time; the account row is anonymised immediately and hard-deleted by the purge job after 30 days. | TECH_SPEC §9.5; the address is freed for a fresh sign-up straight away. |
+| D24 | Moderators see `/admin` (stats) and `/admin/searches`; every other admin page needs the admin role. | PRD roles table: moderators get "stats only". |
+| D25 | Babel extracts `N_()` and `t(lang, msgid)` (keyword `t:2`) in addition to the gettext defaults; run from the repo root (`make i18n`). | Server-side strings rendered in another user's language (owner emails, reason templates) use `t()`. |

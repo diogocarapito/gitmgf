@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Utilizadores") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'users' %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Utilizadores") }}</h1></header>
+  {% include "admin/_nav.html" %}
+  <form class="row section--tight" method="get" action="{{ url('/admin/users') }}">
+    <label class="visually-hidden" for="uq">{{ _("Pesquisar") }}</label>
+    <input id="uq" type="search" name="q" value="{{ q }}" placeholder="{{ _('Nome, email ou identificador') }}">
+    <select name="role" aria-label="{{ _('Função') }}"><option value="">{{ _("Todas as funções") }}</option>{% for k, v in labels.ROLE.items() %}<option value="{{ k }}"{% if role == k %} selected{% endif %}>{{ _(v) }}</option>{% endfor %}</select>
+    <select name="status" aria-label="{{ _('Estado') }}"><option value="">{{ _("Todos os estados") }}</option>{% for k in ('active', 'suspended') %}<option value="{{ k }}"{% if status == k %} selected{% endif %}>{{ label(labels.USER_STATUS, k) }}</option>{% endfor %}</select>
+    <button class="btn" type="submit">{{ _("Filtrar") }}</button>
+  </form>
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th scope="col">{{ _("Nome") }}</th><th scope="col">{{ _("Email") }}</th><th scope="col">{{ _("Função") }}</th><th scope="col">{{ _("Estado") }}</th><th scope="col">{{ _("Registo") }}</th></tr></thead>
+    <tbody>{% for u in rows %}<tr><td><a href="{{ url('/admin/users/' ~ u.id) }}">{{ u.display_name or '—' }}</a></td><td class="small">{{ u.email }}</td><td>{{ label(labels.ROLE, u.role) }}</td><td>{{ m.status(u.status, labels.USER_STATUS) }}</td><td class="small nowrap">{{ u.created_at | date('medium') }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {{ m.pagination(page, has_next, url('/admin/users', q=q, role=role, status=status)) }}
+</div>
+{% endblock %}

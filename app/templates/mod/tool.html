@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% import "mod/_macros.html" as mm %}
+{% block title %}{{ _("Rever") }}: {{ tool.title_pt }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/mod') }}">{{ _("Moderação") }}</a></p>
+    <h1>{{ tool.title_pt }}</h1>
+    <p>{{ m.status(tool.status, labels.TOOL_STATUS) }} · {{ _("Autor:") }} {{ tool.owner.display_name }} ({{ label(labels.PROFESSION, tool.owner.profession) }}) · <a href="{{ url('/t/' ~ tool.slug) }}">{{ _("Ver página") }}</a>{% if revision %} · <a href="{{ url('/mod/revisions/' ~ revision.id) }}">{{ _("Alteração pendente") }}</a>{% endif %}</p>
+  </header>
+  {% if not can_act %}<div class="notice notice--warn">{{ icon('lock') }}<p>{{ _("É o autor desta ferramenta: outra pessoa tem de a moderar.") }}</p></div>{% endif %}
+  {% for w in warnings %}<div class="notice notice--warn section--tight">{{ icon('alert') }}<p>{{ _(w) }}</p></div>{% endfor %}
+  {% if open_reports %}<div class="notice notice--danger section--tight">{{ icon('flag') }}<p>{{ ngettext("%(num)d denúncia aberta.", "%(num)d denúncias abertas.", open_reports | length) }} <a href="{{ url('/mod', tab='reports') }}">{{ _("Ver") }}</a></p></div>{% endif %}
+
+  <div class="tool-layout">
+    <div>
+      <section class="panel">
+        <h2>{{ _("Conteúdo") }}</h2>
+        <dl class="meta-list">
+          <dt>{{ _("Resumo") }}</dt><dd>{{ tool.summary_pt }}{% if tool.summary_en %}<div class="muted" lang="en">{{ tool.summary_en }}</div>{% endif %}</dd>
+          {% if tool.title_en %}<dt>{{ _("Título (EN)") }}</dt><dd lang="en">{{ tool.title_en }}</dd>{% endif %}
+          <dt>{{ _("Utilização prevista") }}</dt><dd>{{ tool.intended_use }}</dd>
+          <dt>{{ _("Tipo") }}</dt><dd>{{ label(labels.TOOL_TYPE, tool.tool_type) }}</dd>
+          <dt>{{ _("Categorias") }}</dt><dd>{% for c in tool.categories %}{{ c.name(lang) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+          <dt>{{ _("Etiquetas") }}</dt><dd>{% for tg in tool.tags %}{{ tg.label }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+          <dt>{{ _("Licença") }}</dt><dd>{{ label(labels.LICENSE_LABEL, tool.license_spdx) }}</dd>
+          <dt>{{ _("Dados de utentes") }}</dt><dd>{{ label(labels.PATIENT_DATA, tool.patient_data) }}</dd>
+          <dt>{{ _("Ligações") }}</dt><dd>{% for kind in ('website', 'repo', 'download', 'docs') %}{% set href = tool[kind ~ '_url'] %}{% if href %}<div><strong>{{ href | domain }}</strong> — <a href="{{ href }}" rel="nofollow noopener noreferrer" target="_blank">{{ href }}</a></div>{% endif %}{% endfor %}</dd>
+        </dl>
+      </section>
+      <section class="panel prose"><h2>{{ _("Descrição") }}</h2>{{ tool.description_html_pt | safe }}{% if tool.description_html_en %}<hr><div lang="en">{{ tool.description_html_en | safe }}</div>{% endif %}</section>
+      {% if tool.live_media %}
+      <section class="panel"><h2>{{ _("Capturas de ecrã") }}</h2><div class="media-admin">{% for item in tool.live_media %}<figure><a href="/media/tools/{{ tool.id }}/{{ item.file_name }}"><img src="/media/tools/{{ tool.id }}/{{ item.thumb_name }}" alt="{{ item.alt_text_pt }}" loading="lazy"></a><figcaption>{{ item.alt_text_pt }}</figcaption></figure>{% endfor %}</div></section>
+      {% endif %}
+    </div>
+    <aside>
+      <section class="panel">
+        <h2>{{ _("Lista de verificação") }}</h2>
+        <ul class="checklist">
+          <li>{{ _("As ligações funcionam e apontam para o que é descrito.") }}</li>
+          <li>{{ _("Não há dados que identifiquem utentes no texto nem nas imagens.") }}</li>
+          <li>{{ _("A utilização prevista e o tratamento de dados são plausíveis.") }}</li>
+          <li>{{ _("A licença é coerente com o repositório.") }}</li>
+          <li>{{ _("As ligações são do local de publicação do autor (não espelhos de partilha de ficheiros nem encurtadores).") }}</li>
+          <li>{{ _("Sem publicidade nem spam.") }}</li>
+          <li>{{ _("Cada certificação declarada tem evidência que abre e corresponde à ferramenta, ao fabricante e à classe.") }}</li>
+          <li>{{ _("Envia dados para um servidor sem declaração RGPD → pedir alterações, salvo explicação.") }}</li>
+        </ul>
+      </section>
+      {% if can_act and tool.status == 'pending' %}
+      <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/approve">
+        {{ m.csrf() }}
+        <h2>{{ _("Aprovar") }}</h2>
+        {% set pending = claims | selectattr('state', 'equalto', 'pending') | list %}
+        {% if pending %}<p class="small muted">{{ _("Certificações declaradas — aprove ou rejeite cada uma:") }}</p>{{ mm.claim_decisions(pending) }}{% endif %}
+        <button class="btn btn--primary" type="submit">{{ icon('check') }} {{ _("Aprovar e publicar") }}</button>
+      </form>
+      <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/request-changes">
+        {{ m.csrf() }}<h2>{{ _("Pedir alterações ou rejeitar") }}</h2>
+        {{ mm.reason_fields("rc-") }}
+        <div class="row">
+          <button class="btn" type="submit">{{ _("Pedir alterações (volta a rascunho)") }}</button>
+          <button class="btn btn--danger" type="submit" formaction="/mod/tools/{{ tool.id }}/reject">{{ _("Rejeitar") }}</button>
+        </div>
+      </form>
+      {% elif can_act and tool.status in ('published', 'archived') %}
+      <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/hide">
+        {{ m.csrf() }}<h2>{{ _("Ocultar ferramenta") }}</h2>
+        {{ mm.reason_fields("h-") }}
+        <button class="btn btn--danger" type="submit">{{ icon('eye-off') }} {{ _("Ocultar") }}</button>
+      </form>
+      {% elif can_act and tool.status == 'hidden' %}
+      <form class="panel" method="post" action="/mod/tools/{{ tool.id }}/unhide">{{ m.csrf() }}<button class="btn btn--primary" type="submit">{{ icon('eye') }} {{ _("Tornar visível") }}</button></form>
+      {% endif %}
+      {% if can_act and tool.status in ('published', 'hidden', 'archived') %}
+      <form class="panel" method="post" action="/mod/tools/{{ tool.id }}/reset-score" data-confirm="{{ _('Repor a pontuação de popularidade a zero?') }}">{{ m.csrf() }}<p class="small muted">{{ _("Pontuação atual:") }} {{ '%.1f' | format(tool.score) }}</p><button class="btn btn--sm" type="submit">{{ icon('rotate') }} {{ _("Repor pontuação") }}</button></form>
+      {% endif %}
+      {% if claims and tool.status != 'pending' %}
+      <section class="panel"><h2>{{ _("Certificações") }}</h2>{% for c in claims %}<p class="small">{{ c.label }} · <span class="status status--{{ c.state }}">{{ label(labels.CLAIM_STATE, c.state) }}</span></p>{% endfor %}</section>
+      {% endif %}
+    </aside>
+  </div>
+</div>
+{% endblock %}

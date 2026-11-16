@@ -370,9 +370,7 @@ def save_edit(
     proposed = {
         **base,
         **data,
-        "certifications": sorted(
-            ({"code": c, "details": d} for c, d in claims.items()), key=lambda i: i["code"]
-        ),
+        "certifications": [{"code": c, "details": claims[c]} for c in sorted(claims)],
     }
     proposed.setdefault("media_order", snapshot(tool)["media_order"])
     live = snapshot(tool)
@@ -735,30 +733,32 @@ def diff(db: Session, live: dict[str, Any], proposed: dict[str, Any], lang: str)
             o, n = set(old or []), set(new or [])
             out.append(FieldDiff(name, label_text, "list", added=sorted(n - o), removed=sorted(o - n)))
         elif name == "media_order":
-            o, n = list(old or []), list(new or [])
+            old_ids, new_ids = list(old or []), list(new or [])
             out.append(
                 FieldDiff(
                     name,
                     label_text,
                     "media",
-                    old=o,
-                    new=n,
-                    added=[i for i in n if i not in o],
-                    removed=[i for i in o if i not in n],
+                    old=old_ids,
+                    new=new_ids,
+                    added=[i for i in new_ids if i not in old_ids],
+                    removed=[i for i in old_ids if i not in new_ids],
                 )
             )
         elif name == "certifications":
-            o = {c["code"]: c["details"] for c in old or []}
-            n = {c["code"]: c["details"] for c in new or []}
+            old_claims = {c["code"]: c["details"] for c in old or []}
+            new_claims = {c["code"]: c["details"] for c in new or []}
             cert_names = {c.code: c.name(lang) for c in db.scalars(select(Certification)).all()}
-            changed = [cert_names.get(c, c) for c in n if c in o and o[c] != n[c]]
+            changed = [
+                cert_names.get(c, c) for c in new_claims if c in old_claims and old_claims[c] != new_claims[c]
+            ]
             out.append(
                 FieldDiff(
                     name,
                     label_text,
                     "certs",
-                    added=[cert_names.get(c, c) for c in n if c not in o],
-                    removed=[cert_names.get(c, c) for c in o if c not in n],
+                    added=[cert_names.get(c, c) for c in new_claims if c not in old_claims],
+                    removed=[cert_names.get(c, c) for c in old_claims if c not in new_claims],
                     new=changed,
                 )
             )

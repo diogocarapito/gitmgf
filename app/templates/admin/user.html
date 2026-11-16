@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ target.display_name or target.email }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'users' %}
+<div class="container">
+  <header class="page-head"><p class="breadcrumbs"><a href="{{ url('/admin/users') }}">{{ _("Utilizadores") }}</a></p><h1>{{ target.display_name or target.email }}</h1>
+    <p>{{ target.email }} · {{ label(labels.ROLE, target.role) }} · {{ m.status(target.status, labels.USER_STATUS) }}</p></header>
+  {% include "admin/_nav.html" %}
+  <div class="two-col">
+    <section class="panel">
+      <h2>{{ _("Perfil") }}</h2>
+      <dl class="meta-list">
+        <dt>{{ _("Identificador") }}</dt><dd>{{ target.handle or '—' }}</dd>
+        <dt>{{ _("Profissão") }}</dt><dd>{{ label(labels.PROFESSION, target.profession) or '—' }}</dd>
+        <dt>{{ _("Local de trabalho") }}</dt><dd>{{ target.workplace or '—' }}</dd>
+        <dt>{{ _("Registo") }}</dt><dd>{{ target.created_at | datetime }}</dd>
+        <dt>{{ _("Última entrada") }}</dt><dd>{{ target.last_login_at | datetime if target.last_login_at else '—' }}</dd>
+        <dt>{{ _("Termos") }}</dt><dd>{{ target.terms_version or '—' }}</dd>
+        {% if target.suspended_reason %}<dt>{{ _("Motivo da suspensão") }}</dt><dd>{{ target.suspended_reason }}</dd>{% endif %}
+      </dl>
+      <h2 class="section--tight">{{ _("Ferramentas") }}</h2>
+      <ul class="small">{% for t in tools %}<li><a href="{{ url('/mod/tools/' ~ t.id) }}">{{ t.title_pt }}</a> {{ m.status(t.status, labels.TOOL_STATUS) }}</li>{% else %}<li class="muted">—</li>{% endfor %}</ul>
+    </section>
+    <section class="panel form">
+      <h2>{{ _("Ações") }}</h2>
+      <form class="row" method="post" action="/admin/users/{{ target.id }}/role">
+        {{ m.csrf() }}
+        <label class="visually-hidden" for="role">{{ _("Função") }}</label>
+        <select id="role" name="role">{% for k, v in labels.ROLE.items() %}<option value="{{ k }}"{% if target.role == k %} selected{% endif %}>{{ _(v) }}</option>{% endfor %}</select>
+        <button class="btn" type="submit">{{ _("Alterar função") }}</button>
+      </form>
+      {% if target.status == 'active' %}
+      <form class="form" method="post" action="/admin/users/{{ target.id }}/suspend">
+        {{ m.csrf() }}
+        <div class="field"><label for="reason">{{ _("Motivo da suspensão") }}</label><input id="reason" type="text" name="reason" maxlength="300" required></div>
+        <button class="btn btn--danger" type="submit">{{ icon('lock') }} {{ _("Suspender") }}</button>
+      </form>
+      {% else %}
+      <form method="post" action="/admin/users/{{ target.id }}/unsuspend">{{ m.csrf() }}<button class="btn" type="submit">{{ _("Levantar suspensão") }}</button></form>
+      {% endif %}
+      <form method="post" action="/admin/users/{{ target.id }}/delete" data-confirm="{{ _('Eliminar esta conta e retirar as suas ferramentas? Esta ação não pode ser desfeita.') }}">{{ m.csrf() }}<button class="btn btn--danger" type="submit">{{ icon('trash') }} {{ _("Eliminar conta") }}</button></form>
+    </section>
+  </div>
+  <section class="panel section--tight">
+    <h2>{{ _("Registo de auditoria") }}</h2>
+    <table class="table small"><tbody>{% for e in log %}<tr><td class="nowrap">{{ e.created_at | datetime('short') }}</td><td><code>{{ e.action }}</code></td><td class="kv">{{ e.details | tojson }}</td></tr>{% else %}<tr><td class="muted">—</td></tr>{% endfor %}</tbody></table>
+  </section>
+</div>
+{% endblock %}

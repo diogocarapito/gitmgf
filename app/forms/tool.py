@@ -148,7 +148,7 @@ def parse_tool_form(form: Any) -> tuple[ToolForm, dict[str, tuple[str, dict[str,
         try:
             parsed = ToolForm.model_validate(cleaned)
         except ValidationError:
-            parsed = ToolForm(title_pt=str(raw.get("title_pt") or "")[:80])
+            parsed = ToolForm.model_validate({"title_pt": str(raw.get("title_pt") or "")[:80]})
     if len(parsed.title_pt) < 3 and "title_pt" not in errors:
         errors["title_pt"] = (N_("Indique um título com pelo menos 3 caracteres."), {})
     return parsed, errors, raw

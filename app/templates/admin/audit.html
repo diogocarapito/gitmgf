@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ _("Registo de auditoria") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set active = 'audit' %}
+<div class="container">
+  <header class="page-head"><h1>{{ _("Registo de auditoria") }}</h1></header>
+  {% include "admin/_nav.html" %}
+  <form class="row section--tight" method="get" action="{{ url('/admin/audit') }}">
+    <input type="text" name="action" value="{{ action }}" placeholder="{{ _('Ação (ex.: tool.)') }}" aria-label="{{ _('Ação') }}">
+    <input type="text" name="actor" value="{{ actor }}" placeholder="{{ _('ID do utilizador') }}" aria-label="{{ _('ID do utilizador') }}" inputmode="numeric">
+    <button class="btn" type="submit">{{ _("Filtrar") }}</button>
+  </form>
+  <div class="table-wrap"><table class="table small">
+    <thead><tr><th scope="col">{{ _("Quando") }}</th><th scope="col">{{ _("Quem") }}</th><th scope="col">{{ _("Ação") }}</th><th scope="col">{{ _("Alvo") }}</th><th scope="col">{{ _("Detalhes") }}</th></tr></thead>
+    <tbody>{% for e in rows %}<tr>
+      <td class="nowrap">{{ e.created_at | datetime('short') }}</td>
+      <td>{% if e.actor_id and actors.get(e.actor_id) %}<a href="{{ url('/admin/users/' ~ e.actor_id) }}">{{ actors[e.actor_id].display_name or e.actor_id }}</a>{% elif e.actor_id %}#{{ e.actor_id }}{% else %}<span class="muted">{{ _("sistema") }}</span>{% endif %}</td>
+      <td><code>{{ e.action }}</code></td><td>{{ e.target_type or '' }} {{ e.target_id or '' }}</td><td class="kv">{{ e.details | tojson }}</td>
+    </tr>{% else %}<tr><td colspan="5" class="muted">—</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {{ m.pagination(page, has_next, url('/admin/audit', action=action, actor=actor)) }}
+</div>
+{% endblock %}

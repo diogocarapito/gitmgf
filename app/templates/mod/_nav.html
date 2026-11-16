@@ -1,0 +1,5 @@
+<nav class="tabs" aria-label="{{ _('Fila de moderação') }}">
+  <a href="{{ url('/mod', tab='new') }}"{% if tab == 'new' %} aria-current="page"{% endif %}>{{ _("Novas submissões") }} <span class="count-pill">{{ counts.new }}</span></a>
+  <a href="{{ url('/mod', tab='edits') }}"{% if tab == 'edits' %} aria-current="page"{% endif %}>{{ _("Alterações") }} <span class="count-pill">{{ counts.edits }}</span></a>
+  <a href="{{ url('/mod', tab='reports') }}"{% if tab == 'reports' %} aria-current="page"{% endif %}>{{ _("Denúncias") }} <span class="count-pill">{{ counts.reports }}</span></a>
+</nav>

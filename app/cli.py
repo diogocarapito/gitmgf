@@ -166,6 +166,56 @@ def settings_list() -> None:
             )
 
 
+@jobs_cli.command("send-outbox")
+def job_send_outbox() -> None:
+    from app import jobs
+
+    typer.echo(f"sent: {jobs.send_outbox()}")
+
+
+@jobs_cli.command("recompute-scores")
+def job_recompute_scores() -> None:
+    from app import jobs
+
+    typer.echo(f"scored: {jobs.recompute_scores()}")
+
+
+@jobs_cli.command("rotate-salt")
+def job_rotate_salt() -> None:
+    from app import jobs
+
+    jobs.rotate_salt()
+    typer.echo("salt rotated")
+
+
+@jobs_cli.command("sync-github")
+def job_sync_github(tool: int | None = typer.Option(None, "--tool", help="Only this tool id")) -> None:
+    from app import jobs
+
+    typer.echo(f"github: {jobs.sync_github(tool)}")
+
+
+@jobs_cli.command("prune")
+def job_prune() -> None:
+    from app import jobs
+
+    typer.echo(f"pruned: {jobs.prune()}")
+
+
+@jobs_cli.command("cert-expiry")
+def job_cert_expiry() -> None:
+    from app import jobs
+
+    typer.echo(f"certifications: {jobs.cert_expiry()}")
+
+
+@jobs_cli.command("mod-digest")
+def job_mod_digest() -> None:
+    from app import jobs
+
+    typer.echo(f"digests: {jobs.mod_digest()}")
+
+
 def main() -> None:
     cli()
 

@@ -1,19 +1,21 @@
 from typing import Any
 from urllib.parse import urlencode
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from markupsafe import escape
 from sqlalchemy import func, select
 
 from app import i18n
 from app.config import get_settings
-from app.deps import DB, CurrentUser
+from app.deps import DB, CurrentUser, Form
 from app.forms.search import SearchQueryParams
+from app.i18n import N_
 from app.models import Category, Tool, ToolMedia, tool_categories
 from app.models.enums import EventKind, MediaState, ToolStatus
 from app.routers.auth import client_key
-from app.services import certifications, legal, permissions, ratelimit, search, tracking
+from app.services import certifications, email, legal, permissions, ratelimit, search, tracking
+from app.services import reports as report_service
 from app.services import tools as tool_service
 from app.templating import is_htmx, render
 
@@ -263,3 +265,113 @@ def tag_suggest(db: DB, q: str = "", tags: str = "") -> HTMLResponse:
 
 def media_url(item: ToolMedia, thumb: bool = False) -> str:
     return f"/media/tools/{item.tool_id}/{item.thumb_name if thumb else item.file_name}"
+
+
+# ---------- reports (DSA notice and action) ----------
+
+MIN_FORM_SECONDS = 3
+MAX_FORM_SECONDS = 24 * 3600
+
+
+def _form_stamp() -> str:
+    from itsdangerous import URLSafeTimedSerializer
+
+    return URLSafeTimedSerializer(get_settings().secret_key, salt="report-form").dumps("t")
+
+
+def _stamp_age(value: str | None) -> float | None:
+    """Seconds since the form was rendered, or None if the stamp is missing or forged."""
+    import time
+
+    from itsdangerous import BadSignature, URLSafeTimedSerializer
+
+    if not value:
+        return None
+    try:
+        _, signed_at = URLSafeTimedSerializer(get_settings().secret_key, salt="report-form").loads(
+            value, max_age=MAX_FORM_SECONDS, return_timestamp=True
+        )
+    except BadSignature:
+        return None
+    return time.time() - signed_at.timestamp()
+
+
+def _reportable(db: DB, slug: str) -> Tool:
+    tool = db.scalar(select(Tool).where(Tool.slug == slug))
+    if tool is None or not tool.is_public:
+        raise HTTPException(status_code=404)
+    return tool
+
+
+def _report_page(
+    request: Request, tool: Tool, values: dict[str, Any], errors: dict[str, Any], status_code: int = 200
+) -> Response:
+    return render(
+        request,
+        "public/report.html",
+        {"tool": tool, "values": values, "errors": errors, "stamp": _form_stamp()},
+        status_code=status_code,
+    )
+
+
+@pages.get("/t/{slug}/report")
+def report_form(request: Request, db: DB, user: CurrentUser, slug: str) -> Response:
+    return _report_page(request, _reportable(db, slug), {}, {})
+
+
+@pages.post("/t/{slug}/report")
+def report_submit(
+    request: Request, db: DB, user: CurrentUser, slug: str, form: Form, background: BackgroundTasks
+) -> Response:
+    from pydantic import ValidationError
+
+    from app.forms.common import INVALID_EMAIL, errors_from, form_to_dict
+    from app.forms.report import ReportForm
+    from app.models.enums import ReportReason
+
+    tool = _reportable(db, slug)
+    lang = request.state.lang
+    raw = form_to_dict(form)
+    raw["csam"] = form.get("csam") == "1"
+    raw["good_faith"] = form.get("good_faith") == "1"
+    raw["anonymous"] = user is None
+    # Spam checks without third-party CAPTCHA: honeypot + minimum fill time (PRD Q6).
+    age = _stamp_age(form.get("stamp") if isinstance(form.get("stamp"), str) else None)
+    if form.get("website") or age is None or age < MIN_FORM_SECONDS:
+        return _report_page(
+            request,
+            tool,
+            raw,
+            {"__all__": (N_("Não foi possível enviar. Aguarde uns segundos e tente novamente."), {})},
+            422,
+        )
+    try:
+        data = ReportForm.model_validate(raw)
+    except ValidationError as exc:
+        errors = errors_from(exc)
+        if "__all__" in errors or any(e.get("loc") == () for e in exc.errors()):
+            errors.pop("__all__", None)
+            errors["email"] = (INVALID_EMAIL, {})
+        return _report_page(request, tool, raw, errors, 422)
+    visitor = tracking.visitor_hash(db, request)
+    if not ratelimit.hit(ratelimit.REPORTS_VISITOR, "report", visitor):
+        raise HTTPException(status_code=429)
+    report_service.create(
+        db,
+        tool,
+        ReportReason(data.reason),
+        data.details,
+        user,
+        str(data.email) if data.email else None,
+        data.csam,
+        lang,
+        visitor,
+    )
+    db.commit()
+    background.add_task(email.deliver_queued)
+    target = (
+        f"/{lang}/t/{tool.slug}?flash=reported"
+        if tool.status in ("published", "archived")
+        else f"/{lang}/?flash=reported"
+    )
+    return RedirectResponse(target, status_code=303)
