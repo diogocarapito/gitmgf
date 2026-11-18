@@ -1,7 +1,6 @@
 """Administration (PRD F12). Stats and searches: moderators too; everything else: admins only."""
 
 import json
-from datetime import timedelta
 from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
@@ -16,15 +15,13 @@ from app.models import (
     AuditLog,
     Category,
     Certification,
-    SearchQuery,
     Tag,
     Tool,
-    ToolRevision,
     User,
     tool_categories,
     tool_tags,
 )
-from app.models.enums import RevisionStatus, Role, ToolStatus, UserStatus
+from app.models.enums import Role, UserStatus
 from app.services import audit, email, gdpr, search, sessions, settings_store
 from app.services import auth as auth_service
 from app.services import tools as tool_service
@@ -56,100 +53,18 @@ def _back(request: Request, path: str, flash: str | None = None) -> RedirectResp
     )
 
 
-# ---------- dashboard ----------
+# ---------- entry points (statistics moved to /stats, D35) ----------
 
 
 @pages.get("/admin")
-def dashboard(request: Request, db: DB, user: ModDep) -> Response:
-    now = utcnow()
-    by_status = dict(db.execute(select(Tool.status, func.count()).group_by(Tool.status)).all())
-    weeks = []
-    for i in range(7, -1, -1):
-        start, end = now - timedelta(days=7 * (i + 1)), now - timedelta(days=7 * i)
-        weeks.append(
-            {
-                "start": start,
-                "signups": db.scalar(
-                    select(func.count())
-                    .select_from(User)
-                    .where(User.created_at >= start, User.created_at < end)
-                )
-                or 0,
-                "submissions": db.scalar(
-                    select(func.count())
-                    .select_from(Tool)
-                    .where(Tool.submitted_at >= start, Tool.submitted_at < end)
-                )
-                or 0,
-            }
-        )
-    oldest_pending = db.scalar(select(func.min(Tool.submitted_at)).where(Tool.status == ToolStatus.pending))
-    oldest_revision = db.scalar(
-        select(func.min(ToolRevision.created_at)).where(ToolRevision.status == RevisionStatus.pending)
-    )
-    oldest = min([d for d in (oldest_pending, oldest_revision) if d], default=None)
-    top_tools = (
-        db.scalars(
-            select(Tool).where(Tool.status == ToolStatus.published).order_by(Tool.score.desc()).limit(10)
-        )
-        .unique()
-        .all()
-    )
-    since = now - timedelta(days=7)
-    return render(
-        request,
-        "admin/dashboard.html",
-        {
-            "users_total": db.scalar(
-                select(func.count()).select_from(User).where(User.status != UserStatus.deleted)
-            )
-            or 0,
-            "by_status": {k.value: v for k, v in by_status.items()},
-            "weeks": weeks,
-            "week_peak": max([max(w["signups"], w["submissions"]) for w in weeks] + [1]),
-            "oldest": oldest,
-            "top_tools": top_tools,
-            "top_searches": _top_searches(db, since, zero=False, limit=10),
-            "zero_searches": _top_searches(db, since, zero=True, limit=10),
-            "now": now,
-        },
-    )
-
-
-def _top_searches(db: DB, since: Any, zero: bool, limit: int) -> list[tuple[str, int]]:
-    query = select(SearchQuery.q, func.count()).where(SearchQuery.created_at >= since, SearchQuery.q != "")
-    if zero:
-        query = query.where(SearchQuery.results_count == 0)
-    rows = db.execute(query.group_by(SearchQuery.q).order_by(func.count().desc()).limit(limit)).all()
-    return [(q, int(n)) for q, n in rows]
+def dashboard(request: Request, user: ModDep) -> Response:
+    target = "/admin/users" if user.is_admin else "/stats"
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}{target}", status_code=303)
 
 
 @pages.get("/admin/searches")
-def searches(request: Request, db: DB, user: ModDep, days: int = 30) -> Response:
-    days = days if days in (7, 30, 90) else 30
-    since = utcnow() - timedelta(days=days)
-    total = (
-        db.scalar(select(func.count()).select_from(SearchQuery).where(SearchQuery.created_at >= since)) or 0
-    )
-    zero = (
-        db.scalar(
-            select(func.count())
-            .select_from(SearchQuery)
-            .where(SearchQuery.created_at >= since, SearchQuery.results_count == 0)
-        )
-        or 0
-    )
-    return render(
-        request,
-        "admin/searches.html",
-        {
-            "days": days,
-            "total": total,
-            "zero_rate": (zero / total) if total else 0,
-            "top": _top_searches(db, since, zero=False, limit=50),
-            "zero_rows": _top_searches(db, since, zero=True, limit=50),
-        },
-    )
+def searches(request: Request, user: ModDep, days: int = 30) -> Response:
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/stats/searches?days={days}", status_code=301)
 
 
 # ---------- users ----------

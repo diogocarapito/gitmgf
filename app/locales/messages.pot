@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 23:13+0000\n"
+"POT-Creation-Date: 2026-11-18 23:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -818,6 +818,9 @@ msgstr ""
 msgid "Moderação"
 msgstr ""
 
+msgid "Estatísticas"
+msgstr ""
+
 msgid "Administração"
 msgstr ""
 
@@ -858,12 +861,6 @@ msgid ""
 "As ferramentas são publicadas pelos respetivos autores. A gitmgf não "
 "valida a correção clínica das ferramentas, que não substituem o juízo "
 "clínico. Confirme sempre os protocolos locais."
-msgstr ""
-
-msgid "Estatísticas"
-msgstr ""
-
-msgid "Pesquisas"
 msgstr ""
 
 msgid "Utilizadores"
@@ -1031,42 +1028,6 @@ msgid ""
 "«python -m app.cli seed certifications»."
 msgstr ""
 
-msgid "Publicadas"
-msgstr ""
-
-msgid "Rascunhos"
-msgstr ""
-
-msgid "Ocultadas / arquivadas"
-msgstr ""
-
-msgid "Item mais antigo na fila"
-msgstr ""
-
-msgid "Registos e submissões por semana"
-msgstr ""
-
-msgid "Semana de"
-msgstr ""
-
-msgid "Registos"
-msgstr ""
-
-msgid "Submissões"
-msgstr ""
-
-msgid "Ferramentas mais populares"
-msgstr ""
-
-msgid "Pesquisas mais frequentes (7 dias)"
-msgstr ""
-
-msgid "Pesquisas sem resultados (7 dias)"
-msgstr ""
-
-msgid "Pistas sobre ferramentas que a comunidade procura e ainda não existem."
-msgstr ""
-
 msgid "Notificações enviadas pelo servidor de email."
 msgstr ""
 
@@ -1156,16 +1117,6 @@ msgid "Revogar"
 msgstr ""
 
 msgid "Ainda não há convites."
-msgstr ""
-
-#, python-format
-msgid "%(n)s dias"
-msgstr ""
-
-msgid "Sem resultados"
-msgstr ""
-
-msgid "Mais frequentes"
 msgstr ""
 
 msgid "Definições do site"
@@ -2927,5 +2878,78 @@ msgid "Atualizada"
 msgstr ""
 
 msgid "Contactar suporte"
+msgstr ""
+
+msgid "Visão geral"
+msgstr ""
+
+msgid "Pesquisas"
+msgstr ""
+
+#, python-format
+msgid "%(n)s dias"
+msgstr ""
+
+msgid ""
+"Ferramentas publicadas e estrelas: totais atuais. Visualizações e "
+"cliques: no período escolhido. Uma ferramenta conta em todas as suas "
+"categorias."
+msgstr ""
+
+msgid "Categoria"
+msgstr ""
+
+msgid "Visualizações"
+msgstr ""
+
+msgid "Cliques na pesquisa"
+msgstr ""
+
+msgid "Aberturas de ligações"
+msgstr ""
+
+msgid "Visão geral do portal, para moderadores e administradores."
+msgstr ""
+
+msgid "Publicadas"
+msgstr ""
+
+msgid "Rascunhos"
+msgstr ""
+
+msgid "Ocultadas / arquivadas"
+msgstr ""
+
+msgid "Item mais antigo na fila"
+msgstr ""
+
+msgid "Registos e submissões por semana"
+msgstr ""
+
+msgid "Semana de"
+msgstr ""
+
+msgid "Registos"
+msgstr ""
+
+msgid "Submissões"
+msgstr ""
+
+msgid "Ferramentas mais populares"
+msgstr ""
+
+msgid "Pesquisas mais frequentes (7 dias)"
+msgstr ""
+
+msgid "Pesquisas sem resultados (7 dias)"
+msgstr ""
+
+msgid "Pistas sobre ferramentas que a comunidade procura e ainda não existem."
+msgstr ""
+
+msgid "Sem resultados"
+msgstr ""
+
+msgid "Mais frequentes"
 msgstr ""
 

@@ -1,0 +1,5 @@
+<nav class="admin-nav" aria-label="{{ _('Estatísticas') }}">
+  <a class="btn btn--sm{% if active == 'overview' %} btn--primary{% endif %}" href="{{ url('/stats') }}">{{ _("Visão geral") }}</a>
+  <a class="btn btn--sm{% if active == 'searches' %} btn--primary{% endif %}" href="{{ url('/stats/searches') }}">{{ _("Pesquisas") }}</a>
+  <a class="btn btn--sm{% if active == 'categories' %} btn--primary{% endif %}" href="{{ url('/stats/categories') }}">{{ _("Categorias") }}</a>
+</nav>

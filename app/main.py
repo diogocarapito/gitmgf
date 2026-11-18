@@ -16,7 +16,7 @@ from app.db import SessionLocal, get_engine
 from app.deps import LoginRequired, OnboardingRequired, csrf_protect, load_user
 from app.i18n import lang_prefix
 from app.middleware import plumbing
-from app.routers import admin, auth, dev, editor, me, mod, public, system, tracking
+from app.routers import admin, auth, dev, editor, me, mod, public, stats, system, tracking
 from app.services import legal, settings_store
 from app.templating import render
 
@@ -93,7 +93,7 @@ def create_app() -> FastAPI:
 
     app.include_router(system.router)
     app.include_router(tracking.router)
-    modules = (public, auth, me, editor, mod, admin)
+    modules = (public, auth, me, editor, mod, stats, admin)
     if not settings.is_prod:
         modules = (*modules, dev)
     # Pages first (D28): PT at the root, EN under /en. Without a prefix, PT pages share the path space
@@ -103,7 +103,7 @@ def create_app() -> FastAPI:
             app.include_router(
                 module.pages, prefix=lang_prefix(lang), dependencies=[Depends(page_language(lang))]
             )
-    for module in (public, auth, me, editor, mod, admin):
+    for module in (public, auth, me, editor, mod, stats, admin):
         app.include_router(module.actions)
     app.include_router(public.root)  # legacy /pt/… redirects
     register_error_handlers(app)

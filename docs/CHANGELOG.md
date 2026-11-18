@@ -8,6 +8,7 @@
 - Reports: "Material desadequado" reason replaces the CSAM checkbox (D31); "Material de abuso sexual de crianças" is a reason that clears and blocks the email field, so those reports stay anonymous (D34).
 - "Sugerir melhoria": suggestions and feature requests to authors by email and in a new Notificações page with an unread bell (D32).
 - Profile photos and public profile pages at `/u/<handle>` with the person's published tools (D33).
+- Estatísticas area for moderators and admins: overview, searches and per-category statistics (D35).
 
 ## 0.3.0 — 2026-11-18 · Open registration with email codes
 

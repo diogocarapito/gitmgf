@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 22:57+0000\n"
+"POT-Creation-Date: 2026-11-18 23:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -191,6 +191,9 @@ msgstr "Opens"
 
 msgid "Aberturas 30/90 d"
 msgstr "Opens 30/90 d"
+
+msgid "Aberturas de ligações"
+msgstr "Link opens"
 
 msgid "Aberturas de ligações (30 d)"
 msgstr "Link opens (30 d)"
@@ -589,6 +592,9 @@ msgstr "Screenshots"
 msgid "Carregar foto"
 msgstr "Upload photo"
 
+msgid "Categoria"
+msgstr "Category"
+
 msgid "Categoria guardada."
 msgstr "Category saved."
 
@@ -648,6 +654,9 @@ msgstr "Clicks from search"
 
 msgid "Cliques a partir da pesquisa (30 d)"
 msgstr "Clicks from search (30 d)"
+
+msgid "Cliques na pesquisa"
+msgstr "Search clicks"
 
 #, python-format
 msgid "Com %(name)s"
@@ -1364,6 +1373,14 @@ msgstr ""
 
 msgid "Ferramentas mais populares"
 msgstr "Most popular tools"
+
+msgid ""
+"Ferramentas publicadas e estrelas: totais atuais. Visualizações e "
+"cliques: no período escolhido. Uma ferramenta conta em todas as suas "
+"categorias."
+msgstr ""
+"Published tools and stars: current totals. Views and clicks: in the "
+"chosen period. A tool counts in each of its categories."
 
 #, python-format
 msgid "Ferramentas publicadas por %(name)s no gitmgf."
@@ -3022,6 +3039,15 @@ msgstr "Views 30/90 d"
 
 msgid "Visitas à página (30 d)"
 msgstr "Page views (30 d)"
+
+msgid "Visualizações"
+msgstr "Views"
+
+msgid "Visão geral"
+msgstr "Overview"
+
+msgid "Visão geral do portal, para moderadores e administradores."
+msgstr "Site overview, for moderators and administrators."
 
 msgid "Voltar a Entrar"
 msgstr "Back to sign in"

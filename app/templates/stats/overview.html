@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% block title %}{{ _("Administração") }}{% endblock %}
+{% block title %}{{ _("Estatísticas") }}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
-{% set active = 'dashboard' %}
 <div class="container">
-  <header class="page-head"><h1>{{ _("Administração") }}</h1></header>
-  {% include "admin/_nav.html" %}
+  <header class="page-head"><h1>{{ _("Estatísticas") }}</h1><p>{{ _("Visão geral do portal, para moderadores e administradores.") }}</p></header>
+  {% include "stats/_nav.html" %}
   <div class="stats">
     <div class="stat"><div class="stat__label">{{ _("Utilizadores") }}</div><div class="stat__value">{{ users_total | number }}</div></div>
     <div class="stat"><div class="stat__label">{{ _("Publicadas") }}</div><div class="stat__value">{{ by_status.get('published', 0) | number }}</div></div>

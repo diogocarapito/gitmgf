@@ -80,8 +80,9 @@
             <a href="{{ url('/me/notifications') }}">{{ icon('bell') }} {{ _("Notificações") }}{% if unread_count %} <span class="badge badge--new">{{ unread_count }}</span>{% endif %}</a>
             <a href="{{ url('/me/stars') }}">{{ icon('star') }} {{ _("As minhas estrelas") }}</a>
             <a href="{{ url('/me/settings') }}">{{ icon('settings') }} {{ _("Definições") }}</a>
-            {% if user.is_moderator %}<hr><a href="{{ url('/mod') }}">{{ icon('shield-check') }} {{ _("Moderação") }}</a>{% endif %}
-            {% if user.is_admin %}<a href="{{ url('/admin') }}">{{ icon('activity') }} {{ _("Administração") }}</a>{% endif %}
+            {% if user.is_moderator %}<hr><a href="{{ url('/mod') }}">{{ icon('shield-check') }} {{ _("Moderação") }}</a>
+            <a href="{{ url('/stats') }}">{{ icon('chart') }} {{ _("Estatísticas") }}</a>{% endif %}
+            {% if user.is_admin %}<a href="{{ url('/admin/users') }}">{{ icon('settings') }} {{ _("Administração") }}</a>{% endif %}
             <hr>
             <form action="/auth/logout" method="post">
               <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
