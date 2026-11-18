@@ -126,16 +126,16 @@ ASSURANCE = {
 
 CLAIM_STATE = {"pending": N_("Em revisão"), "approved": N_("Aprovada"), "rejected": N_("Rejeitada")}
 
-REPORT_REASON = {
+REPORT_REASON = {  # order shown in the report form's Motivo dropdown
     "broken_link": N_("Ligação quebrada"),
-    "dangerous_content": N_("Conteúdo clínico incorreto ou perigoso"),
-    "inappropriate": N_("Material desadequado"),
-    "csam": N_("Material de abuso sexual de crianças"),
-    "security_privacy": N_("Problema de segurança ou privacidade"),
     "incorrect_certification": N_("Certificação incorreta"),
-    "spam": N_("Spam"),
+    "inappropriate": N_("Material desadequado"),
+    "dangerous_content": N_("Conteúdo clínico incorreto ou perigoso"),
+    "security_privacy": N_("Problema de segurança ou privacidade"),
+    "csam": N_("Material de abuso sexual de crianças"),
     "copyright": N_("Violação de direitos de autor / licença"),
     "illegal": N_("Conteúdo ilegal"),
+    "spam": N_("Spam"),
     "other": N_("Outro"),
 }
 

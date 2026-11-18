@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 23:11+0000\n"
+"POT-Creation-Date: 2026-11-18 23:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -324,28 +324,28 @@ msgstr ""
 msgid "Ligação quebrada"
 msgstr ""
 
-msgid "Conteúdo clínico incorreto ou perigoso"
+msgid "Certificação incorreta"
 msgstr ""
 
 msgid "Material desadequado"
 msgstr ""
 
-msgid "Material de abuso sexual de crianças"
+msgid "Conteúdo clínico incorreto ou perigoso"
 msgstr ""
 
 msgid "Problema de segurança ou privacidade"
 msgstr ""
 
-msgid "Certificação incorreta"
-msgstr ""
-
-msgid "Spam"
+msgid "Material de abuso sexual de crianças"
 msgstr ""
 
 msgid "Violação de direitos de autor / licença"
 msgstr ""
 
 msgid "Conteúdo ilegal"
+msgstr ""
+
+msgid "Spam"
 msgstr ""
 
 msgid "Nova funcionalidade"

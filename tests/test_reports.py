@@ -144,3 +144,23 @@ def test_csam_reports_come_first_in_the_moderation_queue(client, db):
     login(client, db, mod)
     queue = client.get("/mod?tab=reports").text
     assert queue.index("Material de abuso sexual de crianças") < queue.index("Spam")
+
+
+def test_reason_dropdown_order(client, db):
+    import re as _re
+
+    tool = make_tool(db)
+    form = client.get(f"/t/{tool.slug}/report").text
+    values = _re.findall(r'<option value="(\w+)"', form.split('name="reason"', 1)[1].split("</select>", 1)[0])
+    assert values == [
+        "broken_link",
+        "incorrect_certification",
+        "inappropriate",
+        "dangerous_content",
+        "security_privacy",
+        "csam",
+        "copyright",
+        "illegal",
+        "spam",
+        "other",
+    ]
