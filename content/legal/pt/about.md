@@ -22,7 +22,7 @@ O gitmgf foi criado por seis colegas, que organizaram também a formação «Int
 
 O gitmgf nasceu da formação **«Inteligência Artificial e Literacia Digital»**, que organizámos com a **Coordenação do Internato Médico de Medicina Geral e Familiar de Lisboa e Vale do Tejo**. A formação começou em 2026, dirigida aos **internos de Medicina Geral e Familiar**, e inclui também um **curso para orientadores de formação**.
 
-Ao longo das sessões, internos e orientadores mostraram-nos ferramentas que tinham construído para o dia a dia da consulta e do Internato — e perguntaram onde as podiam partilhar. O gitmgf é a resposta: um sítio único, em português, para as dar a conhecer e as encontrar.
+Ao longo das sessões, internos e orientadores mostraram-nos ferramentas que tinham construído para o dia a dia da consulta e do Internato — e achámos que deveria haver um sítio para as poderem partilhar com os restantes colegas. O gitmgf é a resposta: um sítio único, em português, para as dar a conhecer e as encontrar.
 
 ## Porquê
 

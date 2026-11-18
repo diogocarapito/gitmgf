@@ -22,7 +22,7 @@ gitmgf was created by six colleagues, who also organised the "Inteligência Arti
 
 gitmgf grew out of the **"Inteligência Artificial e Literacia Digital"** (Artificial Intelligence and Digital Literacy) training, which we organised with the **Coordination of the Family Medicine Residency Programme of Lisboa e Vale do Tejo** (Coordenação do Internato Médico de Medicina Geral e Familiar de Lisboa e Vale do Tejo). It started in 2026 for **Family Medicine residents**, and also includes a **course for residency supervisors** (orientadores de formação).
 
-During the sessions, residents and supervisors showed us tools they had built for everyday consultations and residency work — and asked where they could share them. gitmgf is the answer: one place, in Portuguese, to make them known and to find them.
+During the sessions, residents and supervisors showed us tools they had built for everyday consultations and residency work — and we felt there should be a place where they could share them with their colleagues. gitmgf is the answer: one place, in Portuguese, to make them known and to find them.
 
 ## Why
 
