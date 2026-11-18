@@ -24,11 +24,11 @@
       <div>
         <h1>{{ title }}{% if is_fallback(tool, "title") %} <span class="lang-pill" title="{{ _('Disponível apenas em português') }}">PT</span>{% endif %}</h1>
         <p class="tool-head__summary"{% if is_fallback(tool, "summary") %} lang="pt-PT"{% endif %}>{{ summary }}</p>
-        <div class="row">
+        <div class="row tool-head__badges">
           {% if tool.tool_type %}<span class="type-badge">{{ label(labels.TOOL_TYPE, tool.tool_type) }}</span>{% endif %}
           {% for kind, text in derived %}<span class="badge badge--{{ kind }}">{{ _(text) }}</span>{% endfor %}
+          {{ m.cert_row(badges, size="md") }}
         </div>
-        <div class="section--tight">{{ m.cert_row(badges, size="md") }}</div>
       </div>
       <div class="tool-head__actions">
         {% if primary_link and tool.is_public %}

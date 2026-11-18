@@ -15,8 +15,11 @@
   <h3 class="card__title"><a href="{{ href }}"{% if href.startswith('/r/') %} rel="nofollow"{% endif %}>{{ title }}</a>{% if is_fallback(t, "title") %} <span class="lang-pill" title="{{ _('Disponível apenas em português') }}">PT</span>{% endif %}</h3>
   <p class="card__summary"{% if is_fallback(t, "summary") %} lang="pt-PT"{% endif %}>{{ summary }}</p>
   {% set derived = card_badges(t) %}
-  {% if derived %}<div class="card__badges">{% for kind, text in derived %}<span class="badge badge--{{ kind }}">{{ _(text) }}</span>{% endfor %}</div>{% endif %}
-  {% if badges is defined and badges.get(t.id) %}<div class="card__badges">{{ m.cert_row(badges.get(t.id), core_only=True) }}</div>{% endif %}
+  {% set certs = badges.get(t.id) if badges is defined else None %}
+  {% if derived or certs %}<div class="card__badges">
+    {%- for kind, text in derived %}<span class="badge badge--{{ kind }}">{{ _(text) }}</span>{% endfor -%}
+    {%- if certs %}{{ m.cert_row(certs, core_only=True) }}{% endif -%}
+  </div>{% endif %}
   <div class="card__foot">
     <span class="avatar avatar--sm" aria-hidden="true">{{ (t.owner.display_name or '?')[:1] | upper }}</span>
     <span>{{ t.owner.display_name }}</span>

@@ -331,6 +331,9 @@ hr { border: 0; border-top: 1px solid var(--c-border); margin: 2rem 0; }
 .card:focus-within { outline: 3px solid var(--c-focus); outline-offset: 2px; }
 .card__summary { color: var(--c-text-2); font-size: .92rem; margin: 0 0 .8rem; flex: 1; }
 .card__badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .7rem; }
+.card__badges .cert-row, .tool-head__badges .cert-row { display: contents; } /* certification badges flow on the same line */
+.tool-head__badges { flex-wrap: wrap; align-items: center; }
+.card__badges .badge, .card__badges .cert { align-self: center; }
 .card__foot { display: flex; align-items: center; gap: .45rem; border-top: 1px solid var(--c-border); padding-top: .75rem; font-size: .82rem; color: var(--c-muted); flex-wrap: wrap; }
 .card__foot .sep::before { content: "·"; }
 .card__foot .stars { margin-left: auto; display: inline-flex; align-items: center; gap: .2rem; }
