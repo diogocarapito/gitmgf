@@ -21,7 +21,7 @@
       <tr><td>{{ item.tool.title_pt }}</td><td>{{ item.tool.owner.display_name }}{% if item.tool.owner_id == user.id %} <span class="status">{{ _("sua") }}</span>{% endif %}</td>
         <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/revisions/' ~ item.id) }}">{{ _("Rever") }}</a></td></tr>
       {% else %}
-      <tr><td>{% if item.csam %}<span class="status status--rejected">CSAM</span> {% endif %}{{ label(labels.REPORT_REASON, item.reason) }}</td><td>{{ item.tool.title_pt }}</td>
+      <tr><td>{{ label(labels.REPORT_REASON, item.reason) }}</td><td>{{ item.tool.title_pt }}</td>
         <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/reports/' ~ item.id) }}">{{ _("Analisar") }}</a></td></tr>
       {% endif %}
     {% endfor %}

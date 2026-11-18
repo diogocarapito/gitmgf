@@ -18,9 +18,8 @@
     {{ m.select("reason", _("Motivo"), reasons, values, errors, required=True, empty=_("— Escolher —")) }}
     {{ m.textarea("details", _("Explicação"), values, errors, required=True, maxlength=2000, rows=6, hint=_("Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para o podermos avaliar. Não inclua dados de utentes.")) }}
     {% if not user %}
-    {{ m.text("email", _("O seu email"), values, errors, type="email", maxlength=254, autocomplete="email", hint=_("Para confirmarmos a receção e comunicarmos a decisão. Não é obrigatório em denúncias de abuso sexual de crianças.")) }}
+    {{ m.text("email", _("O seu email"), values, errors, type="email", maxlength=254, autocomplete="email", required=True, hint=_("Para confirmarmos a receção e comunicarmos a decisão.")) }}
     {% endif %}
-    {{ m.checkbox("csam", _("A denúncia diz respeito a material de abuso sexual de crianças"), values.get('csam'), errors) }}
     {{ m.checkbox("good_faith", _("Declaro que faço esta denúncia de boa-fé e que a informação é, tanto quanto sei, exata e completa."), values.get('good_faith'), errors) }}
     <div class="form-actions"><button class="btn btn--primary" type="submit">{{ icon('flag') }} {{ _("Enviar denúncia") }}</button><a class="btn btn--ghost" href="{{ url('/t/' ~ tool.slug) }}">{{ _("Cancelar") }}</a></div>
   </form>

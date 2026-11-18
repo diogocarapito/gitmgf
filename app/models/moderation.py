@@ -17,7 +17,6 @@ class Report(Base):
     tool_id: Mapped[int] = mapped_column(ForeignKey("tools.id", ondelete="CASCADE"), index=True)
     reporter_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
     reporter_email: Mapped[str | None] = mapped_column(String(254))
-    csam: Mapped[bool] = mapped_column(default=False)
     reason: Mapped[ReportReason] = mapped_column(str_enum(ReportReason, "report_reason"))
     details: Mapped[str] = mapped_column(Text)
     status: Mapped[ReportStatus] = mapped_column(

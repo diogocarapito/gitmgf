@@ -52,6 +52,7 @@ class Tool(Base):
     repo_url: Mapped[str | None] = mapped_column(String(500))
     download_url: Mapped[str | None] = mapped_column(String(500))
     docs_url: Mapped[str | None] = mapped_column(String(500))
+    support_email: Mapped[str | None] = mapped_column(String(254))  # public, shown on the tool page
     license_spdx: Mapped[str | None] = mapped_column(String(40))
     is_open_source: Mapped[bool] = mapped_column(default=False)
     pricing: Mapped[Pricing | None] = mapped_column(str_enum(Pricing, "pricing"))

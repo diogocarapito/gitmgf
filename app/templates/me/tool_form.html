@@ -91,6 +91,7 @@
       {% for name in ("website_url", "repo_url", "download_url", "docs_url") %}
       {{ m.text(name, _(labels.LINK_FIELD[name]), values, errors, type="url", maxlength=500, placeholder="https://") }}
       {% endfor %}
+      {{ m.text("support_email", _("Email de suporte (opcional)"), values, errors, type="email", maxlength=254, autocomplete="off", hint=_("Mostrado publicamente na página da ferramenta, para quem a usa pedir ajuda. Se preferir não expor o seu email pessoal, use um endereço dedicado.")) }}
     </fieldset>
 
     <fieldset class="form-section" id="certificacoes">

@@ -317,3 +317,23 @@ def test_cli_admin_can_self_approve_own_pending_edit(db_path, db):
     assert entry.details["self_approved"] is True
     again = runner.invoke(cli, ["approve-own-tool", str(tool.id), "--as", "admin@example.org"])
     assert again.exit_code == 1  # nothing pending any more
+
+
+def test_support_email_is_validated_and_shown_next_to_report(client, db):
+    from app.forms.tool import ToolForm
+    from tests.factories import make_tool, tool_form
+
+    raw = {k: v for k, v in tool_form(db, support_email="não é email").items() if not k.startswith("decl_")}
+    raw["category_ids"] = [int(i) for i in raw["category_ids"]]
+    import pytest
+    from pydantic import ValidationError
+
+    with pytest.raises(ValidationError):
+        ToolForm.model_validate(raw)
+    tool = make_tool(db, support_email="Ajuda@Example.org")
+    assert tool.support_email == "ajuda@example.org"
+    page = client.get(f"/t/{tool.slug}").text
+    assert 'href="mailto:ajuda@example.org"' in page and "Contactar suporte" in page
+    assert "Reportar problema" in page
+    plain = make_tool(db, title_pt="Sem suporte")
+    assert "mailto:" not in client.get(f"/t/{plain.slug}").text

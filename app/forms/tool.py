@@ -63,6 +63,7 @@ class ToolForm(BaseModel):
     repo_url: OptStr = None
     download_url: OptStr = None
     docs_url: OptStr = None
+    support_email: Annotated[str | None, BeforeValidator(blank_to_none)] = Field(None, max_length=254)
     license_spdx: OptStr = None
     pricing: Annotated[Pricing | None, BeforeValidator(blank_to_none)] = None
     patient_data: Annotated[PatientData | None, BeforeValidator(blank_to_none)] = None
@@ -76,6 +77,19 @@ class ToolForm(BaseModel):
     @classmethod
     def _url(cls, v: str | None) -> str | None:
         return clean_url(v)
+
+    @field_validator("support_email")
+    @classmethod
+    def _support_email(cls, v: str | None) -> str | None:
+        if v is None:
+            return None
+        from pydantic import TypeAdapter, ValidationError
+        from pydantic.networks import EmailStr
+
+        try:
+            return str(TypeAdapter(EmailStr).validate_python(v)).lower()
+        except ValidationError:
+            raise FieldError(N_("Indique um email válido.")) from None
 
     @field_validator("tags", mode="before")
     @classmethod

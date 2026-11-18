@@ -27,7 +27,6 @@ def test_export_contains_all_user_data(client, db):
         "A ligação principal devolve erro 404.",
         user,
         None,
-        False,
         "pt",
         None,
     )
@@ -55,7 +54,6 @@ def test_delete_account_unpublishes_tools_removes_stars_and_anonymises_reports(c
         "A ligação principal devolve erro 404.",
         user,
         None,
-        False,
         "pt",
         None,
     )

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 22:22+0000\n"
+"POT-Creation-Date: 2026-11-18 22:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -325,6 +325,9 @@ msgid "Ligação quebrada"
 msgstr ""
 
 msgid "Conteúdo clínico incorreto ou perigoso"
+msgstr ""
+
+msgid "Material desadequado"
 msgstr ""
 
 msgid "Problema de segurança ou privacidade"
@@ -662,6 +665,9 @@ msgid "Plataformas"
 msgstr ""
 
 msgid "Idiomas da ferramenta"
+msgstr ""
+
+msgid "Email de suporte"
 msgstr ""
 
 msgid "Licença"
@@ -2047,6 +2053,15 @@ msgid ""
 "encurtadores de ligações."
 msgstr ""
 
+msgid "Email de suporte (opcional)"
+msgstr ""
+
+msgid ""
+"Mostrado publicamente na página da ferramenta, para quem a usa pedir "
+"ajuda. Se preferir não expor o seu email pessoal, use um endereço "
+"dedicado."
+msgstr ""
+
 msgid ""
 "Por omissão, nenhuma certificação é declarada. Ative apenas o que a "
 "ferramenta tem de facto e indique a evidência: cada declaração é "
@@ -2604,12 +2619,7 @@ msgstr ""
 msgid "O seu email"
 msgstr ""
 
-msgid ""
-"Para confirmarmos a receção e comunicarmos a decisão. Não é obrigatório "
-"em denúncias de abuso sexual de crianças."
-msgstr ""
-
-msgid "A denúncia diz respeito a material de abuso sexual de crianças"
+msgid "Para confirmarmos a receção e comunicarmos a decisão."
 msgstr ""
 
 msgid ""
@@ -2739,5 +2749,8 @@ msgid "Repositório arquivado"
 msgstr ""
 
 msgid "Atualizada"
+msgstr ""
+
+msgid "Contactar suporte"
 msgstr ""
 

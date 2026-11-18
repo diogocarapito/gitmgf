@@ -42,7 +42,7 @@ from app.services import (
 SCALAR_FIELDS = (
     "title_pt", "title_en", "summary_pt", "summary_en", "description_pt", "description_en", "tool_type",
     "care_setting", "platforms", "tool_languages", "website_url", "repo_url", "download_url", "docs_url",
-    "license_spdx", "pricing", "patient_data", "intended_use", "version_label",
+    "support_email", "license_spdx", "pricing", "patient_data", "intended_use", "version_label",
 )  # fmt: skip
 IN_PLACE_STATUSES = (ToolStatus.draft, ToolStatus.rejected)
 REVISION_STATUSES = (ToolStatus.published, ToolStatus.archived, ToolStatus.hidden)
@@ -688,6 +688,7 @@ FIELD_LABELS = {
     "repo_url": N_("Repositório (URL)"),
     "download_url": N_("Transferência / versões (URL)"),
     "docs_url": N_("Documentação (URL)"),
+    "support_email": N_("Email de suporte"),
     "license_spdx": N_("Licença"),
     "pricing": N_("Preço"),
     "patient_data": N_("Dados de utentes"),

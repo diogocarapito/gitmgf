@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 21:59+0000\n"
+"POT-Creation-Date: 2026-11-18 22:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -82,9 +82,6 @@ msgid ""
 msgstr ""
 "The decision was made by a moderator, following a report or a check by "
 "the team."
-
-msgid "A denúncia diz respeito a material de abuso sexual de crianças"
-msgstr "The report concerns child sexual abuse material"
 
 msgid ""
 "A ferramenta envia dados para um servidor mas não tem declaração RGPD. O "
@@ -698,6 +695,9 @@ msgstr "Account deleted."
 msgid "Conta:"
 msgstr "Account:"
 
+msgid "Contactar suporte"
+msgstr "Contact support"
+
 msgid "Contacto"
 msgstr "Contact"
 
@@ -1012,6 +1012,12 @@ msgid ""
 msgstr ""
 "Automatic email from gitmgf (%(url)s). You are receiving it because you "
 "have an account or made a request on the site."
+
+msgid "Email de suporte"
+msgstr "Support email"
+
+msgid "Email de suporte (opcional)"
+msgstr "Support email (optional)"
 
 msgid "Email de teste da gitmgf"
 msgstr "gitmgf test email"
@@ -1607,6 +1613,9 @@ msgstr "Newest"
 msgid "Mantida"
 msgstr "Maintained"
 
+msgid "Material desadequado"
+msgstr "Inappropriate material"
+
 #, python-format
 msgid ""
 "Medida: a ficha «%(title)s» foi ocultada. Deixou de estar visível ao "
@@ -1658,6 +1667,14 @@ msgstr "Moderate"
 
 msgid "Moderação"
 msgstr "Moderation"
+
+msgid ""
+"Mostrado publicamente na página da ferramenta, para quem a usa pedir "
+"ajuda. Se preferir não expor o seu email pessoal, use um endereço "
+"dedicado."
+msgstr ""
+"Shown publicly on the tool page so people using it can ask for help. If "
+"you'd rather not expose your personal email, use a dedicated address."
 
 msgid "Mostrar mais"
 msgstr "Show more"
@@ -2032,12 +2049,8 @@ msgstr ""
 msgid "Para concluir o registo na gitmgf, introduza este código:"
 msgstr "To finish signing up for gitmgf, enter this code:"
 
-msgid ""
-"Para confirmarmos a receção e comunicarmos a decisão. Não é obrigatório "
-"em denúncias de abuso sexual de crianças."
-msgstr ""
-"So we can acknowledge receipt and tell you the decision. Not required for"
-" reports about child sexual abuse."
+msgid "Para confirmarmos a receção e comunicarmos a decisão."
+msgstr "So we can confirm receipt and tell you the decision."
 
 msgid ""
 "Para ocultar a ferramenta, use a página de revisão (o autor recebe a "

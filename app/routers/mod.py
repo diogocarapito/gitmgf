@@ -64,11 +64,7 @@ def queue(request: Request, db: DB, user: ModDep, tab: str = "new") -> Response:
         )
     else:
         items = list(
-            db.scalars(
-                select(Report)
-                .where(Report.status == ReportStatus.open)
-                .order_by(Report.csam.desc(), Report.created_at)
-            )
+            db.scalars(select(Report).where(Report.status == ReportStatus.open).order_by(Report.created_at))
             .unique()
             .all()
         )

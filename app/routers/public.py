@@ -355,7 +355,6 @@ def report_submit(
     tool = _reportable(db, slug)
     lang = request.state.lang
     raw = form_to_dict(form)
-    raw["csam"] = form.get("csam") == "1"
     raw["good_faith"] = form.get("good_faith") == "1"
     raw["anonymous"] = user is None
     # Spam checks without third-party CAPTCHA: honeypot + minimum fill time (PRD Q6).
@@ -386,7 +385,6 @@ def report_submit(
         data.details,
         user,
         str(data.email) if data.email else None,
-        data.csam,
         lang,
         visitor,
     )

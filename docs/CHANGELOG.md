@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 — 2026-11-19 · Blog, cards with screenshots, support email
+
+- Blog at `/blog` (Markdown in `content/blog/`), first article on building gitmgf with Claude Pro and Claude Code.
+- Tool cards show the first screenshot; the form explains it. Certification badges share the badge line on cards and tool pages. Categorias first in the Explorar filters.
+- Optional public support email on tools, shown as "Contactar suporte" next to "Reportar problema".
+- Reports: "Material desadequado" reason replaces the CSAM checkbox; anonymous reports always need an email (D31).
+
 ## 0.3.0 — 2026-11-18 · Open registration with email codes
 
 - Registration is open (with SMTP): name, email, profession, specialty, password and terms in one form, then a 6-digit code by email; the account is created only after the code. No separate onboarding step.

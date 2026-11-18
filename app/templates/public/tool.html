@@ -155,7 +155,10 @@
           {% if tool.published_at %}<dt>{{ _("Publicada") }}</dt><dd>{{ tool.published_at | date }}</dd>{% endif %}
           {% if tool.last_content_update_at %}<dt>{{ _("Atualizada") }}</dt><dd>{{ tool.last_content_update_at | date }}</dd>{% endif %}
         </dl>
-        {% if tool.is_public %}<p class="small section--tight"><a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Reportar problema") }}</a></p>{% endif %}
+        {% if tool.is_public %}<p class="small section--tight tool-help">
+          {%- if tool.support_email %}<a href="mailto:{{ tool.support_email }}" title="{{ tool.support_email }}">{{ icon('mail') }} {{ _("Contactar suporte") }}</a>{% endif -%}
+          <a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Reportar problema") }}</a>
+        </p>{% endif %}
       </section>
     </aside>
   </div>

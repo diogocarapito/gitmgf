@@ -41,11 +41,20 @@ def test_anonymous_report_requires_email(client, db):
     )
 
 
-def test_csam_report_may_stay_anonymous(client, db):
+def test_inappropriate_material_is_a_reason_and_needs_an_email_like_any_other(client, db):
     tool = make_tool(db)
-    r = _report(client, tool.slug, reason="illegal", csam="1")
-    assert r.status_code == 303
-    assert db.scalar(select(Report)).csam is True
+    form = client.get(f"/t/{tool.slug}/report").text
+    assert "Material desadequado" in form and "abuso sexual" not in form and 'name="csam"' not in form
+    assert _report(client, tool.slug, reason="inappropriate", csam="1").status_code == 422  # no exemption
+    assert _report(client, tool.slug, reason="inappropriate", email="q@example.org").status_code == 303
+    assert db.scalar(select(Report)).reason.value == "inappropriate"
+
+
+def test_inappropriate_material_counts_towards_auto_hide(db):
+    from app.models.enums import ReportReason
+    from app.services import reports
+
+    assert ReportReason.inappropriate in reports.AUTO_HIDE_REASONS
 
 
 def test_honeypot_and_minimum_time(client, db):

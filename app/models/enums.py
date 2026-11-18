@@ -150,6 +150,7 @@ class LinkKind(StrEnum):
 class ReportReason(StrEnum):
     broken_link = "broken_link"
     dangerous_content = "dangerous_content"
+    inappropriate = "inappropriate"
     security_privacy = "security_privacy"
     incorrect_certification = "incorrect_certification"
     spam = "spam"

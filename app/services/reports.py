@@ -10,7 +10,11 @@ from app.models.enums import ReportReason, ReportStatus, Role, ToolStatus, UserS
 from app.services import audit, email, settings_store
 from app.services import tools as tool_service
 
-AUTO_HIDE_REASONS = (ReportReason.dangerous_content, ReportReason.security_privacy)
+AUTO_HIDE_REASONS = (
+    ReportReason.dangerous_content,
+    ReportReason.inappropriate,
+    ReportReason.security_privacy,
+)
 
 
 def moderators(db: Session) -> list[User]:
@@ -28,7 +32,6 @@ def create(
     details: str,
     reporter: User | None,
     reporter_email: str | None,
-    csam: bool,
     lang: str,
     visitor_hash: str | None,
 ) -> Report:
@@ -36,7 +39,6 @@ def create(
         tool_id=tool.id,
         reporter_id=reporter.id if reporter else None,
         reporter_email=None if reporter else (reporter_email or None),
-        csam=csam,
         reason=reason,
         details=details.strip(),
         locale=lang,

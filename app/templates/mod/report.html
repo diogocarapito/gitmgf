@@ -12,7 +12,7 @@
   <section class="panel">
     <dl class="meta-list">
       <dt>{{ _("Ferramenta") }}</dt><dd><a href="{{ url('/mod/tools/' ~ tool.id) }}">{{ tool.title_pt }}</a> · {{ m.status(tool.status, labels.TOOL_STATUS) }}</dd>
-      <dt>{{ _("Motivo") }}</dt><dd>{{ label(labels.REPORT_REASON, report.reason) }}{% if report.csam %} · <strong>CSAM</strong>{% endif %}</dd>
+      <dt>{{ _("Motivo") }}</dt><dd>{{ label(labels.REPORT_REASON, report.reason) }}</dd>
       <dt>{{ _("Denunciante") }}</dt><dd>{% if reporter %}{{ reporter.display_name }} ({{ _("com sessão") }}){% elif report.reporter_email %}{{ report.reporter_email }}{% else %}{{ _("Anónimo") }}{% endif %}</dd>
       <dt>{{ _("Detalhes") }}</dt><dd>{{ report.details }}</dd>
       {% if report.resolution_note %}<dt>{{ _("Nota") }}</dt><dd>{{ report.resolution_note }}</dd>{% endif %}
