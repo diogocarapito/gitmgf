@@ -450,6 +450,9 @@ details.lang-en > summary { cursor: pointer; font-weight: 650; color: var(--c-li
 .prose h1 { font-size: 1.5rem; } .prose h2 { font-size: 1.3rem; } .prose h3 { font-size: 1.1rem; }
 .prose ul, .prose ol { padding-left: 1.4rem; }
 .prose li + li { margin-top: .25rem; }
+.blog-item__title { font-size: 1.2rem; margin: 0 0 .3rem; }
+.blog-item__title a { text-decoration: none; }
+.blog-item p:last-child { margin-bottom: 0; }
 .prose pre { background: var(--c-bg-soft); border: 1px solid var(--c-border); padding: .8rem 1rem; border-radius: var(--radius-sm); overflow-x: auto; }
 .prose blockquote { border-left: 3px solid var(--c-primary-border); margin: 0 0 1em; padding: .2rem 1rem; color: var(--c-text-2); }
 .prose table { border-collapse: collapse; width: 100%; font-size: .92rem; display: block; overflow-x: auto; }

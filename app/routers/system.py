@@ -13,7 +13,7 @@ from app.deps import DB
 from app.i18n import lang_prefix
 from app.models import Category, Tool
 from app.models.enums import ToolStatus
-from app.services import settings_store
+from app.services import blog, settings_store
 
 router = APIRouter()
 STATIC = Path(__file__).resolve().parents[1] / "static"
@@ -89,6 +89,8 @@ def sitemap(db: DB) -> Response:
         select(Category.slug).where(Category.is_active.is_(True)).order_by(Category.sort_order)
     ).all()
     entries += [(f"/c/{slug}", None) for slug in cats]
+    entries += [("/blog", None)]
+    entries += [(f"/blog/{post.slug}", post.published.isoformat()) for post in blog.all_posts("pt")]
     tools = db.execute(
         select(Tool.slug, Tool.updated_at)
         .where(Tool.status == ToolStatus.published)

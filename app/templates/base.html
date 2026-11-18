@@ -46,6 +46,7 @@
       <nav class="nav" aria-label="{{ _('Principal') }}">
         <a href="{{ url('/search') }}" {% if path.endswith('/search') %}aria-current="page"{% endif %}>{{ _("Explorar") }}</a>
         <a href="{{ url('/c/') }}" {% if '/c/' in path %}aria-current="page"{% endif %}>{{ _("Categorias") }}</a>
+        <a href="{{ url('/blog') }}" {% if '/blog' in path %}aria-current="page"{% endif %}>{{ _("Blog") }}</a>
         <a href="{{ url('/p/about') }}" {% if path.endswith('/p/about') %}aria-current="page"{% endif %}>{{ _("Sobre") }}</a>
       </nav>
       {% block header_search %}
@@ -93,6 +94,7 @@
           <div class="menu__panel">
             <a href="{{ url('/search') }}">{{ icon('search') }} {{ _("Explorar") }}</a>
             <a href="{{ url('/c/') }}">{{ icon('tag') }} {{ _("Categorias") }}</a>
+            <a href="{{ url('/blog') }}">{{ icon('book') }} {{ _("Blog") }}</a>
             <a href="{{ url('/p/about') }}">{{ icon('info') }} {{ _("Sobre") }}</a>
             <a href="{{ url('/me/tools/new') }}">{{ icon('plus') }} {{ _("Partilhar ferramenta") }}</a>
           </div>
@@ -114,6 +116,7 @@
         <div>gitmgf — {{ _("ferramentas da comunidade MGF") }}</div>
         <nav aria-label="{{ _('Rodapé') }}">
           <a href="{{ url('/p/about') }}">{{ _("Sobre") }}</a>
+          <a href="{{ url('/blog') }}">{{ _("Blog") }}</a>
           <a href="{{ url('/p/guidelines') }}">{{ _("Normas de submissão") }}</a>
           <a href="{{ url('/p/terms') }}">{{ _("Termos") }}</a>
           <a href="{{ url('/p/privacy') }}">{{ _("Privacidade") }}</a>

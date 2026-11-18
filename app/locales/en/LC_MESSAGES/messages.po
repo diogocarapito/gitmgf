@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 21:25+0000\n"
+"POT-Creation-Date: 2026-11-18 21:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -213,6 +213,9 @@ msgstr "Please wait a moment and try again."
 
 msgid "Ainda não deu estrela a nenhuma ferramenta."
 msgstr "You haven't starred any tools yet."
+
+msgid "Ainda não há artigos."
+msgstr "No articles yet."
 
 msgid "Ainda não há convites."
 msgstr "No invites yet."
@@ -508,6 +511,9 @@ msgstr "Actions"
 
 msgid "Bem-vindo/a à gitmgf"
 msgstr "Welcome to gitmgf"
+
+msgid "Blog"
+msgstr "Blog"
 
 msgid ""
 "Cada certificação declarada tem evidência que abre e corresponde à "
@@ -1161,6 +1167,9 @@ msgstr "Status:"
 msgid "Estatísticas"
 msgstr "Statistics"
 
+msgid "Este artigo ainda só existe em português."
+msgstr "This article is only available in Portuguese for now."
+
 msgid "Este convite foi criado para outro endereço de email."
 msgstr "This invite was created for a different email address."
 
@@ -1732,6 +1741,11 @@ msgstr "Moderation note:"
 
 msgid "Nota para o denunciante (opcional)"
 msgstr "Note for the reporter (optional)"
+
+msgid ""
+"Notas sobre construir ferramentas para a clínica e sobre como a gitmgf é "
+"feita."
+msgstr "Notes on building tools for clinical work, and on how gitmgf is made."
 
 msgid "Notificações enviadas pelo servidor de email."
 msgstr "Notifications sent by the email server."
@@ -2829,6 +2843,9 @@ msgstr "declared by the author"
 
 msgid "definida"
 msgstr "set"
+
+msgid "em português"
+msgstr "in Portuguese"
 
 msgid "estrelas"
 msgstr "stars"

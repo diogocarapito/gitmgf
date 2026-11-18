@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Blog") }}{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <h1>{{ _("Blog") }}</h1>
+    <p>{{ _("Notas sobre construir ferramentas para a clínica e sobre como a gitmgf é feita.") }}</p>
+  </header>
+  {% for post in posts %}
+  <article class="panel blog-item">
+    <h2 class="blog-item__title"><a href="{{ url('/blog/' ~ post.slug) }}"{% if post.is_fallback %} hreflang="pt-PT"{% endif %}>{{ post.title }}</a></h2>
+    <p class="muted small"><time datetime="{{ post.published.isoformat() }}">{{ post.published | date }}</time> · {{ post.author }}{% if post.is_fallback %} · {{ _("em português") }}{% endif %}</p>
+    {% if post.summary %}<p>{{ post.summary }}</p>{% endif %}
+  </article>
+  {% else %}
+  <p class="muted">{{ _("Ainda não há artigos.") }}</p>
+  {% endfor %}
+</div>
+{% endblock %}

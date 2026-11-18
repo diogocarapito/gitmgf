@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 21:26+0000\n"
+"POT-Creation-Date: 2026-11-18 21:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -741,6 +741,9 @@ msgid "Principal"
 msgstr ""
 
 msgid "Explorar"
+msgstr ""
+
+msgid "Blog"
 msgstr ""
 
 msgid "Sobre"
@@ -2405,6 +2408,20 @@ msgid "Pontuação atual:"
 msgstr ""
 
 msgid "Repor pontuação"
+msgstr ""
+
+msgid ""
+"Notas sobre construir ferramentas para a clínica e sobre como a gitmgf é "
+"feita."
+msgstr ""
+
+msgid "em português"
+msgstr ""
+
+msgid "Ainda não há artigos."
+msgstr ""
+
+msgid "Este artigo ainda só existe em português."
 msgstr ""
 
 #, python-format

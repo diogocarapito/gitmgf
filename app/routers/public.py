@@ -14,7 +14,7 @@ from app.i18n import N_, lang_prefix
 from app.models import Category, Tool, ToolMedia, tool_categories
 from app.models.enums import EventKind, MediaState, ToolStatus
 from app.routers.auth import client_key
-from app.services import certifications, email, legal, permissions, ratelimit, search, tracking
+from app.services import blog, certifications, email, legal, permissions, ratelimit, search, tracking
 from app.services import reports as report_service
 from app.services import tools as tool_service
 from app.templating import is_htmx, render
@@ -230,6 +230,19 @@ def static_page(request: Request, db: DB, page: str) -> Response:
     if rendered is None:
         raise HTTPException(status_code=404)
     return render(request, "pages/legal.html", {"page": rendered})
+
+
+@pages.get("/blog")
+def blog_index(request: Request) -> Response:
+    return render(request, "pages/blog_index.html", {"posts": blog.all_posts(request.state.lang)})
+
+
+@pages.get("/blog/{slug}")
+def blog_post(request: Request, slug: str) -> Response:
+    post = blog.get(slug, request.state.lang)
+    if post is None:
+        raise HTTPException(status_code=404)
+    return render(request, "pages/blog_post.html", {"post": post})
 
 
 @pages.get("/feed.xml")

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %}{% if post.summary %}{{ post.summary }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <p class="small"><a href="{{ url('/blog') }}">← {{ _("Blog") }}</a></p>
+  <header class="page-head">
+    <h1{% if post.is_fallback %} lang="pt-PT"{% endif %}>{{ post.title }}</h1>
+    <p class="legal-meta"><time datetime="{{ post.published.isoformat() }}">{{ post.published | date }}</time> · {{ post.author }}</p>
+  </header>
+  {% if post.is_fallback %}
+  <div class="notice">{{ icon('info') }}<p>{{ _("Este artigo ainda só existe em português.") }}</p></div>
+  {% endif %}
+  <article class="prose section--tight"{% if post.is_fallback %} lang="pt-PT"{% endif %}>{{ post.html | safe }}</article>
+</div>
+{% endblock %}
