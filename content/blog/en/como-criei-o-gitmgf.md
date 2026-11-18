@@ -167,6 +167,8 @@ git pull && docker compose -f deploy/docker-compose.prod.yml --env-file .env up 
 
 In the gitmgf repository these steps are ready-made scripts (`deploy/setup-vps.sh` and `deploy/deploy.sh`), described in `docs/RUNBOOK.md`. **Always read a script before running it as root.**
 
+**When something goes wrong, ask Claude for help.** Configuration and the terminal are where I needed it most. Copy the error message (or the command's output) and paste it into Claude Code, which already knows the project, or into a chat with Claude or another AI assistant. Explain what you were trying to do and ask for the next step. That's how I fixed certificate, DNS, SSH and email server errors, usually in a few minutes. Before pasting, remove passwords, keys and other sensitive data.
+
 ## 8. Optional: email
 
 To send confirmation codes and notifications I used [Brevo](https://www.brevo.com) (SMTP; the free plan is enough to start), and to receive mail at `contacto@` without running a mailbox, Cloudflare's free email routing. Two errors I hit: `535 Authentication failed` (it needs the *SMTP key*, not the API key) and `525 Unauthorized IP address` (Brevo blocks new IPs until you authorise them under *Security → Authorised IPs*).
@@ -176,6 +178,7 @@ To send confirmation codes and notifications I used [Brevo](https://www.brevo.co
 - **The documents are the most important work.** A clear PRD saves hours of fixes. The more concrete the acceptance criteria, the better the result.
 - **Ship early.** The first version doesn't have to be complete; it has to work and be online. The best improvement ideas came after the site existed.
 - **Claude writes; you're responsible.** Review what gets built, especially security, privacy and legal texts. For a clinical tool, this isn't optional.
+- **You don't need to know everything up front.** Along the way, especially when configuring the server, the domain and email, Claude (or another AI assistant) helps you understand each error and fix it. Just paste what the terminal shows.
 - **Production problems are almost always configuration.** My Cloudflare 521 and 525 errors were missing `.env` values and a certificate still being issued, not bugs in the code.
 - **Start small.** A €5 server handles far more than you'd think with SQLite and a simple app.
 

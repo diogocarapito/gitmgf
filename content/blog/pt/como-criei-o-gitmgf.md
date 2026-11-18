@@ -167,6 +167,8 @@ git pull && docker compose -f deploy/docker-compose.prod.yml --env-file .env up 
 
 No repositório do gitmgf estes passos estão em scripts prontos (`deploy/setup-vps.sh` e `deploy/deploy.sh`) e descritos no `docs/RUNBOOK.md`. **Lê sempre um script antes de o correres como root.**
 
+**Quando algo correr mal, pede ajuda ao Claude.** Foi nesta parte, configuração e terminal, que mais precisei. Copia a mensagem de erro (ou o resultado do comando) e cola-a no Claude Code, que já conhece o projeto, ou num chat com o Claude ou outro assistente de IA. Explica o que estavas a tentar fazer e pede o passo seguinte. Foi assim que resolvi erros de certificados, de DNS, de SSH e do servidor de email, quase sempre em poucos minutos. Antes de colar, apaga palavras-passe, chaves e outros dados sensíveis.
+
 ## 8. Opcional: email
 
 Para enviar códigos de confirmação e notificações, usei o [Brevo](https://www.brevo.com) (SMTP, plano gratuito chega para começar) e, para receber emails em `contacto@` sem ter caixa de correio própria, o encaminhamento de email gratuito da Cloudflare. Dois erros que me apareceram: `535 Authentication failed` (era preciso a *chave SMTP*, não a chave da API) e `525 Unauthorized IP address` (o Brevo bloqueia IPs novos até os autorizar em *Security → Authorised IPs*).
@@ -176,6 +178,7 @@ Para enviar códigos de confirmação e notificações, usei o [Brevo](https://w
 - **Os documentos são o trabalho mais importante.** Um PRD claro poupa horas de correções. Quanto mais concretos os critérios de aceitação, melhor o resultado.
 - **Publicar cedo.** A primeira versão não tem de ser completa; tem de funcionar e estar no ar. As melhores ideias de melhoria vieram depois de o site existir.
 - **O Claude escreve; a responsabilidade é tua.** Rever o que é feito, sobretudo segurança, privacidade e textos legais. Numa ferramenta clínica, isto não é opcional.
+- **Não tens de saber tudo à partida.** Pelo caminho, sobretudo na configuração do servidor, do domínio e do email, o Claude (ou outro assistente de IA) ajuda a perceber cada erro e a resolvê-lo. Basta colar o que aparece no terminal.
 - **Problemas de produção são quase sempre configuração.** Os meus erros 521 e 525 da Cloudflare eram variáveis em falta no `.env` e o certificado ainda a ser emitido, não erros no código.
 - **Começar pequeno.** Um servidor de 5 € aguenta muito mais do que se pensa com SQLite e uma aplicação simples.
 
