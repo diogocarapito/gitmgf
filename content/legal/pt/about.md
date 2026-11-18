@@ -11,12 +11,12 @@ O gitmgf é um portal onde clínicos — e quem constrói ferramentas para clín
 
 O gitmgf foi criado por seis colegas, que organizaram também a formação «Inteligência Artificial e Literacia Digital»:
 
-- [Diogo Carapito](/u/diogo-carapito)
-- [Rui Diogo Rodrigues](/u/rui-diogo-rodrigues)
-- [Rita Abecassis](/u/rita-abecassis)
-- [Miguel Ferreira](/u/miguel-ferreira)
-- [Filipe Lebre](/u/filipe-lebre)
 - [Diana Silva](/u/diana-silva)
+- [Diogo Carapito](/u/diogo-carapito)
+- [Filipe Lebre](/u/filipe-lebre)
+- [Miguel Ferreira](/u/miguel-ferreira)
+- [Rita Abecassis](/u/rita-abecassis)
+- [Rui Diogo Rodrigues](/u/rui-diogo-rodrigues)
 
 ## Como nasceu
 

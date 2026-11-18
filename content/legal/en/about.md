@@ -11,12 +11,12 @@ gitmgf is a portal where clinicians — and anyone building tools for clinicians
 
 gitmgf was created by six colleagues, who also organised the "Inteligência Artificial e Literacia Digital" training:
 
-- [Diogo Carapito](/en/u/diogo-carapito)
-- [Rui Diogo Rodrigues](/en/u/rui-diogo-rodrigues)
-- [Rita Abecassis](/en/u/rita-abecassis)
-- [Miguel Ferreira](/en/u/miguel-ferreira)
-- [Filipe Lebre](/en/u/filipe-lebre)
 - [Diana Silva](/en/u/diana-silva)
+- [Diogo Carapito](/en/u/diogo-carapito)
+- [Filipe Lebre](/en/u/filipe-lebre)
+- [Miguel Ferreira](/en/u/miguel-ferreira)
+- [Rita Abecassis](/en/u/rita-abecassis)
+- [Rui Diogo Rodrigues](/en/u/rui-diogo-rodrigues)
 
 ## How it started
 
