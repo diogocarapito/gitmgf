@@ -18,7 +18,7 @@ def test_blog_index_and_article_render_in_both_languages(client):
     page = client.get(f"/blog/{SLUG}")
     assert page.status_code == 200 and "Claude Code" in page.text and "<pre>" in page.text
     en = client.get(f"/en/blog/{SLUG}")
-    assert en.status_code == 200 and "How I built gitmgf in a few hours" in en.text
+    assert en.status_code == 200 and "How I built gitmgf in a day" in en.text
     assert f'href="/en/blog/{SLUG}"' in client.get("/en/blog").text
 
 

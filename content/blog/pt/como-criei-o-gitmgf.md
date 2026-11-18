@@ -1,17 +1,19 @@
 ---
-title: "Como criei o gitmgf em um dia com o Claude Pro e o Claude Code"
+title: "Como criei o gitmgf num dia com o Claude Pro e o Claude Code"
 date: 2026-11-18
 author: Diogo Carapito
-summary: "Da ideia a um MVP em produção em poucas horas: PRD e especificação técnica no Claude, design e logótipo com artefactos, código com o Claude Code, e publicação num VPS europeu com domínio próprio. Com modelos de PRD e TECH_SPEC para copiar."
+summary: "Da ideia a um MVP em produção num dia: PRD e especificação técnica no Claude, design e logótipo com artefactos, código com o Claude Code, e publicação num VPS europeu com domínio próprio. Com modelos de PRD e TECH_SPEC para copiar."
 ---
 
 O gitmgf passou de ideia a site público em apenas um dia. Era esse o objetivo: construir um **MVP** (produto mínimo viável), a versão mais simples que já resolve o problema, e pô-lo no ar depressa. Não escrevi o código à mão: escrevi o que queria, revi o que o Claude propunha e tomei as decisões.
 
 **Pôr uma ferramenta no ar, mesmo básica, é o passo mais importante.** Uma ferramenta simples que existe e que os colegas podem usar vale mais do que uma ferramenta perfeita que nunca sai do computador. É com utilizadores reais que se percebe o que falta, o que sobra e o que vale a pena melhorar. O resto pode vir depois, versão a versão.
 
-Este artigo descreve o processo, passo a passo, para quem quiser fazer o mesmo com uma ferramenta para a sua prática clínica. No fim há [modelos de PRD e TECH_SPEC](#modelos-para-copiar) para copiar.
+Este artigo descreve o processo, passo a passo, para o caso de quereres fazer o mesmo com uma ferramenta para a tua prática clínica. No fim há [modelos de PRD e TECH_SPEC](#modelos-para-copiar) para copiar.
 
 **O que é preciso:** uma subscrição do Claude Pro (inclui o Claude Code), uma conta no GitHub, um domínio e um servidor virtual (VPS). O Claude Pro só é necessário enquanto se constrói; **para manter o site no ar, o custo é apenas o do servidor (≈ 5–8 €/mês) e do domínio (≈ 10–12 US$/ano)**.
+
+*Nota: este artigo não é patrocinado. As ferramentas e os serviços que refiro vêm da minha experiência a construir o gitmgf; há outras opções que podem servir igualmente bem, e vale a pena compará-las.*
 
 ## 1. Escrever o PRD e a especificação técnica no Claude
 
@@ -28,9 +30,9 @@ Depois, no mesmo chat:
 
 > Com base no PRD, escreve um `TECH_SPEC.md` para um MVP simples de manter por uma pessoa: Python, FastAPI, SQLite, sem frameworks de frontend, alojado num VPS na UE com Docker. Inclui modelo de dados, segurança, RGPD, testes e milestones com definição de concluído.
 
-Se preferir partir de uma estrutura, cole no chat os [modelos no fim do artigo](#modelos-para-copiar) e peça ao Claude que os preencha consigo.
+Se preferires partir de uma estrutura, cola no chat os [modelos no fim do artigo](#modelos-para-copiar) e pede ao Claude que os preencha contigo.
 
-Vale a pena ler tudo com calma e corrigir o que não corresponde ao que quer: estes dois ficheiros são o "contrato" que o Claude Code vai seguir. Aproveitei também para gerar um **`CLAUDE.md`** (convenções do projeto: comandos, regras de código, vocabulário em português europeu) e rascunhos dos textos legais (termos, privacidade). **Os textos legais gerados são apenas um ponto de partida e devem ser revistos por quem perceba do assunto.**
+Vale a pena ler tudo com calma e corrigir o que não corresponde ao que queres: estes dois ficheiros são o "contrato" que o Claude Code vai seguir. Aproveitei também para gerar um **`CLAUDE.md`** (convenções do projeto: comandos, regras de código, vocabulário em português europeu) e rascunhos dos textos legais (termos, privacidade). **Os textos legais gerados são apenas um ponto de partida e devem ser revistos por quem perceba do assunto.**
 
 ## 2. Design e logótipo com artefactos
 
@@ -105,7 +107,7 @@ Dois registos com preços justos e sem truques na renovação:
 | [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) | ≈ 10–11 US$ | Preço de custo. O DNS fica na Cloudflare, que também dá proxy, HTTPS e encaminhamento de email gratuitos |
 | [Porkbun](https://porkbun.com) | ≈ 11–12 US$ | Interface simples, WHOIS privado incluído |
 
-Depois de ter o servidor (passo seguinte), cria-se no DNS um registo `A` para o domínio e outro para `www`, ambos a apontar para o IP do VPS. Na Cloudflare, com o proxy ativo, o modo SSL/TLS deve ficar em **Full (strict)**.
+Depois de teres o servidor (passo seguinte), cria no DNS um registo `A` para o domínio e outro para `www`, ambos a apontar para o IP do VPS. Na Cloudflare, com o proxy ativo, o modo SSL/TLS deve ficar em **Full (strict)**.
 
 ## 6. Alugar um VPS
 
@@ -126,9 +128,9 @@ Um VPS é um servidor virtual alugado ao mês. Para um MVP como este chega um se
 | [Vultr](https://www.vultr.com/pricing/) | Cloud Compute, 1 GB / 2 GB | ≈ 5 / 10 US$/mês |
 | [Akamai (Linode)](https://www.linode.com/pricing/) | Nanode 1 GB / Shared 2 GB | ≈ 5 / 12 US$/mês |
 
-A Hetzner também tem centros de dados nos EUA (Ashburn e Hillsboro). *Preços aproximados em novembro de 2026, sem IVA; mudam com frequência, por isso confirme na página de cada fornecedor.*
+A Hetzner também tem centros de dados nos EUA (Ashburn e Hillsboro). *Preços aproximados em novembro de 2026, sem IVA; mudam com frequência, por isso confirma na página de cada fornecedor.*
 
-Ao criar o servidor, **adicione logo a sua chave SSH pública** (`cat ~/.ssh/id_ed25519.pub`; se não tiver, crie-a com `ssh-keygen -t ed25519`). Entrar por chave, e não por palavra-passe, é mais seguro e evita ficar trancado fora do servidor.
+Ao criar o servidor, **adiciona logo a tua chave SSH pública** (`cat ~/.ssh/id_ed25519.pub`; se não tiveres, cria-a com `ssh-keygen -t ed25519`). Entrar por chave, e não por palavra-passe, é mais seguro e evita ficar trancado fora do servidor.
 
 ## 7. Preparar o servidor e publicar o MVP
 
@@ -145,7 +147,7 @@ chown -R deploy:deploy /home/deploy/.ssh
 ufw allow OpenSSH && ufw allow 80,443/tcp && ufw --force enable
 ```
 
-**Antes de fechar esta sessão**, abra outro terminal e confirme que `ssh deploy@<IP-do-servidor>` entra. Mudanças na configuração do SSH são a forma mais comum de ficar sem acesso.
+**Antes de fechares esta sessão**, abre outro terminal e confirma que `ssh deploy@<IP-do-servidor>` entra. Mudanças na configuração do SSH são a forma mais comum de ficar sem acesso.
 
 Depois, como `deploy`, descarregar o código, configurar e arrancar:
 
@@ -163,7 +165,7 @@ No gitmgf, o Caddy (servidor web) obtém o certificado HTTPS automaticamente no 
 git pull && docker compose -f deploy/docker-compose.prod.yml --env-file .env up -d --build
 ```
 
-No repositório do gitmgf estes passos estão em scripts prontos (`deploy/setup-vps.sh` e `deploy/deploy.sh`) e descritos no `docs/RUNBOOK.md`. **Leia sempre um script antes de o correr como root.**
+No repositório do gitmgf estes passos estão em scripts prontos (`deploy/setup-vps.sh` e `deploy/deploy.sh`) e descritos no `docs/RUNBOOK.md`. **Lê sempre um script antes de o correres como root.**
 
 ## 8. Opcional: email
 
@@ -173,13 +175,13 @@ Para enviar códigos de confirmação e notificações, usei o [Brevo](https://w
 
 - **Os documentos são o trabalho mais importante.** Um PRD claro poupa horas de correções. Quanto mais concretos os critérios de aceitação, melhor o resultado.
 - **Publicar cedo.** A primeira versão não tem de ser completa; tem de funcionar e estar no ar. As melhores ideias de melhoria vieram depois de o site existir.
-- **O Claude escreve; a responsabilidade é sua.** Rever o que é feito, sobretudo segurança, privacidade e textos legais. Numa ferramenta clínica, isto não é opcional.
+- **O Claude escreve; a responsabilidade é tua.** Rever o que é feito, sobretudo segurança, privacidade e textos legais. Numa ferramenta clínica, isto não é opcional.
 - **Problemas de produção são quase sempre configuração.** Os meus erros 521 e 525 da Cloudflare eram variáveis em falta no `.env` e o certificado ainda a ser emitido, não erros no código.
 - **Começar pequeno.** Um servidor de 5 € aguenta muito mais do que se pensa com SQLite e uma aplicação simples.
 
 ## Resumo de custos
 
-**Para construir** (só enquanto desenvolve):
+**Para construir** (só enquanto desenvolves):
 
 | | Custo aproximado |
 |---|---|
@@ -302,8 +304,8 @@ Ex.: 1. Base e páginas estáticas · 2. Contas · 3. Funcionalidade principal �
 Decisões tomadas e porquê (pode viver num ficheiro à parte, DECISIONS.md).
 ```
 
-## Agora é a sua vez
+## Agora é a tua vez
 
-Quase todos os clínicos têm uma ideia guardada: uma calculadora que faz falta na consulta, um protocolo que podia ser um fluxograma interativo, uma lista de verificação para o Internato, uma forma mais rápida de fazer aquela tarefa repetitiva. Até há pouco tempo, passar dessa ideia a uma ferramenta exigia saber programar ou pagar a quem soubesse. Hoje, a distância é de poucas horas e de uma boa descrição do problema.
+Quase todos os clínicos têm uma ideia guardada: uma calculadora que faz falta na consulta, um protocolo que podia ser um fluxograma interativo, uma lista de verificação para o Internato, uma forma mais rápida de fazer aquela tarefa repetitiva. Até há pouco tempo, passar dessa ideia a uma ferramenta exigia saber programar ou pagar a quem soubesse. Hoje, a distância pode ser de um dia de trabalho e de uma boa descrição do problema.
 
-Escolha uma ideia pequena, escreva o problema, peça ao Claude que o entreviste e publique a primeira versão, mesmo simples. Os colegas que a usarem vão dizer-lhe o que melhorar. E quando estiver no ar, [partilhe-a no gitmgf](/me/tools/new).
+Escolhe uma ideia pequena, escreve o problema, pede ao Claude que te entreviste e publica a primeira versão, mesmo simples. Os colegas que a usarem vão dizer-te o que melhorar. E quando estiver no ar, [partilha-a no gitmgf](/me/tools/new).

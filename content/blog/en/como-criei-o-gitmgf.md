@@ -1,17 +1,19 @@
 ---
-title: "How I built gitmgf in a few hours with Claude Pro and Claude Code"
+title: "How I built gitmgf in a day with Claude Pro and Claude Code"
 date: 2026-11-18
 author: Diogo Carapito
-summary: "From idea to a live MVP in a few hours: a PRD and tech spec in Claude, design and logo with artifacts, the code with Claude Code, and deployment on a European VPS with its own domain. With PRD and TECH_SPEC templates to copy."
+summary: "From idea to a live MVP in a day: a PRD and tech spec in Claude, design and logo with artifacts, the code with Claude Code, and deployment on a European VPS with its own domain. With PRD and TECH_SPEC templates to copy."
 ---
 
-gitmgf went from an idea to a public website in a few hours of work. That was the goal: build an **MVP** (minimum viable product), the simplest version that already solves the problem, and get it online fast. I didn't write the code by hand: I wrote down what I wanted, reviewed what Claude proposed, and made the decisions.
+gitmgf went from an idea to a public website in just one day. That was the goal: build an **MVP** (minimum viable product), the simplest version that already solves the problem, and get it online fast. I didn't write the code by hand: I wrote down what I wanted, reviewed what Claude proposed, and made the decisions.
 
 **Putting a tool online, even a bare-bones one, is the most important step.** A simple tool that exists and that colleagues can use is worth more than a perfect one that never leaves your laptop. Real users are how you find out what's missing, what's unnecessary and what's worth improving. Everything else can come later, one version at a time.
 
 This article walks through the process step by step, for anyone who wants to do the same with a tool for their own clinical practice. At the end there are [PRD and TECH_SPEC templates](#templates-to-copy) to copy.
 
 **What you need:** a Claude Pro subscription (it includes Claude Code), a GitHub account, a domain and a virtual private server (VPS). Claude Pro is only needed while you build; **keeping the site online only costs the server (≈ €5–8/month) and the domain (≈ US$10–12/year)**.
+
+*Note: this article is not sponsored. The tools and services I mention come from my own experience building gitmgf; other options may work just as well, and they're worth comparing.*
 
 ## 1. Write the PRD and the tech spec in Claude
 
@@ -304,6 +306,6 @@ Decisions made and why (can live in a separate DECISIONS.md file).
 
 ## Now it's your turn
 
-Almost every clinician has an idea tucked away: a calculator they miss during consultations, a protocol that could be an interactive flowchart, a checklist for residency, a faster way to do that one repetitive task. Until recently, turning that idea into a tool meant learning to code or paying someone who could. Today the gap is a few hours and a good description of the problem.
+Almost every clinician has an idea tucked away: a calculator they miss during consultations, a protocol that could be an interactive flowchart, a checklist for residency, a faster way to do that one repetitive task. Until recently, turning that idea into a tool meant learning to code or paying someone who could. Today the gap can be a day's work and a good description of the problem.
 
 Pick a small idea, write down the problem, ask Claude to interview you, and ship the first version, even a simple one. The colleagues who use it will tell you what to improve. And once it's online, [share it on gitmgf](/en/me/tools/new).
