@@ -428,7 +428,15 @@ input[type="text"], input[type="email"], input[type="password"], input[type="url
 }
 textarea { min-height: 7rem; resize: vertical; line-height: 1.5; }
 textarea.tall { min-height: 16rem; font-family: var(--mono); font-size: .9rem; }
-input[type="file"] { font: inherit; font-size: .9rem; max-width: 100%; }
+input[type="file"] { font: inherit; font-size: .9rem; max-width: 100%; color: var(--c-text-2); }
+/* The "Choose file" button looks like .btn (screenshots and profile photo uploads). */
+input[type="file"]::file-selector-button {
+  margin-right: .75rem; padding: .55rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--c-border-strong);
+  font: inherit; font-weight: 650; font-size: .9rem; line-height: 1.2; cursor: pointer;
+  background: var(--c-surface); color: var(--c-text); transition: background-color .15s, border-color .15s;
+}
+input[type="file"]::file-selector-button:hover { background: var(--c-bg-soft); border-color: var(--c-primary-border); }
+input[type="file"]:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; border-radius: var(--radius-sm); }
 .field--invalid input, .field--invalid select, .field--invalid textarea { border-color: var(--c-danger); }
 input:focus, select:focus, textarea:focus { outline: 3px solid var(--c-focus); outline-offset: 0; border-color: var(--c-primary); }
 .choices { display: grid; gap: .35rem .9rem; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); border: 0; padding: 0; margin: 0; }
