@@ -3,7 +3,7 @@
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
 <div class="container">
-  <header class="page-head"><h1>{{ _("Estatísticas") }}</h1></header>
+  <header class="page-head"><h1>{{ _("Estatísticas") }}</h1><p>{{ _("Visão geral do portal, para moderadores e administradores.") }}</p></header>
   {% include "stats/_nav.html" %}
   <p class="row">{% for d in (7, 30, 90) %}<a class="chip{% if d == days %} chip--static{% endif %}" href="{{ url('/stats/searches', days=d) }}"{% if d == days %} aria-current="true"{% endif %}>{{ _("%(n)s dias", n=d) }}</a>{% endfor %}</p>
   <div class="stats">
