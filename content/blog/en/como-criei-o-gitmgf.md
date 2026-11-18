@@ -15,6 +15,20 @@ This article walks through the process step by step, for anyone who wants to do 
 
 *Note: this article is not sponsored. The tools and services I mention come from my own experience building gitmgf; other options may work just as well, and they're worth comparing.*
 
+**What skills do you need?** Fewer than you'd think. Almost everything can be learned along the way, with Claude explaining each step:
+
+| Skill | Needed up front? | What you'll learn |
+|---|---|---|
+| Describing the problem and the users | Yes: that's your clinical knowledge | Turning an idea into a PRD with acceptance criteria |
+| Using Claude (chat and artifacts) | Basics | Asking for interviews, documents, mockups and logos, and iterating on them |
+| Using Claude Code | No | Working in milestones, reviewing changes and asking for fixes |
+| Git and GitHub | No | Creating a repository, saving versions (commits) and pushing them |
+| Linux terminal | No | Moving around folders, running commands, connecting over SSH and reading error messages |
+| Setting up a VPS | No | Creating the server, SSH keys, firewall, users and Docker |
+| Domain and DNS | No | Registering a domain, creating `A` records and turning on HTTPS |
+| Transactional email (optional) | No | SMTP, SPF, DKIM and address forwarding |
+| Security and privacy | Basic awareness | What to check before publishing: secrets, passwords, GDPR |
+
 ## 1. Write the PRD and the tech spec in Claude
 
 Everything starts in a new chat at [claude.ai](https://claude.ai) (the **+ New chat** button). The goal of this phase is two documents:

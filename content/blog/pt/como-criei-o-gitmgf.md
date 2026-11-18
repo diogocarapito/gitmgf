@@ -15,6 +15,20 @@ Este artigo descreve o processo, passo a passo, para o caso de quereres fazer o 
 
 *Nota: este artigo não é patrocinado. As ferramentas e os serviços que refiro vêm da minha experiência a construir o gitmgf; há outras opções que podem servir igualmente bem, e vale a pena compará-las.*
 
+**Que competências são precisas?** Menos do que parece. Quase tudo se aprende pelo caminho, com o Claude a explicar cada passo:
+
+| Competência | Precisas à partida? | O que vais aprender |
+|---|---|---|
+| Descrever o problema e os utilizadores | Sim: é o teu conhecimento clínico | Transformar uma ideia num PRD com critérios de aceitação |
+| Usar o Claude (chat e artefactos) | Básico | Pedir entrevistas, documentos, mockups e logótipos, e iterar sobre eles |
+| Usar o Claude Code | Não | Trabalhar por etapas, rever alterações e pedir correções |
+| Git e GitHub | Não | Criar um repositório, guardar versões (*commits*) e enviá-las (*push*) |
+| Terminal Linux | Não | Navegar em pastas, correr comandos, ligar-te por SSH e ler mensagens de erro |
+| Configurar um VPS | Não | Criar o servidor, chaves SSH, firewall, utilizadores e Docker |
+| Domínio e DNS | Não | Registar um domínio, criar registos `A` e ativar HTTPS |
+| Email transacional (opcional) | Não | SMTP, SPF, DKIM e encaminhamento de endereços |
+| Segurança e privacidade | Noções | O que rever antes de publicar: segredos, palavras-passe, RGPD |
+
 ## 1. Escrever o PRD e a especificação técnica no Claude
 
 Tudo começa num chat novo em [claude.ai](https://claude.ai) (botão **+ Novo chat**). O objetivo desta fase é chegar a dois documentos:
