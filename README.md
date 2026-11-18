@@ -1,5 +1,7 @@
 # gitmgf
 
+[![CI](https://github.com/diogocarapito/gitmgf/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/diogocarapito/gitmgf/actions/workflows/ci.yml) [![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/release/python-3120/)
+
 A bilingual (PT-PT first, EN) portal where clinicians publish and discover the digital tools they built, focused on primary care (MGF) and residency (Internato). Listings only: gitmgf never hosts or runs the tools themselves.
 
 - **What & why:** [`PRD.md`](PRD.md) · **How:** [`TECH_SPEC.md`](TECH_SPEC.md) · **Conventions:** [`CLAUDE.md`](CLAUDE.md)
