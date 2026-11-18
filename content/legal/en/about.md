@@ -27,13 +27,14 @@ gitmgf is **only a directory**: it does not host or run tools. There are no ads 
 
 ## Who we are
 
-gitmgf was created by a team of five colleagues, the same team that organised the training:
+gitmgf was created by a team of six colleagues, the same team that organised the training:
 
 - [Diogo Carapito](/en/u/diogo-carapito)
 - [Rui Diogo Rodrigues](/en/u/rui-diogo-rodrigues)
 - [Rita Abecassis](/en/u/rita-abecassis)
 - [Miguel Ferreira](/en/u/miguel-ferreira)
 - [Filipe Lebre](/en/u/filipe-lebre)
+- [Diana Silva](/en/u/diana-silva)
 
 The portal is run by [[CONTROLLER_NAME]], with the help of volunteer moderators. [[SITE_CODE_LICENSE_STATEMENT_EN]]
 

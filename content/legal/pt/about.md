@@ -27,13 +27,14 @@ O gitmgf é **apenas um diretório**: não aloja nem executa as ferramentas. Nã
 
 ## Quem somos
 
-O gitmgf foi criado por uma equipa de cinco colegas, a mesma que organizou a formação:
+O gitmgf foi criado por uma equipa de seis colegas, a mesma que organizou a formação:
 
 - [Diogo Carapito](/u/diogo-carapito)
 - [Rui Diogo Rodrigues](/u/rui-diogo-rodrigues)
 - [Rita Abecassis](/u/rita-abecassis)
 - [Miguel Ferreira](/u/miguel-ferreira)
 - [Filipe Lebre](/u/filipe-lebre)
+- [Diana Silva](/u/diana-silva)
 
 O portal é mantido por [[CONTROLLER_NAME]], com a ajuda de moderadores voluntários. [[SITE_CODE_LICENSE_STATEMENT]]
 

@@ -45,7 +45,7 @@ def test_no_pt_prefixed_links_and_internal_links_resolve(client, db):
 
 def test_about_page_links_to_the_team_profiles_in_both_languages(client, db):
     handles = _about_team_handles()
-    assert len(handles) == 5
+    assert len(handles) == 6
     pt, en = client.get("/p/about").text, client.get("/en/p/about").text
     assert (
         "Inteligência Artificial e Literacia Digital" in pt
