@@ -11,6 +11,7 @@
   {% for row in rows %}
   <details class="panel">
     <summary><strong>{{ row.subject }}</strong> <span class="muted small">→ {{ row.to_email }} · {{ row.created_at | datetime('short') }} · {{ row.status }}</span></summary>
+    {% if row.last_error and row.status != 'sent' %}<p class="small"><strong>{{ _("Erro") }}:</strong> {{ row.last_error }} ({{ _("tentativas") }}: {{ row.attempts }})</p>{% endif %}
     <pre class="small">{{ row.body_text }}</pre>
   </details>
   {% else %}<p class="muted">{{ _("Ainda não há emails.") }}</p>{% endfor %}

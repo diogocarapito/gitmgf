@@ -143,6 +143,8 @@ Brevo is the provider: you need **no mailbox** to send. Setup:
 6. `./deploy/deploy.sh`, then test: `dc run --rm app cli send-test-email you@example.org`. It prints the SMTP error if something is wrong. In the received message, *Show original* should say SPF and DKIM **PASS**.
 7. Sign the Brevo DPA (Brevo account → Security / Legal) and keep a copy (content/legal/NOTES.md §2).
 
+**Troubleshooting.** `dc run --rm app cli emails` lists recent messages with status (`queued`/`sent`/`failed`), attempts and the last SMTP error; `--retry` re-queues the failed ones and sends them now. `email backend: none` means `SMTP_HOST` is not set, so nothing is ever sent. Typical errors: `535 Authentication failed` (wrong login/key: use the SMTP key, not an API key), `sender not valid` (sender/domain not verified in Brevo), timeouts (the VPS blocks port 587: try `SMTP_PORT=465` with `SMTP_SECURITY=ssl`, or `2525`). Brevo's own log is in **Transactional → Logs**.
+
 Messages queued in the last 30 days are sent once SMTP works. Notifications carry `Reply-To: contacto@…` (`SMTP_REPLY_TO`, default `LEGAL_CONTACT_EMAIL`), so appeals made "by replying" reach a read mailbox.
 
 ### 2.2 Receiving email (Cloudflare Email Routing)

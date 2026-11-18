@@ -10,7 +10,7 @@ from sqlalchemy import select
 
 from app.db import SessionLocal, get_engine
 from app.models import Category, User
-from app.models.enums import Role
+from app.models.enums import EmailStatus, Role
 from app.services import audit, certifications, legal, search, settings_store
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -162,11 +162,25 @@ def _create_user(email: str, role: Role, send_email: bool, lang: str) -> None:
             )
             user.role = role
         if send_email and auth_service.email_enabled():
-            auth_service.email_reset_link(db, user, None)
+            row = auth_service.email_reset_link(db, user, None)
             db.commit()
             email_service.deliver_queued(db)
-            typer.echo(f"{role.value} ready: {address} — set-password link emailed (valid 48 h)")
-            return
+            db.refresh(row)
+            if row.status == EmailStatus.sent:
+                typer.echo(f"{role.value} ready: {address} — set-password link emailed (valid 48 h)")
+                return
+            # The link in the queued email stays valid; the scheduler retries it with backoff.
+            typer.echo(f"{role.value} ready: {address}")
+            typer.echo(f"✗ email NOT sent: {row.last_error or row.status.value}", err=True)
+            typer.echo(
+                "  it will be retried automatically; see `cli emails` and `cli send-test-email`", err=True
+            )
+            raise typer.Exit(1)
+        if send_email:
+            typer.echo(
+                "SMTP is not configured (SMTP_HOST is empty): printing the link instead of emailing it",
+                err=True,
+            )
         token = auth_service.create_reset_link(db, user, None)
         db.commit()
         link = auth_service.reset_url(user.locale.value, token)
@@ -348,6 +362,36 @@ def send_test_email(to: str, lang: str = typer.Option("pt", help="pt or en")) ->
         typer.echo(f"✗ sending failed: {type(exc).__name__}: {exc}", err=True)
         raise typer.Exit(1) from exc
     typer.echo(f"✓ sent to {to}. Check the inbox (and spam) and that SPF/DKIM pass in the message headers.")
+
+
+@cli.command("emails")
+def emails(
+    limit: int = typer.Option(20, help="How many recent emails to show"),
+    retry: bool = typer.Option(False, "--retry", help="Re-queue failed emails and try to send them now"),
+) -> None:
+    """Show the email outbox: status, attempts and the last SMTP error of each message."""
+    from app.config import get_settings
+    from app.models import EmailOutbox
+    from app.services import email
+
+    typer.echo(f"email backend: {get_settings().email_backend}")
+    with _session() as db:
+        if retry:
+            for row in db.scalars(select(EmailOutbox).where(EmailOutbox.status == EmailStatus.failed)):
+                row.attempts = 0
+                row.next_attempt_at = None
+            db.commit()
+            typer.echo(f"sent now: {email.deliver_queued(db)}")
+        rows = db.scalars(select(EmailOutbox).order_by(EmailOutbox.id.desc()).limit(limit)).all()
+        for row in rows:
+            typer.echo(
+                f"#{row.id} {row.created_at:%Y-%m-%d %H:%M} {row.status.value:<6} "
+                f"x{row.attempts} {row.template} → {row.to_email}"
+            )
+            if row.last_error and row.status != EmailStatus.sent:
+                typer.echo(f"      {row.last_error}")
+        if not rows:
+            typer.echo("outbox is empty")
 
 
 @jobs_cli.command("send-outbox")

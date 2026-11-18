@@ -391,3 +391,31 @@ def test_cli_create_user_as_moderator(db_path, db):
         for m in email.SENT
     )
     assert runner.invoke(cli, ["create-user", "not-an-email", "--role", "moderator"]).exit_code == 1
+
+
+def test_cli_create_user_reports_a_failed_send(db_path, db, monkeypatch):
+    """--send must not claim success when SMTP refuses the message; `emails` shows why."""
+    from typer.testing import CliRunner
+
+    from app.cli import cli
+    from app.services import email
+
+    def refuse(msg):
+        raise RuntimeError("535 Authentication failed")
+
+    monkeypatch.setattr(email, "_send", refuse)
+    runner = CliRunner()
+    result = runner.invoke(cli, ["create-user", "mod3@example.org", "--role", "moderator", "--send"])
+    assert result.exit_code == 1 and "emailed" not in result.output
+    assert "email NOT sent: RuntimeError: 535 Authentication failed" in result.output
+    listing = runner.invoke(cli, ["emails"])
+    assert (
+        listing.exit_code == 0
+        and "failed" in listing.output
+        and "535 Authentication failed" in listing.output
+    )
+
+    monkeypatch.undo()
+    retried = runner.invoke(cli, ["emails", "--retry"])
+    assert retried.exit_code == 0 and "sent now: 1" in retried.output
+    assert any(m["To"] == "mod3@example.org" for m in email.SENT)

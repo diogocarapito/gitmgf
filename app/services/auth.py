@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.db import utcnow
-from app.models import Invite, PasswordResetToken, User
+from app.models import EmailOutbox, Invite, PasswordResetToken, User
 from app.models.enums import Locale, Role, UserStatus
 from app.services import audit, passwords, sessions, settings_store
 
@@ -224,13 +224,15 @@ def request_password_reset(db: Session, raw_email: str, lang: str) -> None:
     email.enqueue(db, user.email, "password_reset", {"link": reset_url(locale, token), "minutes": 60}, locale)
 
 
-def email_reset_link(db: Session, user: User, actor: User | None) -> None:
-    """Admin action: email a 48 h set-password link to the user."""
+def email_reset_link(db: Session, user: User, actor: User | None) -> EmailOutbox:
+    """Admin action: email a 48 h set-password link to the user. Returns the queued outbox row."""
     from app.services import email
 
     token = create_reset_link(db, user, actor)
     locale = user.locale.value
-    email.enqueue(db, user.email, "password_set", {"link": reset_url(locale, token), "hours": 48}, locale)
+    return email.enqueue(
+        db, user.email, "password_set", {"link": reset_url(locale, token), "hours": 48}, locale
+    )
 
 
 def email_invite(db: Session, invite: Invite, code: str, lang: str, inviter: User | None) -> None:
