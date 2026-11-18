@@ -1,20 +1,24 @@
 ---
-title: "How I built gitmgf in 8 hours with Claude Pro and Claude Code"
+title: "How I built gitmgf in a few hours with Claude Pro and Claude Code"
 date: 2026-11-18
 author: Diogo Carapito
-summary: "From idea to a live site in one day: a PRD and tech spec in Claude, design and logo with artifacts, the code with Claude Code, and deployment on a European VPS with its own domain."
+summary: "From idea to a live MVP in a few hours: a PRD and tech spec in Claude, design and logo with artifacts, the code with Claude Code, and deployment on a European VPS with its own domain. With PRD and TECH_SPEC templates to copy."
 ---
 
-gitmgf went from an idea to a public website in about 8 hours of work. I didn't write the code by hand: I wrote down what I wanted, reviewed what Claude proposed, and made the decisions. This article walks through the process step by step, for anyone who wants to do the same with a tool for their own clinical practice.
+gitmgf went from an idea to a public website in a few hours of work. That was the goal: build an **MVP** (minimum viable product), the simplest version that already solves the problem, and get it online fast. I didn't write the code by hand: I wrote down what I wanted, reviewed what Claude proposed, and made the decisions.
 
-**What you need:** a Claude Pro subscription (it includes Claude Code), a GitHub account, a domain and a virtual private server (VPS). Rough total: about €30 in the first month and under €30/month after that (see the summary at the end).
+**Putting a tool online, even a bare-bones one, is the most important step.** A simple tool that exists and that colleagues can use is worth more than a perfect one that never leaves your laptop. Real users are how you find out what's missing, what's unnecessary and what's worth improving. Everything else can come later, one version at a time.
+
+This article walks through the process step by step, for anyone who wants to do the same with a tool for their own clinical practice. At the end there are [PRD and TECH_SPEC templates](#templates-to-copy) to copy.
+
+**What you need:** a Claude Pro subscription (it includes Claude Code), a GitHub account, a domain and a virtual private server (VPS). Claude Pro is only needed while you build; **keeping the site online only costs the server (≈ €5–8/month) and the domain (≈ US$10–12/year)**.
 
 ## 1. Write the PRD and the tech spec in Claude
 
 Everything starts in a new chat at [claude.ai](https://claude.ai) (the **+ New chat** button). The goal of this phase is two documents:
 
-- **`PRD.md`** (Product Requirements Document): the what and why. Who it's for, which problems it solves, what the MVP includes, what waits for later, and acceptance criteria for each feature.
-- **`TECH_SPEC.md`**: the how. Technologies, data model, routes, security, privacy, tests, and a plan in milestones, each with a "definition of done".
+- **`PRD.md`** (Product Requirements Document): the what and why. Who it's for, which problems it solves, what the MVP includes, what waits for later, and acceptance criteria for each feature. Anyone should be able to read it, with no technical background.
+- **`TECH_SPEC.md`**: the how. Technologies, data model, routes, security, privacy, tests, and a plan in milestones, each with a "definition of done". It's the guide Claude Code follows to write the code.
 
 What worked best was asking Claude to interview me before writing anything:
 
@@ -23,6 +27,8 @@ What worked best was asking Claude to interview me before writing anything:
 Then, in the same chat:
 
 > Based on the PRD, write a `TECH_SPEC.md` for a simple MVP one person can maintain: Python, FastAPI, SQLite, no frontend framework, hosted on an EU VPS with Docker. Include the data model, security, GDPR, tests and milestones with a definition of done.
+
+If you'd rather start from a structure, paste the [templates at the end of this article](#templates-to-copy) into the chat and ask Claude to fill them in with you.
 
 Read everything carefully and fix whatever doesn't match what you want: these two files are the "contract" Claude Code will follow. I also had Claude write a **`CLAUDE.md`** (project conventions: commands, code rules, European Portuguese vocabulary) and drafts of the legal texts (terms, privacy). **Generated legal texts are only a starting point and should be reviewed by someone qualified.**
 
@@ -166,17 +172,138 @@ To send confirmation codes and notifications I used [Brevo](https://www.brevo.co
 ## What I learned
 
 - **The documents are the most important work.** A clear PRD saves hours of fixes. The more concrete the acceptance criteria, the better the result.
+- **Ship early.** The first version doesn't have to be complete; it has to work and be online. The best improvement ideas came after the site existed.
 - **Claude writes; you're responsible.** Review what gets built, especially security, privacy and legal texts. For a clinical tool, this isn't optional.
 - **Production problems are almost always configuration.** My Cloudflare 521 and 525 errors were missing `.env` values and a certificate still being issued, not bugs in the code.
 - **Start small.** A €5 server handles far more than you'd think with SQLite and a simple app.
 
 ## Cost summary
 
+**To build** (only while you develop):
+
 | | Approx. cost |
 |---|---|
 | Claude Pro (includes Claude Code) | ≈ US$20/month (≈ US$17/month billed annually) |
+
+**To keep it online:**
+
+| | Approx. cost |
+|---|---|
 | EU VPS | ≈ €5–8/month |
 | `.com` domain | ≈ US$10–12/year |
 | Email (Brevo free plan) and Cloudflare | €0 |
 
-If you build a useful tool for clinical practice this way, [share it on gitmgf](/en/me/tools/new).
+## Templates to copy
+
+These templates follow the structure of the gitmgf documents, simplified. You don't have to fill in everything: for a small tool, half a page per document is enough. What matters is that the PRD says **what** and **for whom**, and the TECH_SPEC says **how** and **in what order**.
+
+### PRD template
+
+```markdown
+# <Tool name> — PRD (Product Requirements Document)
+
+## 1. Summary
+One or two sentences: what it is, who it's for and why it's useful.
+
+## 2. Problem
+What goes wrong today? How is it solved now and what does that cost
+(time, errors, frustration)?
+
+## 3. Goals and non-goals
+- MVP goals: 3 to 5, measurable if possible.
+- Non-goals: what is deliberately left out.
+
+## 4. Users
+Who uses it, in what context (consultation, home visit, phone, clinic
+computer) and how comfortable they are with technology. 2 to 3 short profiles.
+
+## 5. MVP features
+A short list, by priority (Must / Should).
+
+## 6. Functional requirements
+For each feature:
+### F1 — <name>
+- What it does, rules and edge cases.
+- Acceptance criteria: "A user can … and sees …".
+
+## 7. Non-functional requirements
+Performance, accessibility, languages, devices, availability.
+
+## 8. Privacy and regulation
+What personal data does it handle? Any patient data? Could it be a
+medical device? (Check with someone qualified before launch.)
+
+## 9. Success metrics
+How you'll know, after 3 to 6 months, whether it worked.
+
+## 10. Release plan
+MVP → test with a few colleagues → open to the public.
+
+## 11. After the MVP
+Good ideas that don't make it in now.
+
+## 12. Open questions
+Decisions still to make, each with its default option.
+```
+
+### TECH_SPEC template
+
+```markdown
+# <Tool name> — Technical specification
+
+## 1. Architecture
+A simple diagram: browser → web server → app → database.
+Where it runs (local machine, VPS, cloud service).
+
+## 2. Technologies
+Language, framework, database and main libraries, with versions.
+What NOT to use (to keep the project simple).
+
+## 3. Repository layout
+Folders and what lives in each.
+
+## 4. Configuration
+Environment variables (.env): which are required and which are secret.
+
+## 5. Data model
+Tables, fields and relations. States and transitions
+(e.g. draft → pending → published).
+
+## 6. Authentication and permissions
+How people sign in, which roles exist (user, moderator, admin)
+and who can do what.
+
+## 7. Pages and routes
+A list of pages and actions: what they show, what data they take,
+who can access them.
+
+## 8. Main rules and flows
+The important flows, step by step (e.g. submit, review, publish).
+
+## 9. Security and privacy
+Checklist: HTTPS, passwords, form protection, input validation,
+logs without personal data, retention periods.
+
+## 10. Emails and scheduled jobs
+What is sent and when; which jobs run in the background.
+
+## 11. Tests
+What must always be tested (permissions, main flows).
+
+## 12. Deployment
+Server, Docker, domain, HTTPS, backups and how to ship a new version.
+
+## 13. Implementation plan
+Milestones in order, each with a "definition of done".
+E.g. 1. Foundation and static pages · 2. Accounts · 3. Core feature ·
+4. Search · 5. Hardening and deploy.
+
+## 14. Decisions log
+Decisions made and why (can live in a separate DECISIONS.md file).
+```
+
+## Now it's your turn
+
+Almost every clinician has an idea tucked away: a calculator they miss during consultations, a protocol that could be an interactive flowchart, a checklist for residency, a faster way to do that one repetitive task. Until recently, turning that idea into a tool meant learning to code or paying someone who could. Today the gap is a few hours and a good description of the problem.
+
+Pick a small idea, write down the problem, ask Claude to interview you, and ship the first version, even a simple one. The colleagues who use it will tell you what to improve. And once it's online, [share it on gitmgf](/en/me/tools/new).

@@ -1,6 +1,6 @@
 from app.services import blog
 
-SLUG = "como-criei-a-gitmgf"
+SLUG = "como-criei-o-gitmgf"
 
 
 def test_every_article_exists_in_both_languages_with_front_matter():
@@ -18,12 +18,12 @@ def test_blog_index_and_article_render_in_both_languages(client):
     page = client.get(f"/blog/{SLUG}")
     assert page.status_code == 200 and "Claude Code" in page.text and "<pre>" in page.text
     en = client.get(f"/en/blog/{SLUG}")
-    assert en.status_code == 200 and "How I built gitmgf" in en.text
+    assert en.status_code == 200 and "How I built gitmgf in a few hours" in en.text
     assert f'href="/en/blog/{SLUG}"' in client.get("/en/blog").text
 
 
 def test_unknown_or_unsafe_slugs_are_404(client):
-    for slug in ("nao-existe", "..%2F..%2Fapp%2Fconfig", "Como-Criei-A-Gitmgf"):
+    for slug in ("nao-existe", "..%2F..%2Fapp%2Fconfig", "Como-Criei-O-Gitmgf"):
         assert client.get(f"/blog/{slug}").status_code == 404
     assert blog.get("../legal/pt/terms", "pt") is None
 
