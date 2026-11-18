@@ -7,6 +7,17 @@ last_updated: 2026-11-19
 
 gitmgf is a portal where clinicians — and anyone building tools for clinicians — publish, discover and reuse the digital tools they made: calculators, web and desktop apps, spreadsheets, scripts, browser extensions and AI prompts. The focus is **primary care (General Practice / Family Medicine)** and **residency**, without excluding hospital care.
 
+## Who we are
+
+gitmgf was created by six colleagues, who also organised the "Inteligência Artificial e Literacia Digital" training:
+
+- [Diogo Carapito](/en/u/diogo-carapito)
+- [Rui Diogo Rodrigues](/en/u/rui-diogo-rodrigues)
+- [Rita Abecassis](/en/u/rita-abecassis)
+- [Miguel Ferreira](/en/u/miguel-ferreira)
+- [Filipe Lebre](/en/u/filipe-lebre)
+- [Diana Silva](/en/u/diana-silva)
+
 ## How it started
 
 gitmgf grew out of the **"Inteligência Artificial e Literacia Digital"** (Artificial Intelligence and Digital Literacy) training, which we organised with the **Coordination of the Family Medicine Residency Programme of Lisboa e Vale do Tejo** (Coordenação do Internato Médico de Medicina Geral e Familiar de Lisboa e Vale do Tejo). It started in 2026 for **Family Medicine residents**, and also includes a **course for residency supervisors** (orientadores de formação).
@@ -25,17 +36,6 @@ Many professionals build useful tools — indicator templates, residency portfol
 
 gitmgf is **only a directory**: it does not host or run tools. There are no ads or paid placements, and pages use no analytics cookies or third-party services. Read more in the [Privacy Policy](/en/p/privacy).
 
-## Who we are
-
-gitmgf was created by a team of six colleagues, the same team that organised the training:
-
-- [Diogo Carapito](/en/u/diogo-carapito)
-- [Rui Diogo Rodrigues](/en/u/rui-diogo-rodrigues)
-- [Rita Abecassis](/en/u/rita-abecassis)
-- [Miguel Ferreira](/en/u/miguel-ferreira)
-- [Filipe Lebre](/en/u/filipe-lebre)
-- [Diana Silva](/en/u/diana-silva)
-
-The portal is run by [[CONTROLLER_NAME]], with the help of volunteer moderators. [[SITE_CODE_LICENSE_STATEMENT_EN]]
+[[SITE_CODE_LICENSE_STATEMENT_EN]]
 
 Have a tool to share or a suggestion? See the [Contact](/en/p/contact) page.

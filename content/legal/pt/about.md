@@ -7,6 +7,17 @@ last_updated: 2026-11-19
 
 O gitmgf é um portal onde clínicos — e quem constrói ferramentas para clínicos — publicam, descobrem e reutilizam as ferramentas digitais que criaram: calculadoras, aplicações web e de computador, folhas de cálculo, *scripts*, extensões de navegador e *prompts* de IA. O foco são os **cuidados de saúde primários (Medicina Geral e Familiar)** e o **Internato**, sem excluir os cuidados hospitalares.
 
+## Quem somos
+
+O gitmgf foi criado por seis colegas, que organizaram também a formação «Inteligência Artificial e Literacia Digital»:
+
+- [Diogo Carapito](/u/diogo-carapito)
+- [Rui Diogo Rodrigues](/u/rui-diogo-rodrigues)
+- [Rita Abecassis](/u/rita-abecassis)
+- [Miguel Ferreira](/u/miguel-ferreira)
+- [Filipe Lebre](/u/filipe-lebre)
+- [Diana Silva](/u/diana-silva)
+
 ## Como nasceu
 
 O gitmgf nasceu da formação **«Inteligência Artificial e Literacia Digital»**, que organizámos com a **Coordenação do Internato Médico de Medicina Geral e Familiar de Lisboa e Vale do Tejo**. A formação começou em 2026, dirigida aos **internos de Medicina Geral e Familiar**, e inclui também um **curso para orientadores de formação**.
@@ -25,17 +36,6 @@ Muitos profissionais constroem ferramentas úteis — modelos de indicadores, aj
 
 O gitmgf é **apenas um diretório**: não aloja nem executa as ferramentas. Não tem publicidade nem posições pagas, e não usa *cookies* de análise nem serviços de terceiros nas páginas. Saiba mais na [Política de Privacidade](/p/privacy).
 
-## Quem somos
-
-O gitmgf foi criado por uma equipa de seis colegas, a mesma que organizou a formação:
-
-- [Diogo Carapito](/u/diogo-carapito)
-- [Rui Diogo Rodrigues](/u/rui-diogo-rodrigues)
-- [Rita Abecassis](/u/rita-abecassis)
-- [Miguel Ferreira](/u/miguel-ferreira)
-- [Filipe Lebre](/u/filipe-lebre)
-- [Diana Silva](/u/diana-silva)
-
-O portal é mantido por [[CONTROLLER_NAME]], com a ajuda de moderadores voluntários. [[SITE_CODE_LICENSE_STATEMENT]]
+[[SITE_CODE_LICENSE_STATEMENT]]
 
 Tem uma ferramenta para partilhar ou uma sugestão? Veja a página de [Contacto](/p/contact).
