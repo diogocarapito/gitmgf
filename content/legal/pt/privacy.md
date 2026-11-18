@@ -45,7 +45,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | **Conta** | Endereço de email; nome a apresentar; identificador público (*handle*); profissão; especialidade (opcional); local de trabalho (opcional); nome de utilizador no GitHub (opcional); idioma preferido; versão e data de aceitação dos Termos | Fornecidos por si |
 | **Autenticação** | Palavra-passe, guardada apenas em forma cifrada irreversível (*hash* scrypt com sal); códigos de convite, códigos de confirmação de email e de redefinição de palavra-passe, ligações de redefinição e identificadores de sessão, também guardados apenas em forma irreversível; enquanto um registo aguarda confirmação, os dados do formulário (nome, email, profissão, especialidade e a palavra-passe já em *hash*); tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si ou gerados pelo Serviço |
 | **Conteúdo publicado** | Fichas de ferramentas (textos, ligações, email de suporte se o indicar, licença, plataformas, declarações de tratamento de dados e de certificações), capturas de ecrã e revisões | Fornecidos por si |
-| **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta) | Fornecidos por si |
+| **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta); sugestões que envia ou recebe para ferramentas (tipo, mensagem, data e se aceitou partilhar o email com o autor) | Fornecidos por si |
 | **Medição de utilização (pseudonimizada)** | Pesquisas efetuadas (texto, filtros, número de resultados); cliques em resultados e em ligações para ferramentas; visualizações de páginas de ferramentas — associados a um identificador diário pseudonimizado, nunca ao seu endereço IP | Gerados pela utilização do site |
 | **Registos técnicos e de segurança** | Endereço IP, data/hora, página pedida, código de resposta e tipo de navegador, nos registos do servidor | Gerados automaticamente |
 | **Comunicações** | Emails transacionais que lhe enviamos e mensagens que nos envia | Gerados pelo serviço / fornecidos por si |
@@ -63,6 +63,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | Publicar e mostrar as suas ferramentas, com o seu nome, profissão, especialidade e ligação GitHub | Conta, conteúdo publicado | Execução do contrato (art. 6.º, n.º 1, al. b)) |
 | Rever submissões, tratar denúncias, fundamentar decisões de moderação e responder a contestações | Conteúdo, interações, moderação, comunicações | Cumprimento de obrigação jurídica — Regulamento (UE) 2022/2065, Regulamento dos Serviços Digitais (art. 6.º, n.º 1, al. c)) — e interesse legítimo em manter o portal seguro e fiável (al. f)) |
 | Enviar emails necessários ao serviço (acesso, estado das submissões, decisões, avisos de expiração de certificações) | Conta, comunicações | Execução do contrato (art. 6.º, n.º 1, al. b)) |
+| Entregar ao autor de uma ferramenta as sugestões que lhe envia, por email e nas notificações do gitmgf; partilhar o seu email com o autor só se o autorizar | Conta, interações | Execução do contrato (art. 6.º, n.º 1, al. b)); consentimento para partilhar o email (al. a)), que pode retirar não voltando a assinalar a opção |
 | Calcular a popularidade das ferramentas e ordenar pesquisas; mostrar estatísticas agregadas aos autores; perceber que ferramentas faltam (pesquisas sem resultados) | Medição de utilização (pseudonimizada), estrelas | Interesse legítimo em oferecer pesquisa relevante e melhorar o serviço (art. 6.º, n.º 1, al. f)) |
 | Garantir a segurança, prevenir abusos e fraude (spam, manipulação de pontuações), limitar pedidos excessivos | Registos técnicos, medição de utilização, conta | Interesse legítimo na segurança do serviço e dos utilizadores (art. 6.º, n.º 1, al. f)) |
 | Cópias de segurança e recuperação de desastres | Todos os dados da base de dados e ficheiros | Interesse legítimo na continuidade do serviço (art. 6.º, n.º 1, al. f)) |
@@ -80,6 +81,8 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 ## 5. O que fica visível para outras pessoas
 
 Quando publica uma ferramenta, ficam **públicos** na página dessa ferramenta: o nome a apresentar, a profissão, a especialidade (se indicada), a ligação para o seu perfil GitHub (se indicada) e todo o conteúdo da ferramenta, incluindo as certificações declaradas. O número total de estrelas é público; **quem** atribuiu as estrelas não é.
+
+Quando envia uma sugestão, o autor da ferramenta vê o seu nome a apresentar e a mensagem; vê também o seu email **apenas se o autorizar** no formulário (nesse caso, pode responder-lhe diretamente).
 
 O seu email, local de trabalho, sessões, pesquisas, denúncias e estatísticas pessoais **não são públicos**. Os moderadores e administradores podem consultá-los apenas na medida necessária às suas funções.
 
@@ -131,6 +134,7 @@ Os nossos subcontratantes tratam os dados no Espaço Económico Europeu (EEE). N
 | Chave diária de pseudonimização | Substituída e apagada todos os dias |
 | Registos do servidor (incluindo endereço IP) | 14 dias |
 | Emails enviados (fila de envio) | 30 dias |
+| Sugestões enviadas a autores | 1 ano, ou até o autor as remover. Apagadas se o remetente ou o destinatário eliminar a conta |
 | Denúncias | 2 anos após a decisão. Os dados do denunciante são anonimizados se eliminar a conta |
 | Registo de auditoria de moderação e administração | 3 anos, para demonstrar o cumprimento das regras de moderação e defender direitos. Após a eliminação de uma conta, a referência ao utilizador é pseudonimizada |
 | Cópias de segurança | Até 30 dias. Dados eliminados da base de dados desaparecem das cópias quando estas expiram |

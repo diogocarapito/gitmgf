@@ -25,6 +25,7 @@ class EmailOutbox(Base):
     )
     attempts: Mapped[int] = mapped_column(default=0)
     last_error: Mapped[str | None] = mapped_column(String(500))
+    reply_to: Mapped[str | None] = mapped_column(String(254))  # overrides the site Reply-To
     next_attempt_at: Mapped[datetime | None]
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
     sent_at: Mapped[datetime | None]

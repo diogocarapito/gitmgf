@@ -43,5 +43,10 @@ def can_star(user: User | None, tool: Tool) -> bool:
     )
 
 
+def can_suggest(user: User | None, tool: Tool) -> bool:
+    """Signed-in, active users may send suggestions to the author of a public tool that isn't theirs."""
+    return user is not None and user.is_active and tool.is_public and not is_owner(user, tool)
+
+
 def can_view_stats(user: User | None) -> bool:
     return is_moderator(user)

@@ -138,6 +138,12 @@ REPORT_REASON = {
     "other": N_("Outro"),
 }
 
+SUGGESTION_KIND = {
+    "feature": N_("Nova funcionalidade"),
+    "improvement": N_("Melhoria"),
+    "other": N_("Outra sugestão"),
+}
+
 REPORT_STATUS = {"open": N_("Aberta"), "resolved": N_("Resolvida"), "dismissed": N_("Arquivada sem ação")}
 
 # Moderation reason templates (TECH_SPEC §7.3) — the final text is stored in the owner's locale.
@@ -199,6 +205,8 @@ LICENSE_LABEL = dict(LICENSES)
 # Messages shown after a redirect (`?flash=<key>`): stateless, no flash cookie needed.
 FLASH = {
     "saved": ("ok", N_("Alterações guardadas.")),
+    "suggested": ("ok", N_("Sugestão enviada ao autor. Obrigado!")),
+    "suggestion_deleted": ("ok", N_("Sugestão removida.")),
     "signed_out_all": ("ok", N_("Sessão terminada em todos os dispositivos.")),
     "draft_saved": ("ok", N_("Rascunho guardado.")),
     "submitted": ("ok", N_("Ferramenta submetida para revisão. Vai receber um email com a decisão.")),

@@ -17,6 +17,7 @@ from app.models import (
     Report,
     SearchQuery,
     Star,
+    Suggestion,
     Tool,
     ToolRevision,
     User,
@@ -30,6 +31,7 @@ PURGE_AFTER = timedelta(days=30)
 EVENTS_RETENTION = timedelta(days=180)
 MAGIC_LINK_RETENTION = timedelta(days=3)  # reset links: 48 h validity, deleted after 3 days
 OUTBOX_RETENTION = timedelta(days=30)
+SUGGESTION_RETENTION = timedelta(days=365)
 EMAIL_CODE_RETENTION = timedelta(days=1)  # codes: 15 min validity; pending registrations deleted after 24 h
 REPORT_RETENTION = timedelta(days=730)
 AUDIT_RETENTION = timedelta(days=3 * 365)
@@ -45,6 +47,8 @@ def export(db: Session, user: User) -> dict[str, Any]:
     revisions = db.scalars(select(ToolRevision).where(ToolRevision.submitted_by == user.id)).unique().all()
     stars = db.execute(select(Star.tool_id, Star.created_at).where(Star.user_id == user.id)).all()
     reports = db.scalars(select(Report).where(Report.reporter_id == user.id)).unique().all()
+    sent = db.scalars(select(Suggestion).where(Suggestion.sender_id == user.id)).unique().all()
+    received = db.scalars(select(Suggestion).where(Suggestion.recipient_id == user.id)).unique().all()
     return {
         "exported_at": utcnow().isoformat(),
         "profile": {
@@ -106,6 +110,25 @@ def export(db: Session, user: User) -> dict[str, Any]:
             }
             for r in reports
         ],
+        "suggestions_sent": [
+            {
+                "tool_id": s.tool_id,
+                "kind": s.kind.value,
+                "message": s.message,
+                "email_shared": s.allow_reply,
+                "created_at": _iso(s.created_at),
+            }
+            for s in sent
+        ],
+        "suggestions_received": [
+            {
+                "tool_id": s.tool_id,
+                "kind": s.kind.value,
+                "message": s.message,
+                "created_at": _iso(s.created_at),
+            }
+            for s in received
+        ],
     }
 
 
@@ -138,6 +161,9 @@ def delete_account(db: Session, user: User, actor: User) -> None:
     user.password_hash = None
     db.execute(delete(PasswordResetToken).where(PasswordResetToken.user_id == user.id))
     db.execute(delete(EmailCode).where(EmailCode.email == user.email))
+    db.execute(
+        delete(Suggestion).where((Suggestion.sender_id == user.id) | (Suggestion.recipient_id == user.id))
+    )
     marker = pseudonym(user.id)
     for entry in db.scalars(
         select(AuditLog).where(
@@ -190,6 +216,7 @@ def purge(db: Session) -> dict[str, int]:
         "password_reset_tokens",
         delete(PasswordResetToken).where(PasswordResetToken.created_at < now - MAGIC_LINK_RETENTION),
     )
+    run("suggestions", delete(Suggestion).where(Suggestion.created_at < now - SUGGESTION_RETENTION))
     run("email_codes", delete(EmailCode).where(EmailCode.created_at < now - EMAIL_CODE_RETENTION))
     run("sessions", delete(UserSession).where(UserSession.expires_at < now))
     run(

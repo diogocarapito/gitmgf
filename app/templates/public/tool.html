@@ -36,7 +36,6 @@
         {% for kind, href in links[1:] %}
         <a class="btn" href="/go/{{ tool.id }}/{{ kind }}" rel="nofollow noopener" target="_blank">{{ icon({'download': 'download', 'repo': 'code', 'docs': 'book', 'website': 'external'}[kind]) }} {{ _(labels.LINK_KIND[kind]) }} <span class="muted xsmall">{{ href | domain }}</span></a>
         {% endfor %}
-        <p class="external-note">{{ icon('external') }} {{ _("Vai abrir um site externo, fora da gitmgf.") }}</p>
         {% endif %}
         {% if tool.status == 'published' %}
           {% if user %}{% include "partials/star_button.html" %}
@@ -157,6 +156,7 @@
         </dl>
         {% if tool.is_public %}<p class="small section--tight tool-help">
           {%- if tool.support_email %}<a href="mailto:{{ tool.support_email }}" title="{{ tool.support_email }}">{{ icon('mail') }} {{ _("Contactar suporte") }}</a>{% endif -%}
+          {%- if can_suggest %}<a href="{{ url('/t/' ~ tool.slug ~ '/suggest') }}" rel="nofollow">{{ icon('lightbulb') }} {{ _("Sugerir melhoria") }}</a>{% endif %}
           <a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Reportar problema") }}</a>
         </p>{% endif %}
       </section>

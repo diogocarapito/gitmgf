@@ -8,14 +8,15 @@ from sqlalchemy import func, select
 
 from app import i18n
 from app.config import get_settings
-from app.deps import DB, CurrentUser, Form
+from app.deps import DB, CurrentUser, Form, UserDep
 from app.forms.search import SearchQueryParams
 from app.i18n import N_, lang_prefix
-from app.models import Category, Tool, ToolMedia, tool_categories
+from app.models import Category, Tool, ToolMedia, User, tool_categories
 from app.models.enums import EventKind, MediaState, ToolStatus
 from app.routers.auth import client_key
 from app.services import blog, certifications, email, legal, permissions, ratelimit, search, tracking
 from app.services import reports as report_service
+from app.services import suggestions as suggestion_service
 from app.services import tools as tool_service
 from app.templating import is_htmx, render
 
@@ -199,6 +200,7 @@ def tool_page_context(request: Request, db: DB, user: Any, tool: Tool) -> dict[s
         "primary_link": links[0] if links else None,
         "media": media,
         "starred": tool_service.is_starred(db, tool, user),
+        "can_suggest": user is None or permissions.can_suggest(user, tool),
         "can_star": permissions.can_star(user, tool),
         "is_owner": permissions.is_owner(user, tool),
         "can_moderate": permissions.can_moderate(user, tool),
@@ -335,6 +337,56 @@ def _report_page(
         {"tool": tool, "values": values, "errors": errors, "stamp": _form_stamp()},
         status_code=status_code,
     )
+
+
+def _suggestable(db: DB, slug: str, user: User) -> Tool:
+    tool = db.scalar(select(Tool).where(Tool.slug == slug))
+    if tool is None or not permissions.can_suggest(user, tool):
+        raise HTTPException(status_code=404)
+    return tool
+
+
+def _suggest_page(
+    request: Request, tool: Tool, values: dict[str, Any], errors: dict[str, Any], status_code: int = 200
+) -> Response:
+    return render(
+        request, "public/suggest.html", {"tool": tool, "values": values, "errors": errors}, status_code
+    )
+
+
+@pages.get("/t/{slug}/suggest")
+def suggest_form(request: Request, db: DB, user: UserDep, slug: str) -> Response:
+    return _suggest_page(request, _suggestable(db, slug, user), {}, {})
+
+
+@pages.post("/t/{slug}/suggest")
+def suggest_submit(
+    request: Request, db: DB, user: UserDep, slug: str, form: Form, background: BackgroundTasks
+) -> Response:
+    """Feature requests and suggestions go to the author by email and to their notifications (D32)."""
+    from pydantic import ValidationError
+
+    from app.forms.common import errors_from, form_to_dict
+    from app.forms.suggestion import SuggestionForm
+    from app.models.enums import SuggestionKind
+
+    tool = _suggestable(db, slug, user)
+    raw = form_to_dict(form)
+    raw["allow_reply"] = form.get("allow_reply") == "1"
+    try:
+        data = SuggestionForm.model_validate(raw)
+    except ValidationError as exc:
+        return _suggest_page(request, tool, raw, errors_from(exc), 422)
+    if not (
+        ratelimit.hit(ratelimit.SUGGEST_USER, "suggest", str(user.id))
+        and ratelimit.hit(ratelimit.SUGGEST_USER_TOOL, "suggest-tool", str(user.id), str(tool.id))
+    ):
+        errors = {"__all__": (N_("Enviou demasiadas sugestões hoje. Tente novamente amanhã."), {})}
+        return _suggest_page(request, tool, raw, errors, 429)
+    suggestion_service.send(db, tool, user, SuggestionKind(data.kind), data.message, data.allow_reply)
+    db.commit()
+    background.add_task(email.deliver_queued)
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/t/{tool.slug}?flash=suggested", 303)
 
 
 @pages.get("/t/{slug}/report")

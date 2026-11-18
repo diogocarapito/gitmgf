@@ -1,4 +1,4 @@
-"""Signed-in user's own area: settings, linked accounts, stars, GDPR self-service."""
+"""Signed-in user's own area: settings, notifications, stars, GDPR self-service."""
 
 from typing import Any
 
@@ -135,6 +135,41 @@ def my_stars(request: Request, db: DB, user: UserDep) -> Response:
     )
     badges = certifications.badges_for(db, [t.id for t in tools], request.state.lang)
     return render(request, "me/stars.html", {"tools": tools, "badges": badges})
+
+
+@pages.get("/me/notifications")
+def notifications(request: Request, db: DB, user: UserDep, page: int = 1) -> Response:
+    """Suggestions received for the user's tools; opening the page marks them as read (D32)."""
+    from app.services import suggestions
+
+    page = max(1, page)
+    rows = suggestions.inbox(db, user, page)
+    unread = {s.id for s in rows if s.read_at is None}
+    suggestions.mark_all_read(db, user)
+    db.commit()
+    request.state.unread_count = 0
+    return render(
+        request,
+        "me/notifications.html",
+        {
+            "items": rows[: suggestions.PAGE],
+            "unread": unread,
+            "page": page,
+            "has_next": len(rows) > suggestions.PAGE,
+        },
+    )
+
+
+@actions.post("/me/notifications/{suggestion_id}/delete")
+def delete_notification(request: Request, db: DB, user: UserDep, suggestion_id: int) -> Response:
+    from app.services import suggestions
+
+    if not suggestions.remove(db, user, suggestion_id):
+        raise HTTPException(status_code=404)
+    db.commit()
+    return RedirectResponse(
+        f"{lang_prefix(request.state.lang)}/me/notifications?flash=suggestion_deleted", status_code=303
+    )
 
 
 @actions.get("/me/export.json")

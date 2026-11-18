@@ -6,6 +6,7 @@
 - Tool cards show the first screenshot; the form explains it. Certification badges share the badge line on cards and tool pages. Categorias first in the Explorar filters.
 - Optional public support email on tools, shown as "Contactar suporte" next to "Reportar problema".
 - Reports: "Material desadequado" reason replaces the CSAM checkbox; anonymous reports always need an email (D31).
+- "Sugerir melhoria": suggestions and feature requests to authors by email and in a new Notificações page with an unread bell (D32).
 
 ## 0.3.0 — 2026-11-18 · Open registration with email codes
 

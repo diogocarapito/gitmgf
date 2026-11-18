@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ _("Notificações") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <h1>{{ _("Notificações") }}</h1>
+    <p>{{ _("Sugestões e pedidos de funcionalidades enviados para as suas ferramentas. Também os recebe por email.") }}</p>
+  </header>
+  {% for s in items %}
+  <article class="panel notification{% if s.id in unread %} notification--unread{% endif %}">
+    <header class="notification__head">
+      <span class="badge badge--oss">{{ label(labels.SUGGESTION_KIND, s.kind) }}</span>
+      {% if s.id in unread %}<span class="badge badge--new">{{ _("Nova") }}</span>{% endif %}
+      <a href="{{ url('/t/' ~ s.tool.slug) }}"><strong>{{ localized(s.tool, "title") }}</strong></a>
+      <span class="muted small">· {{ s.created_at | datetime('short') }}</span>
+    </header>
+    <p class="notification__message">{{ s.message }}</p>
+    <footer class="notification__foot small">
+      <span>{{ _("De") }} {{ s.sender.display_name if s.sender and s.sender.display_name else _("um utilizador que eliminou a conta") }}</span>
+      {% if s.allow_reply and s.sender %}<a href="mailto:{{ s.sender.email }}?subject={{ ('gitmgf: ' ~ localized(s.tool, 'title')) | urlencode }}">{{ icon('mail') }} {{ _("Responder por email") }}</a>{% endif %}
+      <form method="post" action="/me/notifications/{{ s.id }}/delete" data-confirm="{{ _('Remover esta sugestão?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--ghost" type="submit">{{ icon('trash') }} {{ _("Remover") }}</button></form>
+    </footer>
+  </article>
+  {% else %}
+  <p class="muted">{{ _("Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das suas ferramentas, aparece aqui.") }}</p>
+  {% endfor %}
+  {{ m.pagination(page, has_next, url('/me/notifications')) }}
+</div>
+{% endblock %}

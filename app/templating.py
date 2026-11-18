@@ -126,6 +126,7 @@ def base_context(request: Request) -> dict[str, Any]:
         "lang": lang,
         "other_lang": "en" if lang == "pt" else "pt",
         "user": getattr(request.state, "user", None),
+        "unread_count": getattr(request.state, "unread_count", 0),
         "csrf_token": getattr(request.state, "csrf_token", ""),
         "path": path,
         "full_path": path + (f"?{request.url.query}" if request.url.query else ""),

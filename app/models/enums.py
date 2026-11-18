@@ -159,6 +159,12 @@ class ReportReason(StrEnum):
     other = "other"
 
 
+class SuggestionKind(StrEnum):
+    feature = "feature"
+    improvement = "improvement"
+    other = "other"
+
+
 class ReportStatus(StrEnum):
     open = "open"
     resolved = "resolved"

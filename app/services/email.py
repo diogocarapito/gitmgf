@@ -27,7 +27,9 @@ MAX_ATTEMPTS = 5
 SENT: list[EmailMessage] = []
 
 
-def enqueue(db: Session, to: str, template: str, context: dict[str, Any], locale: str) -> EmailOutbox:
+def enqueue(
+    db: Session, to: str, template: str, context: dict[str, Any], locale: str, reply_to: str | None = None
+) -> EmailOutbox:
     from app.templating import render_email
 
     subject, text, html = render_email(template, context, locale)
@@ -40,6 +42,7 @@ def enqueue(db: Session, to: str, template: str, context: dict[str, Any], locale
         body_text=text,
         body_html=html,
         next_attempt_at=utcnow(),
+        reply_to=reply_to,
     )
     db.add(row)
     return row
@@ -60,8 +63,9 @@ def build_message(row: EmailOutbox) -> EmailMessage:
     msg["Date"] = formatdate(localtime=False)
     msg["Message-ID"] = make_msgid(domain=settings.smtp_from.split("@")[-1].strip("> ") or None)
     msg["Auto-Submitted"] = "auto-generated"
-    if settings.reply_to:
-        msg["Reply-To"] = settings.reply_to  # replies (e.g. appeals) reach a read mailbox, not noreply@
+    reply_to = row.reply_to or settings.reply_to
+    if reply_to:
+        msg["Reply-To"] = reply_to  # replies reach a read mailbox (appeals) or the sender of a suggestion
     msg.set_content(row.body_text)
     msg.add_alternative(row.body_html, subtype="html")
     return msg

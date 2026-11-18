@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 22:34+0000\n"
+"POT-Creation-Date: 2026-11-18 22:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -345,6 +345,15 @@ msgstr ""
 msgid "Conteúdo ilegal"
 msgstr ""
 
+msgid "Nova funcionalidade"
+msgstr ""
+
+msgid "Melhoria"
+msgstr ""
+
+msgid "Outra sugestão"
+msgstr ""
+
 msgid "Aberta"
 msgstr ""
 
@@ -412,6 +421,12 @@ msgid "Desconhecida"
 msgstr ""
 
 msgid "Alterações guardadas."
+msgstr ""
+
+msgid "Sugestão enviada ao autor. Obrigado!"
+msgstr ""
+
+msgid "Sugestão removida."
 msgstr ""
 
 msgid "Sessão terminada em todos os dispositivos."
@@ -569,6 +584,9 @@ msgstr ""
 msgid "Novas ferramentas"
 msgstr ""
 
+msgid "Enviou demasiadas sugestões hoje. Tente novamente amanhã."
+msgstr ""
+
 msgid "Não foi possível enviar. Aguarde uns segundos e tente novamente."
 msgstr ""
 
@@ -623,6 +641,9 @@ msgid ""
 "Ocultada automaticamente após %(n)s denúncias abertas de conteúdo clínico"
 " perigoso ou de problemas de segurança, enquanto um moderador analisa o "
 "caso."
+msgstr ""
+
+msgid "Um utilizador"
 msgstr ""
 
 msgid "Faltam campos obrigatórios. Reveja o formulário antes de submeter."
@@ -762,6 +783,12 @@ msgid "Alternar tema claro/escuro"
 msgstr ""
 
 msgid "Idioma"
+msgstr ""
+
+msgid "Notificações"
+msgstr ""
+
+msgid "por ler"
 msgstr ""
 
 msgid "Menu da conta"
@@ -1750,6 +1777,34 @@ msgstr ""
 msgid "Obrigado por partilhar o seu trabalho."
 msgstr ""
 
+#, python-format
+msgid "Nova sugestão para «%(title)s»"
+msgstr ""
+
+#, python-format
+msgid "Olá %(name)s,"
+msgstr ""
+
+#, python-format
+msgid "%(sender)s enviou uma sugestão para a sua ferramenta «%(title)s»."
+msgstr ""
+
+msgid "Tipo:"
+msgstr ""
+
+msgid ""
+"Pode responder diretamente a este email: a resposta vai para quem enviou "
+"a sugestão."
+msgstr ""
+
+msgid ""
+"Quem enviou a sugestão não partilhou o email, por isso não é possível "
+"responder por aqui."
+msgstr ""
+
+msgid "Ver todas as sugestões:"
+msgstr ""
+
 msgid "Email de teste da gitmgf"
 msgstr ""
 
@@ -1823,10 +1878,6 @@ msgstr ""
 
 #, python-format
 msgid "A ficha «%(title)s» voltou a estar visível ao público:"
-msgstr ""
-
-#, python-format
-msgid "Olá %(name)s,"
 msgstr ""
 
 msgid ""
@@ -1903,6 +1954,31 @@ msgid "Eliminar conta definitivamente"
 msgstr ""
 
 msgid "Cancelar"
+msgstr ""
+
+msgid ""
+"Sugestões e pedidos de funcionalidades enviados para as suas ferramentas."
+" Também os recebe por email."
+msgstr ""
+
+msgid "De"
+msgstr ""
+
+msgid "um utilizador que eliminou a conta"
+msgstr ""
+
+msgid "Responder por email"
+msgstr ""
+
+msgid "Remover esta sugestão?"
+msgstr ""
+
+msgid "Remover"
+msgstr ""
+
+msgid ""
+"Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das"
+" suas ferramentas, aparece aqui."
 msgstr ""
 
 msgid "Palavra-passe atual"
@@ -2114,9 +2190,6 @@ msgid "Imagem do cartão"
 msgstr ""
 
 msgid "Remover esta imagem?"
-msgstr ""
-
-msgid "Remover"
 msgstr ""
 
 msgid "Imagem"
@@ -2679,7 +2752,34 @@ msgstr ""
 msgid "Ordenar"
 msgstr ""
 
-msgid "Vai abrir um site externo, fora da gitmgf."
+msgid "Sugerir melhoria"
+msgstr ""
+
+#, python-format
+msgid ""
+"Peça uma nova funcionalidade ou deixe uma sugestão a %(name)s, autor/a "
+"desta ferramenta. A mensagem é enviada por email e fica nas notificações "
+"do autor no gitmgf."
+msgstr ""
+
+msgid "Mensagem"
+msgstr ""
+
+msgid ""
+"Pelo menos 20 caracteres. Descreva o que gostaria de ver e porque seria "
+"útil na prática. Não inclua dados de utentes."
+msgstr ""
+
+msgid "Partilhar o meu email com o autor, para me poder responder."
+msgstr ""
+
+msgid "Se não assinalar, o autor vê apenas o seu nome a apresentar."
+msgstr ""
+
+msgid "Enviar sugestão"
+msgstr ""
+
+msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, use"
 msgstr ""
 
 msgid "Editar ficha"

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ _("Sugerir melhoria") }}: {{ localized(tool, "title") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/t/' ~ tool.slug) }}">{{ localized(tool, "title") }}</a></p>
+    <h1>{{ _("Sugerir melhoria") }}</h1>
+    <p>{{ _("Peça uma nova funcionalidade ou deixe uma sugestão a %(name)s, autor/a desta ferramenta. A mensagem é enviada por email e fica nas notificações do autor no gitmgf.", name=tool.owner.display_name) }}</p>
+  </header>
+  {% if errors.get('__all__') %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors['__all__'][0]) }}</p></div>{% endif %}
+  <form class="form form-section" method="post" action="{{ url('/t/' ~ tool.slug ~ '/suggest') }}">
+    {{ m.csrf() }}
+    {% set kinds = [] %}{% for k, v in labels.SUGGESTION_KIND.items() %}{% do kinds.append((k, _(v))) %}{% endfor %}
+    {{ m.select("kind", _("Tipo"), kinds, values, errors, required=True, empty=_("— Escolher —")) }}
+    {{ m.textarea("message", _("Mensagem"), values, errors, required=True, maxlength=2000, rows=7, hint=_("Pelo menos 20 caracteres. Descreva o que gostaria de ver e porque seria útil na prática. Não inclua dados de utentes.")) }}
+    {{ m.checkbox("allow_reply", _("Partilhar o meu email com o autor, para me poder responder."), values.get('allow_reply'), errors, hint=_("Se não assinalar, o autor vê apenas o seu nome a apresentar.")) }}
+    <div class="form-actions"><button class="btn btn--primary" type="submit">{{ icon('send') }} {{ _("Enviar sugestão") }}</button><a class="btn btn--ghost" href="{{ url('/t/' ~ tool.slug) }}">{{ _("Cancelar") }}</a></div>
+  </form>
+  <p class="small muted">{{ _("Para problemas de segurança, conteúdo perigoso ou que viole os Termos, use") }} <a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ _("Reportar problema") }}</a>.</p>
+</div>
+{% endblock %}

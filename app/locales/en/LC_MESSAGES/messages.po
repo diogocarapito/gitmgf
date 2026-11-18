@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 22:33+0000\n"
+"POT-Creation-Date: 2026-11-18 22:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -53,6 +53,10 @@ msgid "%(num)d ferramenta"
 msgid_plural "%(num)d ferramentas"
 msgstr[0] "%(num)d tool"
 msgstr[1] "%(num)d tools"
+
+#, python-format
+msgid "%(sender)s enviou uma sugestão para a sua ferramenta «%(title)s»."
+msgstr "%(sender)s sent a suggestion for your tool “%(title)s”."
 
 msgid "1 a 3 frases: quem deve usar, para quê e com que limitações."
 msgstr "1 to 3 sentences: who should use it, for what and with which limitations."
@@ -234,6 +238,13 @@ msgstr "No tools have been published yet. Be the first to share one!"
 
 msgid "Ainda não partilhou nenhuma ferramenta."
 msgstr "You haven't shared any tools yet."
+
+msgid ""
+"Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das"
+" suas ferramentas, aparece aqui."
+msgstr ""
+"No suggestions yet. When someone suggests an improvement to one of your "
+"tools, it shows up here."
 
 msgid "Ainda não tem conta?"
 msgstr "Don't have an account yet?"
@@ -809,6 +820,9 @@ msgstr "Invalid date (use YYYY-MM-DD)."
 msgid "Data inválida."
 msgstr "Invalid date."
 
+msgid "De"
+msgstr "From"
+
 msgid ""
 "De momento, o registo é feito por convite. Se não tem um, peça-o através "
 "do"
@@ -1075,8 +1089,14 @@ msgstr "Send a new code"
 msgid "Enviar o convite por email (só para convites com email)"
 msgstr "Send the invite by email (only for invites with an email)"
 
+msgid "Enviar sugestão"
+msgstr "Send suggestion"
+
 msgid "Envie-a à pessoa por um canal de confiança (mensagem, email pessoal)."
 msgstr "Send it to the person through a trusted channel (message, personal email)."
+
+msgid "Enviou demasiadas sugestões hoje. Tente novamente amanhã."
+msgstr "You've sent too many suggestions today. Please try again tomorrow."
 
 #, python-format
 msgid ""
@@ -1647,6 +1667,12 @@ msgstr ""
 msgid "Meia-vida da popularidade (dias)"
 msgstr "Popularity half-life (days)"
 
+msgid "Melhoria"
+msgstr "Improvement"
+
+msgid "Mensagem"
+msgstr "Message"
+
 msgid "Menu"
 msgstr "Menu"
 
@@ -1777,6 +1803,9 @@ msgid ""
 "feito."
 msgstr "Notes on building tools for clinical work, and on how gitmgf is made."
 
+msgid "Notificações"
+msgstr "Notifications"
+
 msgid "Notificações enviadas pelo servidor de email."
 msgstr "Notifications sent by the email server."
 
@@ -1786,8 +1815,15 @@ msgstr "New"
 msgid "Nova categoria"
 msgstr "New category"
 
+msgid "Nova funcionalidade"
+msgstr "New feature"
+
 msgid "Nova palavra-passe"
 msgstr "New password"
+
+#, python-format
+msgid "Nova sugestão para «%(title)s»"
+msgstr "New suggestion for “%(title)s”"
 
 msgid "Novas ferramentas"
 msgstr "New tools"
@@ -2012,6 +2048,9 @@ msgstr "Your data"
 msgid "Outra"
 msgstr "Other"
 
+msgid "Outra sugestão"
+msgstr "Other suggestion"
+
 msgid "Outras ações"
 msgstr "Other actions"
 
@@ -2059,6 +2098,11 @@ msgstr ""
 "To hide the tool, use its review page (the author receives the statement "
 "of reasons). Then close the report here."
 
+msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, use"
+msgstr ""
+"For security problems, dangerous content or anything against the Terms, "
+"use"
+
 msgid ""
 "Para voltar a mostrá-lo, atualize a ficha com a nova data de validade e a"
 " evidência:"
@@ -2071,6 +2115,9 @@ msgstr "Share"
 
 msgid "Partilhar ferramenta"
 msgstr "Share a tool"
+
+msgid "Partilhar o meu email com o autor, para me poder responder."
+msgstr "Share my email with the author so they can reply."
 
 msgid "Partilhar uma ferramenta:"
 msgstr "Share a tool:"
@@ -2108,6 +2155,13 @@ msgid ""
 msgstr ""
 "At least 10 characters. A phrase of several words is easy to remember and"
 " hard to guess."
+
+msgid ""
+"Pelo menos 20 caracteres. Descreva o que gostaria de ver e porque seria "
+"útil na prática. Não inclua dados de utentes."
+msgstr ""
+"At least 20 characters. Describe what you'd like to see and why it would "
+"help in practice. Don't include patient data."
 
 msgid ""
 "Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para"
@@ -2170,6 +2224,16 @@ msgstr "Top searches (7 days)"
 msgid "Pesquisas sem resultados (7 dias)"
 msgstr "Searches with no results (7 days)"
 
+#, python-format
+msgid ""
+"Peça uma nova funcionalidade ou deixe uma sugestão a %(name)s, autor/a "
+"desta ferramenta. A mensagem é enviada por email e fica nas notificações "
+"do autor no gitmgf."
+msgstr ""
+"Request a new feature or leave a suggestion for %(name)s, the author of "
+"this tool. The message is emailed and also appears in the author's gitmgf"
+" notifications."
+
 msgid "Pistas sobre ferramentas que a comunidade procura e ainda não existem."
 msgstr "Hints about tools the community is looking for that don't exist yet."
 
@@ -2189,6 +2253,13 @@ msgstr ""
 
 msgid "Pode editar a ficha e submetê-la novamente:"
 msgstr "You can edit the listing and submit it again:"
+
+msgid ""
+"Pode responder diretamente a este email: a resposta vai para quem enviou "
+"a sugestão."
+msgstr ""
+"You can reply directly to this email: your reply goes to the person who "
+"sent the suggestion."
 
 msgid "Pode transferir primeiro uma cópia dos seus dados:"
 msgstr "You can download a copy of your data first:"
@@ -2294,6 +2365,11 @@ msgstr "When"
 msgid "Quem"
 msgstr "Who"
 
+msgid ""
+"Quem enviou a sugestão não partilhou o email, por isso não é possível "
+"responder por aqui."
+msgstr "The sender didn't share their email, so you can't reply here."
+
 msgid "Rascunho"
 msgstr "Draft"
 
@@ -2394,6 +2470,9 @@ msgstr "Remove"
 msgid "Remover esta imagem?"
 msgstr "Remove this image?"
 
+msgid "Remover esta sugestão?"
+msgstr "Remove this suggestion?"
+
 msgid "Repetir palavra-passe"
 msgstr "Repeat password"
 
@@ -2417,6 +2496,9 @@ msgstr "Resolve (action taken)"
 
 msgid "Resolvida"
 msgstr "Resolved"
+
+msgid "Responder por email"
+msgstr "Reply by email"
 
 msgid "Resumo"
 msgstr "Summary"
@@ -2486,6 +2568,9 @@ msgid ""
 msgstr ""
 "If there is an account for <strong>%(email)s</strong>, we sent it a "
 "6-digit code."
+
+msgid "Se não assinalar, o autor vê apenas o seu nome a apresentar."
+msgstr "If you leave this unticked, the author only sees your display name."
 
 msgid ""
 "Se não esperava este email, ignore-o e avise-nos respondendo a esta "
@@ -2592,6 +2677,22 @@ msgstr "Submission withdrawn. The tool is back to draft."
 msgid "Submissões"
 msgstr "Submissions"
 
+msgid "Sugerir melhoria"
+msgstr "Suggest an improvement"
+
+msgid "Sugestão enviada ao autor. Obrigado!"
+msgstr "Suggestion sent to the author. Thank you!"
+
+msgid "Sugestão removida."
+msgstr "Suggestion removed."
+
+msgid ""
+"Sugestões e pedidos de funcionalidades enviados para as suas ferramentas."
+" Também os recebe por email."
+msgstr ""
+"Suggestions and feature requests sent for your tools. You also get them "
+"by email."
+
 msgid "Suspender"
 msgstr "Suspend"
 
@@ -2674,6 +2775,9 @@ msgstr "Type"
 msgid "Tipo de ferramenta"
 msgstr "Tool type"
 
+msgid "Tipo:"
+msgstr "Type:"
+
 msgid "Todas as funções"
 msgstr "All roles"
 
@@ -2714,6 +2818,9 @@ msgid ""
 "Um administrador da gitmgf criou uma ligação para definir a palavra-passe"
 " da sua conta:"
 msgstr "A gitmgf administrator created a link to set your account password:"
+
+msgid "Um utilizador"
+msgstr "A user"
 
 msgid ""
 "Uma calculadora, um script ou uma aplicação que resolve um problema real "
@@ -2767,9 +2874,6 @@ msgstr "Daily usage over the last 90 days"
 msgid "Utilização prevista"
 msgstr "Intended use"
 
-msgid "Vai abrir um site externo, fora da gitmgf."
-msgstr "You are about to open an external site, outside gitmgf."
-
 msgid "Valor inválido."
 msgstr "Invalid value."
 
@@ -2797,6 +2901,9 @@ msgstr "View public page"
 
 msgid "Ver todas"
 msgstr "See all"
+
+msgid "Ver todas as sugestões:"
+msgstr "See all suggestions:"
 
 msgid "Ver versão publicada"
 msgstr "View published version"
@@ -2912,6 +3019,9 @@ msgstr "for “%(q)s”"
 msgid "por definir"
 msgstr "not set"
 
+msgid "por ler"
+msgstr "unread"
+
 msgid "qualquer"
 msgstr "any"
 
@@ -2923,6 +3033,9 @@ msgstr "yours"
 
 msgid "tentativas"
 msgstr "attempts"
+
+msgid "um utilizador que eliminou a conta"
+msgstr "a user who deleted their account"
 
 msgid "É o autor desta ferramenta: outra pessoa tem de a moderar."
 msgstr "You are the author of this tool: someone else has to moderate it."
