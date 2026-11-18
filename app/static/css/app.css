@@ -314,6 +314,13 @@ hr { border: 0; border-top: 1px solid var(--c-border); margin: 2rem 0; }
   border-radius: var(--radius-lg); padding: 1.15rem 1.2rem 1rem; transition: border-color .15s, box-shadow .15s;
 }
 .card:hover { border-color: var(--c-primary-border); box-shadow: var(--shadow); }
+.card__media {
+  margin: -1.15rem -1.2rem .9rem; aspect-ratio: 16 / 10; overflow: hidden; background: var(--c-bg-soft);
+  border-bottom: 1px solid var(--c-border); border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0;
+}
+.card__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.card__media--empty { display: grid; place-items: center; background: linear-gradient(135deg, var(--c-primary-soft), var(--c-bg-soft)); color: var(--c-primary); }
+.card__media--empty .icon { width: 2.6rem; height: 2.6rem; opacity: .4; }
 .card__top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .8rem; }
 .icon-tile { width: 38px; height: 38px; display: grid; place-items: center; border-radius: var(--radius); background: var(--c-primary-soft); color: var(--c-primary); }
 .type-badge { background: var(--c-type-bg); color: var(--c-type-fg); font-size: .76rem; font-weight: 700; padding: .2rem .55rem; border-radius: var(--radius-pill); }

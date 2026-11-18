@@ -4,6 +4,10 @@
 {% set summary = localized(t, "summary") %}
 {% set href = card_href(t, loop.index if loop is defined else None) if card_href is defined else url('/t/' ~ t.slug) %}
 <article class="card">
+  {% set cover = t.cover %}
+  <div class="card__media{% if not cover %} card__media--empty{% endif %}">
+    {%- if cover %}<img src="/media/tools/{{ t.id }}/{{ cover.thumb_name }}" alt="" width="480" height="{{ (480 * cover.height / cover.width) | int if cover.width else 300 }}" loading="lazy" decoding="async">{% else %}{{ icon(labels.TOOL_TYPE_ICON.get(t.tool_type or 'other', 'box')) }}{% endif -%}
+  </div>
   <div class="card__top">
     <span class="icon-tile">{{ icon(labels.TOOL_TYPE_ICON.get(t.tool_type or 'other', 'box')) }}</span>
     {% if t.tool_type %}<span class="type-badge">{{ label(labels.TOOL_TYPE_SHORT, t.tool_type) }}</span>{% endif %}

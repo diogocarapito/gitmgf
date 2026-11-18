@@ -152,17 +152,25 @@
   </form>
   {% endif %}
 
+  {% if not tool %}
+  <section class="form-section section--tight" id="screenshots">
+    <h2 class="form-section__title">{{ _("Capturas de ecrã") }}</h2>
+    <p class="form-section__intro">{{ _("Depois de guardar o rascunho, pode adicionar até 5 capturas de ecrã aqui.") }} <strong>{{ _("A primeira imagem aparece no cartão da ferramenta, na página inicial e na pesquisa.") }}</strong></p>
+  </section>
+  {% endif %}
+
   {% if tool and tool.status != 'pending' %}
   <section class="form-section section--tight" id="screenshots">
     <h2 class="form-section__title">{{ _("Capturas de ecrã") }}</h2>
     <p class="form-section__intro">{{ _("Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas e os metadados removidos. Confirme que não mostram dados de utentes.") }}{% if not in_place %} {{ _("Alterações às imagens de uma ferramenta publicada também são revistas.") }}{% endif %}</p>
+    <p class="form-section__intro"><strong>{{ _("A primeira imagem aparece no cartão da ferramenta, na página inicial e na pesquisa.") }}</strong> {{ _("Use as setas para escolher qual fica em primeiro lugar. Funcionam melhor imagens na horizontal, com o essencial na parte de cima.") }}</p>
     {% if errors.get('file') and media_items | length >= 5 %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors.get('file')[0]) }}</p></div>{% endif %}
     {% if media_items %}
     <div class="media-admin">
       {% for item in media_items %}
       <figure>
         <img src="/media/tools/{{ tool.id }}/{{ item.thumb_name }}" alt="{{ item.alt(lang) }}" width="480" height="{{ (480 * item.height / item.width) | int if item.width else 270 }}" loading="lazy">
-        <figcaption>{{ item.alt(lang) }}{% if item.state == 'pending' %} · <span class="status status--pending">{{ _("Nova") }}</span>{% endif %}</figcaption>
+        <figcaption>{% if loop.first %}<span class="badge badge--oss">{{ _("Imagem do cartão") }}</span> {% endif %}{{ item.alt(lang) }}{% if item.state == 'pending' %} · <span class="status status--pending">{{ _("Nova") }}</span>{% endif %}</figcaption>
         <div class="row">
           <form method="post" action="/me/media/{{ item.id }}/move">{{ m.csrf() }}<input type="hidden" name="direction" value="up"><button class="btn btn--sm" type="submit"{% if loop.first %} disabled{% endif %} aria-label="{{ _('Mover para cima') }}">{{ icon('chevron-up') }}</button></form>
           <form method="post" action="/me/media/{{ item.id }}/move">{{ m.csrf() }}<input type="hidden" name="direction" value="down"><button class="btn btn--sm" type="submit"{% if loop.last %} disabled{% endif %} aria-label="{{ _('Mover para baixo') }}">{{ icon('chevron-down') }}</button></form>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 21:51+0000\n"
+"POT-Creation-Date: 2026-11-18 22:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2074,12 +2074,28 @@ msgstr ""
 msgid "Submeter alteração para revisão"
 msgstr ""
 
+msgid "Depois de guardar o rascunho, pode adicionar até 5 capturas de ecrã aqui."
+msgstr ""
+
+msgid ""
+"A primeira imagem aparece no cartão da ferramenta, na página inicial e na"
+" pesquisa."
+msgstr ""
+
 msgid ""
 "Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas"
 " e os metadados removidos. Confirme que não mostram dados de utentes."
 msgstr ""
 
 msgid "Alterações às imagens de uma ferramenta publicada também são revistas."
+msgstr ""
+
+msgid ""
+"Use as setas para escolher qual fica em primeiro lugar. Funcionam melhor "
+"imagens na horizontal, com o essencial na parte de cima."
+msgstr ""
+
+msgid "Imagem do cartão"
 msgstr ""
 
 msgid "Remover esta imagem?"

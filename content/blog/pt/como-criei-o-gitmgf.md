@@ -1,11 +1,11 @@
 ---
-title: "Como criei o gitmgf em poucas horas com o Claude Pro e o Claude Code"
+title: "Como criei o gitmgf em um dia com o Claude Pro e o Claude Code"
 date: 2026-11-18
 author: Diogo Carapito
 summary: "Da ideia a um MVP em produção em poucas horas: PRD e especificação técnica no Claude, design e logótipo com artefactos, código com o Claude Code, e publicação num VPS europeu com domínio próprio. Com modelos de PRD e TECH_SPEC para copiar."
 ---
 
-O gitmgf passou de ideia a site público em poucas horas de trabalho. Era esse o objetivo: construir um **MVP** (produto mínimo viável), a versão mais simples que já resolve o problema, e pô-lo no ar depressa. Não escrevi o código à mão: escrevi o que queria, revi o que o Claude propunha e tomei as decisões.
+O gitmgf passou de ideia a site público em apenas um dia. Era esse o objetivo: construir um **MVP** (produto mínimo viável), a versão mais simples que já resolve o problema, e pô-lo no ar depressa. Não escrevi o código à mão: escrevi o que queria, revi o que o Claude propunha e tomei as decisões.
 
 **Pôr uma ferramenta no ar, mesmo básica, é o passo mais importante.** Uma ferramenta simples que existe e que os colegas podem usar vale mais do que uma ferramenta perfeita que nunca sai do computador. É com utilizadores reais que se percebe o que falta, o que sobra e o que vale a pena melhorar. O resto pode vir depois, versão a versão.
 

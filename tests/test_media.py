@@ -97,3 +97,34 @@ def test_media_on_published_tool_goes_through_revision(db):
     svc.approve_revision(db, revision, mod)
     db.commit()
     assert [m.id for m in tool.live_media] == [item.id]
+
+
+def test_card_shows_the_first_live_screenshot(client, db):
+    from app.models.enums import Role
+
+    owner = make_user(db, "o@example.org")
+    mod = make_user(db, "m@example.org", Role.moderator)
+    with_shot = make_tool(db, owner, status="draft", title_pt="Com imagem")
+    first = svc.add_media(db, with_shot, owner, png_with_exif((800, 600)), "Primeiro ecrã", None)
+    svc.add_media(db, with_shot, owner, png_with_exif((800, 600)), "Segundo ecrã", None)
+    db.commit()
+    svc.transition(db, with_shot, "submit", owner)
+    svc.transition(db, with_shot, "approve", mod)
+    plain = make_tool(db, owner, status="published", moderator=mod, title_pt="Sem imagem")
+    pending = svc.add_media(db, plain, owner, png_with_exif((800, 600)), "Por rever", None)
+    db.commit()
+    html = client.get("/").text
+    assert f'src="/media/tools/{with_shot.id}/{first.thumb_name}"' in html
+    assert pending.thumb_name not in html  # pending screenshots stay off the card
+    assert html.count("card__media--empty") >= 1
+
+
+def test_form_says_the_first_screenshot_is_the_card_image(client, db):
+    owner = make_user(db, "o@example.org")
+    tool = make_tool(db, owner, status="draft")
+    svc.add_media(db, tool, owner, png_with_exif((800, 600)), "Ecrã", None)
+    db.commit()
+    login(client, db, owner)
+    assert "A primeira imagem aparece no cartão" in client.get("/me/tools/new").text
+    edit = client.get(f"/me/tools/{tool.id}/edit").text
+    assert "A primeira imagem aparece no cartão" in edit and "Imagem do cartão" in edit

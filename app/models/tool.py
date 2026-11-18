@@ -76,6 +76,7 @@ class Tool(Base):
     media: Mapped[list["ToolMedia"]] = relationship(
         back_populates="tool",
         order_by="ToolMedia.sort_order",
+        lazy="selectin",  # listings show the first screenshot on every card: one query per page
         cascade="all, delete-orphan",
         passive_deletes=True,
     )
@@ -93,6 +94,12 @@ class Tool(Base):
     @property
     def live_media(self) -> list["ToolMedia"]:
         return [m for m in self.media if m.state == MediaState.live]
+
+    @property
+    def cover(self) -> "ToolMedia | None":
+        """The first live screenshot, shown on the tool's card."""
+        live = self.live_media
+        return live[0] if live else None
 
     def __repr__(self) -> str:
         return f"<Tool {self.id} {self.slug} {self.status}>"
