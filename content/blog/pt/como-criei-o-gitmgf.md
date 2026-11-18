@@ -22,11 +22,10 @@ Este artigo descreve o processo, passo a passo, para o caso de quereres fazer o 
 | Descrever o problema e os utilizadores | Sim: é o teu conhecimento clínico | Transformar uma ideia num PRD com critérios de aceitação |
 | Usar o Claude (chat e artefactos) | Básico | Pedir entrevistas, documentos, mockups e logótipos, e iterar sobre eles |
 | Usar o Claude Code | Não | Trabalhar por etapas, rever alterações e pedir correções |
-| Git e GitHub | Não | Criar um repositório, guardar versões (*commits*) e enviá-las (*push*) |
-| Terminal Linux | Não | Navegar em pastas, correr comandos, ligar-te por SSH e ler mensagens de erro |
-| Configurar um VPS | Não | Criar o servidor, chaves SSH, firewall, utilizadores e Docker |
+| Git e GitHub | Aconselhável (noções básicas) | Criar um repositório, guardar versões (*commits*) e enviá-las (*push*) |
+| Terminal Linux | Aconselhável (noções básicas) | Navegar em pastas, correr comandos, ligar-te por SSH e ler mensagens de erro |
+| Configurar um VPS | Aconselhável (noções básicas) | Criar o servidor, chaves SSH, firewall, utilizadores e Docker |
 | Domínio e DNS | Não | Registar um domínio, criar registos `A` e ativar HTTPS |
-| Email transacional (opcional) | Não | SMTP, SPF, DKIM e encaminhamento de endereços |
 | Segurança e privacidade | Noções | O que rever antes de publicar: segredos, palavras-passe, RGPD |
 
 ## 1. Escrever o PRD e a especificação técnica no Claude
@@ -118,7 +117,7 @@ Dois registos com preços justos e sem truques na renovação:
 
 | Registo | `.com` por ano (aprox.) | Notas |
 |---|---|---|
-| [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) | ≈ 10–11 US$ | Preço de custo. O DNS fica na Cloudflare, que também dá proxy, HTTPS e encaminhamento de email gratuitos |
+| [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) | ≈ 10–11 US$ | Preço de custo. O DNS fica na Cloudflare, que também dá proxy e HTTPS gratuitos |
 | [Porkbun](https://porkbun.com) | ≈ 11–12 US$ | Interface simples, WHOIS privado incluído |
 
 Depois de teres o servidor (passo seguinte), cria no DNS um registo `A` para o domínio e outro para `www`, ambos a apontar para o IP do VPS. Na Cloudflare, com o proxy ativo, o modo SSL/TLS deve ficar em **Full (strict)**.
@@ -181,18 +180,14 @@ git pull && docker compose -f deploy/docker-compose.prod.yml --env-file .env up 
 
 No repositório do gitmgf estes passos estão em scripts prontos (`deploy/setup-vps.sh` e `deploy/deploy.sh`) e descritos no `docs/RUNBOOK.md`. **Lê sempre um script antes de o correres como root.**
 
-**Quando algo correr mal, pede ajuda ao Claude.** Foi nesta parte, configuração e terminal, que mais precisei. Copia a mensagem de erro (ou o resultado do comando) e cola-a no Claude Code, que já conhece o projeto, ou num chat com o Claude ou outro assistente de IA. Explica o que estavas a tentar fazer e pede o passo seguinte. Foi assim que resolvi erros de certificados, de DNS, de SSH e do servidor de email, quase sempre em poucos minutos. Antes de colar, apaga palavras-passe, chaves e outros dados sensíveis.
-
-## 8. Opcional: email
-
-Para enviar códigos de confirmação e notificações, usei o [Brevo](https://www.brevo.com) (SMTP, plano gratuito chega para começar) e, para receber emails em `contacto@` sem ter caixa de correio própria, o encaminhamento de email gratuito da Cloudflare. Dois erros que me apareceram: `535 Authentication failed` (era preciso a *chave SMTP*, não a chave da API) e `525 Unauthorized IP address` (o Brevo bloqueia IPs novos até os autorizar em *Security → Authorised IPs*).
+**Quando algo correr mal, pede ajuda ao Claude.** Foi nesta parte, configuração e terminal, que mais precisei. Copia a mensagem de erro (ou o resultado do comando) e cola-a no Claude Code, que já conhece o projeto, ou num chat com o Claude ou outro assistente de IA. Explica o que estavas a tentar fazer e pede o passo seguinte. Foi assim que resolvi erros de certificados, de DNS e de SSH, quase sempre em poucos minutos. Antes de colar, apaga palavras-passe, chaves e outros dados sensíveis.
 
 ## O que aprendi
 
 - **Os documentos são o trabalho mais importante.** Um PRD claro poupa horas de correções. Quanto mais concretos os critérios de aceitação, melhor o resultado.
 - **Publicar cedo.** A primeira versão não tem de ser completa; tem de funcionar e estar no ar. As melhores ideias de melhoria vieram depois de o site existir.
 - **O Claude escreve; a responsabilidade é tua.** Rever o que é feito, sobretudo segurança, privacidade e textos legais. Numa ferramenta clínica, isto não é opcional.
-- **Não tens de saber tudo à partida.** Pelo caminho, sobretudo na configuração do servidor, do domínio e do email, o Claude (ou outro assistente de IA) ajuda a perceber cada erro e a resolvê-lo. Basta colar o que aparece no terminal.
+- **Não tens de saber tudo à partida.** Pelo caminho, sobretudo na configuração do servidor e do domínio, o Claude (ou outro assistente de IA) ajuda a perceber cada erro e a resolvê-lo. Basta colar o que aparece no terminal.
 - **Problemas de produção são quase sempre configuração.** Os meus erros 521 e 525 da Cloudflare eram variáveis em falta no `.env` e o certificado ainda a ser emitido, não erros no código.
 - **Começar pequeno.** Um servidor de 5 € aguenta muito mais do que se pensa com SQLite e uma aplicação simples.
 
@@ -210,7 +205,7 @@ Para enviar códigos de confirmação e notificações, usei o [Brevo](https://w
 |---|---|
 | VPS na UE | ≈ 5–8 €/mês |
 | Domínio `.com` | ≈ 10–12 US$/ano |
-| Email (Brevo, plano gratuito) e Cloudflare | 0 € |
+| DNS e HTTPS (Cloudflare, plano gratuito) | 0 € |
 
 ## Modelos para copiar
 
@@ -302,8 +297,8 @@ Os fluxos importantes, passo a passo (ex.: submeter, rever, publicar).
 Lista de verificação: HTTPS, palavras-passe, proteção de formulários,
 validação de dados, registos sem dados pessoais, prazos de conservação.
 
-## 10. Emails e tarefas agendadas
-O que é enviado e quando; que tarefas correm em segundo plano.
+## 10. Tarefas agendadas e notificações (se houver)
+O que corre em segundo plano e o que é enviado aos utilizadores, e quando.
 
 ## 11. Testes
 O que tem de estar sempre testado (permissões, fluxos principais).

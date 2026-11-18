@@ -22,11 +22,10 @@ This article walks through the process step by step, for anyone who wants to do 
 | Describing the problem and the users | Yes: that's your clinical knowledge | Turning an idea into a PRD with acceptance criteria |
 | Using Claude (chat and artifacts) | Basics | Asking for interviews, documents, mockups and logos, and iterating on them |
 | Using Claude Code | No | Working in milestones, reviewing changes and asking for fixes |
-| Git and GitHub | No | Creating a repository, saving versions (commits) and pushing them |
-| Linux terminal | No | Moving around folders, running commands, connecting over SSH and reading error messages |
-| Setting up a VPS | No | Creating the server, SSH keys, firewall, users and Docker |
+| Git and GitHub | Advisable (basics) | Creating a repository, saving versions (commits) and pushing them |
+| Linux terminal | Advisable (basics) | Moving around folders, running commands, connecting over SSH and reading error messages |
+| Setting up a VPS | Advisable (basics) | Creating the server, SSH keys, firewall, users and Docker |
 | Domain and DNS | No | Registering a domain, creating `A` records and turning on HTTPS |
-| Transactional email (optional) | No | SMTP, SPF, DKIM and address forwarding |
 | Security and privacy | Basic awareness | What to check before publishing: secrets, passwords, GDPR |
 
 ## 1. Write the PRD and the tech spec in Claude
@@ -118,7 +117,7 @@ Two registrars with fair prices and no renewal tricks:
 
 | Registrar | `.com` per year (approx.) | Notes |
 |---|---|---|
-| [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) | ≈ US$10–11 | At cost. DNS stays on Cloudflare, which also gives you a free proxy, HTTPS and email forwarding |
+| [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) | ≈ US$10–11 | At cost. DNS stays on Cloudflare, which also gives you a free proxy and HTTPS |
 | [Porkbun](https://porkbun.com) | ≈ US$11–12 | Simple interface, private WHOIS included |
 
 Once you have the server (next step), add an `A` record for the domain and another for `www`, both pointing at the VPS IP. On Cloudflare, with the proxy on, set SSL/TLS to **Full (strict)**.
@@ -181,18 +180,14 @@ git pull && docker compose -f deploy/docker-compose.prod.yml --env-file .env up 
 
 In the gitmgf repository these steps are ready-made scripts (`deploy/setup-vps.sh` and `deploy/deploy.sh`), described in `docs/RUNBOOK.md`. **Always read a script before running it as root.**
 
-**When something goes wrong, ask Claude for help.** Configuration and the terminal are where I needed it most. Copy the error message (or the command's output) and paste it into Claude Code, which already knows the project, or into a chat with Claude or another AI assistant. Explain what you were trying to do and ask for the next step. That's how I fixed certificate, DNS, SSH and email server errors, usually in a few minutes. Before pasting, remove passwords, keys and other sensitive data.
-
-## 8. Optional: email
-
-To send confirmation codes and notifications I used [Brevo](https://www.brevo.com) (SMTP; the free plan is enough to start), and to receive mail at `contacto@` without running a mailbox, Cloudflare's free email routing. Two errors I hit: `535 Authentication failed` (it needs the *SMTP key*, not the API key) and `525 Unauthorized IP address` (Brevo blocks new IPs until you authorise them under *Security → Authorised IPs*).
+**When something goes wrong, ask Claude for help.** Configuration and the terminal are where I needed it most. Copy the error message (or the command's output) and paste it into Claude Code, which already knows the project, or into a chat with Claude or another AI assistant. Explain what you were trying to do and ask for the next step. That's how I fixed certificate, DNS and SSH errors, usually in a few minutes. Before pasting, remove passwords, keys and other sensitive data.
 
 ## What I learned
 
 - **The documents are the most important work.** A clear PRD saves hours of fixes. The more concrete the acceptance criteria, the better the result.
 - **Ship early.** The first version doesn't have to be complete; it has to work and be online. The best improvement ideas came after the site existed.
 - **Claude writes; you're responsible.** Review what gets built, especially security, privacy and legal texts. For a clinical tool, this isn't optional.
-- **You don't need to know everything up front.** Along the way, especially when configuring the server, the domain and email, Claude (or another AI assistant) helps you understand each error and fix it. Just paste what the terminal shows.
+- **You don't need to know everything up front.** Along the way, especially when configuring the server and the domain, Claude (or another AI assistant) helps you understand each error and fix it. Just paste what the terminal shows.
 - **Production problems are almost always configuration.** My Cloudflare 521 and 525 errors were missing `.env` values and a certificate still being issued, not bugs in the code.
 - **Start small.** A €5 server handles far more than you'd think with SQLite and a simple app.
 
@@ -210,7 +205,7 @@ To send confirmation codes and notifications I used [Brevo](https://www.brevo.co
 |---|---|
 | EU VPS | ≈ €5–8/month |
 | `.com` domain | ≈ US$10–12/year |
-| Email (Brevo free plan) and Cloudflare | €0 |
+| DNS and HTTPS (Cloudflare free plan) | €0 |
 
 ## Templates to copy
 
@@ -303,8 +298,8 @@ The important flows, step by step (e.g. submit, review, publish).
 Checklist: HTTPS, passwords, form protection, input validation,
 logs without personal data, retention periods.
 
-## 10. Emails and scheduled jobs
-What is sent and when; which jobs run in the background.
+## 10. Scheduled jobs and notifications (if any)
+What runs in the background and what is sent to users, and when.
 
 ## 11. Tests
 What must always be tested (permissions, main flows).
