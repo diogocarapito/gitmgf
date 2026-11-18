@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.db import utcnow
 from app.models import (
     AuditLog,
+    EmailCode,
     EmailOutbox,
     InteractionEvent,
     PasswordResetToken,
@@ -29,6 +30,7 @@ PURGE_AFTER = timedelta(days=30)
 EVENTS_RETENTION = timedelta(days=180)
 MAGIC_LINK_RETENTION = timedelta(days=3)  # reset links: 48 h validity, deleted after 3 days
 OUTBOX_RETENTION = timedelta(days=30)
+EMAIL_CODE_RETENTION = timedelta(days=1)  # codes: 15 min validity; pending registrations deleted after 24 h
 REPORT_RETENTION = timedelta(days=730)
 AUDIT_RETENTION = timedelta(days=3 * 365)
 
@@ -135,6 +137,7 @@ def delete_account(db: Session, user: User, actor: User) -> None:
     sessions.destroy_all(db, user.id)
     user.password_hash = None
     db.execute(delete(PasswordResetToken).where(PasswordResetToken.user_id == user.id))
+    db.execute(delete(EmailCode).where(EmailCode.email == user.email))
     marker = pseudonym(user.id)
     for entry in db.scalars(
         select(AuditLog).where(
@@ -187,6 +190,7 @@ def purge(db: Session) -> dict[str, int]:
         "password_reset_tokens",
         delete(PasswordResetToken).where(PasswordResetToken.created_at < now - MAGIC_LINK_RETENTION),
     )
+    run("email_codes", delete(EmailCode).where(EmailCode.created_at < now - EMAIL_CODE_RETENTION))
     run("sessions", delete(UserSession).where(UserSession.expires_at < now))
     run(
         "email_outbox",

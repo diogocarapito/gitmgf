@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Código expirado") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="auth-card">
+    <h1>{{ _("Código expirado") }}</h1>
+    <p class="muted">{% if error %}{{ _(error) }}{% elif purpose == "reset" %}{{ _("Este pedido expirou ou já foi usado. Peça um novo código.") }}{% else %}{{ _("Este registo expirou ou já foi concluído. Se ainda não tem conta, preencha o formulário de novo.") }}{% endif %}</p>
+    <p>{% if purpose == "reset" %}<a class="btn btn--primary" href="{{ url('/forgot') }}">{{ _("Pedir novo código") }}</a>{% else %}<a class="btn btn--primary" href="{{ url('/register') }}">{{ _("Criar conta") }}</a>{% endif %} <a class="btn btn--ghost" href="{{ url('/login') }}">{{ _("Entrar") }}</a></p>
+  </div>
+</div>
+{% endblock %}

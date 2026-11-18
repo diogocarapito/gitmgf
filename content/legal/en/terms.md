@@ -6,7 +6,7 @@ last_updated: 2026-11-16
 
 # Terms of Use
 
-**Version 2026-11 · Last updated: 16 November 2026**
+**Version 2026-11 · Last updated: 18 November 2026**
 
 > This is an English translation for convenience. If it differs from the Portuguese version, the Portuguese version prevails.
 
@@ -32,7 +32,7 @@ The Service is **free**. It has no advertising and no paid placement in results.
 
 3.1. You need an account to publish, give stars or use restricted features. You must be **18 or older**.
 
-3.2. You sign in with your email and a password. During the testing phase, registration may require an invite. You're responsible for keeping your password secret, not reusing it on other services, and for all activity on your account. Tell us immediately if you suspect unauthorised access. If you lose access, you can request a one-time link by email to set a new password (“Forgot your password?”), or an administrator can generate one after confirming your identity.
+3.2. To create an account, you give your name, email, profession and a password, and confirm the email with a 6-digit code we send you; the account is only created after that confirmation. Registration may temporarily be limited to invitations. You sign in with your email and password. You're responsible for keeping your password secret, not reusing it on other services, and for all activity on your account. Tell us immediately if you suspect unauthorised access. If you lose access, you can request a code by email to set a new password (“Forgot your password?”), or an administrator can send you a one-time link after confirming your identity.
 
 3.3. Profile information must be true. Profession and specialty are **self-declared** and not verified by gitmgf. Don't impersonate another person or organisation.
 

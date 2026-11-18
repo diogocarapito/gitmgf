@@ -12,13 +12,14 @@ from app.models.tool import (
     ToolRevision,
 )
 from app.models.tracking import InteractionEvent, SearchQuery, ToolDailyStat
-from app.models.user import Invite, PasswordResetToken, User, UserSession
+from app.models.user import EmailCode, Invite, PasswordResetToken, User, UserSession
 
 __all__ = [
     "PUBLIC_STATUSES",
     "AuditLog",
     "Category",
     "Certification",
+    "EmailCode",
     "EmailOutbox",
     "InteractionEvent",
     "Invite",

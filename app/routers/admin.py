@@ -26,6 +26,7 @@ from app.models import (
 )
 from app.models.enums import RevisionStatus, Role, ToolStatus, UserStatus
 from app.services import audit, email, gdpr, search, sessions, settings_store
+from app.services import auth as auth_service
 from app.services import tools as tool_service
 from app.templating import render
 
@@ -676,7 +677,7 @@ def _invite_page(
             "created_link": created_link,
             "emailed_to": emailed_to,
             "errors": errors or {},
-            "registration_open": settings_store.get(db, "site.registration_open"),
+            "registration_open": not auth_service.registration_needs_invite(db),
             "now": utcnow(),
         },
         status_code=status,
@@ -693,7 +694,6 @@ def create_invite(
     request: Request, db: DB, user: AdminDep, form: Form, background: BackgroundTasks
 ) -> Response:
     from app.config import get_settings
-    from app.services import auth as auth_service
     from app.services import email as email_service
 
     errors: dict[str, Any] = {}
@@ -724,7 +724,6 @@ def create_invite(
 @actions.post("/admin/invites/{invite_id}/revoke")
 def revoke_invite(request: Request, db: DB, user: AdminDep, invite_id: int) -> Response:
     from app.models import Invite
-    from app.services import auth as auth_service
 
     invite = db.get(Invite, invite_id)
     if invite is None:
@@ -739,7 +738,6 @@ def reset_email(
     request: Request, db: DB, user: AdminDep, user_id: int, background: BackgroundTasks
 ) -> Response:
     """Email the user a 48 h set-password link (needs SMTP, D29)."""
-    from app.services import auth as auth_service
     from app.services import email as email_service
 
     target = _user(db, user_id)
@@ -754,7 +752,6 @@ def reset_email(
 @pages.post("/admin/users/{user_id}/reset-link")
 def reset_link(request: Request, db: DB, user: AdminDep, user_id: int) -> Response:
     from app.config import get_settings
-    from app.services import auth as auth_service
 
     target = _user(db, user_id)
     token = auth_service.create_reset_link(db, target, user)

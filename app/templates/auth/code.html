@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{% if reset %}{{ _("Definir nova palavra-passe") }}{% else %}{{ _("Confirmar email") }}{% endif %}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="auth-card">
+    <h1>{{ icon('mail') }} {% if reset %}{{ _("Definir nova palavra-passe") }}{% else %}{{ _("Confirmar email") }}{% endif %}</h1>
+    {% if reset %}
+    <p>{{ _("Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos-lhe um código de 6 dígitos.", email=masked) }}</p>
+    {% else %}
+    <p>{{ _("Enviámos um código de 6 dígitos para <strong>%(email)s</strong>. Introduza-o para concluir o registo.", email=masked) }}</p>
+    {% endif %}
+    <p class="muted small">{{ _("O código é válido durante %(minutes)s minutos. Se não o encontrar, verifique a pasta de spam.", minutes=minutes) }}</p>
+    {% if resent %}<div class="notice notice--ok" role="status">{{ icon('check') }}<p>{{ _("Enviámos um novo código. Os anteriores deixaram de funcionar.") }}</p></div>{% endif %}
+    {% if error %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(error) }}</p></div>{% endif %}
+    <form class="form" action="{{ url(base ~ '/verify') }}" method="post">
+      {{ m.csrf() }}
+      <input type="hidden" name="t" value="{{ ticket }}">
+      <div class="field{% if errors.get('code') %} field--invalid{% endif %}">
+        <label for="f-code">{{ _("Código") }} <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-code" class="code-input" name="code" type="text" inputmode="numeric" pattern="[0-9 ]{6,7}" maxlength="7" autocomplete="one-time-code" required autofocus{{ m.describedby(errors, 'code', None) }}>
+        {{ m.error(errors, 'code') }}
+      </div>
+      {% if reset %}
+      {{ m.text("password", _("Nova palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password", hint=_("Pelo menos 10 caracteres. Ao guardar, as outras sessões abertas são terminadas.")) }}
+      {{ m.text("password_confirm", _("Repetir palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="new-password") }}
+      <button class="btn btn--primary btn--block" type="submit">{{ _("Guardar e entrar") }}</button>
+      {% else %}
+      <button class="btn btn--primary btn--block" type="submit">{{ _("Confirmar e entrar") }}</button>
+      {% endif %}
+    </form>
+    {% if can_resend %}
+    <form class="section--tight" action="{{ url(base ~ '/resend') }}" method="post">
+      {{ m.csrf() }}
+      <input type="hidden" name="t" value="{{ ticket }}">
+      <button class="btn btn--ghost btn--sm" type="submit">{{ _("Enviar novo código") }}</button>
+    </form>
+    {% endif %}
+    <p class="small muted section--tight"><a href="{{ url(base) }}">{% if reset %}{{ _("Usar outro email") }}{% else %}{{ _("Voltar ao formulário") }}{% endif %}</a> · <a href="{{ url('/login') }}">{{ _("Entrar") }}</a></p>
+  </div>
+</div>
+{% endblock %}

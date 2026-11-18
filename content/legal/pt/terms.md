@@ -6,7 +6,7 @@ last_updated: 2026-11-16
 
 # Termos de Utilização
 
-**Versão 2026-11 · Última atualização: 16 de novembro de 2026**
+**Versão 2026-11 · Última atualização: 18 de novembro de 2026**
 
 Estes Termos regulam a utilização da gitmgf (<https://gitmgf.com>) (o **"Serviço"**). Ao criar conta, aceita estes Termos, as [Normas de Submissão](/p/guidelines) e toma conhecimento da [Política de Privacidade](/p/privacy). Pode consultar e usar o Serviço sem conta; nesse caso, aplicam-se as secções 4, 6.2, 9, 12, 13 e 16 a 18.
 
@@ -30,7 +30,7 @@ O Serviço é **gratuito**. Não inclui publicidade nem posições pagas nos res
 
 3.1. Para publicar, atribuir estrelas ou aceder a funções reservadas, precisa de uma conta. Deve ter **18 anos ou mais**.
 
-3.2. Inicia sessão com o seu email e uma palavra-passe. Durante a fase de testes, o registo pode exigir um convite. É responsável por manter a palavra-passe secreta, por não a reutilizar noutros serviços e por toda a atividade feita na sua conta. Avise-nos de imediato se suspeitar de acesso indevido. Se perder o acesso, pode pedir por email uma ligação única para definir uma nova palavra-passe (opção «Esqueceu-se da palavra-passe?»), ou um administrador pode gerá-la depois de confirmar a sua identidade.
+3.2. Para criar conta, indica o seu nome, email, profissão e uma palavra-passe, e confirma o email com um código de 6 dígitos que lhe enviamos; a conta só é criada depois dessa confirmação. O registo pode, temporariamente, ficar limitado a convites. Inicia sessão com o seu email e a palavra-passe. É responsável por manter a palavra-passe secreta, por não a reutilizar noutros serviços e por toda a atividade feita na sua conta. Avise-nos de imediato se suspeitar de acesso indevido. Se perder o acesso, pode pedir por email um código para definir uma nova palavra-passe (opção «Esqueceu-se da palavra-passe?»), ou um administrador pode enviar-lhe uma ligação única depois de confirmar a sua identidade.
 
 3.3. A informação de perfil deve ser verdadeira. A profissão e a especialidade são **declaradas por si** e não são verificadas pela gitmgf. Não se faça passar por outra pessoa ou entidade.
 

@@ -89,30 +89,139 @@ def test_logout_and_logout_everywhere(client, db):
     assert sessions_of(db, user) == []
 
 
-# ---------- registration ----------
+# ---------- registration (D30: basic info, then a code by email) ----------
 
 
 def _register(client, **data):
-    payload = {"email": "nova@example.org", "password": PASSWORD, "password_confirm": PASSWORD, **data}
+    payload = {
+        "display_name": "Nova Pessoa",
+        "email": "nova@example.org",
+        "profession": "resident",
+        "password": PASSWORD,
+        "password_confirm": PASSWORD,
+        "accept_terms": "1",
+        **data,
+    }
     return post(client, "/register", payload)
 
 
-def test_registration_requires_invite_by_default(client, db):
-    assert settings_store.get(db, "site.registration_open") is False
+def _close_registration(db):
+    settings_store.set_value(db, "site.registration_open", False, None)
+    db.commit()
+
+
+def _code_in(msg):
+    import re
+
+    return re.search(r"^(\d{6})$", msg.get_body(preferencelist=("plain",)).get_content(), re.M).group(1)
+
+
+def _ticket(response):
+    return response.headers["location"].split("?t=", 1)[1]
+
+
+def _verify(client, response, code):
+    return post(client, "/register/verify", {"t": _ticket(response), "code": code})
+
+
+def test_registration_is_open_and_creates_the_account_only_after_the_code(client, db):
+    assert settings_store.get(db, "site.registration_open") is True
+    r = _register(client, email="Nova@Example.org", specialty_category_id="")
+    assert r.status_code == 303 and r.headers["location"].startswith("/register/verify?t=")
+    assert db.query(User).count() == 0  # nothing exists before the code
+    page = client.get(r.headers["location"])
+    assert page.status_code == 200 and "n•••@example.org" in page.text
+    mail = _mail_to("nova@example.org")[0]
+    assert "código" in mail["Subject"].lower()
+    assert _verify(client, r, "000000" if _code_in(mail) != "000000" else "111111").status_code == 422
+    done = _verify(client, r, _code_in(mail)[:3] + " " + _code_in(mail)[3:])  # spaces are fine
+    assert done.status_code == 303 and done.headers["location"] == "/"  # no onboarding step
+    user = db.scalar(select(User).where(User.email == "nova@example.org"))
+    assert user.email_verified_at and user.display_name == "Nova Pessoa" and user.handle == "nova-pessoa"
+    assert user.profession.value == "resident" and user.terms_version == "2026-11"
+    assert passwords.verify_password(PASSWORD, user.password_hash)
+    assert get_cookie(client, "gitmgf_session")
+    assert any("Bem-vindo" in m["Subject"] for m in _mail_to("nova@example.org"))
+    assert _verify(client, r, _code_in(mail)).status_code == 400  # single use
+
+
+def test_registration_form_requires_basic_info_and_terms(client, db):
+    r = _register(client, accept_terms="", display_name="", profession="")
+    assert r.status_code == 422 and "Tem de aceitar" in r.text
+    assert not _mail_to("nova@example.org")
+
+
+def test_code_expires_and_locks_after_five_wrong_attempts(client, db):
     r = _register(client)
-    assert r.status_code == 422 and "convite" in r.text.lower()
+    code = _code_in(_mail_to("nova@example.org")[0])
+    wrong = "000000" if code != "000000" else "111111"
+    for _ in range(4):
+        assert _verify(client, r, wrong).status_code == 422
+    last = _verify(client, r, wrong)
+    assert "expirou" in last.text
+    locked = _verify(client, r, code)  # the right code no longer works; a new one can be requested
+    assert locked.status_code == 422 and "expirou" in locked.text and "Enviar novo código" in locked.text
+    r2 = _register(client, email="outra@example.org")
+    code2 = _code_in(_mail_to("outra@example.org")[0])
+    with time_machine.travel(utcnow() + timedelta(minutes=16), tick=False):
+        assert _verify(client, r2, code2).status_code == 400
     assert db.query(User).count() == 0
 
 
-def test_invite_registers_then_onboarding(client, db):
+def test_resend_replaces_the_code_and_is_limited(client, db):
+    r = _register(client)
+    first = _code_in(_mail_to("nova@example.org")[0])
+    for _ in range(2):
+        assert post(client, "/register/resend", {"t": _ticket(r)}).status_code == 200
+    mails = _mail_to("nova@example.org")
+    assert len(mails) == 3
+    page = post(client, "/register/resend", {"t": _ticket(r)})
+    assert len(_mail_to("nova@example.org")) == 3 and "Enviar novo código" not in page.text
+    latest = _code_in(mails[-1])
+    if first != latest:
+        assert _verify(client, r, first).status_code == 422
+    assert _verify(client, r, latest).status_code == 303
+
+
+def test_taken_email_looks_the_same_and_tells_the_owner(client, db):
+    make_user(db, "ana@example.org")
+    taken = _register(client, email="ana@example.org")
+    free = _register(client, email="livre@example.org")
+    assert taken.status_code == free.status_code == 303
+    assert "/register/verify?t=" in taken.headers["location"]
+    owner_mail = _mail_to("ana@example.org")[0]
+    assert "Já tem uma conta" in owner_mail["Subject"] and not re_digits(owner_mail)
+    assert db.query(User).count() == 1
+
+
+def re_digits(msg):
+    import re
+
+    return re.search(r"^\d{6}$", msg.get_body(preferencelist=("plain",)).get_content(), re.M)
+
+
+def test_registration_is_rate_limited_per_email(client, db):
+    for _ in range(3):
+        assert _register(client).status_code == 303
+    assert _register(client).status_code == 429
+    assert len(_mail_to("nova@example.org")) == 3
+
+
+def test_closed_registration_requires_invite(client, db):
+    _close_registration(db)
+    r = _register(client)
+    assert r.status_code == 422 and "convite" in r.text.lower()
+    assert not _mail_to("nova@example.org")
+
+
+def test_invite_registers_with_code_and_is_consumed(client, db):
+    _close_registration(db)
     admin = make_user(db, "admin@example.org", Role.admin)
     _, code = auth_service.create_invite(db, admin, note="Ana")
     db.commit()
     assert "Convite válido" in client.get(f"/register?invite={code}").text
     r = _register(client, invite=code)
-    assert r.status_code == 303 and r.headers["location"].startswith("/onboarding")
-    user = db.scalar(select(User).where(User.email == "nova@example.org"))
-    assert user and passwords.verify_password(PASSWORD, user.password_hash)
+    assert _verify(client, r, _code_in(_mail_to("nova@example.org")[0])).status_code == 303
     db.expire_all()
     assert db.scalar(select(Invite)).uses == 1
     client.cookies.clear()
@@ -120,6 +229,7 @@ def test_invite_registers_then_onboarding(client, db):
 
 
 def test_email_locked_invite(client, db):
+    _close_registration(db)
     _, code = auth_service.create_invite(db, None, email="certa@example.org")
     db.commit()
     assert _register(client, invite=code, email="errada@example.org").status_code == 422
@@ -127,6 +237,7 @@ def test_email_locked_invite(client, db):
 
 
 def test_expired_and_revoked_invites(client, db):
+    _close_registration(db)
     admin = make_user(db, "admin@example.org", Role.admin)
     invite, code = auth_service.create_invite(db, admin, days=1)
     db.commit()
@@ -137,29 +248,33 @@ def test_expired_and_revoked_invites(client, db):
     assert _register(client, invite=code).status_code == 422
 
 
-def test_open_registration_needs_no_invite(client, db):
-    settings_store.set_value(db, "site.registration_open", True, None)
+def test_without_smtp_registration_is_invite_only_and_immediate(client, db, monkeypatch):
+    from app.config import Settings
+
+    monkeypatch.setattr(Settings, "email_backend", property(lambda self: "none"))
+    assert _register(client).status_code == 422  # open registration needs email to verify addresses
+    _, code = auth_service.create_invite(db, None)
     db.commit()
-    assert _register(client).status_code == 303
+    r = _register(client, invite=code)
+    assert r.status_code == 303 and r.headers["location"] == "/"
+    user = db.scalar(select(User).where(User.email == "nova@example.org"))
+    assert user.email_verified_at is None and user.onboarded_at is not None
 
 
-def test_admin_emails_can_bootstrap_without_invite_and_get_promoted(client, db):
-    assert _register(client, email="boss@example.org").status_code == 303
+def test_admin_emails_can_bootstrap_and_get_promoted(client, db):
+    _close_registration(db)
+    r = _register(client, email="boss@example.org")
+    assert _verify(client, r, _code_in(_mail_to("boss@example.org")[0])).status_code == 303
     user = db.scalar(select(User).where(User.email == "boss@example.org"))
     assert user.role == Role.admin
     entry = db.scalar(select(AuditLog).where(AuditLog.action == "user.role_change"))
     assert entry.details["via"] == "ADMIN_EMAILS"
 
 
-def test_registration_validates_password_and_duplicates(client, db):
-    settings_store.set_value(db, "site.registration_open", True, None)
-    db.commit()
+def test_registration_validates_password(client, db):
     assert _register(client, password="curta", password_confirm="curta").status_code == 422
     assert _register(client, password_confirm="outra coisa diferente").status_code == 422
-    assert _register(client).status_code == 303
-    client.cookies.clear()
-    r = _register(client)
-    assert r.status_code == 422 and "Já existe uma conta" in r.text
+    assert not _mail_to("nova@example.org")
 
 
 # ---------- reset links ----------
@@ -311,24 +426,53 @@ def _link_in(msg):
     ).group(1)
 
 
-def test_forgot_password_emails_a_one_hour_link_without_enumeration(client, db):
-    with_password(db, make_user(db, "ana@example.org"))
+def _reset(client, response, code, password="nova frase secreta"):  # noqa: S107
+    return post(
+        client,
+        "/forgot/verify",
+        {"t": _ticket(response), "code": code, "password": password, "password_confirm": password},
+    )
+
+
+def test_forgot_password_emails_a_code_without_enumeration(client, db):
+    user = with_password(db, make_user(db, "ana@example.org"))
+    login(client, db, user)  # some other device
+    client.cookies.clear()
     known = post(client, "/forgot", {"email": "ana@example.org"})
     unknown = post(client, "/forgot", {"email": "ninguem@example.org"})
-    assert known.status_code == unknown.status_code == 200
-    assert known.text.replace("ana@example.org", "X") == unknown.text.replace("ninguem@example.org", "X")
+    assert known.status_code == unknown.status_code == 303
+    assert (
+        "/forgot/verify?t=" in known.headers["location"]
+        and "/forgot/verify?t=" in unknown.headers["location"]
+    )
+    k, u = client.get(known.headers["location"]), client.get(unknown.headers["location"])
+    assert k.status_code == u.status_code == 200
     assert not _mail_to("ninguem@example.org")
-    link = _link_in(_mail_to("ana@example.org")[0])
-    assert link.startswith("/reset/")
-    with time_machine.travel(utcnow() + timedelta(minutes=61), tick=False):
-        assert client.get(link).status_code == 400
-    assert client.get(link).status_code == 200
+    code = _code_in(_mail_to("ana@example.org")[0])
+    assert _reset(client, unknown, code).status_code == 422  # a decoy ticket never works
+    assert _reset(client, known, code, password="curta").status_code == 422  # policy checked first
+    done = _reset(client, known, code)
+    assert done.status_code == 303
+    db.expire_all()
+    fresh = db.get(User, user.id)
+    assert passwords.verify_password("nova frase secreta", fresh.password_hash) and fresh.email_verified_at
+    assert len(sessions_of(db, fresh)) == 1  # only the new one
+    assert _reset(client, known, code).status_code == 400  # single use
+
+
+def test_reset_code_expires(client, db):
+    with_password(db, make_user(db, "ana@example.org"))
+    r = post(client, "/forgot", {"email": "ana@example.org"})
+    code = _code_in(_mail_to("ana@example.org")[0])
+    with time_machine.travel(utcnow() + timedelta(minutes=16), tick=False):
+        assert _reset(client, r, code).status_code == 400
 
 
 def test_forgot_password_is_rate_limited(client, db):
     with_password(db, make_user(db, "ana@example.org"))
-    for _ in range(5):
-        post(client, "/forgot", {"email": "ana@example.org"})
+    for _ in range(3):
+        assert post(client, "/forgot", {"email": "ana@example.org"}).status_code == 303
+    assert post(client, "/forgot", {"email": "ana@example.org"}).status_code == 429
     assert len(_mail_to("ana@example.org")) == 3
 
 

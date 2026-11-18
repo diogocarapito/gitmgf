@@ -10,9 +10,9 @@ Stack: Python 3.12 · FastAPI (sync) · Jinja2 · HTMX · SQLAlchemy 2 + Alembic
 ## Accounts (MVP)
 
 - **Sign-in:** email + password (scrypt hashes, rate-limited). No OAuth, no magic links.
-- **Registration:** invite-only by default. Admins create invite links in **Administração → Convites** or with `python -m app.cli invite`. Registration can be opened to everyone in **Administração → Definições → Registos abertos**.
+- **Registration (D30):** with email configured, anyone can sign up: a form with name, email, profession, password and terms, then a 6-digit code by email confirms the address before the account is created. Admins can close it (**Administração → Definições → Registos abertos**) so only invites work (**Administração → Convites** or `python -m app.cli invite`). Without email, registration is invite-only.
 - **Bootstrap:** addresses in `ADMIN_EMAILS` can register without an invite and become admins.
-- **Forgotten password:** with email configured, *Esqueceu-se da palavra-passe?* sends a 1-hour link; otherwise an admin generates a one-time link (48 h) from the user's admin page.
+- **Forgotten password:** with email configured, *Esqueceu-se da palavra-passe?* emails a 6-digit code (15 minutes); otherwise an admin generates a one-time link (48 h) from the user's admin page.
 - **Email is optional:** set `SMTP_HOST` (e.g. Brevo — see [RUNBOOK §2.1](docs/RUNBOOK.md)) to send notifications, password resets and invites; without it, notifications stay in the outbox (**Administração → Emails**). `python -m app.cli send-test-email you@example.org` checks the setup.
 
 See decisions D26 and D29 in [`docs/DECISIONS.md`](docs/DECISIONS.md).
@@ -30,7 +30,7 @@ pybabel compile -d app/locales -D messages
 ADMIN_EMAILS=you@example.org uvicorn app.main:app --reload
 ```
 
-Open http://localhost:8000/register and create an account with the address you put in `ADMIN_EMAILS` (no invite needed). To try another account, create an invite in **Administração → Convites** and open the link in a private window.
+Open http://localhost:8000/register and create an account with the address you put in `ADMIN_EMAILS` (no invite needed; in dev the code is printed in the server log). To try another account, create an invite in **Administração → Convites** and open the link in a private window.
 
 In dev, notifications are printed in the terminal and listed at `/dev/emails`. Or run everything in Docker: `docker compose up --build`.
 

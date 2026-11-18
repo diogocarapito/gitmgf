@@ -6,7 +6,7 @@ last_updated: 2026-11-16
 
 # Política de Privacidade
 
-**Versão 2026-11 · Última atualização: 16 de novembro de 2026**
+**Versão 2026-11 · Última atualização: 18 de novembro de 2026**
 
 A gitmgf (<https://gitmgf.com>) é um portal onde profissionais de saúde e outras pessoas partilham ferramentas digitais que criaram para a prática clínica. Esta política explica que dados pessoais tratamos, porquê, com que fundamento, durante quanto tempo e quais são os seus direitos, nos termos do Regulamento (UE) 2016/679 (Regulamento Geral sobre a Proteção de Dados — **RGPD**) e da Lei n.º 58/2019, de 8 de agosto.
 
@@ -43,7 +43,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | Categoria | Dados | Origem |
 |---|---|---|
 | **Conta** | Endereço de email; nome a apresentar; identificador público (*handle*); profissão; especialidade (opcional); local de trabalho (opcional); nome de utilizador no GitHub (opcional); idioma preferido; versão e data de aceitação dos Termos | Fornecidos por si |
-| **Autenticação** | Palavra-passe, guardada apenas em forma cifrada irreversível (*hash* scrypt com sal); códigos de convite e de redefinição de palavra-passe e identificadores de sessão, também guardados apenas em forma irreversível; tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si ou gerados pelo Serviço |
+| **Autenticação** | Palavra-passe, guardada apenas em forma cifrada irreversível (*hash* scrypt com sal); códigos de convite, códigos de confirmação de email e de redefinição de palavra-passe, ligações de redefinição e identificadores de sessão, também guardados apenas em forma irreversível; enquanto um registo aguarda confirmação, os dados do formulário (nome, email, profissão, especialidade e a palavra-passe já em *hash*); tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si ou gerados pelo Serviço |
 | **Conteúdo publicado** | Fichas de ferramentas (textos, ligações, licença, plataformas, declarações de tratamento de dados e de certificações), capturas de ecrã e revisões | Fornecidos por si |
 | **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta) | Fornecidos por si |
 | **Medição de utilização (pseudonimizada)** | Pesquisas efetuadas (texto, filtros, número de resultados); cliques em resultados e em ligações para ferramentas; visualizações de páginas de ferramentas — associados a um identificador diário pseudonimizado, nunca ao seu endereço IP | Gerados pela utilização do site |
@@ -124,7 +124,8 @@ Os nossos subcontratantes tratam os dados no Espaço Económico Europeu (EEE). N
 |---|---|
 | Conta e perfil | Enquanto a conta existir. Após pedido de eliminação: inativação imediata e eliminação definitiva em 30 dias |
 | Ferramentas publicadas (texto e imagens) | Enquanto estiverem publicadas ou até as eliminar. Eliminação definitiva 30 dias após a eliminação ou após a eliminação da conta |
-| Ligações de redefinição de palavra-passe | Válidas 1 hora (pedidas por si) ou 48 horas (criadas por um administrador), uma única vez; apagadas em 3 dias |
+| Códigos de confirmação de email e de redefinição de palavra-passe, e registos por confirmar | Códigos válidos 15 minutos, uma única vez; apagados, com os dados de registos não confirmados, em 24 horas |
+| Ligações de redefinição de palavra-passe criadas por um administrador | Válidas 48 horas, uma única vez; apagadas em 3 dias |
 | Sessões | Até 30 dias sem atividade, ou até terminar sessão |
 | Medição de utilização (pesquisas e cliques pseudonimizados) | 180 dias. Depois disso guardamos apenas contagens agregadas por ferramenta e por dia, que não são dados pessoais |
 | Chave diária de pseudonimização | Substituída e apagada todos os dias |
@@ -161,7 +162,7 @@ Para os restantes pedidos, escreva para [[PRIVACY_EMAIL]]. Respondemos no prazo 
 
 ## 11. Segurança
 
-Aplicamos medidas técnicas e organizativas adequadas ao risco, incluindo: ligações cifradas (HTTPS/HSTS); palavras-passe guardadas apenas com *hash* scrypt com sal e limites de tentativas de início de sessão; códigos de convite, de redefinição e de sessão guardados apenas em forma irreversível (*hash*); cookies protegidos (`Secure`, `HttpOnly`, `SameSite`); proteção contra CSRF e uma política de segurança de conteúdo restritiva; remoção de metadados (por exemplo, localização GPS) das imagens carregadas; acesso restrito e registado às funções de moderação e administração; servidores na UE; cópias de segurança cifradas em trânsito; e atualizações de segurança regulares.
+Aplicamos medidas técnicas e organizativas adequadas ao risco, incluindo: ligações cifradas (HTTPS/HSTS); palavras-passe guardadas apenas com *hash* scrypt com sal e limites de tentativas de início de sessão; códigos de convite, de confirmação, de redefinição e de sessão guardados apenas em forma irreversível (*hash*), com limite de tentativas; cookies protegidos (`Secure`, `HttpOnly`, `SameSite`); proteção contra CSRF e uma política de segurança de conteúdo restritiva; remoção de metadados (por exemplo, localização GPS) das imagens carregadas; acesso restrito e registado às funções de moderação e administração; servidores na UE; cópias de segurança cifradas em trânsito; e atualizações de segurança regulares.
 
 Se ocorrer uma violação de dados pessoais, notificamos a CNPD no prazo de 72 horas quando exigido e informamos os titulares afetados quando houver risco elevado (artigos 33.º e 34.º do RGPD).
 

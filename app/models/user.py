@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -92,6 +92,29 @@ class PasswordResetToken(Base):
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
 
     user: Mapped[User] = relationship(lazy="joined", foreign_keys=[user_id])
+
+
+class EmailCode(Base):
+    """A 6-digit code emailed to confirm an address (registration) or to reset a password (D30).
+
+    The browser holds `ticket` (in the URL); the person types the code from the email. Only hashes are
+    stored. A pending registration keeps the form data (with the password already hashed) in `payload`
+    until the code is entered: no account exists before that.
+    """
+
+    __tablename__ = "email_codes"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    purpose: Mapped[str] = mapped_column(String(10))  # "register" | "reset"
+    ticket_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    email: Mapped[str] = mapped_column(String(254), index=True)
+    code_hash: Mapped[str] = mapped_column(String(64))
+    payload: Mapped[dict[str, Any]] = mapped_column(default=dict)
+    attempts: Mapped[int] = mapped_column(default=0)
+    sends: Mapped[int] = mapped_column(default=1)
+    expires_at: Mapped[datetime]
+    used_at: Mapped[datetime | None]
+    created_at: Mapped[datetime] = mapped_column(default=utcnow)
 
 
 class UserSession(Base):

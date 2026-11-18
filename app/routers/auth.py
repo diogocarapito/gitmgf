@@ -1,4 +1,4 @@
-"""Sign-in, invite-only registration, reset links, onboarding (PRD F1/F2 as amended by D26)."""
+"""Sign-in, registration with an emailed code, password reset, onboarding (PRD F1/F2; D26, D29, D30)."""
 
 import hashlib
 from typing import Any
@@ -34,6 +34,8 @@ AUTH_ERRORS = {
     "email_taken": N_("Já existe uma conta com este email. Inicie sessão."),
     "invalid_link": N_("Esta ligação é inválida, já foi usada ou expirou. Peça uma nova a um administrador."),
     "rate_limited": N_("Demasiadas tentativas. Aguarde um pouco e tente novamente."),
+    "bad_code": N_("Código incorreto. Verifique o último email que enviámos e tente novamente."),
+    "code_expired": N_("Este código expirou ou foi tentado demasiadas vezes. Peça um novo."),
 }
 
 
@@ -136,10 +138,15 @@ def _register_page(
             "errors": errors,
             "invite_required": auth_service.registration_needs_invite(db, values.get("email")),
             "invite_valid": auth_service.find_invite(db, invite_code) is not None if invite_code else False,
+            "specialties": specialty_options(db),
             **ctx,
         },
         status_code=status_code,
     )
+
+
+def _email_key(address: str) -> str:
+    return hashlib.sha256(address.encode()).hexdigest()[:16]
 
 
 @pages.get("/register")
@@ -150,9 +157,10 @@ def register_page(request: Request, db: DB, user: CurrentUser, invite: str | Non
 
 
 @pages.post("/register")
-def register_submit(request: Request, db: DB, form: Form) -> Response:
+def register_submit(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
     raw = form_to_dict(form)
     raw.pop("csrf_token", None)
+    raw["accept_terms"] = form.get("accept_terms") in ("1", "on", "true")
     if not ratelimit.hit(ratelimit.REGISTER_IP, "register", client_key(request)):
         return _register_page(request, db, raw, {}, 429, error=AUTH_ERRORS["rate_limited"])
     try:
@@ -160,15 +168,108 @@ def register_submit(request: Request, db: DB, form: Form) -> Response:
     except ValidationError as exc:
         return _register_page(request, db, raw, errors_from(exc), 422)
     errors = data.password_errors()
+    if data.specialty_category_id is not None and data.specialty_category_id not in {
+        c.id for c in specialty_options(db)
+    }:
+        errors["specialty_category_id"] = (N_("Escolha uma opção válida."), {})
     if errors:
         return _register_page(request, db, raw, errors, 422)
+    lang = request.state.lang
     try:
-        user = auth_service.register(db, str(data.email), data.password, data.invite, request.state.lang)
+        if not auth_service.email_enabled():
+            user = auth_service.register(
+                db, str(data.email), data.password, data.invite, lang, data.profile()
+            )
+            return login_response(db, request, user, None)
+        address = auth_service.normalize_email(str(data.email))
+        if not ratelimit.hit(ratelimit.REGISTER_EMAIL, "register-email", _email_key(address)):
+            return _register_page(request, db, raw, {}, 429, error=AUTH_ERRORS["rate_limited"])
+        ticket = auth_service.start_registration(
+            db, address, data.password, data.invite, lang, data.profile()
+        )
     except AuthError as exc:
         db.rollback()
         field = "email" if exc.code in ("email_taken", "invite_email_mismatch") else "invite"
         return _register_page(request, db, raw, {field: (AUTH_ERRORS[exc.code], {})}, 422)
-    return login_response(db, request, user, None)
+    db.commit()
+    background.add_task(email.deliver_queued)
+    return RedirectResponse(f"{lang_prefix(lang)}/register/verify?t={ticket}", status_code=303)
+
+
+def _code_page(
+    request: Request,
+    purpose: str,
+    ticket: str,
+    row: Any,
+    status_code: int = 200,
+    errors: dict[str, Any] | None = None,
+    **ctx: Any,
+) -> Response:
+    if row is None:
+        return render(request, "auth/code_invalid.html", {"purpose": purpose}, status_code=400)
+    return render(
+        request,
+        "auth/code.html",
+        {
+            "purpose": purpose,
+            "reset": purpose == "reset",
+            "base": _code_route(purpose),
+            "ticket": ticket,
+            "masked": auth_service.mask_email(row.email),
+            "minutes": int(auth_service.CODE_TTL.total_seconds() // 60),
+            "can_resend": row.sends < auth_service.CODE_SENDS,
+            "errors": errors or {},
+            **ctx,
+        },
+        status_code=status_code,
+    )
+
+
+def _code_route(purpose: str) -> str:
+    return "/register" if purpose == "register" else "/forgot"
+
+
+def _resend(request: Request, db: DB, purpose: str, form: Any, background: BackgroundTasks) -> Response:
+    ticket = str(form.get("t") or "")
+    if not ratelimit.hit(ratelimit.CODE_IP, "code", client_key(request)):
+        row = auth_service.find_code(db, purpose, ticket)
+        return _code_page(request, purpose, ticket, row, 429, error=AUTH_ERRORS["rate_limited"])
+    sent = auth_service.resend_code(db, purpose, ticket)
+    db.commit()
+    if sent:
+        background.add_task(email.deliver_queued)
+    row = auth_service.find_code(db, purpose, ticket)
+    return _code_page(request, purpose, ticket, row, resent=sent)
+
+
+@pages.get("/register/verify")
+def register_verify_page(request: Request, db: DB, t: str = "") -> Response:
+    return _code_page(request, "register", t, auth_service.find_code(db, "register", t))
+
+
+@pages.post("/register/verify")
+def register_verify_submit(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
+    ticket = str(form.get("t") or "")
+    if not ratelimit.hit(ratelimit.CODE_IP, "code", client_key(request)):
+        row = auth_service.find_code(db, "register", ticket)
+        return _code_page(request, "register", ticket, row, 429, error=AUTH_ERRORS["rate_limited"])
+    try:
+        user = auth_service.complete_registration(db, ticket, str(form.get("code") or ""))
+    except AuthError as exc:
+        db.commit()  # keep the attempt count
+        row = auth_service.find_code(db, "register", ticket)
+        if exc.code in ("email_taken", "invalid_invite"):
+            ctx = {"purpose": "register", "error": AUTH_ERRORS[exc.code]}
+            return render(request, "auth/code_invalid.html", ctx, status_code=400)
+        return _code_page(request, "register", ticket, row, 422, {"code": (AUTH_ERRORS[exc.code], {})})
+    response = login_response(db, request, user, None)  # commits (with the welcome email)
+    background.add_task(email.deliver_queued)
+    return response
+
+
+@pages.post("/register/resend")
+def register_resend(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
+    return _resend(request, db, "register", form, background)
 
 
 @pages.get("/forgot")
@@ -180,7 +281,7 @@ def forgot_page(request: Request) -> Response:
 
 @pages.post("/forgot")
 def forgot_submit(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
-    """Self-service reset (D29). Always the same answer, so it can't reveal which emails have accounts."""
+    """Self-service reset with an emailed code (D30). Same next screen whether or not the account exists."""
     from pydantic import TypeAdapter
     from pydantic import ValidationError as PydanticValidationError
     from pydantic.networks import EmailStr
@@ -197,14 +298,51 @@ def forgot_submit(request: Request, db: DB, form: Form, background: BackgroundTa
             {"errors": {"email": (N_("Indique um email válido."), {})}, "email": raw},
             422,
         )
-    email_key = hashlib.sha256(address.encode()).hexdigest()[:16]
-    if ratelimit.hit(ratelimit.FORGOT_IP, "forgot-ip", client_key(request)) and ratelimit.hit(
-        ratelimit.FORGOT_EMAIL, "forgot-email", email_key
+    if not (
+        ratelimit.hit(ratelimit.FORGOT_IP, "forgot-ip", client_key(request))
+        and ratelimit.hit(ratelimit.FORGOT_EMAIL, "forgot-email", _email_key(address))
     ):
-        auth_service.request_password_reset(db, address, request.state.lang)
-        db.commit()
-        background.add_task(email.deliver_queued)
-    return render(request, "auth/forgot_sent.html", {"email": address})
+        return render(
+            request,
+            "auth/forgot.html",
+            {"errors": {}, "email": address, "error": AUTH_ERRORS["rate_limited"]},
+            429,
+        )
+    ticket = auth_service.start_password_reset(db, address, request.state.lang)
+    db.commit()
+    background.add_task(email.deliver_queued)
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/forgot/verify?t={ticket}", status_code=303)
+
+
+@pages.get("/forgot/verify")
+def forgot_verify_page(request: Request, db: DB, t: str = "") -> Response:
+    return _code_page(request, "reset", t, auth_service.find_code(db, "reset", t))
+
+
+@pages.post("/forgot/verify")
+def forgot_verify_submit(request: Request, db: DB, form: Form) -> Response:
+    ticket = str(form.get("t") or "")
+    row = auth_service.find_code(db, "reset", ticket)
+    if not ratelimit.hit(ratelimit.CODE_IP, "code", client_key(request)):
+        return _code_page(request, "reset", ticket, row, 429, error=AUTH_ERRORS["rate_limited"])
+    if row is None:
+        return _code_page(request, "reset", ticket, None)
+    password = str(form.get("password") or "")
+    errors = new_password_errors(password, str(form.get("password_confirm") or ""), row.email)
+    if errors:
+        return _code_page(request, "reset", ticket, row, 422, errors)
+    try:
+        user = auth_service.complete_password_reset(db, ticket, str(form.get("code") or ""), password)
+    except AuthError as exc:
+        db.commit()  # keep the attempt count
+        row = auth_service.find_code(db, "reset", ticket)
+        return _code_page(request, "reset", ticket, row, 422, {"code": (AUTH_ERRORS[exc.code], {})})
+    return login_response(db, request, user, None)
+
+
+@pages.post("/forgot/resend")
+def forgot_resend(request: Request, db: DB, form: Form, background: BackgroundTasks) -> Response:
+    return _resend(request, db, "reset", form, background)
 
 
 @pages.get("/reset/{token}")

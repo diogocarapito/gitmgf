@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 — 2026-11-18 · Open registration with email codes
+
+- Registration is open (with SMTP): name, email, profession, specialty, password and terms in one form, then a 6-digit code by email; the account is created only after the code. No separate onboarding step.
+- *Esqueceu-se da palavra-passe?* now emails a 6-digit code (15 min) and the new password is set on the same screen.
+- Taken emails and unknown accounts behave the same as free/known ones; owners get an "account exists" email.
+- `cli emails [--retry]` shows the outbox with SMTP errors; `create-user --send` reports real delivery failures.
+- Terms §3.2 and Privacy updated (PT/EN). See D30.
+
 ## 0.2.0 — 2026-11-16 · Password login, invite-only registration
 
 - Email + password sign-in (scrypt, rate-limited); registration by invite link (Administração → Convites, `cli invite`), with an option to open it to everyone.

@@ -11,7 +11,7 @@ Production runs as one Docker Compose stack on a single EU VPS (TECH_SPEC §1, �
 
 All state lives in the `gitmgf_data` volume: `/data/gitmgf.db` (+ WAL) and `/data/media/`.
 
-**Accounts (MVP, D26):** email + password sign-in, invite-only registration, admin-issued reset links. No OAuth, no magic links. SMTP is optional.
+**Accounts (D26, D30):** email + password sign-in. With SMTP, registration is open: a form with basic info, then a 6-digit code by email confirms the address before the account exists; forgotten passwords use a code too. Without SMTP, registration is invite-only and resets are admin-issued links. No OAuth, no magic links.
 
 ---
 
@@ -88,12 +88,20 @@ docker compose -f deploy/docker-compose.prod.yml --env-file .env run --rm app cl
 
 ## 2. Accounts and access
 
+### Registration
+
+- **With email configured (§2.1), open by default:** */register* asks for name, email, profession, optional specialty, password and terms acceptance, then emails a **6-digit code** (valid 15 minutes, 5 tries, up to 2 resends). The account is created only when the code is entered, already onboarded. Pending sign-ups are deleted after 24 hours.
+- A taken email gets the same "enter the code" screen, and the account owner gets an email saying an account already exists (no account enumeration).
+- **Close registration:** Administração → Definições → untick *Registos abertos*. Then only invites (and `ADMIN_EMAILS`) can register, still with the code.
+- **Without email:** registration is invite-only and immediate (no code can be sent).
+- Accounts you create yourself (`cli create-user`, below) skip the form: the person gets a set-password link and fills in the profile at first sign-in.
+
 ### Invites
 
 - **Create:** Administração → Convites → *Novo convite*. Options: lock to one email, number of uses (e.g. 20 for a beta group), validity in days. The link is shown **once** — copy it and send it by message or personal email.
 - **From the server:** `dc run --rm app cli invite --uses 20 --days 30 --note "Beta MGF"` (add `--email someone@example.org` to lock it).
 - **Revoke:** Administração → Convites → *Revogar*.
-- **Open registration to everyone:** Administração → Definições → *Registos abertos*. Invites are then optional.
+- Invites matter when registration is closed, or without email. With open registration they are optional.
 
 ### Publishing your own tool (admins, no second moderator yet)
 
@@ -107,7 +115,7 @@ It publishes a pending tool — or, for a published tool with a pending edit, ap
 
 ### Forgotten passwords
 
-- **With email configured (§2.1):** people use *Esqueceu-se da palavra-passe?* on the login page and get a link valid for 1 hour. Admins can also click *Enviar ligação por email* on the user's page (48 h).
+- **With email configured (§2.1):** people use *Esqueceu-se da palavra-passe?* on the login page, get a **6-digit code** (15 minutes, 5 tries) and set the new password on the same screen. Unknown emails get the same screen but no email. Admins can also click *Enviar ligação por email* on the user's page (48 h link).
 - **Without email:** confirm it is really them, then Administração → Utilizadores → the user → *Gerar ligação para definir palavra-passe*, and send them the link yourself (48 h, single use; a new link invalidates the previous one).
 
 Setting the password signs out the user's other sessions.
@@ -278,7 +286,7 @@ Record the date, duration (RTO target ≤ 4 h) and any issues in `docs/CHANGELOG
 - [ ] DNS, TLS, `www` redirect working; HSTS header present
 - [ ] `check-config` passes; all legal placeholders reviewed by a lawyer (content/legal/NOTES.md §2)
 - [ ] First admin registered; 2 moderators invited and onboarded (PRD Q5)
-- [ ] Invite flow and set-password link tested end to end
+- [ ] Registration with the emailed code, password reset with a code, and set-password link tested end to end
 - [ ] Litestream replicating; media sync cron installed; **restore drill done**
 - [ ] Uptime check and scheduler heartbeat alerting
 - [ ] 15–20 seed tools from known authors published (PRD §11)

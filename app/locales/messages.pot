@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 08:07+0000\n"
+"POT-Creation-Date: 2026-11-18 21:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,13 +20,13 @@ msgstr ""
 msgid "As palavras-passe não coincidem."
 msgstr ""
 
+msgid "Tem de aceitar os Termos e as Normas de Submissão para continuar."
+msgstr ""
+
 msgid "Use 3 a 30 letras minúsculas, números ou hífenes."
 msgstr ""
 
 msgid "Nome de utilizador do GitHub inválido."
-msgstr ""
-
-msgid "Tem de aceitar os Termos e as Normas de Submissão para continuar."
 msgstr ""
 
 msgid "Campo obrigatório."
@@ -545,6 +545,12 @@ msgstr ""
 msgid "Demasiadas tentativas. Aguarde um pouco e tente novamente."
 msgstr ""
 
+msgid "Código incorreto. Verifique o último email que enviámos e tente novamente."
+msgstr ""
+
+msgid "Este código expirou ou foi tentado demasiadas vezes. Peça um novo."
+msgstr ""
+
 msgid "Este identificador já está a ser usado."
 msgstr ""
 
@@ -1036,7 +1042,8 @@ msgstr ""
 
 msgid ""
 "O registo é feito apenas por convite. Pode abri-lo a todos em Definições "
-"(Registos abertos)."
+"(Registos abertos); é preciso o email (SMTP) estar configurado, para "
+"confirmar os endereços."
 msgstr ""
 
 msgid "Convite criado. Copie a ligação agora: não volta a ser mostrada."
@@ -1294,41 +1301,97 @@ msgstr ""
 msgid "Idioma da interface e dos emails"
 msgstr ""
 
-msgid "Recuperar palavra-passe"
+msgid "Definir nova palavra-passe"
 msgstr ""
 
-msgid ""
-"Indique o email da sua conta. Se existir, enviamos uma ligação para "
-"definir uma nova palavra-passe, válida durante 1 hora."
-msgstr ""
-
-msgid "Enviar ligação"
-msgstr ""
-
-msgid "Voltar a Entrar"
-msgstr ""
-
-msgid "Verifique o seu email"
+msgid "Confirmar email"
 msgstr ""
 
 #, python-format
 msgid ""
-"Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos "
-"uma ligação para definir uma nova palavra-passe."
+"Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos-"
+"lhe um código de 6 dígitos."
+msgstr ""
+
+#, python-format
+msgid ""
+"Enviámos um código de 6 dígitos para <strong>%(email)s</strong>. "
+"Introduza-o para concluir o registo."
+msgstr ""
+
+#, python-format
+msgid ""
+"O código é válido durante %(minutes)s minutos. Se não o encontrar, "
+"verifique a pasta de spam."
+msgstr ""
+
+msgid "Enviámos um novo código. Os anteriores deixaram de funcionar."
+msgstr ""
+
+msgid "Código"
+msgstr ""
+
+msgid "Nova palavra-passe"
 msgstr ""
 
 msgid ""
-"A ligação é válida durante 1 hora e só pode ser usada uma vez. Se não a "
-"encontrar, verifique a pasta de spam."
+"Pelo menos 10 caracteres. Ao guardar, as outras sessões abertas são "
+"terminadas."
+msgstr ""
+
+msgid "Repetir palavra-passe"
+msgstr ""
+
+msgid "Guardar e entrar"
+msgstr ""
+
+msgid "Confirmar e entrar"
+msgstr ""
+
+msgid "Enviar novo código"
+msgstr ""
+
+msgid "Usar outro email"
+msgstr ""
+
+msgid "Voltar ao formulário"
+msgstr ""
+
+msgid "Código expirado"
+msgstr ""
+
+msgid "Este pedido expirou ou já foi usado. Peça um novo código."
+msgstr ""
+
+msgid ""
+"Este registo expirou ou já foi concluído. Se ainda não tem conta, "
+"preencha o formulário de novo."
+msgstr ""
+
+msgid "Pedir novo código"
+msgstr ""
+
+msgid "Criar conta"
+msgstr ""
+
+msgid "Recuperar palavra-passe"
+msgstr ""
+
+msgid ""
+"Indique o email da sua conta. Se existir, enviamos um código de 6 dígitos"
+" para definir uma nova palavra-passe."
+msgstr ""
+
+msgid "Enviar código"
+msgstr ""
+
+msgid "Voltar a Entrar"
 msgstr ""
 
 msgid "Entrar na gitmgf"
 msgstr ""
 
 msgid "Ainda não tem conta?"
-msgstr ""
-
-msgid "Criar conta"
 msgstr ""
 
 msgid "Esqueceu-se da palavra-passe?"
@@ -1379,8 +1442,13 @@ msgid "Continuar"
 msgstr ""
 
 msgid ""
-"Durante a fase de testes, o registo é feito por convite. Se não tem um, "
-"peça-o através do"
+"De momento, o registo é feito por convite. Se não tem um, peça-o através "
+"do"
+msgstr ""
+
+msgid ""
+"Depois de preencher, enviamos um código de 6 dígitos para o seu email "
+"para confirmar o endereço."
 msgstr ""
 
 msgid "Convite válido."
@@ -1394,16 +1462,7 @@ msgid ""
 "lembrar e difícil de adivinhar."
 msgstr ""
 
-msgid "Repetir palavra-passe"
-msgstr ""
-
 msgid "Já tem conta?"
-msgstr ""
-
-msgid "Ao criar conta, aceita os"
-msgstr ""
-
-msgid "e toma conhecimento da"
 msgstr ""
 
 msgid "Definir palavra-passe"
@@ -1415,13 +1474,7 @@ msgstr ""
 msgid "As outras sessões abertas desta conta serão terminadas."
 msgstr ""
 
-msgid "Nova palavra-passe"
-msgstr ""
-
 msgid "Pelo menos 10 caracteres."
-msgstr ""
-
-msgid "Guardar e entrar"
 msgstr ""
 
 msgid "Ligação inválida"
@@ -1458,6 +1511,22 @@ msgid ""
 msgstr ""
 
 msgid "Se não pediu esta eliminação, responda a este email com urgência."
+msgstr ""
+
+msgid "Já tem uma conta na gitmgf"
+msgstr ""
+
+msgid ""
+"Houve uma tentativa de criar uma conta na gitmgf com este email, mas já "
+"existe uma conta associada a ele."
+msgstr ""
+
+msgid "Entrar:"
+msgstr ""
+
+msgid ""
+"Se não fez este pedido, pode ignorar este email: a sua conta não foi "
+"alterada."
 msgstr ""
 
 #, python-format
@@ -1540,19 +1609,19 @@ msgstr ""
 msgid "Item mais antigo: %(age)s"
 msgstr ""
 
-msgid "Definir uma nova palavra-passe na gitmgf"
+#, python-format
+msgid "Código para nova palavra-passe na gitmgf: %(code)s"
 msgstr ""
 
 msgid ""
 "Recebemos um pedido para definir uma nova palavra-passe na sua conta "
-"gitmgf. Use esta ligação:"
+"gitmgf. Introduza este código:"
 msgstr ""
 
 #, python-format
 msgid ""
-"A ligação é válida durante %(minutes)s minutos e só pode ser usada uma "
-"vez. Ao definir a nova palavra-passe, as outras sessões abertas são "
-"terminadas."
+"O código é válido durante %(minutes)s minutos. Ao definir a nova palavra-"
+"passe, as outras sessões abertas são terminadas."
 msgstr ""
 
 msgid ""
@@ -1575,6 +1644,22 @@ msgstr ""
 msgid ""
 "Se não esperava este email, ignore-o e avise-nos respondendo a esta "
 "mensagem."
+msgstr ""
+
+#, python-format
+msgid "O seu código gitmgf: %(code)s"
+msgstr ""
+
+msgid "Para concluir o registo na gitmgf, introduza este código:"
+msgstr ""
+
+#, python-format
+msgid "O código é válido durante %(minutes)s minutos."
+msgstr ""
+
+msgid ""
+"Se não pediu para criar uma conta, pode ignorar este email: sem o código,"
+" a conta não é criada."
 msgstr ""
 
 msgid "Recebemos a sua denúncia"

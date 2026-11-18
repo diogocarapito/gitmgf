@@ -6,7 +6,7 @@
 {% set active = 'invites' %}
 <div class="container">
   <header class="page-head"><h1>{{ _("Convites") }}</h1>
-    <p>{% if registration_open %}{{ _("O registo está aberto a todos: os convites não são obrigatórios.") }}{% else %}{{ _("O registo é feito apenas por convite. Pode abri-lo a todos em Definições (Registos abertos).") }}{% endif %}</p></header>
+    <p>{% if registration_open %}{{ _("O registo está aberto a todos: os convites não são obrigatórios.") }}{% else %}{{ _("O registo é feito apenas por convite. Pode abri-lo a todos em Definições (Registos abertos); é preciso o email (SMTP) estar configurado, para confirmar os endereços.") }}{% endif %}</p></header>
   {% include "admin/_nav.html" %}
   {% if created_link %}
   <div class="notice notice--ok" role="status">{{ icon('check') }}<div>

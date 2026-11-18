@@ -32,11 +32,31 @@ class PasswordError(ValueError):
 
 
 class RegisterForm(BaseModel):
+    """Basic info up front (PRD F2, D30): after the emailed code there is no onboarding step."""
+
     model_config = ConfigDict(str_strip_whitespace=True)
+    display_name: str = Field(min_length=2, max_length=80)
     email: EmailStr = Field(max_length=254)
+    profession: Profession
+    specialty_category_id: Annotated[int | None, BeforeValidator(blank_to_none)] = None
     password: str = Field(default="", max_length=128)
     password_confirm: str = Field(default="", max_length=128)
     invite: str | None = Field(default=None, max_length=100)
+    accept_terms: bool = Field(default=False, validate_default=True)
+
+    @field_validator("accept_terms")
+    @classmethod
+    def _terms(cls, v: bool) -> bool:
+        if not v:
+            raise FieldError(N_("Tem de aceitar os Termos e as Normas de Submissão para continuar."))
+        return v
+
+    def profile(self) -> dict[str, Any]:
+        return {
+            "display_name": self.display_name,
+            "profession": self.profession.value,
+            "specialty_category_id": self.specialty_category_id,
+        }
 
     def password_errors(self) -> dict[str, tuple[str, dict[str, Any]]]:
         try:

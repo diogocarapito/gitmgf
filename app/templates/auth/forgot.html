@@ -6,11 +6,12 @@
 <div class="container">
   <div class="auth-card">
     <h1>{{ _("Recuperar palavra-passe") }}</h1>
-    <p class="muted">{{ _("Indique o email da sua conta. Se existir, enviamos uma ligação para definir uma nova palavra-passe, válida durante 1 hora.") }}</p>
+    <p class="muted">{{ _("Indique o email da sua conta. Se existir, enviamos um código de 6 dígitos para definir uma nova palavra-passe.") }}</p>
+    {% if error %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(error) }}</p></div>{% endif %}
     <form class="form" action="{{ url('/forgot') }}" method="post">
       {{ m.csrf() }}
       {{ m.text("email", _("Email"), {"email": email or ""}, errors, type="email", required=True, maxlength=254, autocomplete="username") }}
-      <button class="btn btn--primary btn--block" type="submit">{{ icon('mail') }} {{ _("Enviar ligação") }}</button>
+      <button class="btn btn--primary btn--block" type="submit">{{ icon('mail') }} {{ _("Enviar código") }}</button>
     </form>
     <p class="small muted section--tight"><a href="{{ url('/login') }}">{{ _("Voltar a Entrar") }}</a></p>
   </div>

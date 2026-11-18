@@ -1,0 +1,11 @@
+{% block subject %}{{ _("Já tem uma conta na gitmgf") }}{% endblock %}
+{% block body %}
+{{ _("Olá,") }}
+
+{{ _("Houve uma tentativa de criar uma conta na gitmgf com este email, mas já existe uma conta associada a ele.") }}
+
+{{ _("Entrar:") }} {{ base_url }}{{ lang_prefix }}/login
+{{ _("Esqueceu-se da palavra-passe?") }} {{ base_url }}{{ lang_prefix }}/forgot
+
+{{ _("Se não fez este pedido, pode ignorar este email: a sua conta não foi alterada.") }}
+{% endblock %}
