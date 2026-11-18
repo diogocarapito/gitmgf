@@ -1,4 +1,4 @@
-"""Screenshots: the only user files. Always re-encoded; original bytes are never stored or served (TECH_SPEC §12)."""
+"""Screenshots and profile photos: the only user files. Always re-encoded; original bytes are never stored or served (TECH_SPEC §12, D33)."""
 
 import io
 import uuid
@@ -13,6 +13,7 @@ MAX_BYTES = 2 * 1024 * 1024
 MAX_PER_TOOL = 5
 MAX_WIDTH = 1600
 THUMB_WIDTH = 480
+AVATAR_SIZE = 256
 ALLOWED_FORMATS = {"PNG", "JPEG", "WEBP"}
 Image.MAX_IMAGE_PIXELS = 25_000_000
 
@@ -86,6 +87,34 @@ def process(data: bytes, tool_id: int) -> ProcessedImage:
     full.save(directory / file_name, "WEBP", quality=82, method=4)
     thumb.save(directory / thumb_name, "WEBP", quality=80, method=4)
     return ProcessedImage(file_name, thumb_name, full.width, full.height)
+
+
+def avatar_dir(user_id: int) -> Path:
+    return get_settings().media_dir / "avatars" / str(user_id)
+
+
+def avatar_url(user_id: int, file_name: str) -> str:
+    return f"/media/avatars/{user_id}/{file_name}"
+
+
+def process_avatar(data: bytes, user_id: int) -> str:
+    """Square centre crop, 256 px WebP, no metadata. A new file name on every upload (immutable caching)."""
+    image = _normalise(_load(data))
+    side = min(image.width, image.height)
+    left, top = (image.width - side) // 2, (image.height - side) // 2
+    square = image.crop((left, top, left + side, top + side))
+    if side > AVATAR_SIZE:
+        square = square.resize((AVATAR_SIZE, AVATAR_SIZE), Image.Resampling.LANCZOS)
+    directory = avatar_dir(user_id)
+    directory.mkdir(parents=True, exist_ok=True)
+    file_name = f"{uuid.uuid4().hex}.webp"
+    square.save(directory / file_name, "WEBP", quality=82, method=4)
+    return file_name
+
+
+def delete_avatar(user_id: int, file_name: str | None) -> None:
+    if file_name and "/" not in file_name and ".." not in file_name:
+        (avatar_dir(user_id) / file_name).unlink(missing_ok=True)
 
 
 def delete_files(tool_id: int, *names: str) -> None:

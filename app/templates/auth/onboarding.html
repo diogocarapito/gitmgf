@@ -6,7 +6,7 @@
 <div class="container container--narrow">
   <header class="page-head">
     <h1>{% if reaccept %}{{ _("Atualizámos os Termos") }}{% else %}{{ _("Bem-vindo/a à gitmgf") }}{% endif %}</h1>
-    <p>{% if reaccept %}{{ _("Reveja e aceite a nova versão dos Termos e das Normas de Submissão para continuar.") }}{% else %}{{ _("Complete o seu perfil para começar. Só o nome, a profissão, a especialidade e o GitHub aparecem nas páginas das suas ferramentas.") }}{% endif %}</p>
+    <p>{% if reaccept %}{{ _("Reveja e aceite a nova versão dos Termos e das Normas de Submissão para continuar.") }}{% else %}{{ _("Complete o seu perfil para começar. O nome, a profissão, a especialidade e o GitHub aparecem no seu perfil público e nas páginas das suas ferramentas.") }}{% endif %}</p>
   </header>
   <form class="form" method="post" action="{{ url('/onboarding') }}">
     {{ m.csrf() }}

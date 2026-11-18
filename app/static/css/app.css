@@ -246,6 +246,15 @@ hr { border: 0; border-top: 1px solid var(--c-border); margin: 2rem 0; }
   display: inline-grid; place-items: center; font-weight: 800; font-size: .85rem; border: 1px solid var(--c-primary-border);
 }
 .avatar--sm { width: 22px; height: 22px; font-size: .65rem; }
+.avatar--lg { width: 44px; height: 44px; font-size: 1.05rem; }
+.avatar--xl { width: 96px; height: 96px; font-size: 2.2rem; }
+.avatar--photo { object-fit: cover; padding: 0; background: var(--c-bg-soft); }
+.avatar-edit { display: flex; gap: 1.2rem; align-items: flex-start; flex-wrap: wrap; }
+.profile-head { display: flex; gap: 1.4rem; align-items: center; flex-wrap: wrap; padding: 2rem 0 1rem; }
+.profile-head h1 { margin-bottom: .15rem; }
+.profile-head .row { gap: .6rem 1rem; }
+.card__author { position: relative; z-index: 1; color: inherit; }
+.notification__from { display: inline-flex; align-items: center; gap: .35rem; }
 .mobile-nav { display: block; }
 .mobile-nav .menu__panel { left: auto; right: 0; }
 

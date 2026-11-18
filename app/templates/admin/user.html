@@ -41,6 +41,13 @@
       {% else %}
       <form method="post" action="/admin/users/{{ target.id }}/unsuspend">{{ m.csrf() }}<button class="btn" type="submit">{{ _("Levantar suspensão") }}</button></form>
       {% endif %}
+      {% if target.avatar_name %}
+      <form class="form" method="post" action="/admin/users/{{ target.id }}/avatar/delete">
+        {{ m.csrf() }}
+        <div class="row">{{ m.avatar(target, "lg") }}<div class="field"><label for="avatar-reason">{{ _("Motivo para remover a foto") }}</label><input id="avatar-reason" type="text" name="reason" maxlength="300" required></div></div>
+        <button class="btn btn--danger" type="submit">{{ icon('trash') }} {{ _("Remover foto de perfil") }}</button>
+      </form>
+      {% endif %}
       <form method="post" action="{{ url('/admin/users/' ~ target.id ~ '/reset-link') }}">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('link') }} {{ _("Gerar ligação para definir palavra-passe") }}</button></form>
       {% if email_enabled %}<form method="post" action="/admin/users/{{ target.id }}/reset-email">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('mail') }} {{ _("Enviar ligação por email") }}</button></form>{% endif %}
       {% if reset_link %}<div class="notice notice--ok" role="status">{{ icon('check') }}<div><p><strong>{{ _("Ligação válida durante 48 horas e uma única utilização. Copie-a agora: não volta a ser mostrada.") }}</strong></p><p><code class="kv">{{ reset_link }}</code></p></div></div>{% endif %}

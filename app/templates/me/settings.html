@@ -14,6 +14,27 @@
     <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
   </form>
 
+  <section class="form-section section--tight" id="foto">
+    <h2 class="form-section__title">{{ _("Foto de perfil") }}</h2>
+    <div class="avatar-edit">
+      {{ m.avatar(user, "xl") }}
+      <div>
+        <p class="form-section__intro">{{ _("Opcional. Aparece no seu perfil, nas suas ferramentas e no menu. PNG, JPEG ou WebP até 2 MB; é recortada ao centro em formato quadrado e os metadados são removidos.") }}</p>
+        <form class="form" method="post" action="/me/avatar" enctype="multipart/form-data">
+          {{ m.csrf() }}
+          <div class="field{% if errors.get('avatar') %} field--invalid{% endif %}">
+            <label for="f-avatar">{{ _("Imagem") }}</label>
+            <input id="f-avatar" type="file" name="avatar" accept="image/png,image/jpeg,image/webp" required{{ m.describedby(errors, 'avatar', None) }}>
+            {{ m.error(errors, 'avatar') }}
+          </div>
+          <div class="row"><button class="btn" type="submit">{{ icon('upload') }} {{ _("Carregar foto") }}</button></div>
+        </form>
+        {% if user.avatar_name %}<form class="section--tight" method="post" action="/me/avatar/delete">{{ m.csrf() }}<button class="btn btn--ghost btn--sm" type="submit">{{ icon('trash') }} {{ _("Remover foto") }}</button></form>{% endif %}
+        {% if user.handle %}<p class="small section--tight"><a href="{{ url('/u/' ~ user.handle) }}">{{ icon('user') }} {{ _("Ver o meu perfil público") }}</a></p>{% endif %}
+      </div>
+    </div>
+  </section>
+
   <form class="form form-section section--tight" method="post" action="{{ url('/me/password') }}">
     {{ m.csrf() }}
     <h2 class="form-section__title">{{ _("Palavra-passe") }}</h2>

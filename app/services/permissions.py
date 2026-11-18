@@ -48,5 +48,15 @@ def can_suggest(user: User | None, tool: Tool) -> bool:
     return user is not None and user.is_active and tool.is_public and not is_owner(user, tool)
 
 
+def can_view_profile(profile: User) -> bool:
+    """Profiles of active, onboarded accounts are public; suspended or deleted ones are hidden (404)."""
+    return (
+        profile.is_active
+        and profile.deleted_at is None
+        and profile.handle is not None
+        and profile.onboarded_at is not None
+    )
+
+
 def can_view_stats(user: User | None) -> bool:
     return is_moderator(user)

@@ -259,6 +259,24 @@ def suspend(request: Request, db: DB, user: AdminDep, user_id: int, form: Form) 
     return _back(request, f"/admin/users/{target.id}", "suspended")
 
 
+@actions.post("/admin/users/{user_id}/avatar/delete")
+def remove_avatar(
+    request: Request, db: DB, user: AdminDep, user_id: int, form: Form, background: BackgroundTasks
+) -> Response:
+    from app.services import profiles
+
+    target = _user(db, user_id)
+    reason = str(form.get("reason") or "").strip()[:300]
+    if not reason:
+        return _back(request, f"/admin/users/{target.id}", "reason_required")
+    if target.avatar_name:
+        profiles.remove_avatar(db, target, user, reason)
+        email.enqueue(db, target.email, "avatar_removed", {"reason": reason}, target.locale.value)
+        db.commit()
+        background.add_task(email.deliver_queued)
+    return _back(request, f"/admin/users/{target.id}", "avatar_removed")
+
+
 @actions.post("/admin/users/{user_id}/unsuspend")
 def unsuspend(request: Request, db: DB, user: AdminDep, user_id: int) -> Response:
     target = _user(db, user_id)

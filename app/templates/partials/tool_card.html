@@ -21,8 +21,8 @@
     {%- if certs %}{{ m.cert_row(certs, core_only=True) }}{% endif -%}
   </div>{% endif %}
   <div class="card__foot">
-    <span class="avatar avatar--sm" aria-hidden="true">{{ (t.owner.display_name or '?')[:1] | upper }}</span>
-    <span>{{ t.owner.display_name }}</span>
+    {{ m.avatar(t.owner, "sm") }}
+    {% if t.owner.handle %}<a class="card__author" href="{{ url('/u/' ~ t.owner.handle) }}">{{ t.owner.display_name }}</a>{% else %}<span>{{ t.owner.display_name }}</span>{% endif %}
     {% if t.license_spdx %}<span class="sep"></span><span>{{ label(labels.LICENSE_LABEL, t.license_spdx) }}</span>{% endif %}
     <span class="stars" title="{{ _('Estrelas') }}">{{ icon('star') }} {{ t.stars_count }}<span class="visually-hidden"> {{ _('estrelas') }}</span></span>
   </div>

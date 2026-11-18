@@ -18,7 +18,7 @@
     </header>
     <p class="notification__message">{{ s.message }}</p>
     <footer class="notification__foot small">
-      <span>{{ _("De") }} {{ s.sender.display_name if s.sender and s.sender.display_name else _("um utilizador que eliminou a conta") }}</span>
+      <span class="notification__from">{% if s.sender %}{{ m.avatar(s.sender, "sm") }} {% endif %}{{ _("De") }} {% if s.sender and s.sender.display_name and s.sender.handle %}<a href="{{ url('/u/' ~ s.sender.handle) }}">{{ s.sender.display_name }}</a>{% elif s.sender and s.sender.display_name %}{{ s.sender.display_name }}{% else %}{{ _("um utilizador que eliminou a conta") }}{% endif %}</span>
       {% if s.allow_reply and s.sender %}<a href="mailto:{{ s.sender.email }}?subject={{ ('gitmgf: ' ~ localized(s.tool, 'title')) | urlencode }}">{{ icon('mail') }} {{ _("Responder por email") }}</a>{% endif %}
       <form method="post" action="/me/notifications/{{ s.id }}/delete" data-confirm="{{ _('Remover esta sugestão?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--ghost" type="submit">{{ icon('trash') }} {{ _("Remover") }}</button></form>
     </footer>

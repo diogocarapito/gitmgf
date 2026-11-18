@@ -75,6 +75,16 @@
 </div>
 {%- endmacro %}
 
+{# Profile photo, or the first letter of the name. size: "", "sm", "lg" #}
+{% macro avatar(person, size="") -%}
+{%- set cls = "avatar" ~ (" avatar--" ~ size if size else "") -%}
+{%- if person and person.avatar_name -%}
+<img class="{{ cls }} avatar--photo" src="/media/avatars/{{ person.id }}/{{ person.avatar_name }}" alt="" width="128" height="128" loading="lazy" decoding="async">
+{%- else -%}
+<span class="{{ cls }}" aria-hidden="true">{{ ((person.display_name or person.email or "?") if person else "?")[:1] | upper }}</span>
+{%- endif -%}
+{%- endmacro %}
+
 {% macro csrf() -%}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{%- endmacro %}
 
 {% macro status(value, mapping) -%}

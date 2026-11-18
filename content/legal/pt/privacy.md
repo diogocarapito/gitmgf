@@ -42,7 +42,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 
 | Categoria | Dados | Origem |
 |---|---|---|
-| **Conta** | Endereço de email; nome a apresentar; identificador público (*handle*); profissão; especialidade (opcional); local de trabalho (opcional); nome de utilizador no GitHub (opcional); idioma preferido; versão e data de aceitação dos Termos | Fornecidos por si |
+| **Conta** | Endereço de email; nome a apresentar; identificador público (*handle*); profissão; especialidade (opcional); local de trabalho (opcional); nome de utilizador no GitHub (opcional); foto de perfil (opcional); idioma preferido; versão e data de aceitação dos Termos | Fornecidos por si |
 | **Autenticação** | Palavra-passe, guardada apenas em forma cifrada irreversível (*hash* scrypt com sal); códigos de convite, códigos de confirmação de email e de redefinição de palavra-passe, ligações de redefinição e identificadores de sessão, também guardados apenas em forma irreversível; enquanto um registo aguarda confirmação, os dados do formulário (nome, email, profissão, especialidade e a palavra-passe já em *hash*); tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si ou gerados pelo Serviço |
 | **Conteúdo publicado** | Fichas de ferramentas (textos, ligações, email de suporte se o indicar, licença, plataformas, declarações de tratamento de dados e de certificações), capturas de ecrã e revisões | Fornecidos por si |
 | **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta); sugestões que envia ou recebe para ferramentas (tipo, mensagem, data e se aceitou partilhar o email com o autor) | Fornecidos por si |
@@ -60,7 +60,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | Finalidade | Dados | Fundamento jurídico (RGPD) |
 |---|---|---|
 | Criar e gerir a sua conta, autenticá-lo e manter a sessão | Conta, autenticação | Execução do contrato — os Termos de Utilização (art. 6.º, n.º 1, al. b)) |
-| Publicar e mostrar as suas ferramentas, com o seu nome, profissão, especialidade e ligação GitHub | Conta, conteúdo publicado | Execução do contrato (art. 6.º, n.º 1, al. b)) |
+| Mostrar o seu perfil público e publicar as suas ferramentas, com o seu nome, foto, profissão, especialidade e ligação GitHub | Conta, conteúdo publicado | Execução do contrato (art. 6.º, n.º 1, al. b)) |
 | Rever submissões, tratar denúncias, fundamentar decisões de moderação e responder a contestações | Conteúdo, interações, moderação, comunicações | Cumprimento de obrigação jurídica — Regulamento (UE) 2022/2065, Regulamento dos Serviços Digitais (art. 6.º, n.º 1, al. c)) — e interesse legítimo em manter o portal seguro e fiável (al. f)) |
 | Enviar emails necessários ao serviço (acesso, estado das submissões, decisões, avisos de expiração de certificações) | Conta, comunicações | Execução do contrato (art. 6.º, n.º 1, al. b)) |
 | Entregar ao autor de uma ferramenta as sugestões que lhe envia, por email e nas notificações do gitmgf; partilhar o seu email com o autor só se o autorizar | Conta, interações | Execução do contrato (art. 6.º, n.º 1, al. b)); consentimento para partilhar o email (al. a)), que pode retirar não voltando a assinalar a opção |
@@ -80,7 +80,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 
 ## 5. O que fica visível para outras pessoas
 
-Quando publica uma ferramenta, ficam **públicos** na página dessa ferramenta: o nome a apresentar, a profissão, a especialidade (se indicada), a ligação para o seu perfil GitHub (se indicada) e todo o conteúdo da ferramenta, incluindo as certificações declaradas. O número total de estrelas é público; **quem** atribuiu as estrelas não é.
+Cada conta ativa tem um **perfil público** em `/u/<identificador>`, com o nome a apresentar, a foto de perfil (se a carregar), a profissão, a especialidade (se indicada), a ligação para o seu perfil GitHub (se indicada), a função de moderador/a ou administrador/a (se a tiver), a data de registo e as ferramentas que publicou. Os perfis sem ferramentas publicadas não são indexados pelos motores de pesquisa. Quando publica uma ferramenta, ficam também **públicos** na página dessa ferramenta o seu nome, foto, profissão, especialidade e GitHub, e todo o conteúdo da ferramenta, incluindo as certificações declaradas. O número total de estrelas é público; **quem** atribuiu as estrelas não é.
 
 Quando envia uma sugestão, o autor da ferramenta vê o seu nome a apresentar e a mensagem; vê também o seu email **apenas se o autorizar** no formulário (nesse caso, pode responder-lhe diretamente).
 

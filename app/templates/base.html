@@ -1,4 +1,5 @@
 <!doctype html>
+{% import "_macros.html" as m with context %}
 <html lang="{{ HTML_LANG[lang] }}">
 <head>
   <meta charset="utf-8">
@@ -69,11 +70,12 @@
         <a class="btn btn--ghost btn--sm notif-link" href="{{ url('/me/notifications') }}" aria-label="{{ _('Notificações') }}{% if unread_count %} ({{ unread_count }} {{ _('por ler') }}){% endif %}" title="{{ _('Notificações') }}">{{ icon('bell') }}{% if unread_count %}<span class="notif-count" aria-hidden="true">{{ unread_count if unread_count < 100 else '99+' }}</span>{% endif %}</a>
         <details class="menu">
           <summary class="btn btn--ghost btn--sm" aria-label="{{ _('Menu da conta') }}">
-            <span class="avatar" aria-hidden="true">{{ (user.display_name or user.email)[:1] | upper }}</span>
+            {{ m.avatar(user) }}
             {{ icon('chevron-down') }}
           </summary>
           <div class="menu__panel">
             <div class="menu__who">{{ user.display_name or user.email }}</div>
+            {% if user.handle and user.onboarded_at %}<a href="{{ url('/u/' ~ user.handle) }}">{{ icon('user') }} {{ _("O meu perfil") }}</a>{% endif %}
             <a href="{{ url('/me/tools') }}">{{ icon('layers') }} {{ _("As minhas ferramentas") }}</a>
             <a href="{{ url('/me/notifications') }}">{{ icon('bell') }} {{ _("Notificações") }}{% if unread_count %} <span class="badge badge--new">{{ unread_count }}</span>{% endif %}</a>
             <a href="{{ url('/me/stars') }}">{{ icon('star') }} {{ _("As minhas estrelas") }}</a>

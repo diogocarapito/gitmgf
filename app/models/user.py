@@ -27,6 +27,7 @@ class User(Base):
     )
     workplace: Mapped[str | None] = mapped_column(String(120))
     github_username: Mapped[str | None] = mapped_column(String(39))
+    avatar_name: Mapped[str | None] = mapped_column(String(64))  # re-encoded WebP in media/avatars/<id>/
     locale: Mapped[Locale] = mapped_column(str_enum(Locale, "locale"), default=Locale.pt)
     role: Mapped[Role] = mapped_column(str_enum(Role, "role"), default=Role.user)
     status: Mapped[UserStatus] = mapped_column(str_enum(UserStatus, "user_status"), default=UserStatus.active)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 22:46+0000\n"
+"POT-Creation-Date: 2026-11-18 22:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -53,6 +53,12 @@ msgid "%(num)d ferramenta"
 msgid_plural "%(num)d ferramentas"
 msgstr[0] "%(num)d tool"
 msgstr[1] "%(num)d tools"
+
+#, python-format
+msgid "%(num)d ferramenta publicada"
+msgid_plural "%(num)d ferramentas publicadas"
+msgstr[0] "%(num)d published tool"
+msgstr[1] "%(num)d published tools"
 
 #, python-format
 msgid "%(sender)s enviou uma sugestão para a sua ferramenta «%(title)s»."
@@ -164,6 +170,9 @@ msgstr ""
 msgid "A sua conta gitmgf foi eliminada"
 msgstr "Your gitmgf account was deleted"
 
+msgid "A sua foto de perfil foi removida"
+msgstr "Your profile photo was removed"
+
 msgid "A utilização prevista e o tratamento de dados são plausíveis."
 msgstr "Intended use and data handling are plausible."
 
@@ -238,6 +247,9 @@ msgstr "No tools have been published yet. Be the first to share one!"
 
 msgid "Ainda não partilhou nenhuma ferramenta."
 msgstr "You haven't shared any tools yet."
+
+msgid "Ainda não publicou ferramentas."
+msgstr "No published tools yet."
 
 msgid ""
 "Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das"
@@ -574,6 +586,9 @@ msgstr "Screenshot removed."
 msgid "Capturas de ecrã"
 msgstr "Screenshots"
 
+msgid "Carregar foto"
+msgstr "Upload photo"
+
 msgid "Categoria guardada."
 msgstr "Category saved."
 
@@ -658,11 +673,12 @@ msgid "Completar perfil"
 msgstr "Complete your profile"
 
 msgid ""
-"Complete o seu perfil para começar. Só o nome, a profissão, a "
-"especialidade e o GitHub aparecem nas páginas das suas ferramentas."
+"Complete o seu perfil para começar. O nome, a profissão, a especialidade "
+"e o GitHub aparecem no seu perfil público e nas páginas das suas "
+"ferramentas."
 msgstr ""
-"Complete your profile to get started. Only your name, profession, "
-"specialty and GitHub appear on your tools' pages."
+"Complete your profile to get started. Your name, profession, specialty "
+"and GitHub appear on your public profile and on your tools' pages."
 
 msgid ""
 "Confirmamos a eliminação da sua conta. As suas ferramentas deixaram de "
@@ -1349,6 +1365,10 @@ msgstr ""
 msgid "Ferramentas mais populares"
 msgstr "Most popular tools"
 
+#, python-format
+msgid "Ferramentas publicadas por %(name)s no gitmgf."
+msgstr "Tools published by %(name)s on gitmgf."
+
 msgid "Fila de moderação"
 msgstr "Moderation queue"
 
@@ -1378,6 +1398,15 @@ msgstr "Invalid format."
 
 msgid "Formato não suportado. Use PNG, JPEG ou WebP."
 msgstr "Unsupported format. Use PNG, JPEG or WebP."
+
+msgid "Foto de perfil"
+msgstr "Profile photo"
+
+msgid "Foto de perfil atualizada."
+msgstr "Profile photo updated."
+
+msgid "Foto de perfil removida."
+msgstr "Profile photo removed."
 
 msgid "Francês"
 msgstr "French"
@@ -1538,11 +1567,11 @@ msgid "Já tem uma conta na gitmgf"
 msgstr "You already have a gitmgf account"
 
 msgid ""
-"Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no"
-" futuro."
+"Letras minúsculas, números e hífenes (3 a 30). É o endereço do seu perfil"
+" público: gitmgf.com/u/identificador."
 msgstr ""
-"Lowercase letters, numbers and hyphens (3 to 30). Will be used in "
-"addresses in the future."
+"Lowercase letters, numbers and hyphens (3 to 30). It's the address of "
+"your public profile: gitmgf.com/u/handle."
 
 msgid "Levantar suspensão"
 msgstr "Lift suspension"
@@ -1717,6 +1746,9 @@ msgstr "Suspension reason"
 msgid "Motivo e factos:"
 msgstr "Reason and facts:"
 
+msgid "Motivo para remover a foto"
+msgstr "Reason for removing the photo"
+
 msgid "Motivo, se rejeitar (p. ex. a evidência não abre)"
 msgstr "Reason, if rejecting (e.g. the evidence doesn't open)"
 
@@ -1755,6 +1787,10 @@ msgstr "Nothing pending in this queue."
 
 msgid "Nenhuma ferramenta encontrada."
 msgstr "No tools found."
+
+#, python-format
+msgid "No gitmgf desde %(date)s"
+msgstr "On gitmgf since %(date)s"
 
 msgid "Nome"
 msgstr "Name"
@@ -1927,6 +1963,9 @@ msgstr ""
 "The form expired or was sent from another site. Go back, reload the page "
 "and try again."
 
+msgid "O meu perfil"
+msgstr "My profile"
+
 msgid "O número do organismo notificado tem 4 dígitos."
 msgstr "The notified body number has 4 digits."
 
@@ -2015,6 +2054,15 @@ msgstr "Hello %(name)s,"
 
 msgid "Olá,"
 msgstr "Hello,"
+
+msgid ""
+"Opcional. Aparece no seu perfil, nas suas ferramentas e no menu. PNG, "
+"JPEG ou WebP até 2 MB; é recortada ao centro em formato quadrado e os "
+"metadados são removidos."
+msgstr ""
+"Optional. Shown on your profile, your tools and in the menu. PNG, JPEG or"
+" WebP up to 2 MB; it's cropped to a centred square and its metadata is "
+"removed."
 
 msgid "Open source"
 msgstr "Open source"
@@ -2243,6 +2291,13 @@ msgstr "Platform"
 msgid "Plataformas"
 msgstr "Platforms"
 
+msgid ""
+"Pode carregar outra foto em Definições, desde que cumpra os Termos de "
+"Utilização. Se discordar desta decisão, responda a este email."
+msgstr ""
+"You can upload another photo in Settings, as long as it follows the Terms"
+" of Use. If you disagree with this decision, reply to this email."
+
 msgid "Pode contestar esta decisão no prazo de 6 meses, respondendo a este email."
 msgstr "You can appeal this decision within 6 months by replying to this email."
 
@@ -2321,6 +2376,9 @@ msgstr "Profession"
 
 msgid "Profissão e especialidade declaradas pelo autor, não verificadas."
 msgstr "Profession and specialty declared by the author, not verified."
+
+msgid "Profissão e especialidade declaradas pelo próprio, não verificadas."
+msgstr "Profession and specialty are self-declared, not verified."
 
 msgid "Prompt / assistente de IA"
 msgstr "AI prompt / assistant"
@@ -2472,6 +2530,12 @@ msgstr "Remove this image?"
 
 msgid "Remover esta sugestão?"
 msgstr "Remove this suggestion?"
+
+msgid "Remover foto"
+msgstr "Remove photo"
+
+msgid "Remover foto de perfil"
+msgstr "Remove profile photo"
 
 msgid "Repetir palavra-passe"
 msgstr "Repeat password"
@@ -2819,6 +2883,9 @@ msgid ""
 " da sua conta:"
 msgstr "A gitmgf administrator created a link to set your account password:"
 
+msgid "Um administrador removeu a sua foto de perfil no gitmgf."
+msgstr "An administrator removed your profile photo on gitmgf."
+
 msgid "Um utilizador"
 msgstr "A user"
 
@@ -2892,6 +2959,9 @@ msgstr "View code"
 
 msgid "Ver em português"
 msgstr "View in Portuguese"
+
+msgid "Ver o meu perfil público"
+msgstr "View my public profile"
 
 msgid "Ver página"
 msgstr "View page"

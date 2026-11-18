@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ person.display_name }}{% endblock %}
+{% block description %}{{ _("Ferramentas publicadas por %(name)s no gitmgf.", name=person.display_name) }}{% endblock %}
+{% block robots %}{% if not tools %}<meta name="robots" content="noindex">{% endif %}{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="profile-head">
+    {{ m.avatar(person, "xl") }}
+    <div>
+      <h1>{{ person.display_name }}</h1>
+      <p class="muted">
+        {%- if person.profession %}{{ label(labels.PROFESSION, person.profession) }}{% endif %}
+        {%- if person.specialty %} · {{ person.specialty.name(lang) }}{% endif %}
+      </p>
+      <div class="row">
+        {% if person.role != 'user' %}<span class="badge badge--oss">{{ icon('shield-check') }} {{ label(labels.ROLE, person.role) }}</span>{% endif %}
+        {% if person.github_username %}<a class="small" href="https://github.com/{{ person.github_username }}" rel="nofollow noopener">{{ icon('github') }} {{ person.github_username }}</a>{% endif %}
+        <span class="small muted">{{ _("No gitmgf desde %(date)s", date=person.created_at | date) }}</span>
+      </div>
+      <p class="xsmall muted section--tight">{{ _("Profissão e especialidade declaradas pelo próprio, não verificadas.") }}</p>
+    </div>
+  </header>
+  <section class="section--tight">
+    <h2>{{ ngettext("%(num)d ferramenta publicada", "%(num)d ferramentas publicadas", tools | length) }}</h2>
+    {% if tools %}
+    <div class="grid grid--3">{% for t in tools %}{% include "partials/tool_card.html" %}{% endfor %}</div>
+    {% else %}
+    <p class="muted">{{ _("Ainda não publicou ferramentas.") }}</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

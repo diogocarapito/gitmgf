@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 22:47+0000\n"
+"POT-Creation-Date: 2026-11-18 22:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -429,6 +429,12 @@ msgstr ""
 msgid "Sugestão removida."
 msgstr ""
 
+msgid "Foto de perfil atualizada."
+msgstr ""
+
+msgid "Foto de perfil removida."
+msgstr ""
+
 msgid "Sessão terminada em todos os dispositivos."
 msgstr ""
 
@@ -572,6 +578,9 @@ msgstr ""
 msgid "Este identificador já está a ser usado."
 msgstr ""
 
+msgid "Escolha um ficheiro de imagem."
+msgstr ""
+
 msgid "A palavra-passe atual está incorreta."
 msgstr ""
 
@@ -616,9 +625,6 @@ msgid ""
 msgstr ""
 
 msgid "A imagem excede 2 MB."
-msgstr ""
-
-msgid "Escolha um ficheiro de imagem."
 msgstr ""
 
 msgid "Formato não suportado. Use PNG, JPEG ou WebP."
@@ -792,6 +798,9 @@ msgid "por ler"
 msgstr ""
 
 msgid "Menu da conta"
+msgstr ""
+
+msgid "O meu perfil"
 msgstr ""
 
 msgid "As minhas ferramentas"
@@ -1274,6 +1283,12 @@ msgstr ""
 msgid "Levantar suspensão"
 msgstr ""
 
+msgid "Motivo para remover a foto"
+msgstr ""
+
+msgid "Remover foto de perfil"
+msgstr ""
+
 msgid "Gerar ligação para definir palavra-passe"
 msgstr ""
 
@@ -1309,8 +1324,8 @@ msgid "Aparece nas páginas das suas ferramentas."
 msgstr ""
 
 msgid ""
-"Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no"
-" futuro."
+"Letras minúsculas, números e hífenes (3 a 30). É o endereço do seu perfil"
+" público: gitmgf.com/u/identificador."
 msgstr ""
 
 msgid "— Escolher —"
@@ -1456,8 +1471,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Complete o seu perfil para começar. Só o nome, a profissão, a "
-"especialidade e o GitHub aparecem nas páginas das suas ferramentas."
+"Complete o seu perfil para começar. O nome, a profissão, a especialidade "
+"e o GitHub aparecem no seu perfil público e nas páginas das suas "
+"ferramentas."
 msgstr ""
 
 msgid ""
@@ -1563,6 +1579,20 @@ msgstr ""
 msgid ""
 "Se não fez este pedido, pode ignorar este email: a sua conta não foi "
 "alterada."
+msgstr ""
+
+msgid "A sua foto de perfil foi removida"
+msgstr ""
+
+msgid "Um administrador removeu a sua foto de perfil no gitmgf."
+msgstr ""
+
+msgid "Motivo:"
+msgstr ""
+
+msgid ""
+"Pode carregar outra foto em Definições, desde que cumpra os Termos de "
+"Utilização. Se discordar desta decisão, responda a este email."
 msgstr ""
 
 #, python-format
@@ -1981,6 +2011,27 @@ msgid ""
 " suas ferramentas, aparece aqui."
 msgstr ""
 
+msgid "Foto de perfil"
+msgstr ""
+
+msgid ""
+"Opcional. Aparece no seu perfil, nas suas ferramentas e no menu. PNG, "
+"JPEG ou WebP até 2 MB; é recortada ao centro em formato quadrado e os "
+"metadados são removidos."
+msgstr ""
+
+msgid "Imagem"
+msgstr ""
+
+msgid "Carregar foto"
+msgstr ""
+
+msgid "Remover foto"
+msgstr ""
+
+msgid "Ver o meu perfil público"
+msgstr ""
+
 msgid "Palavra-passe atual"
 msgstr ""
 
@@ -2192,9 +2243,6 @@ msgstr ""
 msgid "Remover esta imagem?"
 msgstr ""
 
-msgid "Imagem"
-msgstr ""
-
 msgid "Texto alternativo (descreva a imagem)"
 msgstr ""
 
@@ -2283,9 +2331,6 @@ msgid "Visitas 30/90 d"
 msgstr ""
 
 msgid "Alteração pendente de revisão"
-msgstr ""
-
-msgid "Motivo:"
 msgstr ""
 
 msgid "O repositório GitHub não foi encontrado."
@@ -2671,6 +2716,26 @@ msgstr ""
 msgid ""
 "Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar "
 "tempo e a melhorar os cuidados."
+msgstr ""
+
+#, python-format
+msgid "Ferramentas publicadas por %(name)s no gitmgf."
+msgstr ""
+
+#, python-format
+msgid "No gitmgf desde %(date)s"
+msgstr ""
+
+msgid "Profissão e especialidade declaradas pelo próprio, não verificadas."
+msgstr ""
+
+#, python-format
+msgid "%(num)d ferramenta publicada"
+msgid_plural "%(num)d ferramentas publicadas"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Ainda não publicou ferramentas."
 msgstr ""
 
 msgid "Reportar problema"

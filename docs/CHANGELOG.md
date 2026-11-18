@@ -7,6 +7,7 @@
 - Optional public support email on tools, shown as "Contactar suporte" next to "Reportar problema".
 - Reports: "Material desadequado" reason replaces the CSAM checkbox; anonymous reports always need an email (D31).
 - "Sugerir melhoria": suggestions and feature requests to authors by email and in a new Notificações page with an unread bell (D32).
+- Profile photos and public profile pages at `/u/<handle>` with the person's published tools (D33).
 
 ## 0.3.0 — 2026-11-18 · Open registration with email codes
 

@@ -6,6 +6,7 @@ from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from pydantic import ValidationError
 from sqlalchemy import select
+from starlette.datastructures import UploadFile
 
 from app.config import get_settings
 from app.deps import DB, Form, UserDep
@@ -48,6 +49,38 @@ def _settings_page(
         },
         status_code=status,
     )
+
+
+@actions.post("/me/avatar")
+def upload_avatar(request: Request, db: DB, user: UserDep, form: Form) -> Response:
+    """Profile photo (D33): re-encoded square WebP; the original bytes are never kept."""
+    from app.services import media, profiles, ratelimit
+
+    if not ratelimit.hit(ratelimit.UPLOAD_USER, "upload", str(user.id)):
+        raise HTTPException(status_code=429)
+    upload = form.get("avatar")
+    error: str | None = None
+    if not isinstance(upload, UploadFile):
+        error = N_("Escolha um ficheiro de imagem.")
+    else:
+        try:
+            profiles.set_avatar(db, user, upload.file.read(media.MAX_BYTES + 1))
+            db.commit()
+        except media.MediaError as exc:
+            db.rollback()
+            error = exc.message
+    if error:
+        return _settings_page(request, db, user, _profile_values(user), {"avatar": (error, {})}, status=422)
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/me/settings?flash=avatar_saved", 303)
+
+
+@actions.post("/me/avatar/delete")
+def delete_avatar(request: Request, db: DB, user: UserDep) -> Response:
+    from app.services import profiles
+
+    profiles.remove_avatar(db, user, user)
+    db.commit()
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/me/settings?flash=avatar_removed", 303)
 
 
 @pages.get("/me/settings")

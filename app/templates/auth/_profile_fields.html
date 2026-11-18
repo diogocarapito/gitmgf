@@ -1,6 +1,6 @@
 {# Shared by onboarding and settings. Needs: values, errors, specialties #}
 {{ m.text("display_name", _("Nome a apresentar"), values, errors, required=True, maxlength=80, autocomplete="name", hint=_("Aparece nas páginas das suas ferramentas.")) }}
-{{ m.text("handle", _("Identificador"), values, errors, required=True, maxlength=30, hint=_("Letras minúsculas, números e hífenes (3 a 30). Será usado em endereços no futuro.")) }}
+{{ m.text("handle", _("Identificador"), values, errors, required=True, maxlength=30, hint=_("Letras minúsculas, números e hífenes (3 a 30). É o endereço do seu perfil público: gitmgf.com/u/identificador.")) }}
 {% set professions = [] %}{% for k, v in labels.PROFESSION.items() %}{% do professions.append((k, _(v))) %}{% endfor %}
 {{ m.select("profession", _("Profissão"), professions, values, errors, required=True, empty=_("— Escolher —"), hint=_("Declarada por si e mostrada como contexto, não como credencial.")) }}
 {% set specs = [] %}{% for c in specialties %}{% do specs.append((c.id, c.name(lang))) %}{% endfor %}

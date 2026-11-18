@@ -226,6 +226,19 @@ def tool_page(request: Request, db: DB, user: CurrentUser, slug: str) -> Respons
     return render(request, "public/tool.html", tool_page_context(request, db, user, tool))
 
 
+@pages.get("/u/{handle}")
+def profile_page(request: Request, db: DB, handle: str) -> Response:
+    """Public profile (D33): photo, name, profession, role and the person's published tools."""
+    from app.services import profiles
+
+    person = profiles.by_handle(db, handle)
+    if person is None or not permissions.can_view_profile(person):
+        raise HTTPException(status_code=404)
+    tools = profiles.public_tools(db, person)
+    badges = certifications.badges_for(db, [t.id for t in tools], request.state.lang)
+    return render(request, "public/profile.html", {"person": person, "tools": tools, "badges": badges})
+
+
 @pages.get("/p/{page}")
 def static_page(request: Request, db: DB, page: str) -> Response:
     rendered = legal.render_page(db, page, request.state.lang)

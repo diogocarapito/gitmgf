@@ -125,9 +125,9 @@
       <section class="panel">
         <h2>{{ _("Autor") }}</h2>
         <div class="author">
-          <span class="avatar" aria-hidden="true">{{ (tool.owner.display_name or '?')[:1] | upper }}</span>
+          {{ m.avatar(tool.owner, "lg") }}
           <div>
-            <div class="author__name">{{ tool.owner.display_name }}</div>
+            <div class="author__name">{% if tool.owner.handle %}<a href="{{ url('/u/' ~ tool.owner.handle) }}">{{ tool.owner.display_name }}</a>{% else %}{{ tool.owner.display_name }}{% endif %}</div>
             <div class="small muted">{% if tool.owner.profession %}{{ label(labels.PROFESSION, tool.owner.profession) }}{% endif %}{% if tool.owner.specialty %} · {{ tool.owner.specialty.name(lang) }}{% endif %}</div>
             {% if tool.owner.github_username %}<a class="small" href="https://github.com/{{ tool.owner.github_username }}" rel="nofollow noopener">{{ icon('github') }} {{ tool.owner.github_username }}</a>{% endif %}
           </div>

@@ -207,6 +207,8 @@ FLASH = {
     "saved": ("ok", N_("Alterações guardadas.")),
     "suggested": ("ok", N_("Sugestão enviada ao autor. Obrigado!")),
     "suggestion_deleted": ("ok", N_("Sugestão removida.")),
+    "avatar_saved": ("ok", N_("Foto de perfil atualizada.")),
+    "avatar_removed": ("ok", N_("Foto de perfil removida.")),
     "signed_out_all": ("ok", N_("Sessão terminada em todos os dispositivos.")),
     "draft_saved": ("ok", N_("Rascunho guardado.")),
     "submitted": ("ok", N_("Ferramenta submetida para revisão. Vai receber um email com a decisão.")),

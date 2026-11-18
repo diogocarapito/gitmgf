@@ -11,8 +11,8 @@ from app.config import get_settings
 from app.db import utcnow
 from app.deps import DB
 from app.i18n import lang_prefix
-from app.models import Category, Tool
-from app.models.enums import ToolStatus
+from app.models import Category, Tool, User
+from app.models.enums import ToolStatus, UserStatus
 from app.services import blog, settings_store
 
 router = APIRouter()
@@ -90,6 +90,15 @@ def sitemap(db: DB) -> Response:
     ).all()
     entries += [(f"/c/{slug}", None) for slug in cats]
     entries += [("/blog", None)]
+    authors = db.scalars(
+        select(User.handle)
+        .join(Tool, Tool.owner_id == User.id)
+        .where(
+            Tool.status == ToolStatus.published, User.handle.is_not(None), User.status == UserStatus.active
+        )
+        .distinct()
+    ).all()
+    entries += [(f"/u/{handle}", None) for handle in sorted(authors)]
     entries += [(f"/blog/{post.slug}", post.published.isoformat()) for post in blog.all_posts("pt")]
     tools = db.execute(
         select(Tool.slug, Tool.updated_at)

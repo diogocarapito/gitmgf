@@ -59,6 +59,7 @@ def export(db: Session, user: User) -> dict[str, Any]:
             "specialty": user.specialty.slug if user.specialty else None,
             "workplace": user.workplace,
             "github_username": user.github_username,
+            "profile_photo": media.avatar_url(user.id, user.avatar_name) if user.avatar_name else None,
             "locale": user.locale.value,
             "role": user.role.value,
             "status": user.status.value,
@@ -159,6 +160,8 @@ def delete_account(db: Session, user: User, actor: User) -> None:
     )
     sessions.destroy_all(db, user.id)
     user.password_hash = None
+    media.delete_avatar(user.id, user.avatar_name)
+    user.avatar_name = None
     db.execute(delete(PasswordResetToken).where(PasswordResetToken.user_id == user.id))
     db.execute(delete(EmailCode).where(EmailCode.email == user.email))
     db.execute(
