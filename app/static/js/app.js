@@ -94,8 +94,29 @@
     });
   }
 
+  // Report form: child sexual abuse material may be reported anonymously, so the email is cleared and disabled.
+  function bindReportReason() {
+    var wrap = document.querySelector("[data-report-reason]");
+    var box = document.querySelector("[data-report-email]");
+    if (!wrap || !box) return;
+    var select = wrap.querySelector("select");
+    var input = box.querySelector("input[type=email]");
+    var note = box.querySelector("[data-csam-note]");
+    if (!select || !input) return;
+    function sync() {
+      var anonymous = select.value === "csam";
+      if (anonymous) input.value = "";
+      input.disabled = anonymous;
+      input.required = !anonymous;
+      if (note) note.hidden = !anonymous;
+    }
+    select.addEventListener("change", sync);
+    sync();
+  }
+
   onReady(function () {
     bindThemeToggle();
+    bindReportReason();
     syncClaims(document);
     bindAutoSubmit(document);
     liveSearch(document);

@@ -44,7 +44,7 @@ def test_anonymous_report_requires_email(client, db):
 def test_inappropriate_material_is_a_reason_and_needs_an_email_like_any_other(client, db):
     tool = make_tool(db)
     form = client.get(f"/t/{tool.slug}/report").text
-    assert "Material desadequado" in form and "abuso sexual" not in form and 'name="csam"' not in form
+    assert "Material desadequado" in form and 'name="csam"' not in form
     assert _report(client, tool.slug, reason="inappropriate", csam="1").status_code == 422  # no exemption
     assert _report(client, tool.slug, reason="inappropriate", email="q@example.org").status_code == 303
     assert db.scalar(select(Report)).reason.value == "inappropriate"
@@ -115,3 +115,32 @@ def test_other_reasons_do_not_auto_hide(client, db):
         _report(client, tool.slug, email=f"r{i}@example.org", reason="broken_link")
     db.refresh(tool)
     assert tool.status == ToolStatus.published
+
+
+def test_csam_reason_may_stay_anonymous_and_any_email_is_discarded(client, db):
+    tool = make_tool(db)
+    form = client.get(f"/t/{tool.slug}/report").text
+    assert '<option value="csam"' in form and "Material de abuso sexual de crianças" in form
+    assert "data-report-email" in form and "data-csam-note" in form
+    assert _report(client, tool.slug, reason="csam").status_code == 303  # no email needed
+    assert _report(client, tool.slug, reason="csam", email="quem@example.org").status_code == 303
+    rows = db.scalars(select(Report)).all()
+    assert [r.reason.value for r in rows] == ["csam", "csam"]
+    assert all(r.reporter_email is None for r in rows)  # sent, but never kept
+    assert not db.scalar(select(EmailOutbox).where(EmailOutbox.to_email == "quem@example.org"))
+
+
+def test_csam_reports_come_first_in_the_moderation_queue(client, db):
+    mod = make_user(db, "m@example.org", Role.moderator)
+    tool = make_tool(db, moderator=mod)
+    _report(
+        client,
+        tool.slug,
+        reason="spam",
+        email="a@example.org",
+        details="Isto é publicidade sem relação com saúde.",
+    )
+    _report(client, tool.slug, reason="csam")
+    login(client, db, mod)
+    queue = client.get("/mod?tab=reports").text
+    assert queue.index("Material de abuso sexual de crianças") < queue.index("Spam")

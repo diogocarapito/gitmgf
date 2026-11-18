@@ -130,6 +130,7 @@ REPORT_REASON = {
     "broken_link": N_("Ligação quebrada"),
     "dangerous_content": N_("Conteúdo clínico incorreto ou perigoso"),
     "inappropriate": N_("Material desadequado"),
+    "csam": N_("Material de abuso sexual de crianças"),
     "security_privacy": N_("Problema de segurança ou privacidade"),
     "incorrect_certification": N_("Certificação incorreta"),
     "spam": N_("Spam"),

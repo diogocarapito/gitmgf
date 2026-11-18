@@ -116,7 +116,7 @@ Se descobrir uma vulnerabilidade, comunique-a de forma responsável para [[SECUR
 
 9.1. **Qualquer pessoa**, com ou sem conta, pode denunciar conteúdo que considere ilegal ou contrário a estes Termos através da ligação "Reportar problema" na página de cada ferramenta (artigo 16.º do Regulamento dos Serviços Digitais).
 
-9.2. Para podermos agir, a denúncia deve incluir: a ferramenta em causa (a denúncia é feita na página da ferramenta); o motivo e uma explicação suficiente; o seu email, se não tiver sessão iniciada; e a confirmação de que a faz de boa-fé.
+9.2. Para podermos agir, a denúncia deve incluir: a ferramenta em causa (a denúncia é feita na página da ferramenta); o motivo e uma explicação suficiente; o seu email, se não tiver sessão iniciada; e a confirmação de que a faz de boa-fé. Nas denúncias de material de abuso sexual de crianças não é necessário identificar-se: o email não é pedido nem guardado.
 
 9.3. Enviamos confirmação de receção e, depois, a decisão tomada. Tratamos as denúncias de forma diligente, objetiva e não arbitrária.
 

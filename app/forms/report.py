@@ -1,4 +1,4 @@
-"""Report form (PRD F11): anyone can report; anonymous reporters give an email (D31)."""
+"""Report form (PRD F11): anyone can report; anonymous reporters give an email, except for CSAM (D34)."""
 
 from typing import Annotated, Any
 
@@ -27,6 +27,8 @@ class ReportForm(BaseModel):
 
     @model_validator(mode="after")
     def _email_needed(self) -> Any:
-        if self.anonymous and not self.email:
+        if self.reason == ReportReason.csam:
+            self.email = None  # never kept, even if sent: these reporters may stay anonymous
+        elif self.anonymous and not self.email:
             raise ValueError("email")
         return self

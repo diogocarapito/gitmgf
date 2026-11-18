@@ -5,7 +5,7 @@
 - Blog at `/blog` (Markdown in `content/blog/`), first article on building gitmgf with Claude Pro and Claude Code.
 - Tool cards show the first screenshot; the form explains it. Certification badges share the badge line on cards and tool pages. Categorias first in the Explorar filters.
 - Optional public support email on tools, shown as "Contactar suporte" next to "Reportar problema".
-- Reports: "Material desadequado" reason replaces the CSAM checkbox; anonymous reports always need an email (D31).
+- Reports: "Material desadequado" reason replaces the CSAM checkbox (D31); "Material de abuso sexual de crianças" is a reason that clears and blocks the email field, so those reports stay anonymous (D34).
 - "Sugerir melhoria": suggestions and feature requests to authors by email and in a new Notificações page with an unread bell (D32).
 - Profile photos and public profile pages at `/u/<handle>` with the person's published tools (D33).
 

@@ -118,7 +118,7 @@ If you find a vulnerability, report it responsibly to [[SECURITY_EMAIL]]. Don't 
 
 9.1. **Anyone**, with or without an account, can report content they consider illegal or contrary to these Terms through the "Report a problem" link on each tool's page (Article 16 of the Digital Services Act).
 
-9.2. So that we can act, a report must include: the tool concerned (reports are made from the tool's page); the reason and a sufficient explanation; your email if you're not signed in; and confirmation that you're acting in good faith.
+9.2. So that we can act, a report must include: the tool concerned (reports are made from the tool's page); the reason and a sufficient explanation; your email if you're not signed in; and confirmation that you're acting in good faith. You don't need to identify yourself when reporting child sexual abuse material: no email is asked for or kept.
 
 9.3. We confirm receipt and then tell you the decision. We handle reports diligently, objectively and in a non-arbitrary way.
 

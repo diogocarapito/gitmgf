@@ -151,6 +151,7 @@ class ReportReason(StrEnum):
     broken_link = "broken_link"
     dangerous_content = "dangerous_content"
     inappropriate = "inappropriate"
+    csam = "csam"  # child sexual abuse material: the reporter may stay anonymous (DSA Art. 16(2)(c))
     security_privacy = "security_privacy"
     incorrect_certification = "incorrect_certification"
     spam = "spam"

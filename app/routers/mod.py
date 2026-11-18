@@ -10,7 +10,7 @@ from app.db import utcnow
 from app.deps import DB, Form, ModDep
 from app.i18n import labels, lang_prefix, t
 from app.models import Report, Tool, ToolRevision, User
-from app.models.enums import ClaimState, ReportStatus, RevisionStatus, ToolStatus
+from app.models.enums import ClaimState, ReportReason, ReportStatus, RevisionStatus, ToolStatus
 from app.services import audit, certifications, email, permissions
 from app.services import reports as report_service
 from app.services import tools as tool_service
@@ -64,7 +64,11 @@ def queue(request: Request, db: DB, user: ModDep, tab: str = "new") -> Response:
         )
     else:
         items = list(
-            db.scalars(select(Report).where(Report.status == ReportStatus.open).order_by(Report.created_at))
+            db.scalars(
+                select(Report)
+                .where(Report.status == ReportStatus.open)
+                .order_by((Report.reason == ReportReason.csam).desc(), Report.created_at)  # CSAM first
+            )
             .unique()
             .all()
         )
