@@ -32,7 +32,7 @@
       </div>
       <div class="tool-head__actions">
         {% if primary_link and tool.is_public %}
-        <a class="btn btn--primary btn--lg" href="/go/{{ tool.id }}/{{ primary_link[0] }}" rel="nofollow noopener" target="_blank">{{ icon('download' if primary_link[0] == 'download' else ('code' if primary_link[0] == 'repo' else 'external')) }} {{ _(labels.LINK_KIND[primary_link[0]]) }}</a>
+        <a class="btn btn--primary" href="/go/{{ tool.id }}/{{ primary_link[0] }}" rel="nofollow noopener" target="_blank">{{ icon('download' if primary_link[0] == 'download' else ('code' if primary_link[0] == 'repo' else 'external')) }} {{ _(labels.LINK_KIND[primary_link[0]]) }}</a>
         {% for kind, href in links[1:] %}
         <a class="btn" href="/go/{{ tool.id }}/{{ kind }}" rel="nofollow noopener" target="_blank">{{ icon({'download': 'download', 'repo': 'code', 'docs': 'book', 'website': 'external'}[kind]) }} {{ _(labels.LINK_KIND[kind]) }} <span class="muted xsmall">{{ href | domain }}</span></a>
         {% endfor %}
@@ -41,8 +41,12 @@
           {% if user %}{% include "partials/star_button.html" %}
           {% else %}<a class="btn star-button" href="{{ url('/login', next=path) }}">{{ icon('star') }} {{ _("Dar estrela") }} <span class="count-pill">{{ tool.stars_count }}</span></a>{% endif %}
         {% endif %}
-        {% if is_owner %}<a class="btn btn--ghost" href="{{ url('/me/tools/' ~ tool.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar ficha") }}</a>{% endif %}
-        {% if can_moderate %}<a class="btn btn--ghost" href="{{ url('/mod/tools/' ~ tool.id) }}">{{ icon('shield-check') }} {{ _("Moderar") }}</a>{% endif %}
+        {% if is_owner or can_moderate %}
+        <div class="tool-head__manage">
+          {% if is_owner %}<a class="btn btn--sm btn--manage" href="{{ url('/me/tools/' ~ tool.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar ficha") }}</a>{% endif %}
+          {% if can_moderate %}<a class="btn btn--sm btn--manage" href="{{ url('/mod/tools/' ~ tool.id) }}">{{ icon('shield-check') }} {{ _("Moderar") }}</a>{% endif %}
+        </div>
+        {% endif %}
       </div>
     </div>
     {% if tool.status == 'archived' %}
