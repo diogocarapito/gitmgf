@@ -18,7 +18,7 @@ We believe the practical knowledge each colleague turns into a tool should trave
 
 ## Who we are
 
-gitmgf was created by six colleagues, who also organised the "Inteligência Artificial e Literacia Digital" training:
+gitmgf was created by six colleagues, members of the **Digital Health Study Group of APMGF** (Grupo de Estudos de Saúde Digital, Associação Portuguesa de Medicina Geral e Familiar), who also organised the "Inteligência Artificial e Literacia Digital" training at the Lisboa e Vale do Tejo Family Medicine residency programme (Internato de MGF de Lisboa e Vale do Tejo):
 
 - [Diana Silva](/en/u/diana-silva)
 - [Diogo Carapito](/en/u/diogo-carapito)

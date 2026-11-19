@@ -18,7 +18,7 @@ Acreditamos que o conhecimento prático que cada colega transforma numa ferramen
 
 ## Quem somos
 
-O gitmgf foi criado por seis colegas, que organizaram também a formação «Inteligência Artificial e Literacia Digital»:
+O gitmgf foi criado por seis colegas, membros do **Grupo de Estudos de Saúde Digital da APMGF**, que organizaram também a formação «Inteligência Artificial e Literacia Digital» no Internato de MGF de Lisboa e Vale do Tejo:
 
 - [Diana Silva](/u/diana-silva)
 - [Diogo Carapito](/u/diogo-carapito)
