@@ -64,7 +64,7 @@ I iterated a few times ("fewer shadows", "a calmer primary colour") and download
 I put all the documents in one folder, roughly like this:
 
 ```
-gitmgf/
+<your-new-project>/
 ├── PRD.md
 ├── TECH_SPEC.md
 ├── CLAUDE.md

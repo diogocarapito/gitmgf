@@ -64,7 +64,7 @@ Iterei algumas vezes ("menos sombras", "cor primária mais calma") e transferi o
 Pus todos os documentos numa pasta, mais ou menos assim:
 
 ```
-gitmgf/
+<o teu novo projeto>/
 ├── PRD.md
 ├── TECH_SPEC.md
 ├── CLAUDE.md
