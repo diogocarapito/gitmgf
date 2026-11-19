@@ -48,3 +48,21 @@ def test_file_names_are_not_auto_linked_as_domains():
 
     for post in blog.all_posts("pt") + blog.all_posts("en"):
         assert not re.search(r'href="https?://[\w.-]+\.md"', post.html), post.slug
+
+
+def test_tabs_blocks_render_as_labelled_panels():
+    html = blog.render_body(
+        "Antes\n\n:::tabs\n::tab macOS / Linux\n```bash\ncurl x\n```\n::tab <Windows>\nTexto **forte**.\n:::\n\nDepois\n"
+    )
+    assert html.count('class="ctabs__panel"') == 2 and "data-tabs" in html
+    assert 'data-tab-label="macOS / Linux"' in html and "&lt;Windows&gt;" in html and "<Windows>" not in html
+    assert "<pre><code" in html and "<strong>forte</strong>" in html
+    assert html.index("Antes") < html.index("data-tabs") < html.index("Depois")
+    assert "TABSBLOCK" not in html and ":::" not in html
+
+
+def test_install_step_has_macos_windows_and_vscode_tabs(client):
+    for path in (f"/blog/{SLUG}", f"/en/blog/{SLUG}"):
+        page = client.get(path).text
+        assert page.count('class="ctabs__panel"') == 3
+        assert "install.ps1" in page and "VS Code" in page

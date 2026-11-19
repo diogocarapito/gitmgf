@@ -72,13 +72,26 @@ I put all the documents in one folder, roughly like this:
 └── legal/       (draft terms and privacy policy)
 ```
 
-I installed [Claude Code](https://claude.com/claude-code) (see the official docs for other systems) and started it inside the folder:
+I installed [Claude Code](https://claude.com/claude-code) and started it inside the folder. Pick the option for your system (more details in the [official docs](https://code.claude.com/docs/en/setup)):
 
+:::tabs
+::tab macOS / Linux
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 cd <your-new-project>
 claude
 ```
+::tab Windows (PowerShell)
+```powershell
+irm https://claude.ai/install.ps1 | iex
+cd <your-new-project>
+claude
+```
+
+I also recommend installing [Git for Windows](https://git-scm.com/download/win), which you'll use in step 4.
+::tab VS Code
+No terminal needed: in VS Code, open **Extensions**, search for "Claude Code" and install the official extension from Anthropic. Then open your project folder (**File → Open Folder…**) and click the Claude icon to start the conversation.
+:::
 
 The first time, it asks you to sign in with your Claude account. My first request was literally:
 

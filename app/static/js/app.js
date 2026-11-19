@@ -114,9 +114,56 @@
     sync();
   }
 
+  // Blog tabs: panels are consecutive sections without JS; here they become an ARIA tab list.
+  function bindTabs(root) {
+    root.querySelectorAll("[data-tabs]").forEach(function (box, b) {
+      var panels = Array.prototype.slice.call(box.querySelectorAll(":scope > .ctabs__panel"));
+      if (panels.length < 2) return;
+      var list = document.createElement("div");
+      list.className = "ctabs__list";
+      list.setAttribute("role", "tablist");
+      var buttons = panels.map(function (panel, i) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "ctabs__tab";
+        btn.id = "tab-" + b + "-" + i;
+        btn.setAttribute("role", "tab");
+        btn.setAttribute("aria-controls", panel.id);
+        btn.textContent = panel.getAttribute("data-tab-label");
+        panel.setAttribute("role", "tabpanel");
+        panel.setAttribute("aria-labelledby", btn.id);
+        panel.setAttribute("tabindex", "0");
+        list.appendChild(btn);
+        return btn;
+      });
+      function select(index, focus) {
+        buttons.forEach(function (btn, i) {
+          var on = i === index;
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+          btn.tabIndex = on ? 0 : -1;
+          panels[i].hidden = !on;
+        });
+        if (focus) buttons[index].focus();
+      }
+      buttons.forEach(function (btn, i) {
+        btn.addEventListener("click", function () { select(i, false); });
+        btn.addEventListener("keydown", function (event) {
+          var next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: buttons.length - 1 }[event.key];
+          if (next === undefined) return;
+          event.preventDefault();
+          select((next + buttons.length) % buttons.length, true);
+        });
+      });
+      box.insertBefore(list, box.firstChild);
+      box.classList.add("ctabs--js");
+      select(0, false);
+    });
+  }
+
   onReady(function () {
     bindThemeToggle();
     bindReportReason();
+    bindTabs(document);
     syncClaims(document);
     bindAutoSubmit(document);
     liveSearch(document);

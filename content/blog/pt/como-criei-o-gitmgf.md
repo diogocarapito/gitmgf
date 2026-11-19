@@ -72,13 +72,26 @@ Pus todos os documentos numa pasta, mais ou menos assim:
 └── legal/       (rascunhos de termos e privacidade)
 ```
 
-Instalei o [Claude Code](https://claude.com/claude-code) (ver a documentação oficial para outros sistemas) e abri-o dentro da pasta:
+Instalei o [Claude Code](https://claude.com/claude-code) e abri-o dentro da pasta. Escolhe a opção do teu sistema (mais detalhes na [documentação oficial](https://code.claude.com/docs/en/setup)):
 
+:::tabs
+::tab macOS / Linux
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 cd <o teu novo projeto>
 claude
 ```
+::tab Windows (PowerShell)
+```powershell
+irm https://claude.ai/install.ps1 | iex
+cd <o teu novo projeto>
+claude
+```
+
+Recomendo instalar também o [Git para Windows](https://git-scm.com/download/win), que vais usar no passo 4.
+::tab VS Code
+Sem usar o terminal: no VS Code, abre as **Extensões**, pesquisa «Claude Code» e instala a extensão oficial da Anthropic. Depois abre a pasta do projeto (**Ficheiro → Abrir pasta…**) e clica no ícone do Claude para começar a conversar.
+:::
 
 Na primeira vez pede para iniciar sessão com a conta Claude. O primeiro pedido foi literalmente este:
 
