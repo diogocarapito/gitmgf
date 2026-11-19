@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
 from app.models import AuditLog, EmailOutbox, Tool
-from app.models.enums import ClaimState, Role, ToolStatus
+from app.models.enums import ClaimState, RevisionStatus, Role, ToolStatus
 from app.services import settings_store
 from app.services import tools as svc
 from tests.conftest import login, make_user, post
@@ -45,6 +45,29 @@ def test_approve_with_claim_rejection_emails_owner(client, db):
     )
     approved = _emails(db, "tool_approved")
     assert approved and "A política não abre." in approved[-1].body_text
+
+
+def test_approve_with_suggestions_emails_them_and_still_publishes(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    owner = make_user(db, "o@example.org")
+    tool = make_tool(db, owner, status="pending")
+    login(client, db, mod)
+    assert 'name="suggestions"' in client.get(f"/mod/tools/{tool.id}").text
+    r = post(client, f"/mod/tools/{tool.id}/approve", {"suggestions": "Acrescentar capturas de ecrã."})
+    assert r.status_code == 303
+    db.refresh(tool)
+    assert tool.status == ToolStatus.published and tool.rejection_reason is None
+    approved = _emails(db, "tool_approved")
+    assert approved and "Acrescentar capturas de ecrã." in approved[-1].body_text
+
+
+def test_approve_without_suggestions_omits_the_section(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    owner = make_user(db, "o@example.org")
+    tool = make_tool(db, owner, status="pending")
+    login(client, db, mod)
+    assert post(client, f"/mod/tools/{tool.id}/approve", {"suggestions": "   "}).status_code == 303
+    assert "Sugestões do moderador" not in _emails(db, "tool_approved")[-1].body_text
 
 
 def test_reject_builds_reason_in_owner_language_and_states_appeal(client, db):
@@ -100,6 +123,22 @@ def test_revision_review_shows_diff_and_approves(client, db):
     db.refresh(tool)
     assert tool.description_pt == "Versão nova do texto."
     assert _emails(db, "revision_approved")
+
+
+def test_revision_approve_with_suggestions_keeps_them_on_the_revision(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    owner = make_user(db, "o@example.org")
+    tool = make_tool(db, owner, status="published", description_pt="Versão antiga do texto.", moderator=mod)
+    svc.save_edit(db, tool, owner, tool_data(db, description_pt="Versão nova do texto."), {}, True)
+    db.commit()
+    revision = svc.pending_revision(db, tool)
+    login(client, db, mod)
+    assert 'name="suggestions"' in client.get(f"/mod/revisions/{revision.id}").text
+    r = post(client, f"/mod/revisions/{revision.id}/approve", {"suggestions": "Rever a ortografia."})
+    assert r.status_code == 303
+    db.refresh(revision)
+    assert revision.status == RevisionStatus.approved and revision.review_reason == "Rever a ortografia."
+    assert "Rever a ortografia." in _emails(db, "revision_approved")[-1].body_text
 
 
 def test_hide_and_unhide_with_audit_and_statement_of_reasons(client, db):

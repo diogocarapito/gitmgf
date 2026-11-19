@@ -30,6 +30,7 @@
       <form class="panel form" method="post" action="/mod/revisions/{{ revision.id }}/approve">
         {{ m.csrf() }}<h2>{{ _("Aprovar alteração") }}</h2>
         {% if claims %}<p class="small muted">{{ _("Certificações novas ou alteradas:") }}</p>{{ mm.claim_decisions(claims) }}{% endif %}
+        {{ mm.suggestions_field("ap-") }}
         <button class="btn btn--primary" type="submit">{{ icon('check') }} {{ _("Aprovar e publicar alterações") }}</button>
       </form>
       <form class="panel form" method="post" action="/mod/revisions/{{ revision.id }}/reject">

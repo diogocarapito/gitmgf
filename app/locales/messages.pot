@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 10:55+0000\n"
+"POT-Creation-Date: 2026-11-19 21:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1727,6 +1727,9 @@ msgstr ""
 msgid "Algumas certificações não foram aprovadas:"
 msgstr ""
 
+msgid "Sugestões do moderador (não impedem a publicação):"
+msgstr ""
+
 #, python-format
 msgid "Alteração não aprovada: %(title)s"
 msgstr ""
@@ -2311,6 +2314,12 @@ msgstr ""
 msgid ""
 "O texto final é enviado por email ao autor, no idioma da conta, como "
 "fundamentação da decisão."
+msgstr ""
+
+msgid "Sugestões para o autor (opcional)"
+msgstr ""
+
+msgid "Enviadas por email ao autor com a aprovação. Não impedem a publicação."
 msgstr ""
 
 msgid "Aprovar declaração"

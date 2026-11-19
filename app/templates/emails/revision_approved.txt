@@ -9,4 +9,9 @@
 {{ _("Algumas certificações não foram aprovadas:") }}
 {{ rejected_claims }}
 {% endif %}
+{% if suggestions %}
+
+{{ _("Sugestões do moderador (não impedem a publicação):") }}
+{{ suggestions }}
+{% endif %}
 {% endblock %}

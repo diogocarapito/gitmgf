@@ -13,6 +13,14 @@
 </div>
 {%- endmacro %}
 
+{% macro suggestions_field(prefix="") -%}
+<div class="field">
+  <label for="{{ prefix }}suggestions">{{ _("Sugestões para o autor (opcional)") }}</label>
+  <textarea id="{{ prefix }}suggestions" name="suggestions" rows="3" maxlength="2000"></textarea>
+  <p class="field__hint">{{ _("Enviadas por email ao autor com a aprovação. Não impedem a publicação.") }}</p>
+</div>
+{%- endmacro %}
+
 {% macro claim_decisions(claims) -%}
 {% for c in claims %}
 <fieldset class="cert-claim">

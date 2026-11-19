@@ -55,6 +55,7 @@
         <h2>{{ _("Aprovar") }}</h2>
         {% set pending = claims | selectattr('state', 'equalto', 'pending') | list %}
         {% if pending %}<p class="small muted">{{ _("Certificações declaradas — aprove ou rejeite cada uma:") }}</p>{{ mm.claim_decisions(pending) }}{% endif %}
+        {{ mm.suggestions_field("ap-") }}
         <button class="btn btn--primary" type="submit">{{ icon('check') }} {{ _("Aprovar e publicar") }}</button>
       </form>
       <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/request-changes">

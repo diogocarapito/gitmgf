@@ -169,6 +169,7 @@ def transition(
         tool.last_content_update_at = now
         tool.rejection_reason = None
         ctx["rejected_claims"] = _claims_text(db, rejected, owner.locale.value)
+        ctx["suggestions"] = reason or ""  # optional moderator advice; approval never requires a reason
         email.enqueue(db, owner.email, "tool_approved", ctx, owner.locale.value)
     elif action in ("reject", "request_changes"):
         tool.rejection_reason = reason
@@ -471,6 +472,7 @@ def approve_revision(
     revision: ToolRevision,
     actor: User,
     claim_rejections: dict[str, str] | None = None,
+    suggestions: str | None = None,
     self_approval: bool = False,
 ) -> None:
     tool = revision.tool
@@ -502,7 +504,7 @@ def approve_revision(
     now = utcnow()
     tool.last_content_update_at = now
     tool.updated_at = now
-    _close_revision(db, revision, RevisionStatus.approved, actor.id, None)
+    _close_revision(db, revision, RevisionStatus.approved, actor.id, suggestions)
     db.flush()
     search.reindex_tool(db, tool.id)
     owner = tool.owner
@@ -514,6 +516,7 @@ def approve_revision(
             "title": tool.title_pt,
             "slug": tool.slug,
             "rejected_claims": _claims_text(db, rejected, owner.locale.value),
+            "suggestions": suggestions or "",
         },
         owner.locale.value,
     )
@@ -525,6 +528,7 @@ def approve_revision(
         tool.id,
         revision_id=revision.id,
         rejected_claims=[c for c, _ in rejected],
+        suggestions=suggestions,
         **({"self_approved": True, "via": "cli"} if self_approval else {}),
     )
 

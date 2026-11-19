@@ -204,6 +204,11 @@ def build_reason(form: Any, lang: str, required: bool = True) -> str | None:
     return reason or None
 
 
+def approval_suggestions(form: Any) -> str | None:
+    """Optional advice emailed to the author with an approval; it never blocks publication."""
+    return (form.get("suggestions") or "").strip()[:2000] or None
+
+
 def claim_rejections(form: Any, codes: list[str], lang: str) -> dict[str, str]:
     out = {}
     for code in codes:
@@ -254,6 +259,7 @@ def tool_action(
         return _back(request, f"/mod/tools/{tool.id}", "reason_required")
     rejections = {}
     if action == "approve":
+        reason = approval_suggestions(form)
         rejections = claim_rejections(
             form, [c.certification.code for c in tool.claims if c.state == ClaimState.pending], owner_lang
         )
@@ -301,7 +307,9 @@ def revision_action(
     try:
         if action == "approve":
             changed = certifications.changed_claims(tool, revision.data.get("certifications", []))
-            tool_service.approve_revision(db, revision, user, claim_rejections(form, changed, owner_lang))
+            tool_service.approve_revision(
+                db, revision, user, claim_rejections(form, changed, owner_lang), approval_suggestions(form)
+            )
         else:
             reason = build_reason(form, owner_lang)
             if not reason:
