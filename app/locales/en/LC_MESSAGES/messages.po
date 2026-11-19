@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 21:04+0000\n"
+"POT-Creation-Date: 2026-11-19 21:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -435,9 +435,6 @@ msgstr "The tools most used by the community in recent weeks."
 msgid "As ferramentas que marcou para encontrar mais tarde."
 msgstr "The tools you starred to find again later."
 
-msgid "As ferramentas que os médicos de família constroem, num só lugar."
-msgstr "The tools family doctors build, in one place."
-
 msgid ""
 "As ferramentas são publicadas pelos respetivos autores. A gitmgf não "
 "valida a correção clínica das ferramentas, que não substituem o juízo "
@@ -555,6 +552,13 @@ msgstr ""
 msgid "Cada etiqueta deve ter entre 2 e 40 caracteres."
 msgstr "Each tag must be between 2 and 40 characters."
 
+msgid ""
+"Cada ferramenta tem autor identificado e perfil público. As estrelas e a "
+"utilização mostram o que a comunidade mais valoriza."
+msgstr ""
+"Every tool has a named author with a public profile. Stars and real use "
+"show what the community values most."
+
 msgid "Calculadora"
 msgstr "Calculator"
 
@@ -565,11 +569,14 @@ msgid "Calculadoras"
 msgstr "Calculators"
 
 msgid ""
-"Calculadoras, webapps e aplicações criadas por profissionais dos cuidados"
-" de saúde primários e do Internato. Preferencialmente open source."
+"Calculadoras, webapps, folhas de cálculo e scripts criados por "
+"profissionais dos cuidados de saúde primários e do Internato. Partilhamos"
+" o que construímos para que ninguém tenha de começar do zero — e para "
+"melhorarmos as ferramentas em conjunto."
 msgstr ""
-"Calculators, web apps and other tools made by primary care professionals "
-"and residents. Open source whenever possible."
+"Calculators, web apps, spreadsheets and scripts made by primary care "
+"professionals and residents. We share what we build so nobody has to "
+"start from scratch — and so we can improve our tools together."
 
 msgid "Campo obrigatório."
 msgstr "Required field."
@@ -657,6 +664,9 @@ msgstr "Clicks from search (30 d)"
 
 msgid "Cliques na pesquisa"
 msgstr "Search clicks"
+
+msgid "Colaborar"
+msgstr "Collaborate"
 
 #, python-format
 msgid "Com %(name)s"
@@ -938,9 +948,6 @@ msgstr ""
 "appears under that filter. If you have a renewed certificate, update the "
 "listing:"
 
-msgid "Descobrir"
-msgstr "Discover"
-
 msgid "Desconhecida"
 msgstr "Unknown"
 
@@ -1091,13 +1098,6 @@ msgstr "Sign in:"
 
 msgid "Envia dados para um servidor"
 msgstr "Sends data to a server"
-
-msgid ""
-"Envia dados para um servidor sem declaração RGPD → pedir alterações, "
-"salvo explicação."
-msgstr ""
-"Sends data to a server without a GDPR declaration → request changes, "
-"unless explained."
 
 msgid "Enviadas por email ao autor com a aprovação. Não impedem a publicação."
 msgstr "Emailed to the author with the approval. They don't block publication."
@@ -1312,9 +1312,6 @@ msgstr "Required fields are missing. Review the form before submitting."
 msgid "Farmacêutico/a"
 msgstr "Pharmacist"
 
-msgid "Feito por clínicos, para clínicos"
-msgstr "Made by clinicians, for clinicians"
-
 msgid "Ferramenta"
 msgstr "Tool"
 
@@ -1367,12 +1364,8 @@ msgstr "Tool visible again: %(title)s"
 msgid "Ferramentas"
 msgstr "Tools"
 
-msgid ""
-"Ferramentas digitais criadas por clínicos para a prática clínica, com "
-"foco na Medicina Geral e Familiar e no Internato."
-msgstr ""
-"Digital tools made by clinicians for clinical practice, focused on "
-"General Practice / Family Medicine and residency."
+msgid "Ferramentas criadas por colegas, partilhadas com todos."
+msgstr "Tools built by colleagues, shared with everyone."
 
 msgid "Ferramentas mais populares"
 msgstr "Most popular tools"
@@ -1388,6 +1381,13 @@ msgstr ""
 #, python-format
 msgid "Ferramentas publicadas por %(name)s no gitmgf."
 msgstr "Tools published by %(name)s on gitmgf."
+
+msgid ""
+"Fica registada e é enviada ao autor com a decisão. Para aprovar, todos os"
+" pontos têm de estar confirmados."
+msgstr ""
+"It's recorded and sent to the author with the decision. To approve, every"
+" item must be confirmed."
 
 msgid "Fila de moderação"
 msgstr "Moderation queue"
@@ -1656,6 +1656,9 @@ msgstr ""
 msgid "Lista de verificação"
 msgstr "Checklist"
 
+msgid "Lista de verificação da revisão (✓ cumprido, ✗ por cumprir):"
+msgstr "Review checklist (✓ met, ✗ not met):"
+
 msgid ""
 "Lista única para as ferramentas. As especialidades também aparecem no "
 "perfil dos utilizadores."
@@ -1718,6 +1721,9 @@ msgstr ""
 
 msgid "Meia-vida da popularidade (dias)"
 msgstr "Popularity half-life (days)"
+
+msgid "Melhorar em conjunto"
+msgstr "Improve together"
 
 msgid "Melhoria"
 msgstr "Improvement"
@@ -1993,6 +1999,13 @@ msgstr ""
 "The form expired or was sent from another site. Go back, reload the page "
 "and try again."
 
+msgid ""
+"O gitmgf é mais do que um catálogo: é um ponto de encontro para quem "
+"resolve problemas da prática clínica com tecnologia."
+msgstr ""
+"gitmgf is more than a catalogue: it's a meeting point for people who "
+"solve clinical practice problems with technology."
+
 msgid "O meu perfil"
 msgstr "My profile"
 
@@ -2006,6 +2019,13 @@ msgstr ""
 "What it does, for whom, how to use it and its limitations. Markdown is "
 "supported (headings, lists, links, tables). Don't include data that "
 "identifies patients."
+
+msgid ""
+"O que um colega resolveu numa tarde pode poupar horas a muitos outros. "
+"Uma ligação basta para que a ferramenta chegue a quem precisa."
+msgstr ""
+"What one colleague solved in an afternoon can save many others hours. A "
+"single link is enough for a tool to reach the people who need it."
 
 msgid "O registo está aberto a todos: os convites não são obrigatórios."
 msgstr "Registration is open to everyone: invites are not required."
@@ -2107,11 +2127,11 @@ msgid "Ordenar"
 msgstr "Sort"
 
 msgid ""
-"Os colegas encontram, usam e melhoram a ferramenta. O código aberto "
-"acelera tudo."
+"Os colegas encontram e usam a ferramenta, deixam estrelas e enviam "
+"sugestões. O código aberto permite que cada melhoria chegue a todos."
 msgstr ""
-"Colleagues find, use and improve the tool. Open source speeds everything "
-"up."
+"Colleagues find and use the tool, star it and send suggestions. Open "
+"source lets every improvement reach everyone."
 
 msgid ""
 "Os itens principais aparecem sempre (presentes ou riscados); os "
@@ -2163,6 +2183,13 @@ msgstr ""
 "To add new items, edit seeds/certifications.yaml and run “python -m "
 "app.cli seed certifications”."
 
+msgid ""
+"Para aprovar, confirme todos os pontos da lista de verificação. Se algum "
+"falhar, peça alterações."
+msgstr ""
+"To approve, confirm every item on the checklist. If any fails, request "
+"changes."
+
 msgid "Para concluir o registo na gitmgf, introduza este código:"
 msgstr "To finish signing up for gitmgf, enter this code:"
 
@@ -2204,15 +2231,20 @@ msgstr "Share my email with the author so they can reply."
 msgid "Partilhar uma ferramenta:"
 msgstr "Share a tool:"
 
-msgid ""
-"Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar "
-"tempo e a melhorar os cuidados."
-msgstr ""
-"Share the link to the repository or web app. Help colleagues save time "
-"and improve care."
+msgid "Partilhar, colaborar, melhorar em conjunto"
+msgstr "Share, collaborate, improve together"
 
 msgid "Partilhe-a"
 msgstr "Share it"
+
+msgid ""
+"Partilhe-o com a comunidade. O que funciona na sua consulta pode ajudar "
+"colegas de todo o país — e as sugestões deles podem torná-lo ainda "
+"melhor."
+msgstr ""
+"Share it with the community. What works in your practice can help "
+"colleagues across the country — and their suggestions can make it even "
+"better."
 
 msgid "Pedir alterações (volta a rascunho)"
 msgstr "Request changes (back to draft)"
@@ -2360,6 +2392,9 @@ msgstr "You can download a copy of your data or delete your account at any time.
 
 msgid "Política de Privacidade"
 msgstr "Privacy Policy"
+
+msgid "Pontos verificados pelo moderador:"
+msgstr "Checked by the moderator:"
 
 msgid "Pontuação atual:"
 msgstr "Current score:"
@@ -2513,6 +2548,9 @@ msgstr ""
 msgid "Recebida"
 msgstr "Received"
 
+msgid "Reconhecer"
+msgstr "Recognise"
+
 msgid "Recuperar palavra-passe"
 msgstr "Recover password"
 
@@ -2656,6 +2694,13 @@ msgstr "Script / library"
 msgid "Scripts"
 msgstr "Scripts"
 
+msgid ""
+"Se a ferramenta envia dados para um servidor, tem declaração RGPD ou uma "
+"explicação."
+msgstr ""
+"If the tool sends data to a server, it has a GDPR statement or an "
+"explanation."
+
 msgid "Se está a ler isto, o envio de emails da gitmgf está a funcionar."
 msgstr "If you're reading this, gitmgf email delivery is working."
 
@@ -2786,6 +2831,15 @@ msgstr "Suggestion removed."
 
 msgid "Sugestões do moderador (não impedem a publicação):"
 msgstr "Suggestions from the moderator (they don't block publication):"
+
+msgid ""
+"Sugestões e pedidos de funcionalidades chegam diretamente ao autor. Com "
+"código aberto, qualquer colega pode adaptar a ferramenta à sua realidade "
+"e contribuir de volta."
+msgstr ""
+"Suggestions and feature requests go straight to the author. With open "
+"source, any colleague can adapt a tool to their own setting and "
+"contribute back."
 
 msgid ""
 "Sugestões e pedidos de funcionalidades enviados para as suas ferramentas."
@@ -2935,6 +2989,18 @@ msgid ""
 msgstr ""
 "A calculator, a script or an app that solves a real problem in the "
 "consultation room."
+
+msgid "Uma comunidade de clínicos que constroem"
+msgstr "A community of clinicians who build"
+
+msgid ""
+"Uma comunidade onde clínicos partilham e melhoram em conjunto as "
+"ferramentas digitais que criam para a prática clínica, com foco na "
+"Medicina Geral e Familiar e no Internato."
+msgstr ""
+"A community where clinicians share and improve together the digital tools"
+" they make for clinical practice, with a focus on General Practice / "
+"Family Medicine and residency."
 
 msgid ""
 "Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 21:04+0000\n"
+"POT-Creation-Date: 2026-11-19 21:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -402,6 +402,36 @@ msgstr ""
 msgid "Outro motivo (ver detalhes)."
 msgstr ""
 
+msgid "As ligações funcionam e apontam para o que é descrito."
+msgstr ""
+
+msgid "Não há dados que identifiquem utentes no texto nem nas imagens."
+msgstr ""
+
+msgid "A utilização prevista e o tratamento de dados são plausíveis."
+msgstr ""
+
+msgid "A licença é coerente com o repositório."
+msgstr ""
+
+msgid ""
+"As ligações são do local de publicação do autor (não espelhos de partilha"
+" de ficheiros nem encurtadores)."
+msgstr ""
+
+msgid "Sem publicidade nem spam."
+msgstr ""
+
+msgid ""
+"Cada certificação declarada tem evidência que abre e corresponde à "
+"ferramenta, ao fabricante e à classe."
+msgstr ""
+
+msgid ""
+"Se a ferramenta envia dados para um servidor, tem declaração RGPD ou uma "
+"explicação."
+msgstr ""
+
 msgid "Relevância"
 msgstr ""
 
@@ -527,6 +557,11 @@ msgid "Demasiados pedidos. Aguarde um pouco e tente novamente."
 msgstr ""
 
 msgid "Indique um motivo (modelo ou texto livre)."
+msgstr ""
+
+msgid ""
+"Para aprovar, confirme todos os pontos da lista de verificação. Se algum "
+"falhar, peça alterações."
 msgstr ""
 
 msgid "Categoria guardada."
@@ -769,8 +804,9 @@ msgid "Idioma"
 msgstr ""
 
 msgid ""
-"Ferramentas digitais criadas por clínicos para a prática clínica, com "
-"foco na Medicina Geral e Familiar e no Internato."
+"Uma comunidade onde clínicos partilham e melhoram em conjunto as "
+"ferramentas digitais que criam para a prática clínica, com foco na "
+"Medicina Geral e Familiar e no Internato."
 msgstr ""
 
 msgid "Saltar para o conteúdo"
@@ -1806,6 +1842,9 @@ msgstr ""
 msgid "A ficha «%(title)s» foi aprovada e já está publicada:"
 msgstr ""
 
+msgid "Pontos verificados pelo moderador:"
+msgstr ""
+
 msgid ""
 "Algumas certificações declaradas não foram aprovadas e não aparecem na "
 "ficha:"
@@ -1854,6 +1893,9 @@ msgstr ""
 
 #, python-format
 msgid "Medida: a ficha «%(title)s» não foi aprovada para publicação."
+msgstr ""
+
+msgid "Lista de verificação da revisão (✓ cumprido, ✗ por cumprir):"
 msgstr ""
 
 msgid "Pode editar a ficha e submetê-la novamente:"
@@ -2459,34 +2501,9 @@ msgstr ""
 msgid "Lista de verificação"
 msgstr ""
 
-msgid "As ligações funcionam e apontam para o que é descrito."
-msgstr ""
-
-msgid "Não há dados que identifiquem utentes no texto nem nas imagens."
-msgstr ""
-
-msgid "A utilização prevista e o tratamento de dados são plausíveis."
-msgstr ""
-
-msgid "A licença é coerente com o repositório."
-msgstr ""
-
 msgid ""
-"As ligações são do local de publicação do autor (não espelhos de partilha"
-" de ficheiros nem encurtadores)."
-msgstr ""
-
-msgid "Sem publicidade nem spam."
-msgstr ""
-
-msgid ""
-"Cada certificação declarada tem evidência que abre e corresponde à "
-"ferramenta, ao fabricante e à classe."
-msgstr ""
-
-msgid ""
-"Envia dados para um servidor sem declaração RGPD → pedir alterações, "
-"salvo explicação."
+"Fica registada e é enviada ao autor com a decisão. Para aprovar, todos os"
+" pontos têm de estar confirmados."
 msgstr ""
 
 msgid "Aprovar"
@@ -2597,15 +2614,17 @@ msgstr ""
 msgid "Explore as ferramentas por finalidade ou por especialidade."
 msgstr ""
 
-msgid "Feito por clínicos, para clínicos"
+msgid "Uma comunidade de clínicos que constroem"
 msgstr ""
 
-msgid "As ferramentas que os médicos de família constroem, num só lugar."
+msgid "Ferramentas criadas por colegas, partilhadas com todos."
 msgstr ""
 
 msgid ""
-"Calculadoras, webapps e aplicações criadas por profissionais dos cuidados"
-" de saúde primários e do Internato. Preferencialmente open source."
+"Calculadoras, webapps, folhas de cálculo e scripts criados por "
+"profissionais dos cuidados de saúde primários e do Internato. Partilhamos"
+" o que construímos para que ninguém tenha de começar do zero — e para "
+"melhorarmos as ferramentas em conjunto."
 msgstr ""
 
 msgid "Pesquisar: risco cardiovascular, vacinação, ICPC-2…"
@@ -2624,6 +2643,39 @@ msgid "Scripts"
 msgstr ""
 
 msgid "Internato"
+msgstr ""
+
+msgid "Partilhar, colaborar, melhorar em conjunto"
+msgstr ""
+
+msgid ""
+"O gitmgf é mais do que um catálogo: é um ponto de encontro para quem "
+"resolve problemas da prática clínica com tecnologia."
+msgstr ""
+
+msgid "Partilhar"
+msgstr ""
+
+msgid ""
+"O que um colega resolveu numa tarde pode poupar horas a muitos outros. "
+"Uma ligação basta para que a ferramenta chegue a quem precisa."
+msgstr ""
+
+msgid "Colaborar"
+msgstr ""
+
+msgid ""
+"Sugestões e pedidos de funcionalidades chegam diretamente ao autor. Com "
+"código aberto, qualquer colega pode adaptar a ferramenta à sua realidade "
+"e contribuir de volta."
+msgstr ""
+
+msgid "Reconhecer"
+msgstr ""
+
+msgid ""
+"Cada ferramenta tem autor identificado e perfil público. As estrelas e a "
+"utilização mostram o que a comunidade mais valoriza."
 msgstr ""
 
 msgid "Em destaque"
@@ -2657,28 +2709,26 @@ msgid ""
 "da consulta."
 msgstr ""
 
-msgid "Partilhar"
-msgstr ""
-
 msgid ""
 "Submeta a ligação do repositório ou da webapp, com descrição, licença e "
 "categoria. Cada ficha é revista antes de ser publicada."
 msgstr ""
 
-msgid "Descobrir"
+msgid "Melhorar em conjunto"
 msgstr ""
 
 msgid ""
-"Os colegas encontram, usam e melhoram a ferramenta. O código aberto "
-"acelera tudo."
+"Os colegas encontram e usam a ferramenta, deixam estrelas e enviam "
+"sugestões. O código aberto permite que cada melhoria chegue a todos."
 msgstr ""
 
 msgid "Construiu algo útil para a sua prática?"
 msgstr ""
 
 msgid ""
-"Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar "
-"tempo e a melhorar os cuidados."
+"Partilhe-o com a comunidade. O que funciona na sua consulta pode ajudar "
+"colegas de todo o país — e as sugestões deles podem torná-lo ainda "
+"melhor."
 msgstr ""
 
 #, python-format

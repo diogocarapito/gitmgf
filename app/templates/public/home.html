@@ -4,9 +4,9 @@
 {% block content %}
 <section class="hero">
   <div class="container">
-    <span class="eyebrow">{{ icon('plus') }} {{ _("Feito por clínicos, para clínicos") }}</span>
-    <h1>{{ _("As ferramentas que os médicos de família constroem, num só lugar.") }}</h1>
-    <p class="hero__lead">{{ _("Calculadoras, webapps e aplicações criadas por profissionais dos cuidados de saúde primários e do Internato. Preferencialmente open source.") }}</p>
+    <span class="eyebrow">{{ icon('users') }} {{ _("Uma comunidade de clínicos que constroem") }}</span>
+    <h1>{{ _("Ferramentas criadas por colegas, partilhadas com todos.") }}</h1>
+    <p class="hero__lead">{{ _("Calculadoras, webapps, folhas de cálculo e scripts criados por profissionais dos cuidados de saúde primários e do Internato. Partilhamos o que construímos para que ninguém tenha de começar do zero — e para melhorarmos as ferramentas em conjunto.") }}</p>
     <form class="search-box" action="{{ url('/search') }}" method="get" role="search">
       {{ icon('search') }}
       <label class="visually-hidden" for="hero-q">{{ _("Pesquisar ferramentas") }}</label>
@@ -20,6 +20,22 @@
       <a class="chip" href="{{ url('/search', type='spreadsheet') }}">{{ _("Folhas de cálculo") }}</a>
       <a class="chip" href="{{ url('/search', type='script') }}">{{ _("Scripts") }}</a>
       <a class="chip" href="{{ url('/c/internato') }}">{{ _("Internato") }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2>{{ _("Partilhar, colaborar, melhorar em conjunto") }}</h2>
+        <p>{{ _("O gitmgf é mais do que um catálogo: é um ponto de encontro para quem resolve problemas da prática clínica com tecnologia.") }}</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step__num">{{ icon('send') }}</div><h3>{{ _("Partilhar") }}</h3><p>{{ _("O que um colega resolveu numa tarde pode poupar horas a muitos outros. Uma ligação basta para que a ferramenta chegue a quem precisa.") }}</p></div>
+      <div class="step"><div class="step__num">{{ icon('git-fork') }}</div><h3>{{ _("Colaborar") }}</h3><p>{{ _("Sugestões e pedidos de funcionalidades chegam diretamente ao autor. Com código aberto, qualquer colega pode adaptar a ferramenta à sua realidade e contribuir de volta.") }}</p></div>
+      <div class="step"><div class="step__num">{{ icon('users') }}</div><h3>{{ _("Reconhecer") }}</h3><p>{{ _("Cada ferramenta tem autor identificado e perfil público. As estrelas e a utilização mostram o que a comunidade mais valoriza.") }}</p></div>
     </div>
   </div>
 </section>
@@ -78,7 +94,7 @@
     <div class="steps">
       <div class="step"><div class="step__num">1</div><h3>{{ _("Construir") }}</h3><p>{{ _("Uma calculadora, um script ou uma aplicação que resolve um problema real da consulta.") }}</p></div>
       <div class="step"><div class="step__num">2</div><h3>{{ _("Partilhar") }}</h3><p>{{ _("Submeta a ligação do repositório ou da webapp, com descrição, licença e categoria. Cada ficha é revista antes de ser publicada.") }}</p></div>
-      <div class="step"><div class="step__num">3</div><h3>{{ _("Descobrir") }}</h3><p>{{ _("Os colegas encontram, usam e melhoram a ferramenta. O código aberto acelera tudo.") }}</p></div>
+      <div class="step"><div class="step__num">3</div><h3>{{ _("Melhorar em conjunto") }}</h3><p>{{ _("Os colegas encontram e usam a ferramenta, deixam estrelas e enviam sugestões. O código aberto permite que cada melhoria chegue a todos.") }}</p></div>
     </div>
   </div>
 </section>
@@ -88,7 +104,7 @@
     <div class="cta-panel">
       <div>
         <h2>{{ _("Construiu algo útil para a sua prática?") }}</h2>
-        <p>{{ _("Partilhe a ligação do repositório ou da webapp. Ajude colegas a poupar tempo e a melhorar os cuidados.") }}</p>
+        <p>{{ _("Partilhe-o com a comunidade. O que funciona na sua consulta pode ajudar colegas de todo o país — e as sugestões deles podem torná-lo ainda melhor.") }}</p>
       </div>
       <a class="btn btn--primary btn--lg" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a>
     </div>
