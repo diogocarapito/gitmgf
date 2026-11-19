@@ -19,6 +19,13 @@
         <summary class="btn btn--sm">{{ icon('filter') }} {{ _("Filtros") }}</summary>
         <div class="filters">
           <fieldset>
+            <legend>{{ _("Tipo") }}</legend>
+            <label class="choice"><input class="filter" type="radio" name="type" value=""{% if not params.type %} checked{% endif %}> {{ _("Todos os tipos") }}</label>
+            {% for k, v in labels.TOOL_TYPE.items() %}
+            <label class="choice"><input class="filter" type="radio" name="type" value="{{ k }}"{% if params.type == k %} checked{% endif %}> {{ _(v) }}</label>
+            {% endfor %}
+          </fieldset>
+          <fieldset>
             <legend>{{ _("Categorias") }}</legend>
             {% for c in all_categories if not c.is_specialty %}
             <label class="choice"><input class="filter" type="checkbox" name="cat" value="{{ c.slug }}"{% if c.slug in params.cat %} checked{% endif %}> {{ c.name(lang) }}</label>
@@ -30,14 +37,6 @@
               <label class="choice"><input class="filter" type="checkbox" name="cat" value="{{ c.slug }}"{% if c.slug in params.cat %} checked{% endif %}> {{ c.name(lang) }}</label>
               {% endfor %}
             </details>
-          </fieldset>
-          <fieldset>
-            <legend>{{ _("Tipo") }}</legend>
-            <label class="visually-hidden" for="f-type">{{ _("Tipo de ferramenta") }}</label>
-            <select id="f-type" name="type" class="filter">
-              <option value="">{{ _("Todos os tipos") }}</option>
-              {% for k, v in labels.TOOL_TYPE.items() %}<option value="{{ k }}"{% if params.type == k %} selected{% endif %}>{{ _(v) }}</option>{% endfor %}
-            </select>
           </fieldset>
           <fieldset>
             <legend>{{ _("Acesso") }}</legend>

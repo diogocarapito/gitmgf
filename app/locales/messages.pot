@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 23:31+0000\n"
+"POT-Creation-Date: 2026-11-19 00:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2736,10 +2736,10 @@ msgstr ""
 msgid "Filtros"
 msgstr ""
 
-msgid "Especialidades"
+msgid "Todos os tipos"
 msgstr ""
 
-msgid "Todos os tipos"
+msgid "Especialidades"
 msgstr ""
 
 msgid "Acesso"
@@ -2886,6 +2886,9 @@ msgstr ""
 msgid "Pesquisas"
 msgstr ""
 
+msgid "Visão geral do portal, para moderadores e administradores."
+msgstr ""
+
 #, python-format
 msgid "%(n)s dias"
 msgstr ""
@@ -2906,9 +2909,6 @@ msgid "Cliques na pesquisa"
 msgstr ""
 
 msgid "Aberturas de ligações"
-msgstr ""
-
-msgid "Visão geral do portal, para moderadores e administradores."
 msgstr ""
 
 msgid "Publicadas"
