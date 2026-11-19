@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 21:15+0000\n"
+"POT-Creation-Date: 2026-11-19 21:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -43,16 +43,34 @@ msgid "%(name)s: não declarado pelo autor"
 msgstr "%(name)s: not declared by the author"
 
 #, python-format
+msgid "%(num)d alteração por rever"
+msgid_plural "%(num)d alterações por rever"
+msgstr[0] "%(num)d edit to review"
+msgstr[1] "%(num)d edits to review"
+
+#, python-format
 msgid "%(num)d denúncia aberta."
 msgid_plural "%(num)d denúncias abertas."
 msgstr[0] "%(num)d open report."
 msgstr[1] "%(num)d open reports."
 
 #, python-format
+msgid "%(num)d denúncia por analisar"
+msgid_plural "%(num)d denúncias por analisar"
+msgstr[0] "%(num)d report to look into"
+msgstr[1] "%(num)d reports to look into"
+
+#, python-format
 msgid "%(num)d ferramenta"
 msgid_plural "%(num)d ferramentas"
 msgstr[0] "%(num)d tool"
 msgstr[1] "%(num)d tools"
+
+#, python-format
+msgid "%(num)d ferramenta nova por aprovar"
+msgid_plural "%(num)d ferramentas novas por aprovar"
+msgstr[0] "%(num)d new tool to approve"
+msgstr[1] "%(num)d new tools to approve"
 
 #, python-format
 msgid "%(num)d ferramenta publicada"
@@ -254,15 +272,15 @@ msgstr "You haven't shared any tools yet."
 msgid "Ainda não publicou ferramentas."
 msgstr "No published tools yet."
 
-msgid ""
-"Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das"
-" suas ferramentas, aparece aqui."
-msgstr ""
-"No suggestions yet. When someone suggests an improvement to one of your "
-"tools, it shows up here."
-
 msgid "Ainda não tem conta?"
 msgstr "Don't have an account yet?"
+
+msgid ""
+"Ainda não tem notificações. As decisões da moderação sobre as suas "
+"ferramentas e as sugestões de outros utilizadores aparecem aqui."
+msgstr ""
+"No notifications yet. Moderation decisions on your tools and suggestions "
+"from other users show up here."
 
 msgid "Ainda sem dados."
 msgstr "No data yet."
@@ -298,6 +316,9 @@ msgstr "Change password"
 msgid "Alteração"
 msgstr "Edit"
 
+msgid "Alteração aprovada"
+msgstr "Edit approved"
+
 #, python-format
 msgid "Alteração aprovada: %(title)s"
 msgstr "Edit approved: %(title)s"
@@ -318,6 +339,9 @@ msgstr "Edit pending review."
 msgid "Alteração pendente retirada."
 msgstr "Pending edit withdrawn."
 
+msgid "Alteração rejeitada"
+msgstr "Edit rejected"
+
 msgid "Alteração submetida. A versão publicada mantém-se até à aprovação."
 msgstr "Edit submitted. The published version stays live until it is approved."
 
@@ -326,6 +350,9 @@ msgstr "Edits"
 
 msgid "Alterações guardadas."
 msgstr "Changes saved."
+
+msgid "Alterações pedidas"
+msgstr "Changes requested"
 
 #, python-format
 msgid "Alterações pedidas: %(title)s"
@@ -551,13 +578,6 @@ msgstr ""
 
 msgid "Cada etiqueta deve ter entre 2 e 40 caracteres."
 msgstr "Each tag must be between 2 and 40 characters."
-
-msgid ""
-"Cada ferramenta tem autor identificado e perfil público. As estrelas e a "
-"utilização mostram o que a comunidade mais valoriza."
-msgstr ""
-"Every tool has a named author with a public profile. Stars and real use "
-"show what the community values most."
 
 msgid "Calculadora"
 msgstr "Calculator"
@@ -808,6 +828,9 @@ msgstr "Create account"
 msgid "Criar convite"
 msgstr "Create invite"
 
+msgid "Criar, partilhar, colaborar"
+msgstr "Create, share, collaborate"
+
 msgid "Crie a sua conta com esta ligação:"
 msgstr "Create your account with this link:"
 
@@ -865,9 +888,19 @@ msgstr ""
 "Registration is currently by invitation. If you don't have one, ask for "
 "it through the"
 
+msgid "Decisão da moderação"
+msgstr "Moderation decision"
+
 #, python-format
 msgid "Decisão sobre a sua denúncia #%(id)s"
 msgstr "Decision on your report #%(id)s"
+
+msgid ""
+"Decisões da moderação e sugestões para as suas ferramentas. Também as "
+"recebe por email."
+msgstr ""
+"Moderation decisions and suggestions for your tools. You also get them by"
+" email."
 
 msgid "Declarada por si e mostrada como contexto, não como credencial."
 msgstr "Self-declared and shown as context, not as a credential."
@@ -1731,6 +1764,9 @@ msgstr "Improvement"
 msgid "Mensagem"
 msgstr "Message"
 
+msgid "Mensagem do moderador:"
+msgstr "Moderator's message:"
+
 msgid "Menu"
 msgstr "Menu"
 
@@ -1875,6 +1911,9 @@ msgid ""
 "feito."
 msgstr "Notes on building tools for clinical work, and on how gitmgf is made."
 
+msgid "Notificação removida."
+msgstr "Notification removed."
+
 msgid "Notificações"
 msgstr "Notifications"
 
@@ -1915,6 +1954,9 @@ msgstr "New invite"
 
 msgid "Não aplicável"
 msgstr "Not applicable"
+
+msgid "Não aprovada"
+msgstr "Not approved"
 
 msgid "Não foi possível enviar. Aguarde uns segundos e tente novamente."
 msgstr "Could not send. Wait a few seconds and try again."
@@ -2022,10 +2064,12 @@ msgstr ""
 
 msgid ""
 "O que um colega resolveu numa tarde pode poupar horas a muitos outros. "
-"Uma ligação basta para que a ferramenta chegue a quem precisa."
+"Uma ligação basta para que a ferramenta chegue a quem precisa, com o "
+"crédito de quem a criou."
 msgstr ""
 "What one colleague solved in an afternoon can save many others hours. A "
-"single link is enough for a tool to reach the people who need it."
+"single link is enough for a tool to reach the people who need it, "
+"credited to whoever made it."
 
 msgid "O registo está aberto a todos: os convites não são obrigatórios."
 msgstr "Registration is open to everyone: invites are not required."
@@ -2231,9 +2275,6 @@ msgstr "Share my email with the author so they can reply."
 msgid "Partilhar uma ferramenta:"
 msgstr "Share a tool:"
 
-msgid "Partilhar, colaborar, melhorar em conjunto"
-msgstr "Share, collaborate, improve together"
-
 msgid "Partilhe-a"
 msgstr "Share it"
 
@@ -2405,6 +2446,9 @@ msgstr "Score reset."
 msgid "Populares"
 msgstr "Popular"
 
+msgid "Por fazer"
+msgstr "To do"
+
 msgid ""
 "Por omissão, nenhuma certificação é declarada. Ative apenas o que a "
 "ferramenta tem de facto e indique a evidência: cada declaração é "
@@ -2548,9 +2592,6 @@ msgstr ""
 msgid "Recebida"
 msgstr "Received"
 
-msgid "Reconhecer"
-msgstr "Recognise"
-
 msgid "Recuperar palavra-passe"
 msgstr "Recover password"
 
@@ -2599,6 +2640,9 @@ msgstr "Remove"
 
 msgid "Remover esta imagem?"
 msgstr "Remove this image?"
+
+msgid "Remover esta notificação?"
+msgstr "Remove this notification?"
 
 msgid "Remover esta sugestão?"
 msgstr "Remove this suggestion?"
@@ -2841,13 +2885,6 @@ msgstr ""
 "source, any colleague can adapt a tool to their own setting and "
 "contribute back."
 
-msgid ""
-"Sugestões e pedidos de funcionalidades enviados para as suas ferramentas."
-" Também os recebe por email."
-msgstr ""
-"Suggestions and feature requests sent for your tools. You also get them "
-"by email."
-
 msgid "Sugestões para o autor (opcional)"
 msgstr "Suggestions for the author (optional)"
 
@@ -2990,6 +3027,13 @@ msgstr ""
 "A calculator, a script or an app that solves a real problem in the "
 "consultation room."
 
+msgid ""
+"Uma calculadora, um script ou uma folha de cálculo que resolve um "
+"problema real da consulta. Não precisa de ser grande para ser útil."
+msgstr ""
+"A calculator, a script or a spreadsheet that solves a real problem in "
+"your practice. It doesn't have to be big to be useful."
+
 msgid "Uma comunidade de clínicos que constroem"
 msgstr "A community of clinicians who build"
 
@@ -3124,6 +3168,9 @@ msgstr "Overview"
 msgid "Visão geral do portal, para moderadores e administradores."
 msgstr "Site overview, for moderators and administrators."
 
+msgid "Visível novamente"
+msgstr "Visible again"
+
 msgid "Voltar a Entrar"
 msgstr "Back to sign in"
 
@@ -3203,9 +3250,6 @@ msgstr "for “%(q)s”"
 
 msgid "por definir"
 msgstr "not set"
-
-msgid "por ler"
-msgstr "unread"
 
 msgid "qualquer"
 msgstr "any"

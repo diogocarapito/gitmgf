@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 21:16+0000\n"
+"POT-Creation-Date: 2026-11-19 21:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,6 +357,21 @@ msgstr ""
 msgid "Outra sugestão"
 msgstr ""
 
+msgid "Não aprovada"
+msgstr ""
+
+msgid "Alterações pedidas"
+msgstr ""
+
+msgid "Visível novamente"
+msgstr ""
+
+msgid "Alteração aprovada"
+msgstr ""
+
+msgid "Alteração rejeitada"
+msgstr ""
+
 msgid "Aberta"
 msgstr ""
 
@@ -460,6 +475,9 @@ msgid "Sugestão enviada ao autor. Obrigado!"
 msgstr ""
 
 msgid "Sugestão removida."
+msgstr ""
+
+msgid "Notificação removida."
 msgstr ""
 
 msgid "Foto de perfil atualizada."
@@ -830,13 +848,10 @@ msgstr ""
 msgid "Pesquisar ferramentas"
 msgstr ""
 
-msgid "Notificações"
-msgstr ""
-
-msgid "por ler"
-msgstr ""
-
 msgid "Menu da conta"
+msgstr ""
+
+msgid "Notificações"
 msgstr ""
 
 msgid "O meu perfil"
@@ -1986,8 +2001,44 @@ msgid "Cancelar"
 msgstr ""
 
 msgid ""
-"Sugestões e pedidos de funcionalidades enviados para as suas ferramentas."
-" Também os recebe por email."
+"Decisões da moderação e sugestões para as suas ferramentas. Também as "
+"recebe por email."
+msgstr ""
+
+msgid "Por fazer"
+msgstr ""
+
+#, python-format
+msgid "%(num)d ferramenta nova por aprovar"
+msgid_plural "%(num)d ferramentas novas por aprovar"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)d alteração por rever"
+msgid_plural "%(num)d alterações por rever"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)d denúncia por analisar"
+msgid_plural "%(num)d denúncias por analisar"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Mensagem do moderador:"
+msgstr ""
+
+msgid "Decisão da moderação"
+msgstr ""
+
+msgid "Editar ficha"
+msgstr ""
+
+msgid "Remover esta notificação?"
+msgstr ""
+
+msgid "Remover"
 msgstr ""
 
 msgid "De"
@@ -2002,12 +2053,9 @@ msgstr ""
 msgid "Remover esta sugestão?"
 msgstr ""
 
-msgid "Remover"
-msgstr ""
-
 msgid ""
-"Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das"
-" suas ferramentas, aparece aqui."
+"Ainda não tem notificações. As decisões da moderação sobre as suas "
+"ferramentas e as sugestões de outros utilizadores aparecem aqui."
 msgstr ""
 
 msgid "Foto de perfil"
@@ -2645,7 +2693,7 @@ msgstr ""
 msgid "Internato"
 msgstr ""
 
-msgid "Partilhar, colaborar, melhorar em conjunto"
+msgid "Criar, partilhar, colaborar"
 msgstr ""
 
 msgid ""
@@ -2653,12 +2701,18 @@ msgid ""
 "resolve problemas da prática clínica com tecnologia."
 msgstr ""
 
+msgid ""
+"Uma calculadora, um script ou uma folha de cálculo que resolve um "
+"problema real da consulta. Não precisa de ser grande para ser útil."
+msgstr ""
+
 msgid "Partilhar"
 msgstr ""
 
 msgid ""
 "O que um colega resolveu numa tarde pode poupar horas a muitos outros. "
-"Uma ligação basta para que a ferramenta chegue a quem precisa."
+"Uma ligação basta para que a ferramenta chegue a quem precisa, com o "
+"crédito de quem a criou."
 msgstr ""
 
 msgid "Colaborar"
@@ -2668,14 +2722,6 @@ msgid ""
 "Sugestões e pedidos de funcionalidades chegam diretamente ao autor. Com "
 "código aberto, qualquer colega pode adaptar a ferramenta à sua realidade "
 "e contribuir de volta."
-msgstr ""
-
-msgid "Reconhecer"
-msgstr ""
-
-msgid ""
-"Cada ferramenta tem autor identificado e perfil público. As estrelas e a "
-"utilização mostram o que a comunidade mais valoriza."
 msgstr ""
 
 msgid "Em destaque"
@@ -2865,9 +2911,6 @@ msgid "Enviar sugestão"
 msgstr ""
 
 msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, use"
-msgstr ""
-
-msgid "Editar ficha"
 msgstr ""
 
 msgid "Moderar"
