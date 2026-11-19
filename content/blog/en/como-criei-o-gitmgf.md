@@ -76,7 +76,7 @@ I installed [Claude Code](https://claude.com/claude-code) (see the official docs
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
-cd gitmgf
+cd <your-new-project>
 claude
 ```
 
