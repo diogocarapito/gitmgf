@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 
 from app.db import utcnow
 from app.i18n import N_, t
-from app.i18n.labels import OSI_LICENSES
+from app.i18n.labels import OSI_LICENSES, REVIEW_CHECKLIST
 from app.models import (
     Category,
     Certification,
@@ -26,7 +26,7 @@ from app.models import (
     ToolRevision,
     User,
 )
-from app.models.enums import MediaState, RevisionStatus, ToolStatus
+from app.models.enums import ClaimState, MediaState, RevisionStatus, ToolStatus
 from app.services import (
     audit,
     certifications,
@@ -128,6 +128,26 @@ def check_pending_limit(db: Session, user_id: int, exclude_tool: Tool | None = N
         raise ToolError(N_("Atingiu o limite de submissões pendentes. Aguarde a revisão das anteriores."))
 
 
+def review_checklist_keys(tool: Tool) -> list[str]:
+    """Checklist items that apply to a tool under review; the certification item only while claims await review."""
+    keys = list(REVIEW_CHECKLIST)
+    if not any(c.state == ClaimState.pending for c in tool.claims):
+        keys.remove("certifications")
+    return keys
+
+
+def review_checklist(tool: Tool, checked: list[str]) -> dict[str, bool]:
+    """Every applicable item -> whether the moderator ticked it (unknown keys are ignored)."""
+    ticked = set(checked)
+    return {key: key in ticked for key in review_checklist_keys(tool)}
+
+
+def _checklist_text(checklist: dict[str, bool], lang: str) -> str:
+    return "\n".join(
+        f"{'✓' if ok else '✗'} {t(lang, REVIEW_CHECKLIST[key])}" for key, ok in checklist.items()
+    )
+
+
 def transition(
     db: Session,
     tool: Tool,
@@ -136,6 +156,7 @@ def transition(
     reason: str | None = None,
     claim_rejections: dict[str, str] | None = None,
     self_approval: bool = False,
+    checklist: dict[str, bool] | None = None,
 ) -> Tool:
     key = (tool.status, action)
     if key not in TRANSITIONS:
@@ -149,11 +170,14 @@ def transition(
         _check_actor(who, tool, actor)
     if action in REASON_REQUIRED and not (reason and reason.strip()):
         raise InvalidTransition("reason required")
+    if action == "approve" and checklist is not None and not all(checklist.values()):
+        raise InvalidTransition("checklist incomplete")
     owner = tool.owner
     now = utcnow()
     previous = tool.status
     actor_id = actor.id if actor else None
     ctx = {"title": tool.title_pt, "slug": tool.slug, "reason": reason or "", "tool_id": tool.id}
+    ctx["checklist"] = _checklist_text(checklist, owner.locale.value) if checklist else ""
 
     if action == "submit":
         errors = submission_problems(db, tool)
@@ -204,6 +228,7 @@ def transition(
         "tool",
         tool.id,
         **{"from": previous.value, "to": target.value, "reason": reason},
+        **({"checklist": checklist} if checklist is not None else {}),
         **({"self_approved": True, "via": "cli"} if self_approval else {}),
     )
     return tool

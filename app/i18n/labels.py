@@ -165,6 +165,22 @@ REJECTION_REASONS = {
     "other": N_("Outro motivo (ver detalhes)."),
 }
 
+# Moderator's review checklist for a pending tool: ticks are audited and sent to the author with the decision.
+REVIEW_CHECKLIST = {
+    "links": N_("As ligações funcionam e apontam para o que é descrito."),
+    "patient_data": N_("Não há dados que identifiquem utentes no texto nem nas imagens."),
+    "intended_use": N_("A utilização prevista e o tratamento de dados são plausíveis."),
+    "license": N_("A licença é coerente com o repositório."),
+    "link_source": N_(
+        "As ligações são do local de publicação do autor (não espelhos de partilha de ficheiros nem encurtadores)."
+    ),
+    "no_spam": N_("Sem publicidade nem spam."),
+    "certifications": N_(
+        "Cada certificação declarada tem evidência que abre e corresponde à ferramenta, ao fabricante e à classe."
+    ),
+    "rgpd": N_("Se a ferramenta envia dados para um servidor, tem declaração RGPD ou uma explicação."),
+}
+
 SORTS = {
     "relevance": N_("Relevância"),
     "popular": N_("Populares"),
@@ -245,6 +261,12 @@ FLASH = {
     ),
     "rate_limited": ("danger", N_("Demasiados pedidos. Aguarde um pouco e tente novamente.")),
     "reason_required": ("danger", N_("Indique um motivo (modelo ou texto livre).")),
+    "checklist_incomplete": (
+        "danger",
+        N_(
+            "Para aprovar, confirme todos os pontos da lista de verificação. Se algum falhar, peça alterações."
+        ),
+    ),
     "category_saved": ("ok", N_("Categoria guardada.")),
     "certification_saved": ("ok", N_("Certificação guardada.")),
     "tag_deleted": ("ok", N_("Etiqueta eliminada.")),

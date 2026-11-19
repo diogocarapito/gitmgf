@@ -580,6 +580,7 @@ details.lang-en > summary { cursor: pointer; font-weight: 650; color: var(--c-li
 .diff-field__name { font-weight: 700; font-size: .85rem; color: var(--c-muted); margin-bottom: .3rem; text-transform: uppercase; letter-spacing: .04em; }
 .checklist { padding-left: 1.2rem; font-size: .92rem; }
 .checklist li { margin-bottom: .35rem; }
+.review-checklist { display: grid; gap: .55rem; margin-bottom: .8rem; }
 .media-admin { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 .media-admin figure { margin: 0; border: 1px solid var(--c-border); border-radius: var(--radius); padding: .5rem; background: var(--c-surface); }
 .media-admin figcaption { font-size: .8rem; margin: .4rem 0; color: var(--c-text-2); }

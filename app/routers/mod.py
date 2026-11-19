@@ -135,6 +135,7 @@ def review_tool(request: Request, db: DB, user: ModDep, tool_id: int) -> Respons
             "claims": _claims_view(db, tool, lang),
             "pending_claims": pending_claims,
             "warnings": check.warnings,
+            "checklist_keys": tool_service.review_checklist_keys(tool),
             "open_reports": db.scalars(
                 select(Report).where(Report.tool_id == tool.id, Report.status == ReportStatus.open)
             )
@@ -257,6 +258,11 @@ def tool_action(
     reason = build_reason(form, owner_lang, required=action in ("reject", "request-changes", "hide"))
     if action in ("reject", "request-changes", "hide") and not reason:
         return _back(request, f"/mod/tools/{tool.id}", "reason_required")
+    checklist = None
+    if action in ("approve", "reject", "request-changes"):
+        checklist = tool_service.review_checklist(tool, form.getlist("check"))
+        if action == "approve" and not all(checklist.values()):
+            return _back(request, f"/mod/tools/{tool.id}", "checklist_incomplete")
     rejections = {}
     if action == "approve":
         reason = approval_suggestions(form)
@@ -265,7 +271,13 @@ def tool_action(
         )
     try:
         tool_service.transition(
-            db, tool, action.replace("-", "_"), user, reason=reason, claim_rejections=rejections
+            db,
+            tool,
+            action.replace("-", "_"),
+            user,
+            reason=reason,
+            claim_rejections=rejections,
+            checklist=checklist,
         )
         db.commit()
     except (InvalidTransition, ToolError) as exc:

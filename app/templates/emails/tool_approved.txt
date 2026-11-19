@@ -4,7 +4,11 @@
 
 {{ _("A ficha «%(title)s» foi aprovada e já está publicada:", title=title) }}
 {{ base_url }}{{ lang_prefix }}/t/{{ slug }}
-{% if rejected_claims %}
+{% if checklist %}
+
+{{ _("Pontos verificados pelo moderador:") }}
+{{ checklist }}
+{% endif %}{% if rejected_claims %}
 
 {{ _("Algumas certificações declaradas não foram aprovadas e não aparecem na ficha:") }}
 {{ rejected_claims }}

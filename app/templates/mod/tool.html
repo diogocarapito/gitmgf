@@ -36,37 +36,44 @@
       {% endif %}
     </div>
     <aside>
+      {% if can_act and tool.status == 'pending' %}
+      {# One form so the checklist travels with whichever decision is taken. #}
+      <form method="post" action="/mod/tools/{{ tool.id }}/approve">
+        {{ m.csrf() }}
+        <section class="panel">
+          <h2>{{ _("Lista de verificação") }}</h2>
+          <div class="review-checklist">
+            {% for key in checklist_keys %}<label class="choice"><input type="checkbox" name="check" value="{{ key }}" required> {{ _(labels.REVIEW_CHECKLIST[key]) }}</label>
+            {% endfor %}
+          </div>
+          <p class="field__hint">{{ _("Fica registada e é enviada ao autor com a decisão. Para aprovar, todos os pontos têm de estar confirmados.") }}</p>
+        </section>
+        <div class="panel form">
+          <h2>{{ _("Aprovar") }}</h2>
+          {% set pending = claims | selectattr('state', 'equalto', 'pending') | list %}
+          {% if pending %}<p class="small muted">{{ _("Certificações declaradas — aprove ou rejeite cada uma:") }}</p>{{ mm.claim_decisions(pending) }}{% endif %}
+          {{ mm.suggestions_field("ap-") }}
+          <button class="btn btn--primary" type="submit">{{ icon('check') }} {{ _("Aprovar e publicar") }}</button>
+        </div>
+        <div class="panel form">
+          <h2>{{ _("Pedir alterações ou rejeitar") }}</h2>
+          {{ mm.reason_fields("rc-") }}
+          <div class="row">
+            <button class="btn" type="submit" formaction="/mod/tools/{{ tool.id }}/request-changes" formnovalidate>{{ _("Pedir alterações (volta a rascunho)") }}</button>
+            <button class="btn btn--danger" type="submit" formaction="/mod/tools/{{ tool.id }}/reject" formnovalidate>{{ _("Rejeitar") }}</button>
+          </div>
+        </div>
+      </form>
+      {% else %}
       <section class="panel">
         <h2>{{ _("Lista de verificação") }}</h2>
         <ul class="checklist">
-          <li>{{ _("As ligações funcionam e apontam para o que é descrito.") }}</li>
-          <li>{{ _("Não há dados que identifiquem utentes no texto nem nas imagens.") }}</li>
-          <li>{{ _("A utilização prevista e o tratamento de dados são plausíveis.") }}</li>
-          <li>{{ _("A licença é coerente com o repositório.") }}</li>
-          <li>{{ _("As ligações são do local de publicação do autor (não espelhos de partilha de ficheiros nem encurtadores).") }}</li>
-          <li>{{ _("Sem publicidade nem spam.") }}</li>
-          <li>{{ _("Cada certificação declarada tem evidência que abre e corresponde à ferramenta, ao fabricante e à classe.") }}</li>
-          <li>{{ _("Envia dados para um servidor sem declaração RGPD → pedir alterações, salvo explicação.") }}</li>
+          {% for key in checklist_keys %}<li>{{ _(labels.REVIEW_CHECKLIST[key]) }}</li>
+          {% endfor %}
         </ul>
       </section>
-      {% if can_act and tool.status == 'pending' %}
-      <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/approve">
-        {{ m.csrf() }}
-        <h2>{{ _("Aprovar") }}</h2>
-        {% set pending = claims | selectattr('state', 'equalto', 'pending') | list %}
-        {% if pending %}<p class="small muted">{{ _("Certificações declaradas — aprove ou rejeite cada uma:") }}</p>{{ mm.claim_decisions(pending) }}{% endif %}
-        {{ mm.suggestions_field("ap-") }}
-        <button class="btn btn--primary" type="submit">{{ icon('check') }} {{ _("Aprovar e publicar") }}</button>
-      </form>
-      <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/request-changes">
-        {{ m.csrf() }}<h2>{{ _("Pedir alterações ou rejeitar") }}</h2>
-        {{ mm.reason_fields("rc-") }}
-        <div class="row">
-          <button class="btn" type="submit">{{ _("Pedir alterações (volta a rascunho)") }}</button>
-          <button class="btn btn--danger" type="submit" formaction="/mod/tools/{{ tool.id }}/reject">{{ _("Rejeitar") }}</button>
-        </div>
-      </form>
-      {% elif can_act and tool.status in ('published', 'archived') %}
+      {% endif %}
+      {% if can_act and tool.status in ('published', 'archived') %}
       <form class="panel form" method="post" action="/mod/tools/{{ tool.id }}/hide">
         {{ m.csrf() }}<h2>{{ _("Ocultar ferramenta") }}</h2>
         {{ mm.reason_fields("h-") }}

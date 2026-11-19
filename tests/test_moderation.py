@@ -1,3 +1,4 @@
+import pytest
 from sqlalchemy import select
 
 from app.models import AuditLog, EmailOutbox, Tool
@@ -10,6 +11,11 @@ from tests.factories import make_tool, tool_data
 
 def _emails(db, template: str) -> list[EmailOutbox]:
     return list(db.scalars(select(EmailOutbox).where(EmailOutbox.template == template)))
+
+
+def _checks(tool: Tool) -> dict[str, list[str]]:
+    """Every applicable review checklist item ticked, as the form posts them."""
+    return {"check": svc.review_checklist_keys(tool)}
 
 
 def test_queue_lists_pending_items_oldest_first(client, db):
@@ -35,7 +41,7 @@ def test_approve_with_claim_rejection_emails_owner(client, db):
     r = post(
         client,
         f"/mod/tools/{tool.id}/approve",
-        {"claim_rgpd": "reject", "claim_rgpd_reason": "A política não abre."},
+        {"claim_rgpd": "reject", "claim_rgpd_reason": "A política não abre.", **_checks(tool)},
     )
     assert r.status_code == 303
     db.refresh(tool)
@@ -53,7 +59,11 @@ def test_approve_with_suggestions_emails_them_and_still_publishes(client, db):
     tool = make_tool(db, owner, status="pending")
     login(client, db, mod)
     assert 'name="suggestions"' in client.get(f"/mod/tools/{tool.id}").text
-    r = post(client, f"/mod/tools/{tool.id}/approve", {"suggestions": "Acrescentar capturas de ecrã."})
+    r = post(
+        client,
+        f"/mod/tools/{tool.id}/approve",
+        {"suggestions": "Acrescentar capturas de ecrã.", **_checks(tool)},
+    )
     assert r.status_code == 303
     db.refresh(tool)
     assert tool.status == ToolStatus.published and tool.rejection_reason is None
@@ -66,8 +76,63 @@ def test_approve_without_suggestions_omits_the_section(client, db):
     owner = make_user(db, "o@example.org")
     tool = make_tool(db, owner, status="pending")
     login(client, db, mod)
-    assert post(client, f"/mod/tools/{tool.id}/approve", {"suggestions": "   "}).status_code == 303
+    r = post(client, f"/mod/tools/{tool.id}/approve", {"suggestions": "   ", **_checks(tool)})
+    assert r.status_code == 303
     assert "Sugestões do moderador" not in _emails(db, "tool_approved")[-1].body_text
+
+
+def test_review_page_shows_checklist_as_required_checkboxes(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    tool = make_tool(db, status="pending")
+    login(client, db, mod)
+    html = client.get(f"/mod/tools/{tool.id}").text
+    assert 'name="check" value="links" required' in html
+    assert 'value="certifications"' not in html  # no claims awaiting review
+    assert "formnovalidate" in html  # rejecting never needs the boxes ticked
+
+
+def test_approve_needs_every_checklist_item(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    tool = make_tool(db, status="pending")
+    login(client, db, mod)
+    r = post(client, f"/mod/tools/{tool.id}/approve", {"check": ["links", "no_spam"]})
+    assert r.status_code == 303 and "flash=checklist_incomplete" in r.headers["location"]
+    db.refresh(tool)
+    assert tool.status == ToolStatus.pending
+    with pytest.raises(svc.InvalidTransition):
+        svc.transition(db, tool, "approve", mod, checklist={"links": True, "no_spam": False})
+
+
+def test_approval_records_checklist_and_emails_it(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    tool = make_tool(db, status="pending")
+    login(client, db, mod)
+    assert post(client, f"/mod/tools/{tool.id}/approve", _checks(tool)).status_code == 303
+    entry = db.scalar(
+        select(AuditLog).where(AuditLog.action == "tool.approve", AuditLog.target_id == tool.id)
+    )
+    assert entry.details["checklist"] and all(entry.details["checklist"].values())
+    body = _emails(db, "tool_approved")[-1].body_text
+    assert "Pontos verificados pelo moderador:" in body and "✓ Sem publicidade nem spam." in body
+
+
+def test_request_changes_sends_ticked_and_failed_checklist_items(client, db):
+    mod = make_user(db, "mod@example.org", Role.moderator)
+    tool = make_tool(db, status="pending")
+    login(client, db, mod)
+    r = post(
+        client,
+        f"/mod/tools/{tool.id}/request-changes",
+        {"reason_template": "patient_data", "check": ["links", "license"]},
+    )
+    assert r.status_code == 303
+    entry = db.scalar(
+        select(AuditLog).where(AuditLog.action == "tool.request_changes", AuditLog.target_id == tool.id)
+    )
+    assert entry.details["checklist"]["links"] is True and entry.details["checklist"]["patient_data"] is False
+    body = _emails(db, "tool_rejected")[-1].body_text
+    assert "✓ As ligações funcionam e apontam para o que é descrito." in body
+    assert "✗ Não há dados que identifiquem utentes no texto nem nas imagens." in body
 
 
 def test_reject_builds_reason_in_owner_language_and_states_appeal(client, db):

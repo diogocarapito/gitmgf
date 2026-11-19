@@ -6,7 +6,11 @@
 
 {{ _("Motivo e factos:") }}
 {{ reason }}
+{% if checklist %}
 
+{{ _("Lista de verificação da revisão (✓ cumprido, ✗ por cumprir):") }}
+{{ checklist }}
+{% endif %}
 {{ _("A decisão foi tomada por um moderador (não por meios automáticos).") }}
 
 {% include "emails/_statement.txt" %}
