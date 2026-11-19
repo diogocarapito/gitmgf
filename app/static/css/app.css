@@ -255,7 +255,7 @@ hr { border: 0; border-top: 1px solid var(--c-border); margin: 2rem 0; }
 .profile-head .row { gap: .6rem 1rem; }
 .card__author { position: relative; z-index: 1; color: inherit; }
 .notification__from { display: inline-flex; align-items: center; gap: .35rem; }
-.mobile-nav { display: block; }
+.mobile-nav { display: block; order: -1; }
 .mobile-nav .menu__panel { left: auto; right: 0; }
 .header-prefs { display: none; align-items: center; gap: .5rem; }
 .notif-link { display: none; }
