@@ -145,6 +145,16 @@ SUGGESTION_KIND = {
     "other": N_("Outra sugestão"),
 }
 
+NOTIFICATION_KIND = {
+    "tool_approved": N_("Publicada"),
+    "tool_rejected": N_("Não aprovada"),
+    "tool_changes_requested": N_("Alterações pedidas"),
+    "tool_hidden": N_("Ocultada"),
+    "tool_unhidden": N_("Visível novamente"),
+    "revision_approved": N_("Alteração aprovada"),
+    "revision_rejected": N_("Alteração rejeitada"),
+}
+
 REPORT_STATUS = {"open": N_("Aberta"), "resolved": N_("Resolvida"), "dismissed": N_("Arquivada sem ação")}
 
 # Moderation reason templates (TECH_SPEC §7.3) — the final text is stored in the owner's locale.
@@ -224,6 +234,7 @@ FLASH = {
     "saved": ("ok", N_("Alterações guardadas.")),
     "suggested": ("ok", N_("Sugestão enviada ao autor. Obrigado!")),
     "suggestion_deleted": ("ok", N_("Sugestão removida.")),
+    "notification_deleted": ("ok", N_("Notificação removida.")),
     "avatar_saved": ("ok", N_("Foto de perfil atualizada.")),
     "avatar_removed": ("ok", N_("Foto de perfil removida.")),
     "signed_out_all": ("ok", N_("Sessão terminada em todos os dispositivos.")),

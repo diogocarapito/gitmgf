@@ -137,6 +137,7 @@ Our processors process data in the European Economic Area (EEA). We do not trans
 | Server logs (including IP address) | 14 days |
 | Sent emails (outbox) | 30 days |
 | Suggestions sent to authors | 1 year, or until the author removes them. Deleted if the sender or the recipient deletes their account |
+| Notifications of moderation decisions on your tools | 1 year, or until you remove them. Deleted if you delete your account |
 | Reports | 2 years after the decision. The reporter's data is anonymised if they delete their account |
 | Moderation and administration audit log | 3 years, to demonstrate compliance with moderation rules and defend legal claims. After an account is deleted, the reference to the user is pseudonymised |
 | Backups | Up to 30 days. Data deleted from the database disappears from backups when they expire |

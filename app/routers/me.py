@@ -172,24 +172,21 @@ def my_stars(request: Request, db: DB, user: UserDep) -> Response:
 
 @pages.get("/me/notifications")
 def notifications(request: Request, db: DB, user: UserDep, page: int = 1) -> Response:
-    """Suggestions received for the user's tools; opening the page marks them as read (D32)."""
-    from app.services import suggestions
+    """Moderation decisions and suggestions for the user's tools, plus moderators' to-dos (D32, D36).
+
+    Opening the page marks everything as read; to-dos stay in the badge until the queue is handled."""
+    from app.services import notifications as notes
 
     page = max(1, page)
-    rows = suggestions.inbox(db, user, page)
-    unread = {s.id for s in rows if s.read_at is None}
-    suggestions.mark_all_read(db, user)
+    items, has_next = notes.feed(db, user, page)
+    todos = notes.todos(db, user)
+    notes.mark_all_read(db, user)
     db.commit()
-    request.state.unread_count = 0
+    request.state.unread_count = sum(todos.values())
     return render(
         request,
         "me/notifications.html",
-        {
-            "items": rows[: suggestions.PAGE],
-            "unread": unread,
-            "page": page,
-            "has_next": len(rows) > suggestions.PAGE,
-        },
+        {"items": items, "todos": todos, "page": page, "has_next": has_next},
     )
 
 
@@ -202,6 +199,18 @@ def delete_notification(request: Request, db: DB, user: UserDep, suggestion_id: 
     db.commit()
     return RedirectResponse(
         f"{lang_prefix(request.state.lang)}/me/notifications?flash=suggestion_deleted", status_code=303
+    )
+
+
+@actions.post("/me/notifications/decisions/{notification_id}/delete")
+def delete_decision(request: Request, db: DB, user: UserDep, notification_id: int) -> Response:
+    from app.services import notifications as notes
+
+    if not notes.remove(db, user, notification_id):
+        raise HTTPException(status_code=404)
+    db.commit()
+    return RedirectResponse(
+        f"{lang_prefix(request.state.lang)}/me/notifications?flash=notification_deleted", status_code=303
     )
 
 

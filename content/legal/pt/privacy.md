@@ -135,6 +135,7 @@ Os nossos subcontratantes tratam os dados no Espaço Económico Europeu (EEE). N
 | Registos do servidor (incluindo endereço IP) | 14 dias |
 | Emails enviados (fila de envio) | 30 dias |
 | Sugestões enviadas a autores | 1 ano, ou até o autor as remover. Apagadas se o remetente ou o destinatário eliminar a conta |
+| Notificações das decisões da moderação sobre as suas ferramentas | 1 ano, ou até as remover. Apagadas se eliminar a conta |
 | Denúncias | 2 anos após a decisão. Os dados do denunciante são anonimizados se eliminar a conta |
 | Registo de auditoria de moderação e administração | 3 anos, para demonstrar o cumprimento das regras de moderação e defender direitos. Após a eliminação de uma conta, a referência ao utilizador é pseudonimizada |
 | Cópias de segurança | Até 30 dias. Dados eliminados da base de dados desaparecem das cópias quando estas expiram |

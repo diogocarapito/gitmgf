@@ -61,10 +61,11 @@ def test_notifications_page_shows_unread_badge_marks_read_and_deletes(client, db
     post(client, f"/t/{tool.slug}/suggest", {"kind": "feature", "message": MESSAGE, "allow_reply": "1"})
     login(client, db, tool.owner)
     home = client.get("/").text
-    assert 'class="notif-count"' in home and "(1 por ler)" in home
+    # the suggestion plus the approval notification the factory's publish posted
+    assert '<span class="notif-badge" aria-hidden="true">2</span>' in home and "(Notificações: 2)" in home
     inbox = client.get("/me/notifications").text
     assert MESSAGE in inbox and "Nova" in inbox and "mailto:rita@example.org" in inbox
-    assert 'class="notif-count"' not in client.get("/").text  # read now
+    assert 'class="notif-badge"' not in client.get("/").text  # read now
     item = db.scalar(select(Suggestion))
     login(client, db, sender)
     assert post(client, f"/me/notifications/{item.id}/delete").status_code == 404  # not the recipient

@@ -71,10 +71,9 @@
       <div class="header-actions">
         <div class="header-prefs">{{ prefs() }}</div>
         {% if user %}
-        <a class="btn btn--ghost btn--sm notif-link" href="{{ url('/me/notifications') }}" aria-label="{{ _('Notificações') }}{% if unread_count %} ({{ unread_count }} {{ _('por ler') }}){% endif %}" title="{{ _('Notificações') }}">{{ icon('bell') }}{% if unread_count %}<span class="notif-count" aria-hidden="true">{{ unread_count if unread_count < 100 else '99+' }}</span>{% endif %}</a>
         <details class="menu">
-          <summary class="btn btn--ghost btn--sm" aria-label="{{ _('Menu da conta') }}">
-            {{ m.avatar(user) }}{% if unread_count %}<span class="notif-dot" aria-hidden="true"></span>{% endif %}
+          <summary class="btn btn--ghost btn--sm" aria-label="{{ _('Menu da conta') }}{% if unread_count %} ({{ _('Notificações') }}: {{ unread_count }}){% endif %}">
+            {{ m.avatar(user) }}{% if unread_count %}<span class="notif-badge" aria-hidden="true">{{ unread_count if unread_count < 100 else '99+' }}</span>{% endif %}
             {{ icon('chevron-down') }}
           </summary>
           <div class="menu__panel">

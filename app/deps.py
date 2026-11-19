@@ -34,9 +34,9 @@ def load_user(request: Request, db: DB) -> User | None:
     request.state.user = row.user if row else None
     request.state.session_id = row.id if row else None
     if row is not None:
-        from app.services import suggestions
+        from app.services import notifications
 
-        request.state.unread_count = suggestions.unread_count(db, row.user)
+        request.state.unread_count = notifications.badge_count(db, row.user)
     # Both banners: the page language is only fixed later by the page router (D28).
     request.state.banners = {
         lang: settings_store.get(db, f"site.banner_{lang}") or "" for lang in ("pt", "en")

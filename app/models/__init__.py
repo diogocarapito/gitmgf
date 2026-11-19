@@ -1,4 +1,5 @@
 from app.models.moderation import AuditLog, Report
+from app.models.notification import Notification
 from app.models.suggestion import Suggestion
 from app.models.system import EmailOutbox, SiteSetting
 from app.models.taxonomy import Category, Tag, tool_categories, tool_tags
@@ -24,6 +25,7 @@ __all__ = [
     "EmailOutbox",
     "InteractionEvent",
     "Invite",
+    "Notification",
     "PasswordResetToken",
     "Report",
     "SearchQuery",

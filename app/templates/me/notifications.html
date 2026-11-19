@@ -6,13 +6,39 @@
 <div class="container container--narrow">
   <header class="page-head">
     <h1>{{ _("Notificações") }}</h1>
-    <p>{{ _("Sugestões e pedidos de funcionalidades enviados para as suas ferramentas. Também os recebe por email.") }}</p>
+    <p>{{ _("Decisões da moderação e sugestões para as suas ferramentas. Também as recebe por email.") }}</p>
   </header>
-  {% for s in items %}
-  <article class="panel notification{% if s.id in unread %} notification--unread{% endif %}">
+  {% if todos and todos.values() | sum %}
+  <section class="panel todo-panel">
+    <h2>{{ _("Por fazer") }}</h2>
+    <ul class="todo-list">
+      {% if todos.new %}<li><a href="{{ url('/mod', tab='new') }}">{{ icon('layers') }} {{ ngettext("%(num)d ferramenta nova por aprovar", "%(num)d ferramentas novas por aprovar", todos.new) }}</a></li>{% endif %}
+      {% if todos.edits %}<li><a href="{{ url('/mod', tab='edits') }}">{{ icon('edit') }} {{ ngettext("%(num)d alteração por rever", "%(num)d alterações por rever", todos.edits) }}</a></li>{% endif %}
+      {% if todos.reports %}<li><a href="{{ url('/mod', tab='reports') }}">{{ icon('flag') }} {{ ngettext("%(num)d denúncia por analisar", "%(num)d denúncias por analisar", todos.reports) }}</a></li>{% endif %}
+    </ul>
+  </section>
+  {% endif %}
+  {% for item in items %}
+  {% if item.notification %}{% set n = item.notification %}{% set good = n.kind in ('tool_approved', 'tool_unhidden', 'revision_approved') %}
+  <article class="panel notification{% if item.unread %} notification--unread{% endif %}">
+    <header class="notification__head">
+      <span class="badge {{ 'badge--free' if good else 'badge--archived' }}">{{ label(labels.NOTIFICATION_KIND, n.kind) }}</span>
+      {% if item.unread %}<span class="badge badge--new">{{ _("Nova") }}</span>{% endif %}
+      {% if n.tool %}<a href="{{ url('/t/' ~ n.tool.slug) if n.tool.status in ('published', 'archived') else url('/me/tools/' ~ n.tool.id ~ '/edit') }}"><strong>{{ localized(n.tool, "title") }}</strong></a>{% else %}<strong>{{ n.tool_title }}</strong>{% endif %}
+      <span class="muted small">· {{ n.created_at | datetime('short') }}</span>
+    </header>
+    {% if n.message %}<p class="small muted notification__label">{{ _("Mensagem do moderador:") }}</p><p class="notification__message">{{ n.message }}</p>{% endif %}
+    <footer class="notification__foot small">
+      <span class="notification__from">{{ icon('shield-check') }} {{ _("Decisão da moderação") }}</span>
+      {% if n.tool and not good %}<a href="{{ url('/me/tools/' ~ n.tool.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar ficha") }}</a>{% endif %}
+      <form method="post" action="/me/notifications/decisions/{{ n.id }}/delete" data-confirm="{{ _('Remover esta notificação?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--ghost" type="submit">{{ icon('trash') }} {{ _("Remover") }}</button></form>
+    </footer>
+  </article>
+  {% else %}{% set s = item.suggestion %}
+  <article class="panel notification{% if item.unread %} notification--unread{% endif %}">
     <header class="notification__head">
       <span class="badge badge--oss">{{ label(labels.SUGGESTION_KIND, s.kind) }}</span>
-      {% if s.id in unread %}<span class="badge badge--new">{{ _("Nova") }}</span>{% endif %}
+      {% if item.unread %}<span class="badge badge--new">{{ _("Nova") }}</span>{% endif %}
       <a href="{{ url('/t/' ~ s.tool.slug) }}"><strong>{{ localized(s.tool, "title") }}</strong></a>
       <span class="muted small">· {{ s.created_at | datetime('short') }}</span>
     </header>
@@ -23,8 +49,9 @@
       <form method="post" action="/me/notifications/{{ s.id }}/delete" data-confirm="{{ _('Remover esta sugestão?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--ghost" type="submit">{{ icon('trash') }} {{ _("Remover") }}</button></form>
     </footer>
   </article>
+  {% endif %}
   {% else %}
-  <p class="muted">{{ _("Ainda não recebeu sugestões. Quando alguém sugerir uma melhoria a uma das suas ferramentas, aparece aqui.") }}</p>
+  <p class="muted">{{ _("Ainda não tem notificações. As decisões da moderação sobre as suas ferramentas e as sugestões de outros utilizadores aparecem aqui.") }}</p>
   {% endfor %}
   {{ m.pagination(page, has_next, url('/me/notifications')) }}
 </div>

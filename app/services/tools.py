@@ -26,7 +26,7 @@ from app.models import (
     ToolRevision,
     User,
 )
-from app.models.enums import ClaimState, MediaState, RevisionStatus, ToolStatus
+from app.models.enums import ClaimState, MediaState, NotificationKind, RevisionStatus, ToolStatus
 from app.services import (
     audit,
     certifications,
@@ -34,6 +34,7 @@ from app.services import (
     github,
     markdown,
     media,
+    notifications,
     permissions,
     search,
     settings_store,
@@ -195,15 +196,24 @@ def transition(
         ctx["rejected_claims"] = _claims_text(db, rejected, owner.locale.value)
         ctx["suggestions"] = reason or ""  # optional moderator advice; approval never requires a reason
         email.enqueue(db, owner.email, "tool_approved", ctx, owner.locale.value)
+        notifications.notify(db, owner, NotificationKind.tool_approved, tool, reason)
     elif action in ("reject", "request_changes"):
         tool.rejection_reason = reason
         ctx["returned_to_draft"] = action == "request_changes"
         email.enqueue(db, owner.email, "tool_rejected", ctx, owner.locale.value)
+        kind = (
+            NotificationKind.tool_changes_requested
+            if action == "request_changes"
+            else NotificationKind.tool_rejected
+        )
+        notifications.notify(db, owner, kind, tool, reason)
     elif action in ("hide", "auto_hide"):
         ctx["automatic"] = action == "auto_hide"
         email.enqueue(db, owner.email, "tool_hidden", ctx, owner.locale.value)
+        notifications.notify(db, owner, NotificationKind.tool_hidden, tool, reason)
     elif action == "unhide":
         email.enqueue(db, owner.email, "tool_unhidden", ctx, owner.locale.value)
+        notifications.notify(db, owner, NotificationKind.tool_unhidden, tool)
     elif action == "delete":
         tool.deleted_at = now
         for revision in db.scalars(
@@ -545,6 +555,7 @@ def approve_revision(
         },
         owner.locale.value,
     )
+    notifications.notify(db, owner, NotificationKind.revision_approved, tool, suggestions)
     audit.log(
         db,
         actor.id,
@@ -573,6 +584,7 @@ def reject_revision(db: Session, revision: ToolRevision, actor: User, reason: st
         {"title": tool.title_pt, "slug": tool.slug, "reason": reason},
         owner.locale.value,
     )
+    notifications.notify(db, owner, NotificationKind.revision_rejected, tool, reason)
     audit.log(db, actor.id, "revision.reject", "tool", tool.id, revision_id=revision.id, reason=reason)
 
 

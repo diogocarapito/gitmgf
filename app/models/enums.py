@@ -166,6 +166,16 @@ class SuggestionKind(StrEnum):
     other = "other"
 
 
+class NotificationKind(StrEnum):
+    tool_approved = "tool_approved"
+    tool_rejected = "tool_rejected"
+    tool_changes_requested = "tool_changes_requested"
+    tool_hidden = "tool_hidden"
+    tool_unhidden = "tool_unhidden"
+    revision_approved = "revision_approved"
+    revision_rejected = "revision_rejected"
+
+
 class ReportStatus(StrEnum):
     open = "open"
     resolved = "resolved"

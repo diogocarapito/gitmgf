@@ -13,6 +13,7 @@ from app.models import (
     EmailCode,
     EmailOutbox,
     InteractionEvent,
+    Notification,
     PasswordResetToken,
     Report,
     SearchQuery,
@@ -32,6 +33,7 @@ EVENTS_RETENTION = timedelta(days=180)
 MAGIC_LINK_RETENTION = timedelta(days=3)  # reset links: 48 h validity, deleted after 3 days
 OUTBOX_RETENTION = timedelta(days=30)
 SUGGESTION_RETENTION = timedelta(days=365)
+NOTIFICATION_RETENTION = timedelta(days=365)
 EMAIL_CODE_RETENTION = timedelta(days=1)  # codes: 15 min validity; pending registrations deleted after 24 h
 REPORT_RETENTION = timedelta(days=730)
 AUDIT_RETENTION = timedelta(days=3 * 365)
@@ -49,6 +51,7 @@ def export(db: Session, user: User) -> dict[str, Any]:
     reports = db.scalars(select(Report).where(Report.reporter_id == user.id)).unique().all()
     sent = db.scalars(select(Suggestion).where(Suggestion.sender_id == user.id)).unique().all()
     received = db.scalars(select(Suggestion).where(Suggestion.recipient_id == user.id)).unique().all()
+    decisions = db.scalars(select(Notification).where(Notification.user_id == user.id)).unique().all()
     return {
         "exported_at": utcnow().isoformat(),
         "profile": {
@@ -130,6 +133,17 @@ def export(db: Session, user: User) -> dict[str, Any]:
             }
             for s in received
         ],
+        "notifications": [
+            {
+                "tool_id": n.tool_id,
+                "tool_title": n.tool_title,
+                "kind": n.kind.value,
+                "message": n.message,
+                "created_at": _iso(n.created_at),
+                "read_at": _iso(n.read_at),
+            }
+            for n in decisions
+        ],
     }
 
 
@@ -167,6 +181,7 @@ def delete_account(db: Session, user: User, actor: User) -> None:
     db.execute(
         delete(Suggestion).where((Suggestion.sender_id == user.id) | (Suggestion.recipient_id == user.id))
     )
+    db.execute(delete(Notification).where(Notification.user_id == user.id))
     marker = pseudonym(user.id)
     for entry in db.scalars(
         select(AuditLog).where(
@@ -220,6 +235,7 @@ def purge(db: Session) -> dict[str, int]:
         delete(PasswordResetToken).where(PasswordResetToken.created_at < now - MAGIC_LINK_RETENTION),
     )
     run("suggestions", delete(Suggestion).where(Suggestion.created_at < now - SUGGESTION_RETENTION))
+    run("notifications", delete(Notification).where(Notification.created_at < now - NOTIFICATION_RETENTION))
     run("email_codes", delete(EmailCode).where(EmailCode.created_at < now - EMAIL_CODE_RETENTION))
     run("sessions", delete(UserSession).where(UserSession.expires_at < now))
     run(
