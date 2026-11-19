@@ -1,5 +1,16 @@
 <!doctype html>
 {% import "_macros.html" as m with context %}
+{# Theme toggle + language switch: in the header on desktop, at the foot of the burger menu on mobile. #}
+{% macro prefs() %}
+  <button type="button" class="btn btn--ghost btn--sm theme-toggle" data-theme-toggle hidden
+          aria-label="{{ _('Alternar tema claro/escuro') }}" title="{{ _('Alternar tema claro/escuro') }}">
+    {{ icon('moon', 'icon icon--moon') }}{{ icon('sun', 'icon icon--sun') }}
+  </button>
+  <div class="lang-switch" aria-label="{{ _('Idioma') }}">
+    {% if lang == 'pt' %}<span aria-current="true">PT</span><a href="{{ alt_url }}" hreflang="en" lang="en">EN</a>
+    {% else %}<a href="{{ alt_url }}" hreflang="pt-PT" lang="pt-PT">PT</a><span aria-current="true">EN</span>{% endif %}
+  </div>
+{% endmacro %}
 <html lang="{{ HTML_LANG[lang] }}">
 <head>
   <meta charset="utf-8">
@@ -58,19 +69,12 @@
       </form>
       {% endblock %}
       <div class="header-actions">
-        <button type="button" class="btn btn--ghost btn--sm theme-toggle" data-theme-toggle hidden
-                aria-label="{{ _('Alternar tema claro/escuro') }}" title="{{ _('Alternar tema claro/escuro') }}">
-          {{ icon('moon', 'icon icon--moon') }}{{ icon('sun', 'icon icon--sun') }}
-        </button>
-        <div class="lang-switch" aria-label="{{ _('Idioma') }}">
-          {% if lang == 'pt' %}<span aria-current="true">PT</span><a href="{{ alt_url }}" hreflang="en" lang="en">EN</a>
-          {% else %}<a href="{{ alt_url }}" hreflang="pt-PT" lang="pt-PT">PT</a><span aria-current="true">EN</span>{% endif %}
-        </div>
+        <div class="header-prefs">{{ prefs() }}</div>
         {% if user %}
         <a class="btn btn--ghost btn--sm notif-link" href="{{ url('/me/notifications') }}" aria-label="{{ _('Notificações') }}{% if unread_count %} ({{ unread_count }} {{ _('por ler') }}){% endif %}" title="{{ _('Notificações') }}">{{ icon('bell') }}{% if unread_count %}<span class="notif-count" aria-hidden="true">{{ unread_count if unread_count < 100 else '99+' }}</span>{% endif %}</a>
         <details class="menu">
           <summary class="btn btn--ghost btn--sm" aria-label="{{ _('Menu da conta') }}">
-            {{ m.avatar(user) }}
+            {{ m.avatar(user) }}{% if unread_count %}<span class="notif-dot" aria-hidden="true"></span>{% endif %}
             {{ icon('chevron-down') }}
           </summary>
           <div class="menu__panel">
@@ -91,7 +95,7 @@
           </div>
         </details>
         {% else %}
-        <a class="btn btn--ghost btn--sm" href="{{ url('/login') }}">{{ _("Entrar") }}</a>
+        <a class="btn btn--ghost btn--sm header-login" href="{{ url('/login') }}">{{ icon('user') }} {{ _("Entrar") }}</a>
         {% endif %}
         <a class="btn btn--primary btn--sm header-cta" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a>
         <details class="menu mobile-nav">
@@ -102,6 +106,8 @@
             <a href="{{ url('/blog') }}">{{ icon('book') }} {{ _("Blog") }}</a>
             <a href="{{ url('/p/about') }}">{{ icon('info') }} {{ _("Sobre") }}</a>
             <a href="{{ url('/me/tools/new') }}">{{ icon('plus') }} {{ _("Partilhar ferramenta") }}</a>
+            <hr>
+            <div class="menu__prefs">{{ prefs() }}</div>
           </div>
         </details>
       </div>

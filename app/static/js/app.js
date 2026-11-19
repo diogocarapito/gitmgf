@@ -89,7 +89,9 @@
         var next = currentTheme() === "dark" ? "light" : "dark";
         document.documentElement.setAttribute("data-theme", next);
         try { localStorage.setItem("gitmgf-theme", next); } catch (e) { /* not persisted */ }
-        btn.setAttribute("aria-pressed", next === "dark" ? "true" : "false");
+        document.querySelectorAll("[data-theme-toggle]").forEach(function (b) {
+          b.setAttribute("aria-pressed", next === "dark" ? "true" : "false");
+        });
       });
     });
   }
