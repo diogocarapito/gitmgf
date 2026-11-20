@@ -6,7 +6,7 @@
   <div class="container">
     <span class="eyebrow">{{ icon('users') }} {{ _("Uma comunidade de clínicos que constroem") }}</span>
     <h1>{{ _("Ferramentas criadas por colegas, partilhadas com todos.") }}</h1>
-    <p class="hero__lead">{{ _("Calculadoras, webapps, folhas de cálculo e scripts criados por profissionais dos cuidados de saúde primários e do Internato. Partilhamos o que construímos para que ninguém tenha de começar do zero — e para melhorarmos as ferramentas em conjunto.") }}</p>
+    <p class="hero__lead">{{ _("Calculadoras, webapps e aplicações criadas por quem está na consulta. O que funciona bem na prática de um colega fica disponível para todos usarem, adaptarem e melhorarem. Preferencialmente open source.") }}<a class="hero__mark" href="#open-source" aria-label="{{ _('O que é open source?') }}">*</a></p>
     <form class="search-box" action="{{ url('/search') }}" method="get" role="search">
       {{ icon('search') }}
       <label class="visually-hidden" for="hero-q">{{ _("Pesquisar ferramentas") }}</label>
@@ -21,6 +21,7 @@
       <a class="chip" href="{{ url('/search', type='script') }}">{{ _("Scripts") }}</a>
       <a class="chip" href="{{ url('/c/internato') }}">{{ _("Internato") }}</a>
     </div>
+    <p class="hero__note" id="open-source"><span aria-hidden="true">* </span>{{ _("Open source, ou código aberto, quer dizer que o código da ferramenta é público. Qualquer pessoa pode ver como funciona, usá-la livremente, adaptá-la à sua realidade e sugerir melhorias. Em saúde há uma vantagem extra: é possível ver exatamente como um cálculo é feito, em vez de confiar numa solução pouco transparente.") }}</p>
   </div>
 </section>
 
