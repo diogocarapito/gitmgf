@@ -1,20 +1,15 @@
-"""Blog articles from `content/blog/{pt,en}/<slug>.md` (site-owned Markdown, like the legal pages)."""
+"""Blog articles from `content/blog/<slug>.md` and `<slug>_en.md` (site-owned Markdown, like the legal pages, D37)."""
 
 import html as html_lib
 import re
 from dataclasses import dataclass
 from datetime import date
-from functools import lru_cache
 from pathlib import Path
-from typing import Any
 
-import yaml
+from app.services import content, markdown
 
-from app.services import markdown
-
-CONTENT_DIR = Path(__file__).resolve().parents[2] / "content" / "blog"
+CONTENT_DIR = content.ROOT / "blog"
 SLUG_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
-FRONT_MATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
 # Tabbed blocks:  :::tabs / ::tab Label / (markdown) / ::tab Other / ... / :::
 TABS_RE = re.compile(r"^:::tabs[ \t]*\n(.*?)\n:::[ \t]*$", re.S | re.M)
 TAB_RE = re.compile(r"^::tab[ \t]+(.+)$", re.M)
@@ -32,21 +27,16 @@ class Post:
     is_fallback: bool  # an EN visitor reading the PT original
 
 
-@lru_cache(maxsize=64)
-def _load(path: Path, mtime: float) -> tuple[dict[str, Any], str]:
-    text = path.read_text(encoding="utf-8")
-    match = FRONT_MATTER_RE.match(text)
-    if not match:
-        return {}, text
-    return dict(yaml.safe_load(match.group(1)) or {}), text[match.end() :]
+def _path(slug: str, lang: str) -> Path:
+    return CONTENT_DIR / f"{slug}{content.EN_SUFFIX if lang == 'en' else ''}.md"
 
 
 def _post(slug: str, lang: str, requested: str) -> Post | None:
-    path = CONTENT_DIR / lang / f"{slug}.md"
+    path = _path(slug, lang)
     if not path.is_file():
         return None
-    meta, body = _load(path, path.stat().st_mtime)
-    if meta.get("draft"):
+    meta, body = content.read(path)
+    if str(meta.get("draft", "")).lower() in ("true", "yes", "sim"):
         return None
     html = render_body(body)
     html = re.sub(r"\A\s*<h1>.*?</h1>\s*", "", html, flags=re.S)  # the template renders the title
@@ -67,11 +57,11 @@ def _tabs_html(block: str, index: int) -> str:
     """Each panel keeps a visible label, so without JS the tabs read as consecutive sections."""
     parts = TAB_RE.split(block)
     panels = []
-    for n, (label, content) in enumerate(zip(parts[1::2], parts[2::2], strict=True)):
+    for n, (label, panel) in enumerate(zip(parts[1::2], parts[2::2], strict=True)):
         label = html_lib.escape(label.strip())
         panels.append(
             f'<section class="ctabs__panel" id="tabs{index}-{n}" data-tab-label="{label}">'
-            f'<p class="ctabs__label"><strong>{label}</strong></p>{markdown.render_trusted(content)}</section>'
+            f'<p class="ctabs__label"><strong>{label}</strong></p>{markdown.render_trusted(panel)}</section>'
         )
     return f'<div class="ctabs" data-tabs>{"".join(panels)}</div>'
 
@@ -98,6 +88,6 @@ def get(slug: str, lang: str) -> Post | None:
 
 def all_posts(lang: str) -> list[Post]:
     """Newest first. Every article exists in Portuguese; English falls back to it."""
-    slugs = {p.stem for p in (CONTENT_DIR / "pt").glob("*.md")} if (CONTENT_DIR / "pt").is_dir() else set()
+    slugs = {p.stem for p in CONTENT_DIR.glob("*.md") if SLUG_RE.fullmatch(p.stem)}  # skips `_en` files
     posts = [post for slug in slugs if (post := get(slug, lang)) is not None]
     return sorted(posts, key=lambda p: (p.published, p.slug), reverse=True)

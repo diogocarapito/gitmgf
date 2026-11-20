@@ -7,7 +7,7 @@
   <header class="page-head">
     <p class="breadcrumbs"><a href="{{ url('/t/' ~ tool.slug) }}">{{ localized(tool, "title") }}</a></p>
     <h1>{{ _("Reportar problema") }}</h1>
-    <p>{{ _("Qualquer pessoa pode denunciar conteúdo ilegal ou contrário aos Termos. Analisamos cada denúncia de forma diligente e informamos da decisão.") }}</p>
+    {{ site_text("report/intro").html }}
   </header>
   {% if errors.get('__all__') %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors['__all__'][0]) }}</p></div>{% endif %}
   <form class="form form-section" method="post" action="{{ url('/t/' ~ tool.slug ~ '/report') }}">

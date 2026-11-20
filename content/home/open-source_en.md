@@ -1,0 +1,1 @@
+Open source means the tool's code is public. Anyone can see how it works, use it freely, adapt it to their own setting and suggest improvements. In healthcare there is an extra advantage: you can see exactly how a calculation is done, instead of trusting an opaque solution.

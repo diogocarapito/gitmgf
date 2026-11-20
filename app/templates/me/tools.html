@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
   <header class="page-head row row--between">
-    <div><h1>{{ _("As minhas ferramentas") }}</h1><p>{{ _("Estado, alterações pendentes e utilização nos últimos 30 e 90 dias.") }}</p></div>
+    <div><h1>{{ _("As minhas ferramentas") }}</h1>{{ site_text("my-tools/intro").html }}</div>
     <a class="btn btn--primary" href="{{ url('/me/tools/new') }}">{{ icon('plus') }} {{ _("Partilhar ferramenta") }}</a>
   </header>
   {% if tools %}

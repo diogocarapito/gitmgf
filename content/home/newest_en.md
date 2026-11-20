@@ -1,0 +1,4 @@
+---
+title: Latest
+---
+Recently published.

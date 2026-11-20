@@ -1,6 +1,6 @@
 # Legal pages — notes for the owner (not published)
 
-Files: `pt/privacy.md`, `pt/terms.md` (prevailing versions), `en/privacy.md`, `en/terms.md` (translations).
+Files: `legal/privacy.md`, `legal/terms.md` (prevailing versions), `legal/privacy_en.md`, `legal/terms_en.md` (translations). How to edit: `content/README.md`.
 Version `2026-11` must match the `terms.current_version` site setting. Bump both when the text changes in a way that needs re-acceptance.
 
 ## 1. Placeholders to fill

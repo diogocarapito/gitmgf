@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-20 14:24+0000\n"
+"POT-Creation-Date: 2026-11-20 14:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1471,17 +1471,6 @@ msgid "Bem-vindo/a à gitmgf"
 msgstr ""
 
 msgid ""
-"Reveja e aceite a nova versão dos Termos e das Normas de Submissão para "
-"continuar."
-msgstr ""
-
-msgid ""
-"Complete o seu perfil para começar. O nome, a profissão, a especialidade "
-"e o GitHub aparecem no seu perfil público e nas páginas das suas "
-"ferramentas."
-msgstr ""
-
-msgid ""
 "Li e aceito os Termos de Utilização e as Normas de Submissão, e tenho 18 "
 "anos ou mais."
 msgstr ""
@@ -1546,398 +1535,6 @@ msgid ""
 " pedido no site."
 msgstr ""
 
-msgid "Regras aplicáveis: Termos de Utilização e Normas de Submissão da gitmgf."
-msgstr ""
-
-msgid ""
-"Contestação: pode contestar esta decisão no prazo de 6 meses, respondendo"
-" a este email. Uma pessoa que não participou na decisão original vai "
-"analisá-la. Mantém sempre o direito de recorrer aos tribunais."
-msgstr ""
-
-msgid "A sua conta gitmgf foi eliminada"
-msgstr ""
-
-msgid "Olá,"
-msgstr ""
-
-msgid ""
-"Confirmamos a eliminação da sua conta. As suas ferramentas deixaram de "
-"estar públicas e os dados serão apagados definitivamente em 30 dias, "
-"incluindo das cópias de segurança quando estas expirarem."
-msgstr ""
-
-msgid "Se não pediu esta eliminação, responda a este email com urgência."
-msgstr ""
-
-msgid "Já tem uma conta na gitmgf"
-msgstr ""
-
-msgid ""
-"Houve uma tentativa de criar uma conta na gitmgf com este email, mas já "
-"existe uma conta associada a ele."
-msgstr ""
-
-msgid "Entrar:"
-msgstr ""
-
-msgid ""
-"Se não fez este pedido, pode ignorar este email: a sua conta não foi "
-"alterada."
-msgstr ""
-
-msgid "A sua foto de perfil foi removida"
-msgstr ""
-
-msgid "Um administrador removeu a sua foto de perfil no gitmgf."
-msgstr ""
-
-msgid "Motivo:"
-msgstr ""
-
-msgid ""
-"Pode carregar outra foto em Definições, desde que cumpra os Termos de "
-"Utilização. Se discordar desta decisão, responda a este email."
-msgstr ""
-
-#, python-format
-msgid "Certificação expirada: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"A certificação «%(cert)s» declarada na ficha «%(title)s» expirou em "
-"%(date)s. O selo aparece agora como ausente."
-msgstr ""
-
-msgid ""
-"Para voltar a mostrá-lo, atualize a ficha com a nova data de validade e a"
-" evidência:"
-msgstr ""
-
-#, python-format
-msgid "Certificação a expirar: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"A certificação «%(cert)s» declarada na ficha «%(title)s» expira em "
-"%(date)s."
-msgstr ""
-
-msgid ""
-"Depois dessa data, o selo passa a cinzento (riscado) e a ferramenta deixa"
-" de aparecer no filtro respetivo. Se tiver um certificado renovado, "
-"atualize a ficha:"
-msgstr ""
-
-msgid "Convite para a gitmgf"
-msgstr ""
-
-#, python-format
-msgid ""
-"%(inviter)s convidou-o/a para a gitmgf, o portal onde profissionais de "
-"saúde partilham e descobrem as ferramentas digitais que criaram."
-msgstr ""
-
-msgid "Crie a sua conta com esta ligação:"
-msgstr ""
-
-#, python-format
-msgid ""
-"O convite é válido durante %(days)s dias e funciona apenas com este "
-"endereço de email."
-msgstr ""
-
-#, python-format
-msgid "Ferramenta ocultada automaticamente: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"A ferramenta «%(title)s» atingiu %(n)s denúncias abertas de conteúdo "
-"perigoso ou de segurança e foi ocultada automaticamente. Reveja as "
-"denúncias e decida se a ficha deve voltar a ser visível."
-msgstr ""
-
-#, python-format
-msgid "gitmgf: %(n)s itens à espera de moderação"
-msgstr ""
-
-#, python-format
-msgid "Novas submissões: %(n)s"
-msgstr ""
-
-#, python-format
-msgid "Alterações: %(n)s"
-msgstr ""
-
-#, python-format
-msgid "Denúncias abertas: %(n)s"
-msgstr ""
-
-#, python-format
-msgid "Item mais antigo: %(age)s"
-msgstr ""
-
-#, python-format
-msgid "Código para nova palavra-passe na gitmgf: %(code)s"
-msgstr ""
-
-msgid ""
-"Recebemos um pedido para definir uma nova palavra-passe na sua conta "
-"gitmgf. Introduza este código:"
-msgstr ""
-
-#, python-format
-msgid ""
-"O código é válido durante %(minutes)s minutos. Ao definir a nova palavra-"
-"passe, as outras sessões abertas são terminadas."
-msgstr ""
-
-msgid ""
-"Se não fez este pedido, pode ignorar este email: a sua palavra-passe "
-"atual continua válida."
-msgstr ""
-
-msgid "Defina a sua palavra-passe na gitmgf"
-msgstr ""
-
-msgid ""
-"Um administrador da gitmgf criou uma ligação para definir a palavra-passe"
-" da sua conta:"
-msgstr ""
-
-#, python-format
-msgid "A ligação é válida durante %(hours)s horas e só pode ser usada uma vez."
-msgstr ""
-
-msgid ""
-"Se não esperava este email, ignore-o e avise-nos respondendo a esta "
-"mensagem."
-msgstr ""
-
-#, python-format
-msgid "O seu código gitmgf: %(code)s"
-msgstr ""
-
-msgid "Para concluir o registo na gitmgf, introduza este código:"
-msgstr ""
-
-#, python-format
-msgid "O código é válido durante %(minutes)s minutos."
-msgstr ""
-
-msgid ""
-"Se não pediu para criar uma conta, pode ignorar este email: sem o código,"
-" a conta não é criada."
-msgstr ""
-
-msgid "Recebemos a sua denúncia"
-msgstr ""
-
-#, python-format
-msgid ""
-"Recebemos a sua denúncia sobre a ferramenta «%(title)s» (motivo: "
-"%(reason)s). Vamos analisá-la de forma diligente e objetiva e informamos "
-"da decisão."
-msgstr ""
-
-#, python-format
-msgid "Referência: #%(id)s"
-msgstr ""
-
-#, python-format
-msgid "Decisão sobre a sua denúncia #%(id)s"
-msgstr ""
-
-#, python-format
-msgid "Analisámos a sua denúncia sobre «%(title)s» e tomámos medidas."
-msgstr ""
-
-#, python-format
-msgid ""
-"Analisámos a sua denúncia sobre «%(title)s» e concluímos que não é "
-"necessária nenhuma medida."
-msgstr ""
-
-msgid "Nota da moderação:"
-msgstr ""
-
-msgid "Pode contestar esta decisão no prazo de 6 meses, respondendo a este email."
-msgstr ""
-
-#, python-format
-msgid "Alteração aprovada: %(title)s"
-msgstr ""
-
-#, python-format
-msgid "As alterações à ficha «%(title)s» foram aprovadas e já estão publicadas:"
-msgstr ""
-
-msgid "Algumas certificações não foram aprovadas:"
-msgstr ""
-
-msgid "Sugestões do moderador (não impedem a publicação):"
-msgstr ""
-
-#, python-format
-msgid "Alteração não aprovada: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Medida: as alterações propostas à ficha «%(title)s» não foram aprovadas. "
-"A versão publicada mantém-se sem alterações."
-msgstr ""
-
-msgid "Motivo e factos:"
-msgstr ""
-
-msgid "A decisão foi tomada por um moderador (não por meios automáticos)."
-msgstr ""
-
-#, python-format
-msgid "Recebemos a sua submissão: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Recebemos a ficha «%(title)s». Um moderador vai revê-la e receberá um "
-"email com a decisão."
-msgstr ""
-
-msgid ""
-"Enquanto estiver em revisão, a ficha não é pública. Pode acompanhar o "
-"estado em:"
-msgstr ""
-
-msgid "Obrigado por partilhar o seu trabalho."
-msgstr ""
-
-#, python-format
-msgid "Nova sugestão para «%(title)s»"
-msgstr ""
-
-#, python-format
-msgid "Olá %(name)s,"
-msgstr ""
-
-#, python-format
-msgid "%(sender)s enviou uma sugestão para a sua ferramenta «%(title)s»."
-msgstr ""
-
-msgid "Tipo:"
-msgstr ""
-
-msgid ""
-"Pode responder diretamente a este email: a resposta vai para quem enviou "
-"a sugestão."
-msgstr ""
-
-msgid ""
-"Quem enviou a sugestão não partilhou o email, por isso não é possível "
-"responder por aqui."
-msgstr ""
-
-msgid "Ver todas as sugestões:"
-msgstr ""
-
-msgid "Email de teste da gitmgf"
-msgstr ""
-
-msgid "Se está a ler isto, o envio de emails da gitmgf está a funcionar."
-msgstr ""
-
-#, python-format
-msgid "Ferramenta publicada: %(title)s"
-msgstr ""
-
-#, python-format
-msgid "A ficha «%(title)s» foi aprovada e já está publicada:"
-msgstr ""
-
-msgid "Pontos verificados pelo moderador:"
-msgstr ""
-
-msgid ""
-"Algumas certificações declaradas não foram aprovadas e não aparecem na "
-"ficha:"
-msgstr ""
-
-msgid "Pode corrigi-las editando a ficha; as alterações voltam a ser revistas."
-msgstr ""
-
-msgid "Obrigado por contribuir para a comunidade."
-msgstr ""
-
-#, python-format
-msgid "Ferramenta ocultada: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Medida: a ficha «%(title)s» foi ocultada. Deixou de estar visível ao "
-"público e de aparecer na pesquisa."
-msgstr ""
-
-msgid ""
-"Esta medida foi aplicada automaticamente, por meios automáticos, depois "
-"de várias denúncias de conteúdo perigoso ou de problemas de segurança, "
-"enquanto um moderador analisa o caso."
-msgstr ""
-
-msgid ""
-"A decisão foi tomada por um moderador, na sequência de uma denúncia ou de"
-" uma verificação da equipa."
-msgstr ""
-
-#, python-format
-msgid "Alterações pedidas: %(title)s"
-msgstr ""
-
-#, python-format
-msgid "Submissão não aprovada: %(title)s"
-msgstr ""
-
-#, python-format
-msgid ""
-"Medida: a ficha «%(title)s» não foi publicada e voltou a rascunho, para "
-"que a possa corrigir."
-msgstr ""
-
-#, python-format
-msgid "Medida: a ficha «%(title)s» não foi aprovada para publicação."
-msgstr ""
-
-msgid "Lista de verificação da revisão (✓ cumprido, ✗ por cumprir):"
-msgstr ""
-
-msgid "Pode editar a ficha e submetê-la novamente:"
-msgstr ""
-
-#, python-format
-msgid "Ferramenta visível novamente: %(title)s"
-msgstr ""
-
-#, python-format
-msgid "A ficha «%(title)s» voltou a estar visível ao público:"
-msgstr ""
-
-msgid ""
-"A sua conta está pronta. Pode pesquisar ferramentas, guardar as "
-"preferidas com uma estrela e partilhar as que construiu."
-msgstr ""
-
-msgid "Partilhar uma ferramenta:"
-msgstr ""
-
-msgid "Normas de submissão:"
-msgstr ""
-
-msgid "Obrigado por fazer parte da comunidade."
-msgstr ""
-
 msgid "Acesso recusado"
 msgstr ""
 
@@ -1970,15 +1567,6 @@ msgstr ""
 msgid "Algo correu mal do nosso lado. Tente novamente dentro de momentos."
 msgstr ""
 
-msgid "Esta ação não pode ser desfeita."
-msgstr ""
-
-msgid ""
-"As suas ferramentas deixam de estar públicas de imediato e são apagadas "
-"com a conta em 30 dias. As estrelas que deu são removidas e as denúncias "
-"que fez ficam anónimas."
-msgstr ""
-
 #, python-format
 msgid "Tem %(num)d ferramenta que vai ser retirada."
 msgid_plural "Tem %(num)d ferramentas que vão ser retiradas."
@@ -1998,11 +1586,6 @@ msgid "Eliminar conta definitivamente"
 msgstr ""
 
 msgid "Cancelar"
-msgstr ""
-
-msgid ""
-"Decisões da moderação e sugestões para as suas ferramentas. Também as "
-"recebe por email."
 msgstr ""
 
 msgid "Por fazer"
@@ -2105,9 +1688,6 @@ msgid ""
 "momento."
 msgstr ""
 
-msgid "As ferramentas que marcou para encontrar mais tarde."
-msgstr ""
-
 msgid "Ainda não deu estrela a nenhuma ferramenta."
 msgstr ""
 
@@ -2118,11 +1698,6 @@ msgid "Editar ferramenta"
 msgstr ""
 
 msgid "Ver página pública"
-msgstr ""
-
-msgid ""
-"Descreva a ferramenta e indique onde está publicada. A gitmgf guarda "
-"apenas a ficha e as ligações: não aloja ficheiros nem código."
 msgstr ""
 
 msgid ""
@@ -2356,9 +1931,6 @@ msgstr ""
 msgid "Ainda sem dados."
 msgstr ""
 
-msgid "Estado, alterações pendentes e utilização nos últimos 30 e 90 dias."
-msgstr ""
-
 msgid "Ferramenta"
 msgstr ""
 
@@ -2378,6 +1950,9 @@ msgid "Visitas 30/90 d"
 msgstr ""
 
 msgid "Alteração pendente de revisão"
+msgstr ""
+
+msgid "Motivo:"
 msgstr ""
 
 msgid "O repositório GitHub não foi encontrado."
@@ -2587,11 +2162,6 @@ msgstr ""
 msgid "Repor pontuação"
 msgstr ""
 
-msgid ""
-"Notas sobre construir ferramentas para a clínica e sobre como o gitmgf é "
-"feito."
-msgstr ""
-
 msgid "em português"
 msgstr ""
 
@@ -2659,21 +2229,6 @@ msgstr ""
 msgid "estrelas"
 msgstr ""
 
-msgid "Explore as ferramentas por finalidade ou por especialidade."
-msgstr ""
-
-msgid "Uma comunidade de clínicos que constroem"
-msgstr ""
-
-msgid "Ferramentas criadas por colegas, partilhadas com todos."
-msgstr ""
-
-msgid ""
-"Calculadoras, webapps e aplicações criadas por quem está na consulta. O "
-"que funciona bem na prática de um colega fica disponível para todos "
-"usarem, adaptarem e melhorarem. Preferencialmente open source."
-msgstr ""
-
 msgid "O que é open source?"
 msgstr ""
 
@@ -2695,96 +2250,7 @@ msgstr ""
 msgid "Internato"
 msgstr ""
 
-msgid ""
-"Open source, ou código aberto, quer dizer que o código da ferramenta é "
-"público. Qualquer pessoa pode ver como funciona, usá-la livremente, "
-"adaptá-la à sua realidade e sugerir melhorias. Em saúde há uma vantagem "
-"extra: é possível ver exatamente como um cálculo é feito, em vez de "
-"confiar numa solução pouco transparente."
-msgstr ""
-
-msgid "Criar, partilhar, colaborar"
-msgstr ""
-
-msgid ""
-"O gitmgf é mais do que um catálogo: é um ponto de encontro para quem "
-"resolve problemas da prática clínica com tecnologia."
-msgstr ""
-
-msgid ""
-"Uma calculadora, um script ou uma folha de cálculo que resolve um "
-"problema real da consulta. Não precisa de ser grande para ser útil."
-msgstr ""
-
-msgid "Partilhar"
-msgstr ""
-
-msgid ""
-"O que um colega resolveu numa tarde pode poupar horas a muitos outros. "
-"Uma ligação basta para que a ferramenta chegue a quem precisa, com o "
-"crédito de quem a criou."
-msgstr ""
-
-msgid "Colaborar"
-msgstr ""
-
-msgid ""
-"Sugestões e pedidos de funcionalidades chegam diretamente ao autor. Com "
-"código aberto, qualquer colega pode adaptar a ferramenta à sua realidade "
-"e contribuir de volta."
-msgstr ""
-
-msgid "Em destaque"
-msgstr ""
-
-msgid "As ferramentas mais usadas pela comunidade nas últimas semanas."
-msgstr ""
-
 msgid "Ver todas"
-msgstr ""
-
-msgid ""
-"Ainda não há ferramentas publicadas. Seja a primeira pessoa a partilhar "
-"uma!"
-msgstr ""
-
-msgid "Novidades"
-msgstr ""
-
-msgid "Publicadas recentemente."
-msgstr ""
-
-msgid "Como funciona"
-msgstr ""
-
-msgid "Construir"
-msgstr ""
-
-msgid ""
-"Uma calculadora, um script ou uma aplicação que resolve um problema real "
-"da consulta."
-msgstr ""
-
-msgid ""
-"Submeta a ligação do repositório ou da webapp, com descrição, licença e "
-"categoria. Cada ficha é revista antes de ser publicada."
-msgstr ""
-
-msgid "Melhorar em conjunto"
-msgstr ""
-
-msgid ""
-"Os colegas encontram e usam a ferramenta, deixam estrelas e enviam "
-"sugestões. O código aberto permite que cada melhoria chegue a todos."
-msgstr ""
-
-msgid "Construiu algo útil para a sua prática?"
-msgstr ""
-
-msgid ""
-"Partilhe-o com a comunidade. O que funciona na sua consulta pode ajudar "
-"colegas de todo o país — e as sugestões deles podem torná-lo ainda "
-"melhor."
 msgstr ""
 
 #, python-format
@@ -2808,11 +2274,6 @@ msgid "Ainda não publicou ferramentas."
 msgstr ""
 
 msgid "Reportar problema"
-msgstr ""
-
-msgid ""
-"Qualquer pessoa pode denunciar conteúdo ilegal ou contrário aos Termos. "
-"Analisamos cada denúncia de forma diligente e informamos da decisão."
 msgstr ""
 
 msgid "Explicação"
@@ -2894,13 +2355,6 @@ msgid "Ordenar"
 msgstr ""
 
 msgid "Sugerir melhoria"
-msgstr ""
-
-#, python-format
-msgid ""
-"Peça uma nova funcionalidade ou deixe uma sugestão a %(name)s, autor/a "
-"desta ferramenta. A mensagem é enviada por email e fica nas notificações "
-"do autor no gitmgf."
 msgstr ""
 
 msgid "Mensagem"

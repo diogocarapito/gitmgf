@@ -8,7 +8,7 @@ from tests.factories import make_tool
 def _about_team_handles() -> set[str]:
     from app.services import legal
 
-    text = (legal.CONTENT_DIR / "pt" / "about.md").read_text(encoding="utf-8")
+    text = legal.page_path("about", "pt").read_text(encoding="utf-8")
     return set(re.findall(r"\(/u/([a-z0-9-]+)\)", text))
 
 

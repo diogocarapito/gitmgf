@@ -25,12 +25,11 @@ def test_blog_index_and_article_render_in_both_languages(client):
 def test_unknown_or_unsafe_slugs_are_404(client):
     for slug in ("nao-existe", "..%2F..%2Fapp%2Fconfig", "Como-Criei-O-Gitmgf"):
         assert client.get(f"/blog/{slug}").status_code == 404
-    assert blog.get("../legal/pt/terms", "pt") is None
+    assert blog.get("../legal/terms", "pt") is None
 
 
 def test_english_falls_back_to_portuguese(tmp_path, monkeypatch):
-    (tmp_path / "pt").mkdir()
-    (tmp_path / "pt" / "so-pt.md").write_text("---\ntitle: Só PT\ndate: 2026-11-01\n---\nTexto.\n")
+    (tmp_path / "so-pt.md").write_text("---\ntitle: Só PT\ndate: 2026-11-01\n---\nTexto.\n")
     monkeypatch.setattr(blog, "CONTENT_DIR", tmp_path)
     post = blog.get("so-pt", "en")
     assert post and post.is_fallback and post.lang == "pt" and post.title == "Só PT"

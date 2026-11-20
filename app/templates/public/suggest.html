@@ -7,7 +7,7 @@
   <header class="page-head">
     <p class="breadcrumbs"><a href="{{ url('/t/' ~ tool.slug) }}">{{ localized(tool, "title") }}</a></p>
     <h1>{{ _("Sugerir melhoria") }}</h1>
-    <p>{{ _("Peça uma nova funcionalidade ou deixe uma sugestão a %(name)s, autor/a desta ferramenta. A mensagem é enviada por email e fica nas notificações do autor no gitmgf.", name=tool.owner.display_name) }}</p>
+    {{ site_text("suggest/intro", name=tool.owner.display_name).html }}
   </header>
   {% if errors.get('__all__') %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors['__all__'][0]) }}</p></div>{% endif %}
   <form class="form form-section" method="post" action="{{ url('/t/' ~ tool.slug ~ '/suggest') }}">

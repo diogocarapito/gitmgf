@@ -6,7 +6,7 @@
 <div class="container container--narrow">
   <header class="page-head">
     <h1>{{ _("Notificações") }}</h1>
-    <p>{{ _("Decisões da moderação e sugestões para as suas ferramentas. Também as recebe por email.") }}</p>
+    {{ site_text("notifications/intro").html }}
   </header>
   {% if todos and todos.values() | sum %}
   <section class="panel todo-panel">

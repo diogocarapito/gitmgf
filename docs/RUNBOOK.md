@@ -90,8 +90,8 @@ alias dc='docker compose -f deploy/docker-compose.prod.yml --env-file .env --pro
 
 ### Changing legal texts
 
-1. Edit `content/legal/pt/*.md` (prevailing) and the `en/` translations.
-2. If users must accept again, bump `version` in `pt/terms.md` front matter **and** `terms.current_version` (Administração → Definições). Everyone is sent through onboarding on next sign-in.
+1. Edit `content/legal/*.md` (prevailing) and the `*_en.md` translations next to them (`content/README.md`).
+2. If users must accept again, bump `version` in `content/legal/terms.md` front matter **and** `terms.current_version` (Administração → Definições). Everyone is sent through onboarding on next sign-in.
 3. Keep Privacy §9 (retention) in sync with `app/services/gdpr.py` — `tests/test_legal.py` checks it.
 
 ### Translations

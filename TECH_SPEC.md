@@ -109,7 +109,7 @@ gitmgf/
 ├── migrations/                 # Alembic
 ├── seeds/categories.yaml       # initial category list (PT/EN)
 ├── seeds/certifications.yaml   # certification catalogue (PRD F20)
-├── content/legal/{pt,en}/*.md  # Terms, Privacy, Disclaimer, Guidelines, About (Markdown)
+├── content/<page>/<name>.md     # editable texts: PT `.md` + EN `_en.md` (home, about, legal, blog, emails…; D37)
 ├── tests/
 ├── deploy/ Caddyfile  litestream.yml  docker-compose.prod.yml
 ├── requirements.txt            # runtime deps, pinned with ==
@@ -525,7 +525,7 @@ Unit tests cover: decay at 0/30/60 days, dedupe, owner exclusion, bot exclusion,
 
 ### 9.5 Retention (`jobs.prune`, daily 04:00)
 
-Retention must match the Privacy Policy §9 (`content/legal/*/privacy.md`) — change both together:
+Retention must match the Privacy Policy §9 (`content/legal/privacy.md` and `privacy_en.md`) — change both together:
 
 - `interaction_events`, `search_queries`: 180 days
 - `magic_link_tokens`: 1 day · expired `sessions`: on expiry
@@ -698,7 +698,7 @@ Tool page panel `partials/cert_panel.html`: present items as a definition list (
 
 ## 13a. Legal pages
 
-- Source: `content/legal/{pt,en}/{terms,privacy,guidelines,disclaimer,about,contact}.md` with YAML front matter (`title`, `version`, `last_updated`). `content/legal/NOTES.md` is never published.
+- Source: `content/legal/{terms,privacy,guidelines,disclaimer}.md`, `content/about/about.md` and `content/contact/contact.md`, each with an `_en.md` translation beside it (D37), front matter `title`, `version`, `last_updated`. `content/legal/NOTES.md` is never published.
 - Rendering: strip front matter → replace `[[KEY]]` placeholders with site settings `legal.<KEY>` (`AUTO_HIDE_THRESHOLD` from `reports.auto_hide_threshold`) → Markdown → nh3. Cached per (page, lang, settings hash).
 - Startup check in `prod`: any unresolved `[[KEY]]` → refuse to start with a clear error.
 - The PT version prevails; the EN pages show a banner saying so.
@@ -718,7 +718,7 @@ Tool page panel `partials/cert_panel.html`: present items as a definition list (
 | GET | `/{lang}/c/{category_slug}` | Category listing (search pre-filtered) |
 | GET | `/{lang}/t/{slug}` | Tool page |
 | GET/POST | `/{lang}/t/{slug}/report` | Report form (anonymous allowed) |
-| GET | `/{lang}/p/{page}` | Static pages: `about, terms, privacy, disclaimer, guidelines, contact` (from `content/legal`) |
+| GET | `/{lang}/p/{page}` | Static pages: `about, terms, privacy, disclaimer, guidelines, contact` (from `content/`, D37) |
 | GET | `/{lang}/feed.xml` | Atom feed of newest tools |
 | GET | `/sitemap.xml`, `/robots.txt`, `/healthz` | |
 | GET | `/api/tags/suggest?q=` | HTMX tag autocomplete (JSON-free: returns `<option>` list) |
@@ -848,7 +848,7 @@ Other CLI: `python -m app.cli create-admin EMAIL`, `python -m app.cli seed categ
 | `test_gdpr.py` | Export contains all user data; deletion unpublishes tools, removes stars (counts updated), anonymises reports, purge job removes files |
 | `test_certifications.py` | Field-schema validation per item (required, `required_if`, NB number regex, URL); MDR/IVDR auto-enable CE; class ≠ I without NB blocks submit; present only when approved and not expired (time-machine across `valid_until`); core items always rendered (absent = slashed); additional items hidden when absent; `cert` filter AND semantics; removal on published tool is immediate, additions go through revision; per-claim reject; aria-labels present |
 | `test_reports.py` | Anonymous report requires email (unless `csam`) + passes honeypot; auto-hide at threshold |
-| `test_legal.py` | Every `[[KEY]]` placeholder in `content/legal/` has a value in prod config; front matter `version` equals `terms.current_version`; retention job matches Privacy §9 table |
+| `test_legal.py` | Every `[[KEY]]` placeholder in the legal pages has a value in prod config; front matter `version` equals `terms.current_version`; retention job matches Privacy §9 table |
 
 Coverage target ≥ 85 % for `app/services`. CI (GitHub Actions): ruff, mypy, pytest, `pybabel compile --check`, `pip-audit`, Docker build.
 

@@ -9,7 +9,7 @@
     <p class="breadcrumbs"><a href="{{ url('/me/tools') }}">{{ _("As minhas ferramentas") }}</a></p>
     <h1>{% if tool %}{{ tool.title_pt }}{% else %}{{ _("Partilhar ferramenta") }}{% endif %}</h1>
     {% if tool %}<p>{{ m.status(tool.status, labels.TOOL_STATUS) }}{% if tool.is_public %} · <a href="{{ url('/t/' ~ tool.slug) }}">{{ _("Ver página pública") }}</a>{% endif %}</p>
-    {% else %}<p>{{ _("Descreva a ferramenta e indique onde está publicada. A gitmgf guarda apenas a ficha e as ligações: não aloja ficheiros nem código.") }} <a href="{{ url('/p/guidelines') }}">{{ _("Normas de submissão") }}</a></p>{% endif %}
+    {% else %}{{ site_text("submit/intro").html }}{% endif %}
   </header>
 
   <div class="stack">

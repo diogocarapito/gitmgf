@@ -1,0 +1,1 @@
+Open source, ou código aberto, quer dizer que o código da ferramenta é público. Qualquer pessoa pode ver como funciona, usá-la livremente, adaptá-la à sua realidade e sugerir melhorias. Em saúde há uma vantagem extra: é possível ver exatamente como um cálculo é feito, em vez de confiar numa solução pouco transparente.

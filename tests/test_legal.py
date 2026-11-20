@@ -57,7 +57,7 @@ def test_missing_placeholders_block_prod_start(db, monkeypatch):
 
 
 def test_retention_matches_privacy_policy():
-    text = (legal.CONTENT_DIR / "pt" / "privacy.md").read_text(encoding="utf-8")
+    text = legal.page_path("privacy", "pt").read_text(encoding="utf-8")
     section = text[text.index("## 9.") : text.index("## 10.")]
     assert "180 dias" in section and gdpr.EVENTS_RETENTION.days == 180
     assert "30 dias" in section and gdpr.PURGE_AFTER.days == 30 and gdpr.OUTBOX_RETENTION.days == 30

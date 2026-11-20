@@ -41,6 +41,7 @@ Dependencies: runtime packages go in `requirements.txt`, test/tooling in `requir
 - **No inline `<script>` or `style=`** (strict CSP). No `hx-on`. JS goes in `static/js/app.js`.
 - **Every page works without JS**; HTMX is progressive enhancement. Routes return a partial when `HX-Request` is set.
 - **All user-facing strings are translatable** (`_()` / `{% trans %}`), both PT and EN filled in before a milestone is done.
+- **Editorial texts and emails live in `content/<page>/<name>.md` + `<name>_en.md`** (D37, guide in `content/README.md`), read with `site_text("page/name")` in templates; short UI strings (buttons, labels, errors) stay in gettext.
 - Timestamps UTC in DB; display in Europe/Lisbon with Babel.
 - Type hints everywhere; `Mapped[]` models; Pydantic models for forms.
 - Small commits per feature; conventional commit messages (`feat:`, `fix:`, `test:`, `docs:`).

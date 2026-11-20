@@ -76,7 +76,7 @@ Then register at `https://<your domain>/register` with the `ADMIN_EMAILS` addres
 app/            FastAPI app: routers (thin), services (business rules), models, forms, templates, static
 migrations/     Alembic (FTS5 index and expression indexes written by hand)
 seeds/          categories.yaml, certifications.yaml
-content/legal/  Terms, Privacy, Guidelines, Disclaimer, About, Contact (pt prevails, en translations)
+content/        editable site texts: <page>/<name>.md (pt, prevails) + <name>_en.md (en) — see content/README.md
 deploy/         Caddyfile, prod compose, Litestream, entrypoint, VPS setup and deploy scripts
 docs/           decisions, runbook, changelog, design references (mockup, logo)
 scripts/        maintenance helpers (translation catalogue)

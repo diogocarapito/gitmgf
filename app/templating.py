@@ -5,12 +5,20 @@ from urllib.parse import urlencode, urlsplit
 
 from fastapi import Request
 from fastapi.responses import HTMLResponse
-from jinja2 import Environment, FileSystemLoader, pass_context, select_autoescape
+from jinja2 import (
+    BaseLoader,
+    Environment,
+    FileSystemLoader,
+    TemplateNotFound,
+    pass_context,
+    select_autoescape,
+)
 from markupsafe import Markup, escape
 
 from app import i18n
 from app.config import get_settings
 from app.i18n import labels
+from app.services import content
 from app.services.badges import derived_badges
 
 TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
@@ -86,6 +94,12 @@ def _domain(url: str | None) -> str:
 
 
 @pass_context
+def _site_text(ctx: Any, name: str, /, **values: Any) -> content.Block:
+    """Editable text from content/<name>.md (or _en.md): {% set hero = site_text("home/hero") %}."""
+    return content.block(name, ctx.get("lang", i18n.DEFAULT_LANG), **values)
+
+
+@pass_context
 def _label(ctx: Any, mapping: dict[str, str], key: Any) -> str:
     if key is None:
         return ""
@@ -101,6 +115,7 @@ env.globals.update(
     is_fallback=_is_fallback,
     label=_label,
     labels=labels,
+    site_text=_site_text,
     card_badges=derived_badges,
     HTML_LANG=i18n.HTML_LANG,
 )
@@ -176,12 +191,37 @@ def text_to_html(text: str) -> Markup:
     return Markup("\n".join(out))  # noqa: S704 - inputs escaped above
 
 
+class _EmailLoader(BaseLoader):
+    """Emails are plain text in content/emails/<name>.md: a `subject:` line in the front matter, then the body.
+    Both are Jinja (`{{ title }}`, `{% if %}`), so the file becomes a template with `subject` and `body` blocks."""
+
+    def get_source(self, environment: Environment, template: str) -> tuple[str, str, Any]:
+        path = content.ROOT / "emails" / template
+        if not content.NAME_RE.fullmatch(template.removesuffix(".md")) or not path.is_file():
+            raise TemplateNotFound(template)
+        mtime = path.stat().st_mtime
+        meta, body = content.split_front_matter(path.read_text(encoding="utf-8"))
+        source = body
+        if "subject" in meta:
+            source = f"{{% block subject %}}{meta['subject']}{{% endblock %}}{{% block body %}}{body}{{% endblock %}}"
+        return source, str(path), lambda: path.is_file() and path.stat().st_mtime == mtime
+
+
+email_env = Environment(loader=_EmailLoader(), autoescape=False, trim_blocks=True, lstrip_blocks=True)  # noqa: S701 - plain text
+
+
+def email_template_name(template: str, lang: str) -> str:
+    """`tool_approved` -> `tool_approved_en.md` for English when translated, else the Portuguese file."""
+    found = content.resolve(f"emails/{template}", lang)
+    return found[0].name if found else f"{template}.md"
+
+
 def render_email(template: str, context: dict[str, Any], lang: str) -> tuple[str, str, str]:
-    """Returns (subject, text, html). Each email template defines `subject` and `body` blocks."""
+    """Returns (subject, text, html) from content/emails/<template>.md, wrapped in emails/_layout.html."""
     base = get_settings().base_url.rstrip("/")
     ctx = {"lang": lang, "base_url": base, "lang_prefix": i18n.lang_prefix(lang), **context}
     with i18n.use_lang(lang):
-        tmpl = env.get_template(f"emails/{template}.txt")
+        tmpl = email_env.get_template(email_template_name(template, lang))
         tctx = tmpl.new_context(ctx)
         subject = " ".join("".join(tmpl.blocks["subject"](tctx)).split())
         body = "".join(tmpl.blocks["body"](tmpl.new_context(ctx))).strip() + "\n"

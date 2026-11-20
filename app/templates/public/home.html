@@ -2,11 +2,13 @@
 {% block title %}gitmgf{% endblock %}
 {% block header_search %}{% endblock %}
 {% block content %}
+{# Texts: content/home/*.md (PT) and *_en.md (EN) #}
+{% set hero = site_text("home/hero") %}
 <section class="hero">
   <div class="container">
-    <span class="eyebrow">{{ icon('users') }} {{ _("Uma comunidade de clínicos que constroem") }}</span>
-    <h1>{{ _("Ferramentas criadas por colegas, partilhadas com todos.") }}</h1>
-    <p class="hero__lead">{{ _("Calculadoras, webapps e aplicações criadas por quem está na consulta. O que funciona bem na prática de um colega fica disponível para todos usarem, adaptarem e melhorarem. Preferencialmente open source.") }}<a class="hero__mark" href="#open-source" aria-label="{{ _('O que é open source?') }}">*</a></p>
+    <span class="eyebrow">{{ icon('users') }} {{ hero.eyebrow }}</span>
+    <h1>{{ hero.title }}</h1>
+    <p class="hero__lead">{{ hero.inline }}<a class="hero__mark" href="#open-source" aria-label="{{ _('O que é open source?') }}">*</a></p>
     <form class="search-box" action="{{ url('/search') }}" method="get" role="search">
       {{ icon('search') }}
       <label class="visually-hidden" for="hero-q">{{ _("Pesquisar ferramentas") }}</label>
@@ -21,22 +23,23 @@
       <a class="chip" href="{{ url('/search', type='script') }}">{{ _("Scripts") }}</a>
       <a class="chip" href="{{ url('/c/internato') }}">{{ _("Internato") }}</a>
     </div>
-    <p class="hero__note" id="open-source"><span aria-hidden="true">* </span>{{ _("Open source, ou código aberto, quer dizer que o código da ferramenta é público. Qualquer pessoa pode ver como funciona, usá-la livremente, adaptá-la à sua realidade e sugerir melhorias. Em saúde há uma vantagem extra: é possível ver exatamente como um cálculo é feito, em vez de confiar numa solução pouco transparente.") }}</p>
+    <p class="hero__note" id="open-source"><span aria-hidden="true">* </span>{{ site_text("home/open-source").inline }}</p>
   </div>
 </section>
 
 <section class="section section--tight">
   <div class="container">
     <div class="section__head">
+      {% set pillars = site_text("home/pillars") %}
       <div>
-        <h2>{{ _("Criar, partilhar, colaborar") }}</h2>
-        <p>{{ _("O gitmgf é mais do que um catálogo: é um ponto de encontro para quem resolve problemas da prática clínica com tecnologia.") }}</p>
+        <h2>{{ pillars.title }}</h2>
+        {{ pillars.html }}
       </div>
     </div>
     <div class="steps">
-      <div class="step"><div class="step__num">{{ icon('lightbulb') }}</div><h3>{{ _("Criar") }}</h3><p>{{ _("Uma calculadora, um script ou uma folha de cálculo que resolve um problema real da consulta. Não precisa de ser grande para ser útil.") }}</p></div>
-      <div class="step"><div class="step__num">{{ icon('send') }}</div><h3>{{ _("Partilhar") }}</h3><p>{{ _("O que um colega resolveu numa tarde pode poupar horas a muitos outros. Uma ligação basta para que a ferramenta chegue a quem precisa, com o crédito de quem a criou.") }}</p></div>
-      <div class="step"><div class="step__num">{{ icon('git-fork') }}</div><h3>{{ _("Colaborar") }}</h3><p>{{ _("Sugestões e pedidos de funcionalidades chegam diretamente ao autor. Com código aberto, qualquer colega pode adaptar a ferramenta à sua realidade e contribuir de volta.") }}</p></div>
+      {% for name in ("create", "share", "collaborate") %}{% set b = site_text("home/" ~ name) %}
+      <div class="step"><div class="step__num">{{ icon(b.icon) }}</div><h3>{{ b.title }}</h3>{{ b.html }}</div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -44,9 +47,10 @@
 <section class="section">
   <div class="container">
     <div class="section__head">
+      {% set featured = site_text("home/featured") %}
       <div>
-        <h2>{{ _("Em destaque") }}</h2>
-        <p>{{ _("As ferramentas mais usadas pela comunidade nas últimas semanas.") }}</p>
+        <h2>{{ featured.title }}</h2>
+        {{ featured.html }}
       </div>
       <a class="section__more" href="{{ url('/search', sort='popular') }}">{{ _("Ver todas") }} {{ icon('arrow-right') }}</a>
     </div>
@@ -55,7 +59,7 @@
       {% for t in popular %}{% include "partials/tool_card.html" %}{% endfor %}
     </div>
     {% else %}
-    <div class="empty">{{ icon('layers') }}<p>{{ _("Ainda não há ferramentas publicadas. Seja a primeira pessoa a partilhar uma!") }}</p>
+    <div class="empty">{{ icon('layers') }}<p>{{ featured.empty }}</p>
       <a class="btn btn--primary" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a></div>
     {% endif %}
   </div>
@@ -65,7 +69,8 @@
 <section class="section section--tight">
   <div class="container">
     <div class="section__head">
-      <div><h2>{{ _("Novidades") }}</h2><p>{{ _("Publicadas recentemente.") }}</p></div>
+      {% set newest_text = site_text("home/newest") %}
+      <div><h2>{{ newest_text.title }}</h2>{{ newest_text.html }}</div>
       <a class="section__more" href="{{ url('/search', sort='new') }}">{{ _("Ver todas") }} {{ icon('arrow-right') }}</a>
     </div>
     <div class="grid grid--3">
@@ -91,11 +96,11 @@
 
 <section class="section">
   <div class="container">
-    <div class="section__head"><h2>{{ _("Como funciona") }}</h2></div>
+    <div class="section__head"><h2>{{ site_text("home/how-it-works").title }}</h2></div>
     <div class="steps">
-      <div class="step"><div class="step__num">1</div><h3>{{ _("Construir") }}</h3><p>{{ _("Uma calculadora, um script ou uma aplicação que resolve um problema real da consulta.") }}</p></div>
-      <div class="step"><div class="step__num">2</div><h3>{{ _("Partilhar") }}</h3><p>{{ _("Submeta a ligação do repositório ou da webapp, com descrição, licença e categoria. Cada ficha é revista antes de ser publicada.") }}</p></div>
-      <div class="step"><div class="step__num">3</div><h3>{{ _("Melhorar em conjunto") }}</h3><p>{{ _("Os colegas encontram e usam a ferramenta, deixam estrelas e enviam sugestões. O código aberto permite que cada melhoria chegue a todos.") }}</p></div>
+      {% for n in (1, 2, 3) %}{% set b = site_text("home/step-" ~ n) %}
+      <div class="step"><div class="step__num">{{ n }}</div><h3>{{ b.title }}</h3>{{ b.html }}</div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -103,9 +108,10 @@
 <section class="section section--tight">
   <div class="container">
     <div class="cta-panel">
+      {% set cta = site_text("home/cta") %}
       <div>
-        <h2>{{ _("Construiu algo útil para a sua prática?") }}</h2>
-        <p>{{ _("Partilhe-o com a comunidade. O que funciona na sua consulta pode ajudar colegas de todo o país — e as sugestões deles podem torná-lo ainda melhor.") }}</p>
+        <h2>{{ cta.title }}</h2>
+        {{ cta.html }}
       </div>
       <a class="btn btn--primary btn--lg" href="{{ url('/me/tools/new') }}">{{ _("Partilhar ferramenta") }}</a>
     </div>
