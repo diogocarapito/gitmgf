@@ -18,7 +18,7 @@ from markupsafe import Markup, escape
 from app import i18n
 from app.config import get_settings
 from app.i18n import labels
-from app.services import content
+from app.services import content, notice
 from app.services.badges import derived_badges
 
 TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
@@ -155,6 +155,9 @@ def base_context(request: Request) -> dict[str, Any]:
         "settings": get_settings(),
         "flash": request.query_params.get("flash"),
         "email_enabled": get_settings().email_backend in ("smtp", "memory", "console"),
+        "show_notice": notice.is_needed(
+            request.cookies.get(notice.COOKIE), getattr(request.state, "user", None) is not None, path
+        ),
     }
 
 

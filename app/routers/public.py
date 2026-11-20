@@ -14,7 +14,8 @@ from app.i18n import N_, lang_prefix
 from app.models import Category, Tool, ToolMedia, User, tool_categories
 from app.models.enums import EventKind, MediaState, ToolStatus
 from app.routers.auth import client_key
-from app.services import blog, certifications, email, legal, permissions, ratelimit, search, tracking
+from app.services import auth as auth_service
+from app.services import blog, certifications, email, legal, notice, permissions, ratelimit, search, tracking
 from app.services import reports as report_service
 from app.services import suggestions as suggestion_service
 from app.services import tools as tool_service
@@ -365,6 +366,28 @@ def _suggest_page(
     return render(
         request, "public/suggest.html", {"tool": tool, "values": values, "errors": errors}, status_code
     )
+
+
+@actions.post("/notice/accept")
+def accept_notice(request: Request, form: Form) -> Response:
+    """Records that this browser saw the first-visit notice (D38) and returns to the page it covered."""
+    response: Response
+    if is_htmx(request):
+        response = Response(status_code=204)
+    else:
+        response = RedirectResponse(
+            auth_service.safe_next(str(form.get("next") or "")) or "/", status_code=303
+        )
+    response.set_cookie(
+        notice.COOKIE,
+        notice.version(),
+        max_age=notice.MAX_AGE,
+        httponly=True,
+        samesite="lax",
+        secure=get_settings().secure_cookies,
+        path="/",
+    )
+    return response
 
 
 @pages.get("/t/{slug}/suggest")

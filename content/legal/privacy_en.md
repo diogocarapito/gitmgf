@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 version: "2026-11"
-last_updated: 2026-11-16
+last_updated: 2026-11-20
 ---
 
 # Privacy Policy
@@ -97,6 +97,7 @@ We only use **strictly necessary cookies**, which are exempt from consent under 
 | `__Host-gitmgf_session` | Keep you signed in | Up to 30 days of inactivity, or until you sign out |
 | `gitmgf_csrf` | Protect forms against cross-site request forgery (CSRF) | Browser session |
 | `gitmgf_lang` | Remember your chosen language (PT/EN) | 1 year |
+| `gitmgf_notice` | Remember that you read and accepted the first-visit notice on authors' responsibility for their tools, so it isn't shown on every page | 1 year, or until the Terms version changes |
 | `gitmgf-theme` (browser local storage, never sent to the server) | Remember the light or dark theme, if you choose one | Until you clear it in your browser |
 
 We use no analytics, advertising or social media cookies, and no similar technologies (pixels, fingerprinting).

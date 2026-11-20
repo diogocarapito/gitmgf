@@ -1,7 +1,7 @@
 ---
 title: Política de Privacidade
 version: "2026-11"
-last_updated: 2026-11-16
+last_updated: 2026-11-20
 ---
 
 # Política de Privacidade
@@ -95,6 +95,7 @@ Usamos apenas **cookies estritamente necessários** ao funcionamento do site, is
 | `__Host-gitmgf_session` | Manter a sessão iniciada | Até 30 dias sem atividade, ou até terminar sessão |
 | `gitmgf_csrf` | Proteger formulários contra pedidos forjados (CSRF) | Sessão do navegador |
 | `gitmgf_lang` | Lembrar o idioma escolhido (PT/EN) | 1 ano |
+| `gitmgf_notice` | Lembrar que leu e aceitou o aviso inicial sobre a responsabilidade dos autores pelas ferramentas, para não o mostrar em cada página | 1 ano, ou até mudar a versão dos Termos |
 | `gitmgf-theme` (armazenamento local do navegador, não é enviado ao servidor) | Lembrar o tema claro ou escuro, se o escolher | Até o apagar no navegador |
 
 Não usamos cookies de análise, publicidade ou redes sociais, nem tecnologias semelhantes (pixels, *fingerprinting*).

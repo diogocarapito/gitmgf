@@ -19,6 +19,30 @@
     }
   }, true);
 
+  // First-visit notice (D38): a real modal (background inert, Esc does nothing) that accepts without a reload.
+  function firstNotice() {
+    var overlay = document.querySelector("[data-first-notice]");
+    if (!overlay) return;
+    var dialog = overlay.querySelector("dialog");
+    var form = overlay.querySelector("form");
+    if (dialog && dialog.showModal) {
+      dialog.close();
+      dialog.showModal();
+      overlay.classList.add("is-modal");
+      dialog.addEventListener("cancel", function (event) { event.preventDefault(); });
+    }
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      fetch(form.action, { method: "POST", body: new FormData(form), headers: { "HX-Request": "true" }, credentials: "same-origin" })
+        .then(function (response) {
+          if (!response.ok) throw new Error(response.status);
+          if (dialog && dialog.open) dialog.close();
+          overlay.remove();
+        })
+        .catch(function () { form.submit(); });
+    });
+  }
+
   // Certification claims: reveal detail fields only for checked items (server renders them all).
   function syncClaims(root) {
     root.querySelectorAll("[data-cert-claim]").forEach(function (box) {
@@ -163,6 +187,7 @@
   }
 
   onReady(function () {
+    firstNotice();
     bindThemeToggle();
     bindReportReason();
     bindTabs(document);

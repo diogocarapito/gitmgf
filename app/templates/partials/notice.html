@@ -1,0 +1,18 @@
+{# First-visit notice (D38). Without JS the overlay blocks the page until the form is sent; app.js opens it as a
+   modal dialog and accepts without reloading. Text: content/notice/notice.md #}
+{% set n = site_text("notice/notice") %}
+<div class="first-notice" data-first-notice>
+  <dialog class="first-notice__dialog" open aria-modal="true" aria-labelledby="first-notice-title">
+    <h2 id="first-notice-title">{{ icon('shield-check') }} {{ n.title }}</h2>
+    {{ n.html }}
+    <p class="first-notice__links">
+      <a href="{{ url('/p/terms') }}" target="_blank" rel="noopener">{{ icon('external') }} {{ _("Termos de Utilização") }}</a>
+      <a href="{{ url('/p/privacy') }}" target="_blank" rel="noopener">{{ icon('external') }} {{ _("Política de Privacidade") }}</a>
+    </p>
+    <form method="post" action="/notice/accept">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" name="next" value="{{ full_path }}">
+      <button class="btn btn--primary btn--lg" type="submit" autofocus>{{ n.button }}</button>
+    </form>
+  </dialog>
+</div>

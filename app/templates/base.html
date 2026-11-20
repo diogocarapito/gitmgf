@@ -47,6 +47,7 @@
   {% block head %}{% endblock %}
 </head>
 <body hx-headers='{"X-CSRF-Token": "{{ csrf_token }}"}'>
+  {% if show_notice %}{% include "partials/notice.html" %}{% endif %}
   <a class="skip-link" href="#main">{{ _("Saltar para o conteúdo") }}</a>
   {% if banner %}<div class="site-banner" role="status"><div class="container">{{ banner }}</div></div>{% endif %}
   <header class="site-header">

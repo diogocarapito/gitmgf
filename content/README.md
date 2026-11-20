@@ -34,6 +34,7 @@ Uma calculadora, um script ou uma folha de cálculo que resolve um problema real
 | `legal/` | Termos, Privacidade, Aviso Legal e Normas de Submissão. `[[CHAVE]]` são dados preenchidos nas definições do site (ver `legal/NOTES.md`). Mudanças que obriguem a nova aceitação: atualizar `version` em `legal/terms.md` e a definição `terms.current_version` |
 | `blog/` | Um artigo por ficheiro: `<endereço>.md` + `<endereço>_en.md`, com `title`, `date`, `author`, `summary` (e `draft: true` para esconder). `_intro.md` é o texto do topo da página do blog |
 | `emails/` | Emails enviados pelo site (ver abaixo) |
+| `notice/` | Aviso mostrado na primeira visita (responsabilidade dos autores), com `title` e `button` |
 | `categories/`, `report/`, `suggest/`, `notifications/`, `stars/`, `my-tools/`, `submit/`, `onboarding/`, `delete-account/` | Textos de introdução dessas páginas |
 
 Botões, menus, campos de formulário e mensagens de erro continuam no catálogo de traduções (`app/locales`), porque estão ligados ao código.
