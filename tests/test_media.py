@@ -128,3 +128,20 @@ def test_form_says_the_first_screenshot_is_the_card_image(client, db):
     assert "A primeira imagem aparece no cartão" in client.get("/me/tools/new").text
     edit = client.get(f"/me/tools/{tool.id}/edit").text
     assert "A primeira imagem aparece no cartão" in edit and "Imagem do cartão" in edit
+
+
+def test_submit_buttons_come_after_the_screenshots(client, db):
+    owner = make_user(db, "o@example.org")
+    draft = make_tool(db, owner, status="draft")
+    live = make_tool(db, owner, title_pt="Publicada", status="published")
+    db.commit()
+    login(client, db, owner)
+    for url, button in (
+        ("/me/tools/new", "Guardar e submeter para revisão"),
+        (f"/me/tools/{draft.id}/edit", "Guardar e submeter para revisão"),
+        (f"/me/tools/{live.id}/edit", "Submeter alteração para revisão"),
+    ):
+        html = client.get(url).text
+        assert html.index('id="screenshots"') < html.index("decl_author") < html.index(button), url
+        # outside the main form, so they must be tied to it explicitly
+        assert html.count('form="tool-form"') == 3 + html.count('type="submit" form="tool-form"'), url

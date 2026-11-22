@@ -67,9 +67,9 @@
 </fieldset>
 {%- endmacro %}
 
-{% macro checkbox(name, label, checked, errors, hint=None, value="1") -%}
+{% macro checkbox(name, label, checked, errors, hint=None, value="1", form=None) -%}
 <div class="field{% if errors and errors.get(name) %} field--invalid{% endif %}">
-  <label class="choice"><input type="checkbox" name="{{ name }}" value="{{ value }}"{% if checked %} checked{% endif %}{{ describedby(errors, name, hint) }}> <span>{{ label }}</span></label>
+  <label class="choice"><input type="checkbox" name="{{ name }}" value="{{ value }}"{% if form %} form="{{ form }}"{% endif %}{% if checked %} checked{% endif %}{{ describedby(errors, name, hint) }}> <span>{{ label }}</span></label>
   {% if hint %}<p class="field__hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
   {{ error(errors, name) }}
 </div>

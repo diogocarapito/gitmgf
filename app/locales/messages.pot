@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-20 16:53+0000\n"
+"POT-Creation-Date: 2026-11-22 18:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1817,27 +1817,6 @@ msgid ""
 "verificada por um moderador."
 msgstr ""
 
-msgid "Declarações"
-msgstr ""
-
-msgid "Sou o autor da ferramenta ou estou autorizado/a a publicá-la."
-msgstr ""
-
-msgid "O texto e as capturas de ecrã não contêm dados que identifiquem utentes."
-msgstr ""
-
-msgid "Aceito que a gitmgf não valida a correção clínica das ferramentas."
-msgstr ""
-
-msgid "Guardar e submeter para revisão"
-msgstr ""
-
-msgid "Guardar rascunho"
-msgstr ""
-
-msgid "Submeter alteração para revisão"
-msgstr ""
-
 msgid "Depois de guardar o rascunho, pode adicionar até 5 capturas de ecrã aqui."
 msgstr ""
 
@@ -1872,6 +1851,27 @@ msgid "Texto alternativo (EN, opcional)"
 msgstr ""
 
 msgid "Adicionar imagem"
+msgstr ""
+
+msgid "Declarações"
+msgstr ""
+
+msgid "Sou o autor da ferramenta ou estou autorizado/a a publicá-la."
+msgstr ""
+
+msgid "O texto e as capturas de ecrã não contêm dados que identifiquem utentes."
+msgstr ""
+
+msgid "Aceito que a gitmgf não valida a correção clínica das ferramentas."
+msgstr ""
+
+msgid "Guardar e submeter para revisão"
+msgstr ""
+
+msgid "Guardar rascunho"
+msgstr ""
+
+msgid "Submeter alteração para revisão"
 msgstr ""
 
 msgid "Outras ações"
