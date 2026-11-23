@@ -29,6 +29,10 @@
       dialog.close();
       dialog.showModal();
       overlay.classList.add("is-modal");
+      // Always open at the top, so small screens show the title first
+      var title = dialog.querySelector("h2");
+      if (title) title.focus({ preventScroll: true });
+      dialog.scrollTop = 0;
       dialog.addEventListener("cancel", function (event) { event.preventDefault(); });
     }
     form.addEventListener("submit", function (event) {
