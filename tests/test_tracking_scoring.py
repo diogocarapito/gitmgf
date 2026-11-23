@@ -6,7 +6,7 @@ from sqlalchemy import select
 
 from app.db import today
 from app.models import InteractionEvent, SearchQuery, ToolDailyStat
-from app.models.enums import EventKind
+from app.models.enums import EventKind, Role
 from app.services import scoring, settings_store, tracking
 from tests.conftest import login, make_user, post
 from tests.factories import make_tool
@@ -53,6 +53,24 @@ def test_owner_and_bots_are_not_counted(client, db):
     client.get(f"/go/{tool.id}/website", headers=BROWSER)
     client.get(f"/t/{tool.slug}", headers=BROWSER)
     assert events(db) == []
+
+
+@pytest.mark.parametrize("role", ["moderator", "admin"])
+def test_moderators_and_admins_are_not_counted_on_any_tool(client, db, role):
+    tool = make_tool(db, website_url="https://example.org/app")
+    staff = make_user(db, f"{role}@example.org", role=Role(role))
+    login(client, db, staff)
+    client.get(f"/t/{tool.slug}", headers=BROWSER)
+    client.get(f"/go/{tool.id}/website", headers=BROWSER)
+    assert events(db) == []
+
+
+def test_other_signed_in_members_are_counted(client, db):
+    tool = make_tool(db, website_url="https://example.org/app")
+    login(client, db, make_user(db, "member@example.org"))
+    client.get(f"/t/{tool.slug}", headers=BROWSER)
+    client.get(f"/go/{tool.id}/website", headers=BROWSER)
+    assert {e.kind for e in events(db)} == {EventKind.view, EventKind.outbound_click}
 
 
 def test_search_click_is_recorded_only_for_real_search_ids(client, db):

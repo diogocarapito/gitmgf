@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from app.db import today, utcnow
 from app.models import InteractionEvent, Tool, User
 from app.models.enums import EventKind, LinkKind
-from app.services import settings_store
+from app.services import permissions, settings_store
 
 BOT_RE = re.compile(
     r"(bot|crawl|spider|slurp|preview|facebookexternalhit|curl|wget|python-requests|httpx|headless|monitor)",
@@ -66,10 +66,10 @@ def record(
     search_id: str | None = None,
     position: int | None = None,
 ) -> bool:
-    """One event per visitor, tool, signal and day. Owners and bots never count."""
+    """One event per visitor, tool, signal and day. Bots, owners and moderators/admins never count."""
     if is_bot(request.headers.get("user-agent")):
         return False
-    if user is not None and user.id == tool.owner_id:
+    if not permissions.counts_towards_usage(user, tool):
         return False
     result = db.execute(
         insert(InteractionEvent)

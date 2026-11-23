@@ -205,7 +205,7 @@ Signals (all anonymous-friendly, no cookies):
 | GitHub stars of linked repo | 5 × log10(1 + stars) | n/a |
 
 - Recency decay: exponential, **half-life 30 days** (an interaction 30 days old counts half).
-- Anti-gaming: the same visitor counts once per tool per signal per day; the owner's own clicks don't count; known bots are ignored; moderators can reset a tool's score.
+- Anti-gaming: the same visitor counts once per tool per signal per day; the owner's own clicks don't count, nor do moderators' and admins' (D40); known bots are ignored; moderators can reset a tool's score.
 - Weights and half-life are admin-tunable settings.
 - Score recomputed every 15 minutes; search relevance blends text match with log(score).
 - Authors see their own tool's 30/90-day counts (search clicks, outbound clicks, views, stars) in "My tools".

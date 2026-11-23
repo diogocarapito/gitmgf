@@ -497,7 +497,7 @@ visitor_hash = sha256(daily_salt + client_ip + user_agent)[:32]
 | tool page render | `view` (only for author stats) | — |
 
 - **No open redirect**: `/go/` only redirects to a URL stored on a `published`/`archived` tool; 404 otherwise.
-- Events are skipped when `user_id == tool.owner_id`.
+- Events are skipped when `user_id == tool.owner_id`, and for signed-in moderators/admins on any tool (D40; `permissions.counts_towards_usage()`).
 - Insert with `INSERT OR IGNORE` on the unique key → one event per visitor/tool/kind/day.
 - Redirect links carry `rel="nofollow"`; `/r/` and `/go/` are disallowed in `robots.txt`.
 - Response: `302` with `Cache-Control: no-store`, `Referrer-Policy: no-referrer` for outbound.

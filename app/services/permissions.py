@@ -58,5 +58,16 @@ def can_view_profile(profile: User) -> bool:
     )
 
 
+def counts_towards_usage(user: User | None, tool: Tool) -> bool:
+    """Whether a visit or click feeds the popularity score (D40).
+
+    Owners never count on their own tools, and moderators/admins never count on any tool:
+    they open listings while testing and reviewing, which isn't real use.
+    """
+    if user is None:
+        return True
+    return not is_owner(user, tool) and user.role not in (Role.moderator, Role.admin)
+
+
 def can_view_stats(user: User | None) -> bool:
     return is_moderator(user)
