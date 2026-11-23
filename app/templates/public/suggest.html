@@ -14,10 +14,10 @@
     {{ m.csrf() }}
     {% set kinds = [] %}{% for k, v in labels.SUGGESTION_KIND.items() %}{% do kinds.append((k, _(v))) %}{% endfor %}
     {{ m.select("kind", _("Tipo"), kinds, values, errors, required=True, empty=_("— Escolher —")) }}
-    {{ m.textarea("message", _("Mensagem"), values, errors, required=True, maxlength=2000, rows=7, hint=_("Pelo menos 20 caracteres. Descreva o que gostaria de ver e porque seria útil na prática. Não inclua dados de utentes.")) }}
-    {{ m.checkbox("allow_reply", _("Partilhar o meu email com o autor, para me poder responder."), values.get('allow_reply'), errors, hint=_("Se não assinalar, o autor vê apenas o seu nome a apresentar.")) }}
+    {{ m.textarea("message", _("Mensagem"), values, errors, required=True, maxlength=2000, rows=7, hint=_("Pelo menos 20 caracteres. Descreve o que gostarias de ver e porque seria útil na prática. Não incluas dados de utentes.")) }}
+    {{ m.checkbox("allow_reply", _("Partilhar o meu email com o autor, para me poder responder."), values.get('allow_reply'), errors, hint=_("Se não assinalares, o autor vê apenas o teu nome a apresentar.")) }}
     <div class="form-actions"><button class="btn btn--primary" type="submit">{{ icon('send') }} {{ _("Enviar sugestão") }}</button><a class="btn btn--ghost" href="{{ url('/t/' ~ tool.slug) }}">{{ _("Cancelar") }}</a></div>
   </form>
-  <p class="small muted">{{ _("Para problemas de segurança, conteúdo perigoso ou que viole os Termos, use") }} <a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ _("Reportar problema") }}</a>.</p>
+  <p class="small muted">{{ _("Para problemas de segurança, conteúdo perigoso ou que viole os Termos, usa") }} <a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ _("Reportar problema") }}</a>.</p>
 </div>
 {% endblock %}

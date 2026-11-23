@@ -7,8 +7,8 @@
   <header class="page-head"><h1>{{ _("Eliminar conta") }}</h1></header>
   <div class="notice notice--danger">{{ icon('alert') }}<div>
     {{ site_text("delete-account/warning").html }}
-    {% if tools %}<p>{{ ngettext("Tem %(num)d ferramenta que vai ser retirada.", "Tem %(num)d ferramentas que vão ser retiradas.", tools | length) }}</p>{% endif %}
-    <p>{{ _("Pode transferir primeiro uma cópia dos seus dados:") }} <a href="/me/export.json">{{ _("Transferir os meus dados (JSON)") }}</a></p>
+    {% if tools %}<p>{{ ngettext("Tens %(num)d ferramenta que vai ser retirada.", "Tens %(num)d ferramentas que vão ser retiradas.", tools | length) }}</p>{% endif %}
+    <p>{{ _("Podes transferir primeiro uma cópia dos teus dados:") }} <a href="/me/export.json">{{ _("Transferir os meus dados (JSON)") }}</a></p>
   </div></div>
   <form class="form form-section section--tight" method="post" action="{{ url('/me/delete-account') }}">
     {{ m.csrf() }}

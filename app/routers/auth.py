@@ -27,15 +27,15 @@ actions = APIRouter()
 AUTH_ERRORS = {
     "bad_credentials": N_("Email ou palavra-passe incorretos."),
     "suspended": N_(
-        "Não é possível iniciar sessão com esta conta. Contacte-nos se achar que se trata de um erro."
+        "Não é possível iniciar sessão com esta conta. Contacta-nos se achares que se trata de um erro."
     ),
-    "invalid_invite": N_("O convite é inválido, já foi usado ou expirou. Peça um novo convite."),
+    "invalid_invite": N_("O convite é inválido, já foi usado ou expirou. Pede um novo convite."),
     "invite_email_mismatch": N_("Este convite foi criado para outro endereço de email."),
-    "email_taken": N_("Já existe uma conta com este email. Inicie sessão."),
-    "invalid_link": N_("Esta ligação é inválida, já foi usada ou expirou. Peça uma nova a um administrador."),
-    "rate_limited": N_("Demasiadas tentativas. Aguarde um pouco e tente novamente."),
-    "bad_code": N_("Código incorreto. Verifique o último email que enviámos e tente novamente."),
-    "code_expired": N_("Este código expirou ou foi tentado demasiadas vezes. Peça um novo."),
+    "email_taken": N_("Já existe uma conta com este email. Inicia sessão."),
+    "invalid_link": N_("Esta ligação é inválida, já foi usada ou expirou. Pede uma nova a um administrador."),
+    "rate_limited": N_("Demasiadas tentativas. Aguarda um pouco e tenta novamente."),
+    "bad_code": N_("Código incorreto. Verifica o último email que enviámos e tenta novamente."),
+    "code_expired": N_("Este código expirou ou foi tentado demasiadas vezes. Pede um novo."),
 }
 
 
@@ -171,7 +171,7 @@ def register_submit(request: Request, db: DB, form: Form, background: Background
     if data.specialty_category_id is not None and data.specialty_category_id not in {
         c.id for c in specialty_options(db)
     }:
-        errors["specialty_category_id"] = (N_("Escolha uma opção válida."), {})
+        errors["specialty_category_id"] = (N_("Escolhe uma opção válida."), {})
     if errors:
         return _register_page(request, db, raw, errors, 422)
     lang = request.state.lang
@@ -295,7 +295,7 @@ def forgot_submit(request: Request, db: DB, form: Form, background: BackgroundTa
         return render(
             request,
             "auth/forgot.html",
-            {"errors": {"email": (N_("Indique um email válido."), {})}, "email": raw},
+            {"errors": {"email": (N_("Indica um email válido."), {})}, "email": raw},
             422,
         )
     if not (
@@ -449,7 +449,7 @@ def onboarding_submit(
         if data.specialty_category_id is not None:
             valid = {c.id for c in specialty_options(db)}
             if data.specialty_category_id not in valid:
-                errors["specialty_category_id"] = (N_("Escolha uma opção válida."), {})
+                errors["specialty_category_id"] = (N_("Escolhe uma opção válida."), {})
     if errors or data is None:
         return render(
             request,

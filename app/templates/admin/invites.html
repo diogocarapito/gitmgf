@@ -6,14 +6,14 @@
 {% set active = 'invites' %}
 <div class="container">
   <header class="page-head"><h1>{{ _("Convites") }}</h1>
-    <p>{% if registration_open %}{{ _("O registo está aberto a todos: os convites não são obrigatórios.") }}{% else %}{{ _("O registo é feito apenas por convite. Pode abri-lo a todos em Definições (Registos abertos); é preciso o email (SMTP) estar configurado, para confirmar os endereços.") }}{% endif %}</p></header>
+    <p>{% if registration_open %}{{ _("O registo está aberto a todos: os convites não são obrigatórios.") }}{% else %}{{ _("O registo é feito apenas por convite. Podes abri-lo a todos em Definições (Registos abertos); é preciso o email (SMTP) estar configurado, para confirmar os endereços.") }}{% endif %}</p></header>
   {% include "admin/_nav.html" %}
   {% if created_link %}
   <div class="notice notice--ok" role="status">{{ icon('check') }}<div>
-    <p><strong>{{ _("Convite criado. Copie a ligação agora: não volta a ser mostrada.") }}</strong></p>
+    <p><strong>{{ _("Convite criado. Copia a ligação agora: não volta a ser mostrada.") }}</strong></p>
     <p><code class="kv">{{ created_link }}</code></p>
     {% if emailed_to %}<p class="small">{{ _("Também foi enviada por email para %(email)s.", email=emailed_to) }}</p>
-    {% else %}<p class="small">{{ _("Envie-a à pessoa por um canal de confiança (mensagem, email pessoal).") }}</p>{% endif %}
+    {% else %}<p class="small">{{ _("Envia-a à pessoa por um canal de confiança (mensagem, email pessoal).") }}</p>{% endif %}
   </div></div>
   {% endif %}
   <form class="form form-section section--tight" method="post" action="{{ url('/admin/invites') }}">

@@ -126,7 +126,7 @@ def check_pending_limit(db: Session, user_id: int, exclude_tool: Tool | None = N
     if exclude_tool is not None and pending_revision(db, exclude_tool) is not None:
         current -= 1  # updating an existing pending revision doesn't add one
     if current >= limit:
-        raise ToolError(N_("Atingiu o limite de submissões pendentes. Aguarde a revisão das anteriores."))
+        raise ToolError(N_("Atingiste o limite de submissões pendentes. Aguarda a revisão das anteriores."))
 
 
 def review_checklist_keys(tool: Tool) -> list[str]:
@@ -183,7 +183,7 @@ def transition(
     if action == "submit":
         errors = submission_problems(db, tool)
         if errors:
-            raise ToolError(N_("Faltam campos obrigatórios. Reveja o formulário antes de submeter."))
+            raise ToolError(N_("Faltam campos obrigatórios. Revê o formulário antes de submeter."))
         check_pending_limit(db, tool.owner_id)
         tool.submitted_at = now
         tool.rejection_reason = None
@@ -401,7 +401,7 @@ def save_edit(
         tool.updated_at = utcnow()
         return "in_place"
     if tool.status not in REVISION_STATUSES:
-        raise ToolError(N_("Retire a submissão para a poder editar."))
+        raise ToolError(N_("Retira a submissão para a poderes editar."))
 
     # Removing a certification applies immediately: it only makes the listing more conservative.
     removed = certifications.remove_claims_now(db, tool, set(claims))

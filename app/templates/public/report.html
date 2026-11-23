@@ -16,11 +16,11 @@
     <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" type="text" name="website" tabindex="-1" autocomplete="off"></div>
     {% set reasons = [] %}{% for k, v in labels.REPORT_REASON.items() %}{% do reasons.append((k, _(v))) %}{% endfor %}
     <div data-report-reason>{{ m.select("reason", _("Motivo"), reasons, values, errors, required=True, empty=_("— Escolher —")) }}</div>
-    {{ m.textarea("details", _("Explicação"), values, errors, required=True, maxlength=2000, rows=6, hint=_("Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para o podermos avaliar. Não inclua dados de utentes.")) }}
+    {{ m.textarea("details", _("Explicação"), values, errors, required=True, maxlength=2000, rows=6, hint=_("Pelo menos 20 caracteres. Explica o problema com detalhe suficiente para o podermos avaliar. Não incluas dados de utentes.")) }}
     {% if not user %}
     <div data-report-email>
-      {{ m.text("email", _("O seu email"), values, errors, type="email", maxlength=254, autocomplete="email", required=True, hint=_("Para confirmarmos a receção e comunicarmos a decisão. Não é pedido em denúncias de abuso sexual de crianças.")) }}
-      <p class="field__hint" data-csam-note hidden>{{ icon('shield') }} {{ _("Nas denúncias de abuso sexual de crianças não pedimos nem guardamos o seu email: a denúncia é anónima.") }}</p>
+      {{ m.text("email", _("O teu email"), values, errors, type="email", maxlength=254, autocomplete="email", required=True, hint=_("Para confirmarmos a receção e comunicarmos a decisão. Não é pedido em denúncias de abuso sexual de crianças.")) }}
+      <p class="field__hint" data-csam-note hidden>{{ icon('shield') }} {{ _("Nas denúncias de abuso sexual de crianças não pedimos nem guardamos o teu email: a denúncia é anónima.") }}</p>
     </div>
     {% endif %}
     {{ m.checkbox("good_faith", _("Declaro que faço esta denúncia de boa-fé e que a informação é, tanto quanto sei, exata e completa."), values.get('good_faith'), errors) }}

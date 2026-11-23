@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-22 18:18+0000\n"
+"POT-Creation-Date: 2026-11-23 07:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,10 +20,10 @@ msgstr ""
 msgid "As palavras-passe não coincidem."
 msgstr ""
 
-msgid "Tem de aceitar os Termos e as Normas de Submissão para continuar."
+msgid "Tens de aceitar os Termos e as Normas de Submissão para continuar."
 msgstr ""
 
-msgid "Use 3 a 30 letras minúsculas, números ou hífenes."
+msgid "Usa 3 a 30 letras minúsculas, números ou hífenes."
 msgstr ""
 
 msgid "Nome de utilizador do GitHub inválido."
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Texto demasiado longo (máx. %(max_length)s caracteres)."
 msgstr ""
 
-msgid "Escolha uma opção válida."
+msgid "Escolhe uma opção válida."
 msgstr ""
 
 msgid "Valor inválido."
@@ -51,7 +51,7 @@ msgid "Demasiados itens (máx. %(max_length)s)."
 msgstr ""
 
 #, python-format
-msgid "Escolha pelo menos %(min_length)s."
+msgid "Escolhe pelo menos %(min_length)s."
 msgstr ""
 
 msgid "Formato inválido."
@@ -60,13 +60,13 @@ msgstr ""
 msgid "Data inválida."
 msgstr ""
 
-msgid "Indique um endereço http:// ou https:// válido (máx. 500 caracteres)."
+msgid "Indica um endereço http:// ou https:// válido (máx. 500 caracteres)."
 msgstr ""
 
-msgid "Indique um email válido."
+msgid "Indica um email válido."
 msgstr ""
 
-msgid "Confirme que faz a denúncia de boa-fé."
+msgid "Confirma que fazes a denúncia de boa-fé."
 msgstr ""
 
 msgid "Máximo de 10 etiquetas."
@@ -75,22 +75,22 @@ msgstr ""
 msgid "Cada etiqueta deve ter entre 2 e 40 caracteres."
 msgstr ""
 
-msgid "Escolha entre 1 e 5 categorias."
+msgid "Escolhe entre 1 e 5 categorias."
 msgstr ""
 
-msgid "Escolha pelo menos uma plataforma."
+msgid "Escolhe pelo menos uma plataforma."
 msgstr ""
 
-msgid "Escolha pelo menos um idioma."
+msgid "Escolhe pelo menos um idioma."
 msgstr ""
 
-msgid "Indique pelo menos uma ligação."
+msgid "Indica pelo menos uma ligação."
 msgstr ""
 
 msgid "Confirmação obrigatória para submeter."
 msgstr ""
 
-msgid "Indique um título com pelo menos 3 caracteres."
+msgid "Indica um título com pelo menos 3 caracteres."
 msgstr ""
 
 msgid "Médico/a especialista"
@@ -492,7 +492,7 @@ msgstr ""
 msgid "Rascunho guardado."
 msgstr ""
 
-msgid "Ferramenta submetida para revisão. Vai receber um email com a decisão."
+msgid "Ferramenta submetida para revisão. Vais receber um email com a decisão."
 msgstr ""
 
 msgid "Alteração submetida. A versão publicada mantém-se até à aprovação."
@@ -540,7 +540,7 @@ msgstr ""
 msgid "Denúncia fechada. O denunciante foi notificado."
 msgstr ""
 
-msgid "Obrigado. Recebemos a sua denúncia e vamos analisá-la."
+msgid "Obrigado. Recebemos a tua denúncia e vamos analisá-la."
 msgstr ""
 
 msgid "Função alterada."
@@ -556,7 +556,7 @@ msgid "Conta eliminada."
 msgstr ""
 
 msgid ""
-"A sua conta foi eliminada. Os dados serão apagados definitivamente em 30 "
+"A tua conta foi eliminada. Os dados serão apagados definitivamente em 30 "
 "dias."
 msgstr ""
 
@@ -567,19 +567,19 @@ msgid "Não é possível retirar o último administrador."
 msgstr ""
 
 msgid ""
-"Atingiu o limite de submissões pendentes. Aguarde a revisão das "
+"Atingiste o limite de submissões pendentes. Aguarda a revisão das "
 "anteriores."
 msgstr ""
 
-msgid "Demasiados pedidos. Aguarde um pouco e tente novamente."
+msgid "Demasiados pedidos. Aguarda um pouco e tenta novamente."
 msgstr ""
 
-msgid "Indique um motivo (modelo ou texto livre)."
+msgid "Indica um motivo (modelo ou texto livre)."
 msgstr ""
 
 msgid ""
-"Para aprovar, confirme todos os pontos da lista de verificação. Se algum "
-"falhar, peça alterações."
+"Para aprovar, confirma todos os pontos da lista de verificação. Se algum "
+"falhar, pede alterações."
 msgstr ""
 
 msgid "Categoria guardada."
@@ -604,43 +604,43 @@ msgid "Email ou palavra-passe incorretos."
 msgstr ""
 
 msgid ""
-"Não é possível iniciar sessão com esta conta. Contacte-nos se achar que "
-"se trata de um erro."
+"Não é possível iniciar sessão com esta conta. Contacta-nos se achares que"
+" se trata de um erro."
 msgstr ""
 
-msgid "O convite é inválido, já foi usado ou expirou. Peça um novo convite."
+msgid "O convite é inválido, já foi usado ou expirou. Pede um novo convite."
 msgstr ""
 
 msgid "Este convite foi criado para outro endereço de email."
 msgstr ""
 
-msgid "Já existe uma conta com este email. Inicie sessão."
+msgid "Já existe uma conta com este email. Inicia sessão."
 msgstr ""
 
 msgid ""
-"Esta ligação é inválida, já foi usada ou expirou. Peça uma nova a um "
+"Esta ligação é inválida, já foi usada ou expirou. Pede uma nova a um "
 "administrador."
 msgstr ""
 
-msgid "Demasiadas tentativas. Aguarde um pouco e tente novamente."
+msgid "Demasiadas tentativas. Aguarda um pouco e tenta novamente."
 msgstr ""
 
-msgid "Código incorreto. Verifique o último email que enviámos e tente novamente."
+msgid "Código incorreto. Verifica o último email que enviámos e tenta novamente."
 msgstr ""
 
-msgid "Este código expirou ou foi tentado demasiadas vezes. Peça um novo."
+msgid "Este código expirou ou foi tentado demasiadas vezes. Pede um novo."
 msgstr ""
 
 msgid "Este identificador já está a ser usado."
 msgstr ""
 
-msgid "Escolha um ficheiro de imagem."
+msgid "Escolhe um ficheiro de imagem."
 msgstr ""
 
 msgid "A palavra-passe atual está incorreta."
 msgstr ""
 
-msgid "Confirme que quer eliminar a conta."
+msgid "Confirma que queres eliminar a conta."
 msgstr ""
 
 msgid "certification"
@@ -649,10 +649,10 @@ msgstr ""
 msgid "Novas ferramentas"
 msgstr ""
 
-msgid "Enviou demasiadas sugestões hoje. Tente novamente amanhã."
+msgid "Enviaste demasiadas sugestões hoje. Tenta novamente amanhã."
 msgstr ""
 
-msgid "Não foi possível enviar. Aguarde uns segundos e tente novamente."
+msgid "Não foi possível enviar. Aguarda uns segundos e tenta novamente."
 msgstr ""
 
 msgid "Open source"
@@ -664,7 +664,7 @@ msgstr ""
 msgid "Mantida"
 msgstr ""
 
-msgid "Data inválida (use AAAA-MM-DD)."
+msgid "Data inválida (usa AAAA-MM-DD)."
 msgstr ""
 
 msgid "O número do organismo notificado tem 4 dígitos."
@@ -676,14 +676,14 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Ferramenta de IA: considere declarar a conformidade com o Regulamento da "
+"Ferramenta de IA: considera declarar a conformidade com o Regulamento da "
 "IA (AI Act)."
 msgstr ""
 
 msgid "A imagem excede 2 MB."
 msgstr ""
 
-msgid "Formato não suportado. Use PNG, JPEG ou WebP."
+msgid "Formato não suportado. Usa PNG, JPEG ou WebP."
 msgstr ""
 
 msgid "O ficheiro não é uma imagem válida."
@@ -708,10 +708,10 @@ msgstr ""
 msgid "Um utilizador"
 msgstr ""
 
-msgid "Faltam campos obrigatórios. Reveja o formulário antes de submeter."
+msgid "Faltam campos obrigatórios. Revê o formulário antes de submeter."
 msgstr ""
 
-msgid "Retire a submissão para a poder editar."
+msgid "Retira a submissão para a poderes editar."
 msgstr ""
 
 msgid "Máximo de 5 capturas de ecrã por ferramenta."
@@ -911,7 +911,7 @@ msgstr ""
 msgid ""
 "As ferramentas são publicadas pelos respetivos autores. A gitmgf não "
 "valida a correção clínica das ferramentas, que não substituem o juízo "
-"clínico. Confirme sempre os protocolos locais."
+"clínico. Confirma sempre os protocolos locais."
 msgstr ""
 
 msgid "Utilizadores"
@@ -1075,7 +1075,7 @@ msgid "Adicional"
 msgstr ""
 
 msgid ""
-"Para adicionar itens novos, edite seeds/certifications.yaml e corra "
+"Para adicionar itens novos, edita seeds/certifications.yaml e corre "
 "«python -m app.cli seed certifications»."
 msgstr ""
 
@@ -1101,19 +1101,19 @@ msgid "O registo está aberto a todos: os convites não são obrigatórios."
 msgstr ""
 
 msgid ""
-"O registo é feito apenas por convite. Pode abri-lo a todos em Definições "
-"(Registos abertos); é preciso o email (SMTP) estar configurado, para "
+"O registo é feito apenas por convite. Podes abri-lo a todos em Definições"
+" (Registos abertos); é preciso o email (SMTP) estar configurado, para "
 "confirmar os endereços."
 msgstr ""
 
-msgid "Convite criado. Copie a ligação agora: não volta a ser mostrada."
+msgid "Convite criado. Copia a ligação agora: não volta a ser mostrada."
 msgstr ""
 
 #, python-format
 msgid "Também foi enviada por email para %(email)s."
 msgstr ""
 
-msgid "Envie-a à pessoa por um canal de confiança (mensagem, email pessoal)."
+msgid "Envia-a à pessoa por um canal de confiança (mensagem, email pessoal)."
 msgstr ""
 
 msgid "Novo convite"
@@ -1221,7 +1221,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Selecione etiquetas duplicadas e escolha a etiqueta de destino para as "
+"Seleciona etiquetas duplicadas e escolhe a etiqueta de destino para as "
 "fundir."
 msgstr ""
 
@@ -1301,7 +1301,7 @@ msgid "Enviar ligação por email"
 msgstr ""
 
 msgid ""
-"Ligação válida durante 48 horas e uma única utilização. Copie-a agora: "
+"Ligação válida durante 48 horas e uma única utilização. Copia-a agora: "
 "não volta a ser mostrada."
 msgstr ""
 
@@ -1325,18 +1325,18 @@ msgstr ""
 msgid "Nome a apresentar"
 msgstr ""
 
-msgid "Aparece nas páginas das suas ferramentas."
+msgid "Aparece nas páginas das tuas ferramentas."
 msgstr ""
 
 msgid ""
-"Letras minúsculas, números e hífenes (3 a 30). É o endereço do seu perfil"
+"Letras minúsculas, números e hífenes (3 a 30). É o endereço do teu perfil"
 " público: gitmgf.com/u/identificador."
 msgstr ""
 
 msgid "— Escolher —"
 msgstr ""
 
-msgid "Declarada por si e mostrada como contexto, não como credencial."
+msgid "Declarada por ti e mostrada como contexto, não como credencial."
 msgstr ""
 
 msgid "Especialidade (opcional)"
@@ -1366,19 +1366,19 @@ msgstr ""
 #, python-format
 msgid ""
 "Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos-"
-"lhe um código de 6 dígitos."
+"te um código de 6 dígitos."
 msgstr ""
 
 #, python-format
 msgid ""
-"Enviámos um código de 6 dígitos para <strong>%(email)s</strong>. "
-"Introduza-o para concluir o registo."
+"Enviámos um código de 6 dígitos para <strong>%(email)s</strong>. Introduz"
+" o código para concluir o registo."
 msgstr ""
 
 #, python-format
 msgid ""
-"O código é válido durante %(minutes)s minutos. Se não o encontrar, "
-"verifique a pasta de spam."
+"O código é válido durante %(minutes)s minutos. Se não o encontrares, "
+"verifica a pasta de spam."
 msgstr ""
 
 msgid "Enviámos um novo código. Os anteriores deixaram de funcionar."
@@ -1416,12 +1416,12 @@ msgstr ""
 msgid "Código expirado"
 msgstr ""
 
-msgid "Este pedido expirou ou já foi usado. Peça um novo código."
+msgid "Este pedido expirou ou já foi usado. Pede um novo código."
 msgstr ""
 
 msgid ""
-"Este registo expirou ou já foi concluído. Se ainda não tem conta, "
-"preencha o formulário de novo."
+"Este registo expirou ou já foi concluído. Se ainda não tens conta, "
+"preenche o formulário de novo."
 msgstr ""
 
 msgid "Pedir novo código"
@@ -1434,8 +1434,8 @@ msgid "Recuperar palavra-passe"
 msgstr ""
 
 msgid ""
-"Indique o email da sua conta. Se existir, enviamos um código de 6 dígitos"
-" para definir uma nova palavra-passe."
+"Indica o email da tua conta. Se existir, enviamos um código de 6 dígitos "
+"para definir uma nova palavra-passe."
 msgstr ""
 
 msgid "Enviar código"
@@ -1447,14 +1447,14 @@ msgstr ""
 msgid "Entrar na gitmgf"
 msgstr ""
 
-msgid "Ainda não tem conta?"
+msgid "Ainda não tens conta?"
 msgstr ""
 
-msgid "Esqueceu-se da palavra-passe?"
+msgid "Esqueceste-te da palavra-passe?"
 msgstr ""
 
 msgid ""
-"Esqueceu-se da palavra-passe? Peça uma ligação de redefinição a um "
+"Esqueceste-te da palavra-passe? Pede uma ligação de redefinição a um "
 "administrador através do"
 msgstr ""
 
@@ -1488,12 +1488,12 @@ msgid "Continuar"
 msgstr ""
 
 msgid ""
-"De momento, o registo é feito por convite. Se não tem um, peça-o através "
-"do"
+"De momento, o registo é feito por convite. Se não tens um, pede-o através"
+" do"
 msgstr ""
 
 msgid ""
-"Depois de preencher, enviamos um código de 6 dígitos para o seu email "
+"Depois de preencheres, enviamos um código de 6 dígitos para o teu email "
 "para confirmar o endereço."
 msgstr ""
 
@@ -1508,7 +1508,7 @@ msgid ""
 "lembrar e difícil de adivinhar."
 msgstr ""
 
-msgid "Já tem conta?"
+msgid "Já tens conta?"
 msgstr ""
 
 msgid "Definir palavra-passe"
@@ -1531,19 +1531,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Email automático da gitmgf (%(url)s). Recebe-o porque tem conta ou fez um"
-" pedido no site."
+"Email automático da gitmgf (%(url)s). Recebes este email porque tens "
+"conta ou fizeste um pedido no site."
 msgstr ""
 
 msgid "Acesso recusado"
 msgstr ""
 
 msgid ""
-"O formulário expirou ou foi enviado de outro site. Volte atrás, atualize "
-"a página e tente novamente."
+"O formulário expirou ou foi enviado de outro site. Volta atrás, atualiza "
+"a página e tenta novamente."
 msgstr ""
 
-msgid "Não tem permissão para fazer esta ação."
+msgid "Não tens permissão para fazer esta ação."
 msgstr ""
 
 msgid "Voltar ao início"
@@ -1552,28 +1552,28 @@ msgstr ""
 msgid "Página não encontrada"
 msgstr ""
 
-msgid "A página que procura não existe ou não está disponível."
+msgid "A página que procuras não existe ou não está disponível."
 msgstr ""
 
 msgid "Demasiados pedidos"
 msgstr ""
 
-msgid "Aguarde um pouco e tente novamente."
+msgid "Aguarda um pouco e tenta novamente."
 msgstr ""
 
 msgid "Erro inesperado"
 msgstr ""
 
-msgid "Algo correu mal do nosso lado. Tente novamente dentro de momentos."
+msgid "Algo correu mal do nosso lado. Tenta novamente dentro de momentos."
 msgstr ""
 
 #, python-format
-msgid "Tem %(num)d ferramenta que vai ser retirada."
-msgid_plural "Tem %(num)d ferramentas que vão ser retiradas."
+msgid "Tens %(num)d ferramenta que vai ser retirada."
+msgid_plural "Tens %(num)d ferramentas que vão ser retiradas."
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Pode transferir primeiro uma cópia dos seus dados:"
+msgid "Podes transferir primeiro uma cópia dos teus dados:"
 msgstr ""
 
 msgid "Transferir os meus dados (JSON)"
@@ -1637,7 +1637,7 @@ msgid "Remover esta sugestão?"
 msgstr ""
 
 msgid ""
-"Ainda não tem notificações. As decisões da moderação sobre as suas "
+"Ainda não tens notificações. As decisões da moderação sobre as tuas "
 "ferramentas e as sugestões de outros utilizadores aparecem aqui."
 msgstr ""
 
@@ -1645,7 +1645,7 @@ msgid "Foto de perfil"
 msgstr ""
 
 msgid ""
-"Opcional. Aparece no seu perfil, nas suas ferramentas e no menu. PNG, "
+"Opcional. Aparece no teu perfil, nas tuas ferramentas e no menu. PNG, "
 "JPEG ou WebP até 2 MB; é recortada ao centro em formato quadrado e os "
 "metadados são removidos."
 msgstr ""
@@ -1672,23 +1672,23 @@ msgid "Sessões"
 msgstr ""
 
 #, python-format
-msgid "Tem %(num)d sessão ativa."
-msgid_plural "Tem %(num)d sessões ativas."
+msgid "Tens %(num)d sessão ativa."
+msgid_plural "Tens %(num)d sessões ativas."
 msgstr[0] ""
 msgstr[1] ""
 
 msgid "Terminar sessão em todos os dispositivos"
 msgstr ""
 
-msgid "Os seus dados"
+msgid "Os teus dados"
 msgstr ""
 
 msgid ""
-"Pode transferir uma cópia dos seus dados ou eliminar a conta a qualquer "
+"Podes transferir uma cópia dos teus dados ou eliminar a conta a qualquer "
 "momento."
 msgstr ""
 
-msgid "Ainda não deu estrela a nenhuma ferramenta."
+msgid "Ainda não deste estrela a nenhuma ferramenta."
 msgstr ""
 
 msgid "Explorar ferramentas"
@@ -1701,7 +1701,7 @@ msgid "Ver página pública"
 msgstr ""
 
 msgid ""
-"Esta ferramenta está em revisão. Para a editar, retire primeiro a "
+"Esta ferramenta está em revisão. Para a editar, retira primeiro a "
 "submissão."
 msgstr ""
 
@@ -1709,11 +1709,11 @@ msgid "Retirar submissão"
 msgstr ""
 
 msgid ""
-"Rascunho guardado, mas faltam campos obrigatórios para submeter. Reveja "
-"os campos assinalados."
+"Rascunho guardado, mas faltam campos obrigatórios para submeter. Revê os "
+"campos assinalados."
 msgstr ""
 
-msgid "Há campos a corrigir. Veja as mensagens abaixo."
+msgid "Há campos a corrigir. Vê as mensagens abaixo."
 msgstr ""
 
 msgid "Alteração pendente de revisão."
@@ -1752,7 +1752,7 @@ msgstr ""
 
 msgid ""
 "O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, "
-"listas, ligações, tabelas). Não inclua dados que identifiquem utentes."
+"listas, ligações, tabelas). Não incluas dados que identifiquem utentes."
 msgstr ""
 
 msgid "Versão em inglês (opcional)"
@@ -1797,8 +1797,8 @@ msgid "Ligações"
 msgstr ""
 
 msgid ""
-"Pelo menos uma. Use o local onde publica a ferramenta (repositório, site,"
-" loja de aplicações), não serviços de partilha de ficheiros nem "
+"Pelo menos uma. Usa o local onde publicas a ferramenta (repositório, "
+"site, loja de aplicações), não serviços de partilha de ficheiros nem "
 "encurtadores de ligações."
 msgstr ""
 
@@ -1807,17 +1807,19 @@ msgstr ""
 
 msgid ""
 "Mostrado publicamente na página da ferramenta, para quem a usa pedir "
-"ajuda. Se preferir não expor o seu email pessoal, use um endereço "
+"ajuda. Se preferires não expor o teu email pessoal, usa um endereço "
 "dedicado."
 msgstr ""
 
 msgid ""
-"Por omissão, nenhuma certificação é declarada. Ative apenas o que a "
-"ferramenta tem de facto e indique a evidência: cada declaração é "
+"Por omissão, nenhuma certificação é declarada. Ativa apenas o que a "
+"ferramenta tem de facto e indica a evidência: cada declaração é "
 "verificada por um moderador."
 msgstr ""
 
-msgid "Depois de guardar o rascunho, pode adicionar até 5 capturas de ecrã aqui."
+msgid ""
+"Depois de guardares o rascunho, podes adicionar até 5 capturas de ecrã "
+"aqui."
 msgstr ""
 
 msgid ""
@@ -1827,14 +1829,14 @@ msgstr ""
 
 msgid ""
 "Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas"
-" e os metadados removidos. Confirme que não mostram dados de utentes."
+" e os metadados removidos. Confirma que não mostram dados de utentes."
 msgstr ""
 
 msgid "Alterações às imagens de uma ferramenta publicada também são revistas."
 msgstr ""
 
 msgid ""
-"Use as setas para escolher qual fica em primeiro lugar. Funcionam melhor "
+"Usa as setas para escolher qual fica em primeiro lugar. Funcionam melhor "
 "imagens na horizontal, com o essencial na parte de cima."
 msgstr ""
 
@@ -1844,7 +1846,7 @@ msgstr ""
 msgid "Remover esta imagem?"
 msgstr ""
 
-msgid "Texto alternativo (descreva a imagem)"
+msgid "Texto alternativo (descreve a imagem)"
 msgstr ""
 
 msgid "Texto alternativo (EN, opcional)"
@@ -1898,7 +1900,7 @@ msgstr ""
 
 msgid ""
 "Contagens pseudonimizadas: cada visitante conta uma vez por dia e por "
-"tipo. As suas próprias visitas não contam."
+"tipo. As tuas próprias visitas não contam."
 msgstr ""
 
 msgid "Cliques a partir da pesquisa (30 d)"
@@ -1964,7 +1966,7 @@ msgstr ""
 msgid "Retirar"
 msgstr ""
 
-msgid "Ainda não partilhou nenhuma ferramenta."
+msgid "Ainda não partilhaste nenhuma ferramenta."
 msgstr ""
 
 msgid "Motivo"
@@ -2011,7 +2013,7 @@ msgstr ""
 msgid "Denúncias"
 msgstr ""
 
-msgid "Mais antigos primeiro. Não pode moderar as suas próprias ferramentas."
+msgid "Mais antigos primeiro. Não podes moderar as tuas próprias ferramentas."
 msgstr ""
 
 msgid "Recebida"
@@ -2023,7 +2025,7 @@ msgstr ""
 msgid "Há"
 msgstr ""
 
-msgid "sua"
+msgid "tua"
 msgstr ""
 
 msgid "Rever"
@@ -2051,8 +2053,8 @@ msgid "Nota para o denunciante (opcional)"
 msgstr ""
 
 msgid ""
-"Para ocultar a ferramenta, use a página de revisão (o autor recebe a "
-"fundamentação). Depois feche aqui a denúncia."
+"Para ocultar a ferramenta, usa a página de revisão (o autor recebe a "
+"fundamentação). Depois fecha aqui a denúncia."
 msgstr ""
 
 msgid "Resolver (foram tomadas medidas)"
@@ -2073,7 +2075,7 @@ msgstr ""
 msgid "Ver versão publicada"
 msgstr ""
 
-msgid "É o autor desta ferramenta: outra pessoa tem de a moderar."
+msgid "És o autor desta ferramenta: outra pessoa tem de a moderar."
 msgstr ""
 
 msgid "Diferenças em relação à versão publicada"
@@ -2132,7 +2134,7 @@ msgstr ""
 msgid "Aprovar"
 msgstr ""
 
-msgid "Certificações declaradas — aprove ou rejeite cada uma:"
+msgid "Certificações declaradas — aprova ou rejeita cada uma:"
 msgstr ""
 
 msgid "Aprovar e publicar"
@@ -2207,14 +2209,14 @@ msgid "Nenhuma ferramenta encontrada."
 msgstr ""
 
 msgid ""
-"Tente outras palavras ou retire alguns filtros. Conhece uma ferramenta "
+"Tenta outras palavras ou retira alguns filtros. Conheces uma ferramenta "
 "que devia estar aqui?"
 msgstr ""
 
-msgid "Partilhe-a"
+msgid "Partilha-a"
 msgstr ""
 
-msgid "Não pode atribuir estrela à sua própria ferramenta."
+msgid "Não podes atribuir estrela à tua própria ferramenta."
 msgstr ""
 
 msgid "Com estrela"
@@ -2280,11 +2282,11 @@ msgid "Explicação"
 msgstr ""
 
 msgid ""
-"Pelo menos 20 caracteres. Explique o problema com detalhe suficiente para"
-" o podermos avaliar. Não inclua dados de utentes."
+"Pelo menos 20 caracteres. Explica o problema com detalhe suficiente para "
+"o podermos avaliar. Não incluas dados de utentes."
 msgstr ""
 
-msgid "O seu email"
+msgid "O teu email"
 msgstr ""
 
 msgid ""
@@ -2293,7 +2295,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Nas denúncias de abuso sexual de crianças não pedimos nem guardamos o seu"
+"Nas denúncias de abuso sexual de crianças não pedimos nem guardamos o teu"
 " email: a denúncia é anónima."
 msgstr ""
 
@@ -2361,20 +2363,20 @@ msgid "Mensagem"
 msgstr ""
 
 msgid ""
-"Pelo menos 20 caracteres. Descreva o que gostaria de ver e porque seria "
-"útil na prática. Não inclua dados de utentes."
+"Pelo menos 20 caracteres. Descreve o que gostarias de ver e porque seria "
+"útil na prática. Não incluas dados de utentes."
 msgstr ""
 
 msgid "Partilhar o meu email com o autor, para me poder responder."
 msgstr ""
 
-msgid "Se não assinalar, o autor vê apenas o seu nome a apresentar."
+msgid "Se não assinalares, o autor vê apenas o teu nome a apresentar."
 msgstr ""
 
 msgid "Enviar sugestão"
 msgstr ""
 
-msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, use"
+msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, usa"
 msgstr ""
 
 msgid "Moderar"
@@ -2392,7 +2394,7 @@ msgid "Estado:"
 msgstr ""
 
 msgid ""
-"Tem uma alteração pendente de revisão. Esta página mostra a versão "
+"Tens uma alteração pendente de revisão. Esta página mostra a versão "
 "publicada."
 msgstr ""
 

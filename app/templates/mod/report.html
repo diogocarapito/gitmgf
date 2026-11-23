@@ -22,7 +22,7 @@
   <form class="panel form" method="post" action="/mod/reports/{{ report.id }}/resolve">
     {{ m.csrf() }}
     <div class="field"><label for="note">{{ _("Nota para o denunciante (opcional)") }}</label><textarea id="note" name="note" rows="3" maxlength="2000"></textarea></div>
-    <p class="small muted">{{ _("Para ocultar a ferramenta, use a página de revisão (o autor recebe a fundamentação). Depois feche aqui a denúncia.") }}</p>
+    <p class="small muted">{{ _("Para ocultar a ferramenta, usa a página de revisão (o autor recebe a fundamentação). Depois fecha aqui a denúncia.") }}</p>
     <div class="row">
       <button class="btn btn--primary" type="submit">{{ _("Resolver (foram tomadas medidas)") }}</button>
       <button class="btn" type="submit" formaction="/mod/reports/{{ report.id }}/dismiss">{{ _("Arquivar sem ação") }}</button>

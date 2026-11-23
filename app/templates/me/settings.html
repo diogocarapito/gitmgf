@@ -19,7 +19,7 @@
     <div class="avatar-edit">
       {{ m.avatar(user, "xl") }}
       <div>
-        <p class="form-section__intro">{{ _("Opcional. Aparece no seu perfil, nas suas ferramentas e no menu. PNG, JPEG ou WebP até 2 MB; é recortada ao centro em formato quadrado e os metadados são removidos.") }}</p>
+        <p class="form-section__intro">{{ _("Opcional. Aparece no teu perfil, nas tuas ferramentas e no menu. PNG, JPEG ou WebP até 2 MB; é recortada ao centro em formato quadrado e os metadados são removidos.") }}</p>
         <form class="form" method="post" action="/me/avatar" enctype="multipart/form-data">
           {{ m.csrf() }}
           <div class="field{% if errors.get('avatar') %} field--invalid{% endif %}">
@@ -47,13 +47,13 @@
 
   <section class="form-section section--tight">
     <h2 class="form-section__title">{{ _("Sessões") }}</h2>
-    <p class="form-section__intro">{{ ngettext("Tem %(num)d sessão ativa.", "Tem %(num)d sessões ativas.", session_count) }}</p>
+    <p class="form-section__intro">{{ ngettext("Tens %(num)d sessão ativa.", "Tens %(num)d sessões ativas.", session_count) }}</p>
     <form method="post" action="/auth/logout-all">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('log-out') }} {{ _("Terminar sessão em todos os dispositivos") }}</button></form>
   </section>
 
   <section class="form-section section--tight">
-    <h2 class="form-section__title">{{ _("Os seus dados") }}</h2>
-    <p class="form-section__intro">{{ _("Pode transferir uma cópia dos seus dados ou eliminar a conta a qualquer momento.") }}</p>
+    <h2 class="form-section__title">{{ _("Os teus dados") }}</h2>
+    <p class="form-section__intro">{{ _("Podes transferir uma cópia dos teus dados ou eliminar a conta a qualquer momento.") }}</p>
     <div class="row">
       <a class="btn" href="/me/export.json">{{ icon('download') }} {{ _("Transferir os meus dados (JSON)") }}</a>
       <a class="btn btn--danger" href="{{ url('/me/delete-account') }}">{{ icon('trash') }} {{ _("Eliminar conta") }}</a>

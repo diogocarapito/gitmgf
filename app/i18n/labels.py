@@ -239,7 +239,7 @@ FLASH = {
     "avatar_removed": ("ok", N_("Foto de perfil removida.")),
     "signed_out_all": ("ok", N_("Sessão terminada em todos os dispositivos.")),
     "draft_saved": ("ok", N_("Rascunho guardado.")),
-    "submitted": ("ok", N_("Ferramenta submetida para revisão. Vai receber um email com a decisão.")),
+    "submitted": ("ok", N_("Ferramenta submetida para revisão. Vais receber um email com a decisão.")),
     "revision_submitted": ("ok", N_("Alteração submetida. A versão publicada mantém-se até à aprovação.")),
     "revision_withdrawn": ("ok", N_("Alteração pendente retirada.")),
     "withdrawn": ("ok", N_("Submissão retirada. A ferramenta voltou a rascunho.")),
@@ -255,27 +255,27 @@ FLASH = {
     "unhidden": ("ok", N_("Ferramenta visível novamente.")),
     "score_reset": ("ok", N_("Pontuação reposta.")),
     "report_closed": ("ok", N_("Denúncia fechada. O denunciante foi notificado.")),
-    "reported": ("ok", N_("Obrigado. Recebemos a sua denúncia e vamos analisá-la.")),
+    "reported": ("ok", N_("Obrigado. Recebemos a tua denúncia e vamos analisá-la.")),
     "role_changed": ("ok", N_("Função alterada.")),
     "suspended": ("ok", N_("Utilizador suspenso.")),
     "unsuspended": ("ok", N_("Suspensão levantada.")),
     "user_deleted": ("ok", N_("Conta eliminada.")),
     "account_deleted": (
         "ok",
-        N_("A sua conta foi eliminada. Os dados serão apagados definitivamente em 30 dias."),
+        N_("A tua conta foi eliminada. Os dados serão apagados definitivamente em 30 dias."),
     ),
     "merged": ("ok", N_("Etiquetas fundidas.")),
     "forbidden_last_admin": ("danger", N_("Não é possível retirar o último administrador.")),
     "pending_limit": (
         "danger",
-        N_("Atingiu o limite de submissões pendentes. Aguarde a revisão das anteriores."),
+        N_("Atingiste o limite de submissões pendentes. Aguarda a revisão das anteriores."),
     ),
-    "rate_limited": ("danger", N_("Demasiados pedidos. Aguarde um pouco e tente novamente.")),
-    "reason_required": ("danger", N_("Indique um motivo (modelo ou texto livre).")),
+    "rate_limited": ("danger", N_("Demasiados pedidos. Aguarda um pouco e tenta novamente.")),
+    "reason_required": ("danger", N_("Indica um motivo (modelo ou texto livre).")),
     "checklist_incomplete": (
         "danger",
         N_(
-            "Para aprovar, confirme todos os pontos da lista de verificação. Se algum falhar, peça alterações."
+            "Para aprovar, confirma todos os pontos da lista de verificação. Se algum falhar, pede alterações."
         ),
     ),
     "category_saved": ("ok", N_("Categoria guardada.")),

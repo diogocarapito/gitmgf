@@ -6,9 +6,9 @@
   <p class="code">403</p>
   <h1>{{ _("Acesso recusado") }}</h1>
   {% if detail in ("csrf", "origin") %}
-  <p class="muted">{{ _("O formulário expirou ou foi enviado de outro site. Volte atrás, atualize a página e tente novamente.") }}</p>
+  <p class="muted">{{ _("O formulário expirou ou foi enviado de outro site. Volta atrás, atualiza a página e tenta novamente.") }}</p>
   {% else %}
-  <p class="muted">{{ _("Não tem permissão para fazer esta ação.") }}</p>
+  <p class="muted">{{ _("Não tens permissão para fazer esta ação.") }}</p>
   {% endif %}
   <p><a class="btn btn--primary" href="{{ url('/') }}">{{ _("Voltar ao início") }}</a></p>
 </div>

@@ -1,12 +1,12 @@
 ---
-subject: O seu código gitmgf: {{ code }}
+subject: O teu código gitmgf: {{ code }}
 ---
 Olá,
 
-Para concluir o registo na gitmgf, introduza este código:
+Para concluir o registo na gitmgf, introduz este código:
 
 {{ code }}
 
 O código é válido durante {{ minutes }} minutos.
 
-Se não pediu para criar uma conta, pode ignorar este email: sem o código, a conta não é criada.
+Se não pediste para criar uma conta, podes ignorar este email: sem o código, a conta não é criada.

@@ -10,7 +10,7 @@
     <h1>{{ tool.title_pt }}</h1>
     <p>{{ m.status(tool.status, labels.TOOL_STATUS) }} · {{ _("Autor:") }} {{ tool.owner.display_name }} ({{ label(labels.PROFESSION, tool.owner.profession) }}) · <a href="{{ url('/t/' ~ tool.slug) }}">{{ _("Ver página") }}</a>{% if revision %} · <a href="{{ url('/mod/revisions/' ~ revision.id) }}">{{ _("Alteração pendente") }}</a>{% endif %}</p>
   </header>
-  {% if not can_act %}<div class="notice notice--warn">{{ icon('lock') }}<p>{{ _("É o autor desta ferramenta: outra pessoa tem de a moderar.") }}</p></div>{% endif %}
+  {% if not can_act %}<div class="notice notice--warn">{{ icon('lock') }}<p>{{ _("És o autor desta ferramenta: outra pessoa tem de a moderar.") }}</p></div>{% endif %}
   {% for w in warnings %}<div class="notice notice--warn section--tight">{{ icon('alert') }}<p>{{ _(w) }}</p></div>{% endfor %}
   {% if open_reports %}<div class="notice notice--danger section--tight">{{ icon('flag') }}<p>{{ ngettext("%(num)d denúncia aberta.", "%(num)d denúncias abertas.", open_reports | length) }} <a href="{{ url('/mod', tab='reports') }}">{{ _("Ver") }}</a></p></div>{% endif %}
 
@@ -51,7 +51,7 @@
         <div class="panel form">
           <h2>{{ _("Aprovar") }}</h2>
           {% set pending = claims | selectattr('state', 'equalto', 'pending') | list %}
-          {% if pending %}<p class="small muted">{{ _("Certificações declaradas — aprove ou rejeite cada uma:") }}</p>{{ mm.claim_decisions(pending) }}{% endif %}
+          {% if pending %}<p class="small muted">{{ _("Certificações declaradas — aprova ou rejeita cada uma:") }}</p>{{ mm.claim_decisions(pending) }}{% endif %}
           {{ mm.suggestions_field("ap-") }}
           <button class="btn btn--primary" type="submit">{{ icon('check') }} {{ _("Aprovar e publicar") }}</button>
         </div>

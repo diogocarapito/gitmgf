@@ -14,20 +14,20 @@ ERROR_MESSAGES = {
     "missing": N_("Campo obrigatório."),
     "string_too_short": N_("Texto demasiado curto (mín. %(min_length)s caracteres)."),
     "string_too_long": N_("Texto demasiado longo (máx. %(max_length)s caracteres)."),
-    "enum": N_("Escolha uma opção válida."),
-    "literal_error": N_("Escolha uma opção válida."),
+    "enum": N_("Escolhe uma opção válida."),
+    "literal_error": N_("Escolhe uma opção válida."),
     "int_parsing": N_("Valor inválido."),
     "value_error": N_("Valor inválido."),
     "too_long": N_("Demasiados itens (máx. %(max_length)s)."),
-    "too_short": N_("Escolha pelo menos %(min_length)s."),
+    "too_short": N_("Escolhe pelo menos %(min_length)s."),
     "string_pattern_mismatch": N_("Formato inválido."),
     "bool_parsing": N_("Valor inválido."),
     "date_from_datetime_parsing": N_("Data inválida."),
     "date_parsing": N_("Data inválida."),
 }
 REQUIRED = N_("Campo obrigatório.")
-INVALID_URL = N_("Indique um endereço http:// ou https:// válido (máx. 500 caracteres).")
-INVALID_EMAIL = N_("Indique um email válido.")
+INVALID_URL = N_("Indica um endereço http:// ou https:// válido (máx. 500 caracteres).")
+INVALID_EMAIL = N_("Indica um email válido.")
 
 
 class FieldError(ValueError):

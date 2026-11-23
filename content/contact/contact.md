@@ -11,15 +11,15 @@ Para questões gerais, contestação de decisões de moderação e comunicaçõe
 
 ## Privacidade
 
-Para exercer os seus direitos sobre dados pessoais (acesso, retificação, eliminação, portabilidade, oposição): **[[PRIVACY_EMAIL]]**. Também pode transferir os seus dados e eliminar a conta nas [Definições](/me/settings). Saiba mais na [Política de Privacidade](/p/privacy).
+Para exercer os teus direitos sobre dados pessoais (acesso, retificação, eliminação, portabilidade, oposição): **[[PRIVACY_EMAIL]]**. Também podes transferir os teus dados e eliminar a conta nas [Definições](/me/settings). Sabe mais na [Política de Privacidade](/p/privacy).
 
 ## Segurança
 
-Para comunicar vulnerabilidades de forma responsável: **[[SECURITY_EMAIL]]**. Não explore nem divulgue a vulnerabilidade antes de a corrigirmos.
+Para comunicar vulnerabilidades de forma responsável: **[[SECURITY_EMAIL]]**. Não explores nem divulgues a vulnerabilidade antes de a corrigirmos.
 
 ## Denunciar uma ferramenta
 
-Use a ligação **"Reportar problema"** na página da ferramenta. Qualquer pessoa pode fazê-lo, com ou sem conta. Recebe uma confirmação e, depois, a decisão.
+Usa a ligação **"Reportar problema"** na página da ferramenta. Qualquer pessoa pode fazê-lo, com ou sem conta. Recebes uma confirmação e, depois, a decisão.
 
 ## Responsável
 

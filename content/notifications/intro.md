@@ -1,1 +1,1 @@
-Decisões da moderação e sugestões para as suas ferramentas. Também as recebe por email.
+Decisões da moderação e sugestões para as tuas ferramentas. Também as recebes por email.

@@ -46,13 +46,13 @@ def _load(data: bytes) -> Image.Image:
     if len(data) > MAX_BYTES:
         raise MediaError(N_("A imagem excede 2 MB."))
     if not data:
-        raise MediaError(N_("Escolha um ficheiro de imagem."))
+        raise MediaError(N_("Escolhe um ficheiro de imagem."))
     try:
         probe = Image.open(io.BytesIO(data))
         fmt = probe.format
         probe.verify()  # structural check; the object is unusable afterwards
         if fmt not in ALLOWED_FORMATS:
-            raise MediaError(N_("Formato não suportado. Use PNG, JPEG ou WebP."))
+            raise MediaError(N_("Formato não suportado. Usa PNG, JPEG ou WebP."))
         image = Image.open(io.BytesIO(data))
         image.load()
     except (UnidentifiedImageError, OSError, SyntaxError, ValueError, Image.DecompressionBombError) as exc:

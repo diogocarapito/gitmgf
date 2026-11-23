@@ -48,13 +48,13 @@ Reunir estas ferramentas num só lugar ajuda quem precisa a encontrá-las, dá c
 
 ## Como participar
 
-- **Partilhe** uma ferramenta que construiu, mesmo que pareça simples: muitas das ferramentas mais úteis são pequenas.
-- **Experimente** as ferramentas dos colegas e dê uma estrela às que lhe são úteis.
-- **Sugira melhorias** aos autores e, se a ferramenta for de código aberto, contribua no repositório.
-- **Divulgue** o gitmgf junto dos colegas da sua unidade e do Internato.
+- **Partilha** uma ferramenta que construíste, mesmo que pareça simples: muitas das ferramentas mais úteis são pequenas.
+- **Experimenta** as ferramentas dos colegas e dá uma estrela às que te são úteis.
+- **Sugere melhorias** aos autores e, se a ferramenta for de código aberto, contribui no repositório.
+- **Divulga** o gitmgf junto dos colegas da tua unidade e do Internato.
 
-O gitmgf é **apenas um diretório**: não aloja nem executa as ferramentas. Não tem publicidade nem posições pagas, e não usa *cookies* de análise nem serviços de terceiros nas páginas. Saiba mais na [Política de Privacidade](/p/privacy).
+O gitmgf é **apenas um diretório**: não aloja nem executa as ferramentas. Não tem publicidade nem posições pagas, e não usa *cookies* de análise nem serviços de terceiros nas páginas. Sabe mais na [Política de Privacidade](/p/privacy).
 
 [[SITE_CODE_LICENSE_STATEMENT]]
 
-Tem uma ferramenta para partilhar, uma ideia ou uma sugestão para o gitmgf? Veja a página de [Contacto](/p/contact).
+Tens uma ferramenta para partilhar, uma ideia ou uma sugestão para o gitmgf? Vê a página de [Contacto](/p/contact).

@@ -5,7 +5,7 @@
 {% block content %}
 {% set active = 'tags' %}
 <div class="container">
-  <header class="page-head"><h1>{{ _("Etiquetas") }}</h1><p>{{ _("Selecione etiquetas duplicadas e escolha a etiqueta de destino para as fundir.") }}</p></header>
+  <header class="page-head"><h1>{{ _("Etiquetas") }}</h1><p>{{ _("Seleciona etiquetas duplicadas e escolhe a etiqueta de destino para as fundir.") }}</p></header>
   {% include "admin/_nav.html" %}
   <form class="row section--tight" method="get" action="{{ url('/admin/tags') }}"><input type="search" name="q" value="{{ q }}" aria-label="{{ _('Pesquisar') }}"><button class="btn" type="submit">{{ _("Filtrar") }}</button></form>
   <form method="post" action="/admin/tags/merge">

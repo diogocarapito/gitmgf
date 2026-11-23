@@ -1,1 +1,1 @@
-Explore as ferramentas por finalidade ou por especialidade.
+Explora as ferramentas por finalidade ou por especialidade.

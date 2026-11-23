@@ -7,11 +7,11 @@
   <div class="auth-card">
     <h1>{{ icon('mail') }} {% if reset %}{{ _("Definir nova palavra-passe") }}{% else %}{{ _("Confirmar email") }}{% endif %}</h1>
     {% if reset %}
-    <p>{{ _("Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos-lhe um código de 6 dígitos.", email=masked) }}</p>
+    <p>{{ _("Se existir uma conta com o endereço <strong>%(email)s</strong>, enviámos-te um código de 6 dígitos.", email=masked) }}</p>
     {% else %}
-    <p>{{ _("Enviámos um código de 6 dígitos para <strong>%(email)s</strong>. Introduza-o para concluir o registo.", email=masked) }}</p>
+    <p>{{ _("Enviámos um código de 6 dígitos para <strong>%(email)s</strong>. Introduz o código para concluir o registo.", email=masked) }}</p>
     {% endif %}
-    <p class="muted small">{{ _("O código é válido durante %(minutes)s minutos. Se não o encontrar, verifique a pasta de spam.", minutes=minutes) }}</p>
+    <p class="muted small">{{ _("O código é válido durante %(minutes)s minutos. Se não o encontrares, verifica a pasta de spam.", minutes=minutes) }}</p>
     {% if resent %}<div class="notice notice--ok" role="status">{{ icon('check') }}<p>{{ _("Enviámos um novo código. Os anteriores deixaram de funcionar.") }}</p></div>{% endif %}
     {% if error %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(error) }}</p></div>{% endif %}
     <form class="form" action="{{ url(base ~ '/verify') }}" method="post">

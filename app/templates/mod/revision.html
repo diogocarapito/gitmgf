@@ -10,7 +10,7 @@
     <h1>{{ _("Alteração") }}: {{ tool.title_pt }}</h1>
     <p>{{ m.status(revision.status, {'pending': labels.TOOL_STATUS.pending, 'approved': labels.CLAIM_STATE.approved, 'rejected': labels.CLAIM_STATE.rejected, 'withdrawn': labels.TOOL_STATUS.draft}) }} · {{ revision.created_at | relative }} · <a href="{{ url('/t/' ~ tool.slug) }}">{{ _("Ver versão publicada") }}</a></p>
   </header>
-  {% if not can_act and revision.status == 'pending' %}<div class="notice notice--warn">{{ icon('lock') }}<p>{{ _("É o autor desta ferramenta: outra pessoa tem de a moderar.") }}</p></div>{% endif %}
+  {% if not can_act and revision.status == 'pending' %}<div class="notice notice--warn">{{ icon('lock') }}<p>{{ _("És o autor desta ferramenta: outra pessoa tem de a moderar.") }}</p></div>{% endif %}
   <div class="tool-layout">
     <section class="panel diff">
       <h2>{{ _("Diferenças em relação à versão publicada") }}</h2>

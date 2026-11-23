@@ -4,7 +4,7 @@
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
 <div class="container">
-  <header class="page-head"><h1>{{ _("Moderação") }}</h1><p>{{ _("Mais antigos primeiro. Não pode moderar as suas próprias ferramentas.") }}</p></header>
+  <header class="page-head"><h1>{{ _("Moderação") }}</h1><p>{{ _("Mais antigos primeiro. Não podes moderar as tuas próprias ferramentas.") }}</p></header>
   {% include "mod/_nav.html" %}
   {% if items %}
   <div class="table-wrap"><table class="table">
@@ -15,10 +15,10 @@
     <tbody>
     {% for item in items %}
       {% if tab == 'new' %}
-      <tr><td>{{ item.title_pt }}<div class="xsmall muted">{{ label(labels.TOOL_TYPE, item.tool_type) }}</div></td><td>{{ item.owner.display_name }}{% if item.owner_id == user.id %} <span class="status">{{ _("sua") }}</span>{% endif %}</td>
+      <tr><td>{{ item.title_pt }}<div class="xsmall muted">{{ label(labels.TOOL_TYPE, item.tool_type) }}</div></td><td>{{ item.owner.display_name }}{% if item.owner_id == user.id %} <span class="status">{{ _("tua") }}</span>{% endif %}</td>
         <td class="nowrap">{{ item.submitted_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/tools/' ~ item.id) }}">{{ _("Rever") }}</a></td></tr>
       {% elif tab == 'edits' %}
-      <tr><td>{{ item.tool.title_pt }}</td><td>{{ item.tool.owner.display_name }}{% if item.tool.owner_id == user.id %} <span class="status">{{ _("sua") }}</span>{% endif %}</td>
+      <tr><td>{{ item.tool.title_pt }}</td><td>{{ item.tool.owner.display_name }}{% if item.tool.owner_id == user.id %} <span class="status">{{ _("tua") }}</span>{% endif %}</td>
         <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/revisions/' ~ item.id) }}">{{ _("Rever") }}</a></td></tr>
       {% else %}
       <tr><td>{{ label(labels.REPORT_REASON, item.reason) }}</td><td>{{ item.tool.title_pt }}</td>

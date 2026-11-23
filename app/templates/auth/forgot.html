@@ -6,7 +6,7 @@
 <div class="container">
   <div class="auth-card">
     <h1>{{ _("Recuperar palavra-passe") }}</h1>
-    <p class="muted">{{ _("Indique o email da sua conta. Se existir, enviamos um código de 6 dígitos para definir uma nova palavra-passe.") }}</p>
+    <p class="muted">{{ _("Indica o email da tua conta. Se existir, enviamos um código de 6 dígitos para definir uma nova palavra-passe.") }}</p>
     {% if error %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(error) }}</p></div>{% endif %}
     <form class="form" action="{{ url('/forgot') }}" method="post">
       {{ m.csrf() }}

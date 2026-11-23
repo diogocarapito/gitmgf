@@ -107,7 +107,7 @@ def validate_claim(
             continue
         if ftype == "enum":
             if value not in option_values(field):
-                errors[key] = N_("Escolha uma opção válida.")
+                errors[key] = N_("Escolhe uma opção válida.")
                 continue
             clean[key] = value
         elif ftype == "url":
@@ -119,7 +119,7 @@ def validate_claim(
             try:
                 clean[key] = date.fromisoformat(value).isoformat()
             except ValueError:
-                errors[key] = N_("Data inválida (use AAAA-MM-DD).")
+                errors[key] = N_("Data inválida (usa AAAA-MM-DD).")
         elif ftype == "nb_number":
             if not NB_RE.match(value):
                 errors[key] = N_("O número do organismo notificado tem 4 dígitos.")
@@ -215,7 +215,7 @@ def check_claims(
     ai_act_available = "ai_act" in certs and certs["ai_act"].is_active
     if is_ai and ai_act_available and "ai_act" not in clean_claims:
         warnings.append(
-            N_("Ferramenta de IA: considere declarar a conformidade com o Regulamento da IA (AI Act).")
+            N_("Ferramenta de IA: considera declarar a conformidade com o Regulamento da IA (AI Act).")
         )
     return ClaimCheck(clean_claims, errors, warnings)
 

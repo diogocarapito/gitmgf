@@ -459,7 +459,7 @@ def cert_update(request: Request, db: DB, user: AdminDep, cert_id: int, form: Fo
         if not values[key]:
             errors[key] = ("Campo obrigatório.", {})
     if values["assurance_default"] not in {a.value for a in Assurance}:
-        errors["assurance_default"] = ("Escolha uma opção válida.", {})
+        errors["assurance_default"] = ("Escolhe uma opção válida.", {})
     try:
         sort_order = int(values["sort_order"] or 0)
     except ValueError:
@@ -640,7 +640,7 @@ def create_invite(
         errors["max_uses"] = ("Valor inválido.", {})
         max_uses, days = 1, auth_service.INVITE_DEFAULT_DAYS
     if address and "@" not in address:
-        errors["email"] = ("Indique um email válido.", {})
+        errors["email"] = ("Indica um email válido.", {})
     if errors:
         return _invite_page(request, db, errors=errors, status=422)
     invite, code = auth_service.create_invite(db, user, address, str(form.get("note") or ""), max_uses, days)

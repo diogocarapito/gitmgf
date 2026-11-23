@@ -14,17 +14,17 @@
 
   <div class="stack">
     {% if notice == "pending" or (tool and tool.status == 'pending') %}
-    <div class="notice notice--warn">{{ icon('clock') }}<div><p>{{ _("Esta ferramenta está em revisão. Para a editar, retire primeiro a submissão.") }}</p>
+    <div class="notice notice--warn">{{ icon('clock') }}<div><p>{{ _("Esta ferramenta está em revisão. Para a editar, retira primeiro a submissão.") }}</p>
       <form method="post" action="/me/tools/{{ tool.id }}/withdraw">{{ m.csrf() }}<button class="btn btn--sm" type="submit">{{ _("Retirar submissão") }}</button></form></div></div>
     {% elif notice == "draft_saved_incomplete" %}
-    <div class="notice notice--warn" role="alert">{{ icon('alert') }}<p>{{ _("Rascunho guardado, mas faltam campos obrigatórios para submeter. Reveja os campos assinalados.") }}</p></div>
+    <div class="notice notice--warn" role="alert">{{ icon('alert') }}<p>{{ _("Rascunho guardado, mas faltam campos obrigatórios para submeter. Revê os campos assinalados.") }}</p></div>
     {% elif notice in ("draft_saved", "revision_submitted", "saved") %}
     <div class="notice notice--ok" role="status">{{ icon('check') }}<p>{{ _(labels.FLASH[notice][1]) }}</p></div>
     {% elif notice %}
     <div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(notice) }}</p></div>
     {% endif %}
     {% if errors and not notice %}
-    <div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _("Há campos a corrigir. Veja as mensagens abaixo.") }}</p></div>
+    <div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _("Há campos a corrigir. Vê as mensagens abaixo.") }}</p></div>
     {% endif %}
     {% if revision %}
     <div class="notice">{{ icon('clock') }}<div><p><strong>{{ _("Alteração pendente de revisão.") }}</strong> {{ _("A versão publicada mantém-se visível até um moderador aprovar as alterações.") }}</p>
@@ -45,7 +45,7 @@
       <legend>{{ _("Informação básica") }}</legend>
       {{ m.text("title_pt", _("Título"), values, errors, required=True, maxlength=80) }}
       {{ m.text("summary_pt", _("Resumo"), values, errors, required=True, maxlength=200, hint=_("Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de pesquisa.")) }}
-      {{ m.textarea("description_pt", _("Descrição"), values, errors, required=True, maxlength=20000, rows=10, hint=_("O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, listas, ligações, tabelas). Não inclua dados que identifiquem utentes.")) }}
+      {{ m.textarea("description_pt", _("Descrição"), values, errors, required=True, maxlength=20000, rows=10, hint=_("O que faz, para quem, como usar e limitações. Aceita Markdown (títulos, listas, ligações, tabelas). Não incluas dados que identifiquem utentes.")) }}
       <details class="lang-en"{% if values.get('title_en') or values.get('summary_en') or values.get('description_en') or errors.get('title_en') %} open{% endif %}>
         <summary>{{ _("Versão em inglês (opcional)") }}</summary>
         {{ m.text("title_en", _("Título (EN)"), values, errors, maxlength=80, lang_attr="en") }}
@@ -88,16 +88,16 @@
 
     <fieldset class="form-section">
       <legend>{{ _("Ligações") }}</legend>
-      <p class="form-section__intro">{{ _("Pelo menos uma. Use o local onde publica a ferramenta (repositório, site, loja de aplicações), não serviços de partilha de ficheiros nem encurtadores de ligações.") }}</p>
+      <p class="form-section__intro">{{ _("Pelo menos uma. Usa o local onde publicas a ferramenta (repositório, site, loja de aplicações), não serviços de partilha de ficheiros nem encurtadores de ligações.") }}</p>
       {% for name in ("website_url", "repo_url", "download_url", "docs_url") %}
       {{ m.text(name, _(labels.LINK_FIELD[name]), values, errors, type="url", maxlength=500, placeholder="https://") }}
       {% endfor %}
-      {{ m.text("support_email", _("Email de suporte (opcional)"), values, errors, type="email", maxlength=254, autocomplete="off", hint=_("Mostrado publicamente na página da ferramenta, para quem a usa pedir ajuda. Se preferir não expor o seu email pessoal, use um endereço dedicado.")) }}
+      {{ m.text("support_email", _("Email de suporte (opcional)"), values, errors, type="email", maxlength=254, autocomplete="off", hint=_("Mostrado publicamente na página da ferramenta, para quem a usa pedir ajuda. Se preferires não expor o teu email pessoal, usa um endereço dedicado.")) }}
     </fieldset>
 
     <fieldset class="form-section" id="certificacoes">
       <legend>{{ _("Certificações e conformidade") }}</legend>
-      <p class="form-section__intro">{{ _("Por omissão, nenhuma certificação é declarada. Ative apenas o que a ferramenta tem de facto e indique a evidência: cada declaração é verificada por um moderador.") }}</p>
+      <p class="form-section__intro">{{ _("Por omissão, nenhuma certificação é declarada. Ativa apenas o que a ferramenta tem de facto e indica a evidência: cada declaração é verificada por um moderador.") }}</p>
       {% for cert in certs %}
       {% set on = values.get('cert_' ~ cert.code) %}
       {% set claim = claim_states.get(cert.code) %}
@@ -140,15 +140,15 @@
   {% if not tool %}
   <section class="form-section section--tight" id="screenshots">
     <h2 class="form-section__title">{{ _("Capturas de ecrã") }}</h2>
-    <p class="form-section__intro">{{ _("Depois de guardar o rascunho, pode adicionar até 5 capturas de ecrã aqui.") }} <strong>{{ _("A primeira imagem aparece no cartão da ferramenta, na página inicial e na pesquisa.") }}</strong></p>
+    <p class="form-section__intro">{{ _("Depois de guardares o rascunho, podes adicionar até 5 capturas de ecrã aqui.") }} <strong>{{ _("A primeira imagem aparece no cartão da ferramenta, na página inicial e na pesquisa.") }}</strong></p>
   </section>
   {% endif %}
 
   {% if tool and tool.status != 'pending' %}
   <section class="form-section section--tight" id="screenshots">
     <h2 class="form-section__title">{{ _("Capturas de ecrã") }}</h2>
-    <p class="form-section__intro">{{ _("Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas e os metadados removidos. Confirme que não mostram dados de utentes.") }}{% if not in_place %} {{ _("Alterações às imagens de uma ferramenta publicada também são revistas.") }}{% endif %}</p>
-    <p class="form-section__intro"><strong>{{ _("A primeira imagem aparece no cartão da ferramenta, na página inicial e na pesquisa.") }}</strong> {{ _("Use as setas para escolher qual fica em primeiro lugar. Funcionam melhor imagens na horizontal, com o essencial na parte de cima.") }}</p>
+    <p class="form-section__intro">{{ _("Até 5 imagens PNG, JPEG ou WebP, com 2 MB no máximo cada. São convertidas e os metadados removidos. Confirma que não mostram dados de utentes.") }}{% if not in_place %} {{ _("Alterações às imagens de uma ferramenta publicada também são revistas.") }}{% endif %}</p>
+    <p class="form-section__intro"><strong>{{ _("A primeira imagem aparece no cartão da ferramenta, na página inicial e na pesquisa.") }}</strong> {{ _("Usa as setas para escolher qual fica em primeiro lugar. Funcionam melhor imagens na horizontal, com o essencial na parte de cima.") }}</p>
     {% if errors.get('file') and media_items | length >= 5 %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors.get('file')[0]) }}</p></div>{% endif %}
     {% if media_items %}
     <div class="media-admin">
@@ -173,7 +173,7 @@
         <input id="f-file" type="file" name="file" accept="image/png,image/jpeg,image/webp" required>
         {{ m.error(errors, 'file') }}
       </div>
-      {{ m.text("alt_text_pt", _("Texto alternativo (descreva a imagem)"), {}, {}, required=True, maxlength=200) }}
+      {{ m.text("alt_text_pt", _("Texto alternativo (descreve a imagem)"), {}, {}, required=True, maxlength=200) }}
       {{ m.text("alt_text_en", _("Texto alternativo (EN, opcional)"), {}, {}, maxlength=200, lang_attr="en") }}
       <div class="form-actions"><button class="btn" type="submit">{{ icon('upload') }} {{ _("Adicionar imagem") }}</button></div>
     </form>

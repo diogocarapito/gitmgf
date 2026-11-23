@@ -22,7 +22,7 @@ class ReportForm(BaseModel):
     @classmethod
     def _good_faith(cls, v: bool) -> bool:
         if not v:
-            raise FieldError(N_("Confirme que faz a denúncia de boa-fé."))
+            raise FieldError(N_("Confirma que fazes a denúncia de boa-fé."))
         return v
 
     @model_validator(mode="after")

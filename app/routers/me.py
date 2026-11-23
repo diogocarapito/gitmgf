@@ -61,7 +61,7 @@ def upload_avatar(request: Request, db: DB, user: UserDep, form: Form) -> Respon
     upload = form.get("avatar")
     error: str | None = None
     if not isinstance(upload, UploadFile):
-        error = N_("Escolha um ficheiro de imagem.")
+        error = N_("Escolhe um ficheiro de imagem.")
     else:
         try:
             profiles.set_avatar(db, user, upload.file.read(media.MAX_BYTES + 1))
@@ -105,7 +105,7 @@ def settings_submit(request: Request, db: DB, user: UserDep, form: Form) -> Resp
         and data.specialty_category_id is not None
         and data.specialty_category_id not in valid_specialties
     ):
-        errors["specialty_category_id"] = (N_("Escolha uma opção válida."), {})
+        errors["specialty_category_id"] = (N_("Escolhe uma opção válida."), {})
     if errors or data is None:
         return _settings_page(request, db, user, raw, errors, status=422)
     for field in (
@@ -254,7 +254,7 @@ def delete_account(
             "me/delete_account.html",
             {
                 "tools": tool_service.owned_tools(db, user),
-                "errors": {"confirm": (N_("Confirme que quer eliminar a conta."), {})},
+                "errors": {"confirm": (N_("Confirma que queres eliminar a conta."), {})},
             },
             status_code=422,
         )

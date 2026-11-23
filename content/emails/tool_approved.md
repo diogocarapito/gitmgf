@@ -14,7 +14,7 @@ Pontos verificados pelo moderador:
 Algumas certificações declaradas não foram aprovadas e não aparecem na ficha:
 {{ rejected_claims }}
 
-Pode corrigi-las editando a ficha; as alterações voltam a ser revistas.
+Podes corrigi-las editando a ficha; as alterações voltam a ser revistas.
 {% endif %}
 {% if suggestions %}
 
@@ -22,4 +22,4 @@ Sugestões do moderador (não impedem a publicação):
 {{ suggestions }}
 {% endif %}
 
-Obrigado por contribuir para a comunidade.
+Obrigado por contribuíres para a comunidade.

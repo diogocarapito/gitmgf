@@ -89,7 +89,7 @@ class ToolForm(BaseModel):
         try:
             return str(TypeAdapter(EmailStr).validate_python(v)).lower()
         except ValidationError:
-            raise FieldError(N_("Indique um email válido.")) from None
+            raise FieldError(N_("Indica um email válido.")) from None
 
     @field_validator("tags", mode="before")
     @classmethod
@@ -106,7 +106,7 @@ class ToolForm(BaseModel):
     @classmethod
     def _license(cls, v: str | None) -> str | None:
         if v is not None and v not in LICENSE_LABEL:
-            raise FieldError(N_("Escolha uma opção válida."))
+            raise FieldError(N_("Escolhe uma opção válida."))
         return v
 
     @field_validator("platforms", "tool_languages", mode="after")
@@ -125,11 +125,11 @@ class ToolForm(BaseModel):
         need("summary_pt", bool(self.summary_pt))
         need("description_pt", bool(self.description_pt))
         need("tool_type", self.tool_type is not None)
-        need("category_ids", 1 <= len(self.category_ids) <= 5, N_("Escolha entre 1 e 5 categorias."))
+        need("category_ids", 1 <= len(self.category_ids) <= 5, N_("Escolhe entre 1 e 5 categorias."))
         need("care_setting", self.care_setting is not None)
-        need("platforms", bool(self.platforms), N_("Escolha pelo menos uma plataforma."))
-        need("tool_languages", bool(self.tool_languages), N_("Escolha pelo menos um idioma."))
-        need("website_url", any(getattr(self, f) for f in LINK_FIELDS), N_("Indique pelo menos uma ligação."))
+        need("platforms", bool(self.platforms), N_("Escolhe pelo menos uma plataforma."))
+        need("tool_languages", bool(self.tool_languages), N_("Escolhe pelo menos um idioma."))
+        need("website_url", any(getattr(self, f) for f in LINK_FIELDS), N_("Indica pelo menos uma ligação."))
         need("license_spdx", self.license_spdx is not None)
         need("pricing", self.pricing is not None)
         need("patient_data", self.patient_data is not None)
@@ -164,5 +164,5 @@ def parse_tool_form(form: Any) -> tuple[ToolForm, dict[str, tuple[str, dict[str,
         except ValidationError:
             parsed = ToolForm.model_validate({"title_pt": str(raw.get("title_pt") or "")[:80]})
     if len(parsed.title_pt) < 3 and "title_pt" not in errors:
-        errors["title_pt"] = (N_("Indique um título com pelo menos 3 caracteres."), {})
+        errors["title_pt"] = (N_("Indica um título com pelo menos 3 caracteres."), {})
     return parsed, errors, raw

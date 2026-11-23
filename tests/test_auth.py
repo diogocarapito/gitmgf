@@ -147,7 +147,7 @@ def test_registration_is_open_and_creates_the_account_only_after_the_code(client
 
 def test_registration_form_requires_basic_info_and_terms(client, db):
     r = _register(client, accept_terms="", display_name="", profession="")
-    assert r.status_code == 422 and "Tem de aceitar" in r.text
+    assert r.status_code == 422 and "Tens de aceitar" in r.text
     assert not _mail_to("nova@example.org")
 
 
@@ -190,7 +190,7 @@ def test_taken_email_looks_the_same_and_tells_the_owner(client, db):
     assert taken.status_code == free.status_code == 303
     assert "/register/verify?t=" in taken.headers["location"]
     owner_mail = _mail_to("ana@example.org")[0]
-    assert "Já tem uma conta" in owner_mail["Subject"] and not re_digits(owner_mail)
+    assert "Já tens uma conta" in owner_mail["Subject"] and not re_digits(owner_mail)
     assert db.query(User).count() == 1
 
 
@@ -353,7 +353,7 @@ def test_onboarding_completes_profile_and_terms(client, db):
     assert client.get("/me/settings").headers["location"].startswith("/onboarding")
     data = {"display_name": "Nova Pessoa", "handle": "nova-pessoa", "profession": "resident", "locale": "en"}
     r = post(client, "/onboarding", data)
-    assert r.status_code == 422 and "Tem de aceitar" in r.text
+    assert r.status_code == 422 and "Tens de aceitar" in r.text
     r = post(client, "/onboarding", {**data, "accept_terms": "1", "next": "/en/search"})
     assert r.status_code == 303 and r.headers["location"] == "/en/search"
     db.refresh(user)

@@ -1,11 +1,11 @@
 ---
-subject: Recebemos a sua submissão: {{ title }}
+subject: Recebemos a tua submissão: {{ title }}
 ---
 Olá,
 
-Recebemos a ficha «{{ title }}». Um moderador vai revê-la e receberá um email com a decisão.
+Recebemos a ficha «{{ title }}». Um moderador vai revê-la e vais receber um email com a decisão.
 
-Enquanto estiver em revisão, a ficha não é pública. Pode acompanhar o estado em:
+Enquanto estiver em revisão, a ficha não é pública. Podes acompanhar o estado em:
 {{ base_url }}{{ lang_prefix }}/me/tools
 
-Obrigado por partilhar o seu trabalho.
+Obrigado por partilhares o teu trabalho.

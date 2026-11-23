@@ -417,7 +417,7 @@ def suggest_submit(
         ratelimit.hit(ratelimit.SUGGEST_USER, "suggest", str(user.id))
         and ratelimit.hit(ratelimit.SUGGEST_USER_TOOL, "suggest-tool", str(user.id), str(tool.id))
     ):
-        errors = {"__all__": (N_("Enviou demasiadas sugestões hoje. Tente novamente amanhã."), {})}
+        errors = {"__all__": (N_("Enviaste demasiadas sugestões hoje. Tenta novamente amanhã."), {})}
         return _suggest_page(request, tool, raw, errors, 429)
     suggestion_service.send(db, tool, user, SuggestionKind(data.kind), data.message, data.allow_reply)
     db.commit()
@@ -452,7 +452,7 @@ def report_submit(
             request,
             tool,
             raw,
-            {"__all__": (N_("Não foi possível enviar. Aguarde uns segundos e tente novamente."), {})},
+            {"__all__": (N_("Não foi possível enviar. Aguarda uns segundos e tenta novamente."), {})},
             422,
         )
     try:

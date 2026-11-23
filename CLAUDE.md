@@ -75,7 +75,7 @@ Use PT-PT, never PT-BR. Preferred terms:
 | Medicina Geral e Familiar (MGF) | — | General Practice / Family Medicine |
 | cuidados de saúde primários | atenção primária | primary care |
 
-Tone: clear, friendly, professional; second person "você" is avoided — use impersonal forms or infinitive ("Pesquisar ferramentas", "Submeta a sua ferramenta").
+Tone: clear, friendly, professional; address the reader as **"tu"** (D39): "Submete a tua ferramenta", "Indica um email válido", "Já tens conta?". Never "você" or formal third-person imperatives ("Submeta a sua…"). Buttons and labels stay in the infinitive ("Pesquisar ferramentas"). Legal pages (`content/legal/`) keep their own register.
 
 ## Security reminders
 

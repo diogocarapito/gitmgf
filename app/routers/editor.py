@@ -262,7 +262,7 @@ def upload_media(request: Request, db: DB, user: UserDep, tool_id: int, form: Fo
     if not ratelimit.hit(ratelimit.UPLOAD_USER, "upload", str(user.id)):
         raise HTTPException(status_code=429)
     if not isinstance(upload, UploadFile):
-        error = "Escolha um ficheiro de imagem."
+        error = "Escolhe um ficheiro de imagem."
     else:
         data = upload.file.read(media.MAX_BYTES + 1)
         try:

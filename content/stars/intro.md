@@ -1,1 +1,1 @@
-As ferramentas que marcou para encontrar mais tarde.
+As ferramentas que marcaste para encontrar mais tarde.

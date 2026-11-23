@@ -48,7 +48,7 @@ class RegisterForm(BaseModel):
     @classmethod
     def _terms(cls, v: bool) -> bool:
         if not v:
-            raise FieldError(N_("Tem de aceitar os Termos e as Normas de Submissão para continuar."))
+            raise FieldError(N_("Tens de aceitar os Termos e as Normas de Submissão para continuar."))
         return v
 
     def profile(self) -> dict[str, Any]:
@@ -96,7 +96,7 @@ class ProfileForm(BaseModel):
 
         v = v.lower()
         if not re.fullmatch(r"[a-z0-9-]{3,30}", v):
-            raise FieldError(N_("Use 3 a 30 letras minúsculas, números ou hífenes."))
+            raise FieldError(N_("Usa 3 a 30 letras minúsculas, números ou hífenes."))
         return v
 
     @field_validator("github_username")
@@ -119,5 +119,5 @@ class OnboardingForm(ProfileForm):
     @classmethod
     def _terms(cls, v: bool) -> bool:
         if not v:
-            raise FieldError(N_("Tem de aceitar os Termos e as Normas de Submissão para continuar."))
+            raise FieldError(N_("Tens de aceitar os Termos e as Normas de Submissão para continuar."))
         return v

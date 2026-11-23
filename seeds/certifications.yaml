@@ -10,7 +10,7 @@
   is_core: true
   assurance_default: mixed
   sort_order: 10
-  help_pt: Só para ferramentas que são dispositivos médicos com marcação CE. Indique a base legal, o fabricante e a ligação para a Declaração UE de Conformidade.
+  help_pt: Só para ferramentas que são dispositivos médicos com marcação CE. Indica a base legal, o fabricante e a ligação para a Declaração UE de Conformidade.
   help_en: Only for tools that are CE-marked medical devices. Give the legal basis, the manufacturer and a link to the EU Declaration of Conformity.
   field_schema:
     - key: legal_basis
@@ -158,7 +158,7 @@
   is_core: false
   assurance_default: mixed
   sort_order: 100
-  help_pt: Indique a categoria de risco declarada pelo fornecedor e a evidência de conformidade.
+  help_pt: Indica a categoria de risco declarada pelo fornecedor e a evidência de conformidade.
   help_en: Give the risk category declared by the provider and the conformity evidence.
   field_schema:
     - key: risk_category

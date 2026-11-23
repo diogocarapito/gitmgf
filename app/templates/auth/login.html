@@ -14,9 +14,9 @@
       {{ m.text("password", _("Palavra-passe"), {}, errors, type="password", required=True, maxlength=128, autocomplete="current-password") }}
       <button class="btn btn--primary btn--block" type="submit">{{ icon('lock') }} {{ _("Entrar") }}</button>
     </form>
-    <p class="small muted section--tight">{{ _("Ainda não tem conta?") }} <a href="{{ url('/register') }}">{{ _("Criar conta") }}</a>.
-      {% if email_enabled %}<a href="{{ url('/forgot') }}">{{ _("Esqueceu-se da palavra-passe?") }}</a>
-      {% else %}{{ _("Esqueceu-se da palavra-passe? Peça uma ligação de redefinição a um administrador através do") }} <a href="{{ url('/p/contact') }}">{{ _("contacto") }}</a>.{% endif %}</p>
+    <p class="small muted section--tight">{{ _("Ainda não tens conta?") }} <a href="{{ url('/register') }}">{{ _("Criar conta") }}</a>.
+      {% if email_enabled %}<a href="{{ url('/forgot') }}">{{ _("Esqueceste-te da palavra-passe?") }}</a>
+      {% else %}{{ _("Esqueceste-te da palavra-passe? Pede uma ligação de redefinição a um administrador através do") }} <a href="{{ url('/p/contact') }}">{{ _("contacto") }}</a>.{% endif %}</p>
   </div>
 </div>
 {% endblock %}
