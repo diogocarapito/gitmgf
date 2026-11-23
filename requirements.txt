@@ -12,7 +12,7 @@ itsdangerous==2.2.0
 Babel==2.18.0
 markdown-it-py==4.3.0
 linkify-it-py==2.2.0
-nh3==0.3.7
+nh3==0.3.8
 pillow==13.0.0
 limits==5.8.0
 APScheduler==3.11.3
