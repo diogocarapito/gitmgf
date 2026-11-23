@@ -73,6 +73,35 @@ def test_other_signed_in_members_are_counted(client, db):
     assert {e.kind for e in events(db)} == {EventKind.view, EventKind.outbound_click}
 
 
+def test_purge_staff_events_rebuilds_stats_and_scores(db):
+    from app.models import InteractionEvent as Event
+
+    tool = make_tool(db)
+    member = make_user(db, "member@example.org")
+    staff = make_user(db, "mod@example.org", role=Role.moderator)
+    day = today()
+    for i, user in enumerate([member, staff]):
+        db.add(
+            Event(
+                tool_id=tool.id, kind=EventKind.outbound_click, visitor_hash=f"h{i}", user_id=user.id, day=day
+            )
+        )
+    db.add(Event(tool_id=tool.id, kind=EventKind.view, visitor_hash="h1", user_id=staff.id, day=day))
+    db.commit()
+    scoring.recompute(db)
+    assert db.get(ToolDailyStat, (tool.id, day)).outbound_clicks == 2
+
+    assert scoring.purge_staff_events(db) == {"events": 2, "tool_days": 1}
+    db.commit()
+    stat = db.get(ToolDailyStat, (tool.id, day))
+    assert (stat.outbound_clicks, stat.views) == (1, 0)
+    assert [e.user_id for e in events(db)] == [member.id]
+    db.refresh(tool)
+    w_oc = settings_store.get_float(db, "score.w_outbound_click")
+    assert math.isclose(tool.score, w_oc)
+    assert scoring.purge_staff_events(db) == {"events": 0, "tool_days": 0}
+
+
 def test_search_click_is_recorded_only_for_real_search_ids(client, db):
     tool = make_tool(db, title_pt="Calculadora de vacinas")
     html = client.get("/search?q=vacinas", headers=BROWSER).text

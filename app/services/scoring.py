@@ -7,13 +7,13 @@ score = usage + w_star·stars + w_gh·log10(1 + github_stars);   score_log = ln(
 import math
 from datetime import date, timedelta
 
-from sqlalchemy import func, select, update
+from sqlalchemy import delete, func, select, tuple_, update
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.orm import Session
 
 from app.db import today
-from app.models import InteractionEvent, Tool, ToolDailyStat, ToolGithub
-from app.models.enums import EventKind, ToolStatus
+from app.models import InteractionEvent, Tool, ToolDailyStat, ToolGithub, User
+from app.models.enums import EventKind, Role, ToolStatus
 from app.services import settings_store
 
 WINDOW_DAYS = 365
@@ -43,6 +43,26 @@ def aggregate_day(db: Session, day: date) -> int:
         stmt = sqlite_insert(ToolDailyStat).values(tool_id=tool_id, day=day, **counts)
         db.execute(stmt.on_conflict_do_update(index_elements=["tool_id", "day"], set_=counts))
     return len(per_tool)
+
+
+def purge_staff_events(db: Session) -> dict[str, int]:
+    """Deletes past events made by current moderators/admins (D40), then rebuilds the affected daily
+    stats and the scores. Raw events are kept 180 days, so older daily totals stay as they are."""
+    staff = select(User.id).where(User.role.in_([Role.moderator, Role.admin]))
+    affected = db.execute(
+        select(InteractionEvent.tool_id, InteractionEvent.day)
+        .where(InteractionEvent.user_id.in_(staff))
+        .distinct()
+    ).all()
+    if not affected:
+        return {"events": 0, "tool_days": 0}
+    result = db.execute(delete(InteractionEvent).where(InteractionEvent.user_id.in_(staff)))
+    pairs = [(tool_id, day) for tool_id, day in affected]
+    db.execute(delete(ToolDailyStat).where(tuple_(ToolDailyStat.tool_id, ToolDailyStat.day).in_(pairs)))
+    for day in sorted({day for _, day in pairs}):
+        aggregate_day(db, day)
+    recompute(db)
+    return {"events": int(getattr(result, "rowcount", 0)), "tool_days": len(pairs)}
 
 
 def recompute(db: Session, on: date | None = None) -> int:

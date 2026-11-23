@@ -278,6 +278,18 @@ def reindex() -> None:
     typer.echo(f"indexed: {count}")
 
 
+@cli.command("purge-staff-events")
+def purge_staff_events() -> None:
+    """Remove past visits and clicks by moderators/admins and recompute the scores (D40)."""
+    from app.services import scoring
+
+    with _session() as db:
+        counts = scoring.purge_staff_events(db)
+        audit.log(db, None, "tracking.purge_staff_events", via="cli", **counts)
+        db.commit()
+    typer.echo(f"removed {counts['events']} events across {counts['tool_days']} tool-days; scores recomputed")
+
+
 @cli.command("check-config")
 def check_config() -> None:
     """Report configuration problems (the same checks that block a prod start)."""
