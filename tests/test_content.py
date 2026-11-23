@@ -9,9 +9,6 @@ from app.templating import TEMPLATES_DIR, render_email
 LITERAL_NAME_RE = re.compile(r'site_text\(\s*"([^"]+)"\s*(?:[,)]|if\b)')
 INDIRECT_NAMES = [
     "onboarding/welcome",
-    "home/create",
-    "home/share",
-    "home/collaborate",
     "home/step-1",
     "home/step-2",
     "home/step-3",
@@ -50,7 +47,7 @@ def test_home_reads_its_texts_from_content(client):
         page = client.get(f"{prefix}/").text
         hero = content.block("home/hero", lang)
         assert hero.meta["title"] in page and str(hero.inline) in page
-        assert content.block("home/create", lang).meta["title"] in page
+        assert content.block("home/step-1", lang).meta["title"] in page
 
 
 def _write(root: Path, name: str, text: str) -> None:

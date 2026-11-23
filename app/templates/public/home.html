@@ -27,23 +27,6 @@
   </div>
 </section>
 
-<section class="section section--tight">
-  <div class="container">
-    <div class="section__head">
-      {% set pillars = site_text("home/pillars") %}
-      <div>
-        <h2>{{ pillars.title }}</h2>
-        {{ pillars.html }}
-      </div>
-    </div>
-    <div class="steps">
-      {% for name in ("create", "share", "collaborate") %}{% set b = site_text("home/" ~ name) %}
-      <div class="step"><div class="step__num">{{ icon(b.icon) }}</div><h3>{{ b.title }}</h3>{{ b.html }}</div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -99,7 +82,7 @@
     <div class="section__head"><h2>{{ site_text("home/how-it-works").title }}</h2></div>
     <div class="steps">
       {% for n in (1, 2, 3) %}{% set b = site_text("home/step-" ~ n) %}
-      <div class="step"><div class="step__num">{{ n }}</div><h3>{{ b.title }}</h3>{{ b.html }}</div>
+      <div class="step"><div class="step__num">{{ icon(b.icon) }}</div><h3>{{ b.title }}</h3>{{ b.html }}</div>
       {% endfor %}
     </div>
   </div>
