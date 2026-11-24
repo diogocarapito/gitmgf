@@ -25,6 +25,7 @@ DEFAULTS: dict[str, Any] = {
     "site.banner_pt": "",
     "site.banner_en": "",
     "terms.current_version": "2026-11",
+    "email.disabled": [],  # email types switched off by an admin (D42)
 }
 
 # Legal placeholders (content/legal/NOTES.md). Stored as `legal.<KEY>`; env `LEGAL_<KEY>` is the fallback,

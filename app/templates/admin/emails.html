@@ -8,6 +8,35 @@
   <header class="page-head"><h1>{{ _("Emails") }}</h1>
     <p>{% if smtp %}{{ _("Notificações enviadas pelo servidor de email.") }}{% else %}{{ _("Não há servidor de email configurado: as notificações ficam aqui e não são enviadas. Os autores veem o estado e os motivos em «As minhas ferramentas».") }}{% endif %}</p></header>
   {% include "admin/_nav.html" %}
+  <section class="panel email-types" id="tipos">
+    <h2>{{ _("Tipos de email") }}</h2>
+    <p class="small">{{ _("Enviados hoje (UTC): %(sent)s · Em fila: %(queued)s", sent=sent_today, queued=queued) }}</p>
+    <p class="small muted">{{ _("Desativa os tipos de email de que não precisas para poupar a quota do fornecedor de email. Um tipo desativado deixa de ser criado (não fica em fila). As notificações na gitmgf continuam a funcionar. Os emails de acesso à conta não podem ser desativados.") }}</p>
+    <form class="form" method="post" action="/admin/emails/types">
+      {{ m.csrf() }}
+      {% set group_names = {'account': _("Conta"), 'tools': _("Ferramentas"), 'community': _("Comunidade"), 'reports': _("Denúncias"), 'team': _("Equipa de moderação")} %}
+      {% for group, templates in groups.items() %}
+      <fieldset class="email-types__group">
+        <legend class="field__label">{{ group_names[group] }}</legend>
+        {% for t in templates %}
+        <label class="choice">
+          <input type="checkbox" name="enabled" value="{{ t }}"{% if t not in disabled %} checked{% endif %}{% if t in essential %} disabled{% endif %}>
+          <span><code>{{ t }}</code> <span class="muted xsmall">· {{ _("%(n)s nos últimos 30 dias", n=last_30.get(t, 0)) }}</span>
+            {% if t in essential %}<span class="badge">{{ icon('lock') }} {{ _("Sempre ativo") }}</span>{% endif %}
+            {% if t in statements %}<span class="xsmall muted email-types__warn">{{ icon('alert') }} {{ _("Fundamentação de uma decisão (DSA). Sem email, o autor só a vê nas notificações da gitmgf; quem denunciou sem conta não a recebe.") }}</span>{% endif %}
+          </span>
+        </label>
+        {% endfor %}
+      </fieldset>
+      {% endfor %}
+      <div class="form-actions">
+        <button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button>
+        <button class="btn" type="submit" name="bulk" value="all_on">{{ _("Ativar todos") }}</button>
+        <button class="btn btn--ghost" type="submit" name="bulk" value="all_off" data-confirm="{{ _('Desativar todos os emails exceto os de acesso à conta?') }}">{{ _("Desativar todos os opcionais") }}</button>
+      </div>
+    </form>
+  </section>
+  <h2>{{ _("Últimos emails") }}</h2>
   {% for row in rows %}
   <details class="panel">
     <summary><strong>{{ row.subject }}</strong> <span class="muted small">→ {{ row.to_email }} · {{ row.created_at | datetime('short') }} · {{ row.status }}</span></summary>

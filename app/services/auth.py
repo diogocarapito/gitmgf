@@ -437,9 +437,11 @@ def email_reset_link(db: Session, user: User, actor: User | None) -> EmailOutbox
 
     token = create_reset_link(db, user, actor)
     locale = user.locale.value
-    return email.enqueue(
+    row = email.enqueue(
         db, user.email, "password_set", {"link": reset_url(locale, token), "hours": 48}, locale
     )
+    assert row is not None  # essential: never switched off
+    return row
 
 
 def email_invite(db: Session, invite: Invite, code: str, lang: str, inviter: User | None) -> None:

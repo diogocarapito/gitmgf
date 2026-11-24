@@ -83,6 +83,7 @@ alias dc='docker compose -f deploy/docker-compose.prod.yml --env-file .env --pro
 | Deploy a new version | `./deploy/deploy.sh --pull` |
 | Roll back | `git checkout <previous-sha> && ./deploy/deploy.sh` (migrations are forward-only; see §5) |
 | Run a job now | `dc run --rm app cli jobs recompute-scores` (also `send-outbox`, `sync-github`, `prune`, `cert-expiry`, `mod-digest`) |
+| Too many emails for the provider's plan | Administração → Emails → *Tipos de email*: switch off optional types (D42); account access emails stay on |
 | Remove past visits/clicks by moderators and admins (D40) | `dc run --rm app cli purge-staff-events` (rebuilds daily stats and scores; safe to repeat) |
 | Rebuild search index | `dc run --rm app cli reindex` |
 | Change a setting | `dc run --rm app cli settings set reports.auto_hide_threshold 3 --json` |

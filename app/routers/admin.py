@@ -710,13 +710,30 @@ def reset_link(request: Request, db: DB, user: AdminDep, user_id: int) -> Respon
 @pages.get("/admin/emails")
 def outbox(request: Request, db: DB, user: AdminDep, page: int = 1) -> Response:
     """Notifications waiting for delivery (or kept for reference) while SMTP is not configured."""
+    from datetime import timedelta
+
+    from sqlalchemy import func
+
     from app.config import get_settings
+    from app.db import utcnow
     from app.models import EmailOutbox
 
     page = max(1, page)
     rows = db.scalars(
         select(EmailOutbox).order_by(EmailOutbox.id.desc()).offset((page - 1) * PAGE).limit(PAGE + 1)
     ).all()
+    now = utcnow()
+    day_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    sent_today = db.scalar(
+        select(func.count()).select_from(EmailOutbox).where(EmailOutbox.sent_at >= day_start)
+    )
+    last_30 = dict(
+        db.execute(
+            select(EmailOutbox.template, func.count())
+            .where(EmailOutbox.created_at >= now - timedelta(days=30))
+            .group_by(EmailOutbox.template)
+        ).all()
+    )
     return render(
         request,
         "admin/emails.html",
@@ -725,5 +742,32 @@ def outbox(request: Request, db: DB, user: AdminDep, page: int = 1) -> Response:
             "has_next": len(rows) > PAGE,
             "page": page,
             "smtp": bool(get_settings().smtp_host),
+            "groups": email.GROUPS,
+            "essential": email.ESSENTIAL,
+            "statements": email.STATEMENTS,
+            "disabled": email.disabled_templates(db),
+            "sent_today": int(sent_today or 0),
+            "queued": int(
+                db.scalar(select(func.count()).select_from(EmailOutbox).where(EmailOutbox.status == "queued"))
+                or 0
+            ),
+            "last_30": last_30,
         },
     )
+
+
+@actions.post("/admin/emails/types")
+def email_types(request: Request, db: DB, user: AdminDep, form: Form) -> Response:
+    """Switch email types on or off (D42); essential ones always stay on."""
+    known = [t for group in email.GROUPS.values() for t in group]
+    bulk = form.get("bulk")
+    if bulk == "all_on":
+        off: set[str] = set()
+    elif bulk == "all_off":
+        off = set(known)
+    else:
+        enabled = {str(v) for v in form.getlist("enabled")}
+        off = {t for t in known if t not in enabled}
+    email.set_disabled(db, off, user.id)
+    db.commit()
+    return _back(request, "/admin/emails", "saved")

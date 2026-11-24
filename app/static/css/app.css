@@ -746,3 +746,8 @@ body:has(.first-notice) { overflow: hidden; }
 .kind-option input { margin-top: .3rem; accent-color: var(--c-primary); flex: none; }
 .kind-option > span:last-child { display: grid; gap: .15rem; }
 .kind-option__icon { color: var(--c-primary); flex: none; margin-top: .1rem; }
+
+/* Admin: email types (D42) */
+.email-types__group { border: 0; padding: 0; margin: 0 0 1rem; display: grid; gap: .45rem; }
+.email-types__group .choice > span { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .5rem; }
+.email-types__warn { flex-basis: 100%; display: inline-flex; align-items: center; gap: .3rem; }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-24 00:04+0000\n"
+"POT-Creation-Date: 2026-11-24 00:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -21,6 +21,10 @@ msgstr ""
 #, python-format
 msgid "%(n)s dias"
 msgstr "%(n)s days"
+
+#, python-format
+msgid "%(n)s nos últimos 30 dias"
+msgstr "%(n)s in the last 30 days"
 
 #, python-format
 msgid "%(name)s expirada"
@@ -410,6 +414,9 @@ msgstr "Active"
 msgid "Ativa (desativar esconde-a da pesquisa e dos formulários)"
 msgstr "Active (deactivating hides it from search and forms)"
 
+msgid "Ativar todos"
+msgstr "Turn all on"
+
 msgid "Ativo"
 msgstr "Active"
 
@@ -656,6 +663,9 @@ msgstr "Comments"
 msgid "Completar perfil"
 msgstr "Complete your profile"
 
+msgid "Comunidade"
+msgstr "Community"
+
 msgid "Confirma que fazes a denúncia de boa-fé."
 msgstr "Please confirm that you are reporting in good faith."
 
@@ -676,6 +686,9 @@ msgstr "Compliance and certifications"
 
 msgid "Conjunto de dados"
 msgstr "Dataset"
+
+msgid "Conta"
+msgstr "Account"
 
 msgid "Conta com restrições"
 msgstr "Account restricted"
@@ -880,6 +893,23 @@ msgstr ""
 "After you fill this in, we'll email you a 6-digit code to confirm your "
 "address."
 
+msgid ""
+"Desativa os tipos de email de que não precisas para poupar a quota do "
+"fornecedor de email. Um tipo desativado deixa de ser criado (não fica em "
+"fila). As notificações na gitmgf continuam a funcionar. Os emails de "
+"acesso à conta não podem ser desativados."
+msgstr ""
+"Turn off the email types you don’t need to save your email provider’s "
+"quota. A type that is off is no longer created (it isn’t queued). "
+"Notifications on gitmgf keep working. Account access emails can’t be "
+"turned off."
+
+msgid "Desativar todos os emails exceto os de acesso à conta?"
+msgstr "Turn off all emails except account access ones?"
+
+msgid "Desativar todos os opcionais"
+msgstr "Turn off all optional"
+
 msgid "Desconhecida"
 msgstr "Unknown"
 
@@ -1046,6 +1076,10 @@ msgstr "Send it to the person through a trusted channel (message, personal email
 msgid "Enviadas por email ao autor com a aprovação. Não impedem a publicação."
 msgstr "Emailed to the author with the approval. They don't block publication."
 
+#, python-format
+msgid "Enviados hoje (UTC): %(sent)s · Em fila: %(queued)s"
+msgstr "Sent today (UTC): %(sent)s · Queued: %(queued)s"
+
 msgid "Enviar código"
 msgstr "Send code"
 
@@ -1080,6 +1114,9 @@ msgstr ""
 
 msgid "Enviámos um novo código. Os anteriores deixaram de funcionar."
 msgstr "We sent a new code. Earlier codes no longer work."
+
+msgid "Equipa de moderação"
+msgstr "Moderation team"
 
 msgid "Erro"
 msgstr "Error"
@@ -1365,6 +1402,13 @@ msgstr "Freemium"
 
 msgid "Funcionamento"
 msgstr "Operation"
+
+msgid ""
+"Fundamentação de uma decisão (DSA). Sem email, o autor só a vê nas "
+"notificações da gitmgf; quem denunciou sem conta não a recebe."
+msgstr ""
+"Statement of reasons (DSA). Without the email, the author only sees it in"
+" their gitmgf notifications; reporters without an account don’t get it."
 
 msgid "Fundir"
 msgstr "Merge"
@@ -2581,6 +2625,9 @@ msgstr "No exact matches — showing partial results."
 msgid "Semana de"
 msgstr "Week of"
 
+msgid "Sempre ativo"
+msgstr "Always on"
+
 msgid "Sessão terminada em todos os dispositivos."
 msgstr "Signed out on all devices."
 
@@ -2729,6 +2776,9 @@ msgstr "Collaboration type"
 
 msgid "Tipo de ferramenta"
 msgstr "Tool type"
+
+msgid "Tipos de email"
+msgstr "Email types"
 
 msgid "Todas"
 msgstr "All"
@@ -3043,6 +3093,9 @@ msgstr "Last sign-in"
 
 msgid "Último commit"
 msgstr "Last commit"
+
+msgid "Últimos emails"
+msgstr "Latest emails"
 
 msgid "— Escolher modelo —"
 msgstr "— Choose template —"

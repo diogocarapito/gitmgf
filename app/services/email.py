@@ -23,14 +23,86 @@ from app.models.enums import EmailStatus
 log = logging.getLogger("gitmgf.email")
 
 MAX_ATTEMPTS = 5
+
+# Admins can switch email types off in /admin/emails to save sending quota (D42). These never switch off:
+# without them nobody can register, recover a password or accept an invite.
+ESSENTIAL = frozenset(
+    {"register_code", "password_code", "password_set", "account_exists", "invite", "test_email"}
+)
+# Grouped for the admin page; every template in content/emails/ must appear here (tests/test_email_switches.py).
+GROUPS: dict[str, tuple[str, ...]] = {
+    "account": (
+        "register_code",
+        "password_code",
+        "password_set",
+        "account_exists",
+        "invite",
+        "welcome",
+        "account_deleted",
+        "avatar_removed",
+    ),
+    "tools": (
+        "submission_received",
+        "tool_approved",
+        "tool_rejected",
+        "tool_hidden",
+        "tool_unhidden",
+        "revision_approved",
+        "revision_rejected",
+        "cert_expiring",
+        "cert_expired",
+    ),
+    "community": ("suggestion_received", "comment_notice", "content_moderated"),
+    "reports": ("report_ack", "report_outcome"),
+    "team": ("mod_auto_hide", "mod_digest", "test_email"),
+}
+# Statements of reasons (DSA Art. 17): switching these off leaves only the in-app notification, and
+# reporters without an account (report_outcome) get nothing. The admin page warns about it.
+STATEMENTS = frozenset(
+    {
+        "tool_rejected",
+        "tool_hidden",
+        "revision_rejected",
+        "content_moderated",
+        "report_ack",
+        "report_outcome",
+        "avatar_removed",
+    }
+)
+DISABLED_KEY = "email.disabled"
+
+
+def disabled_templates(db: Session) -> set[str]:
+    from app.services import settings_store
+
+    value = settings_store.get(db, DISABLED_KEY) or []
+    return {str(v) for v in value} - ESSENTIAL
+
+
+def is_enabled(db: Session, template: str) -> bool:
+    return template in ESSENTIAL or template not in disabled_templates(db)
+
+
+def set_disabled(db: Session, templates: set[str], actor_id: int | None) -> None:
+    from app.services import settings_store
+
+    known = {t for group in GROUPS.values() for t in group}
+    settings_store.set_value(db, DISABLED_KEY, sorted((templates & known) - ESSENTIAL), actor_id)
+
+
 # Test/dev inspection: messages "sent" by the memory backend.
 SENT: list[EmailMessage] = []
 
 
 def enqueue(
     db: Session, to: str, template: str, context: dict[str, Any], locale: str, reply_to: str | None = None
-) -> EmailOutbox:
+) -> EmailOutbox | None:
+    """Queues an email, or does nothing (returns None) when an admin switched this type off (D42)."""
     from app.templating import render_email
+
+    if not is_enabled(db, template):
+        log.info("email type %s is switched off; not queued", template)
+        return None
 
     subject, text, html = render_email(template, context, locale)
     row = EmailOutbox(
