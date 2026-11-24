@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import ForeignKey, Index, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -8,13 +8,19 @@ from app.db import Base, utcnow
 from app.models.enums import ReportReason, ReportStatus, str_enum
 from app.models.tool import Tool
 
+if TYPE_CHECKING:
+    from app.models.community import Colab, Comment
+
 
 class Report(Base):
     __tablename__ = "reports"
     __table_args__ = (Index("ix_reports_status_created", "status", "created_at"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    tool_id: Mapped[int] = mapped_column(ForeignKey("tools.id", ondelete="CASCADE"), index=True)
+    # Exactly one subject: a tool, a comment or a colab post (D41).
+    tool_id: Mapped[int | None] = mapped_column(ForeignKey("tools.id", ondelete="CASCADE"), index=True)
+    comment_id: Mapped[int | None] = mapped_column(ForeignKey("comments.id", ondelete="CASCADE"), index=True)
+    colab_id: Mapped[int | None] = mapped_column(ForeignKey("colabs.id", ondelete="CASCADE"), index=True)
     reporter_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
     reporter_email: Mapped[str | None] = mapped_column(String(254))
     reason: Mapped[ReportReason] = mapped_column(str_enum(ReportReason, "report_reason"))
@@ -29,7 +35,20 @@ class Report(Base):
     resolved_at: Mapped[datetime | None]
     visitor_hash: Mapped[str | None] = mapped_column(String(32))
 
-    tool: Mapped[Tool] = relationship(lazy="joined")
+    tool: Mapped[Tool | None] = relationship(lazy="joined")
+    comment: Mapped["Comment | None"] = relationship(lazy="joined")
+    colab: Mapped["Colab | None"] = relationship(lazy="joined")
+
+    @property
+    def subject_title(self) -> str:
+        if self.tool is not None:
+            return self.tool.title_pt
+        if self.colab is not None:
+            return self.colab.title
+        if self.comment is not None:
+            target = self.comment.tool or self.comment.colab
+            return getattr(target, "title_pt", None) or getattr(target, "title", "") or ""
+        return ""
 
 
 class AuditLog(Base):

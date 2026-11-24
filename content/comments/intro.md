@@ -1,0 +1,1 @@
+Deixa aqui uma palavra de apreço, feedback ou um pedido de funcionalidade. O autor e a equipa de moderação podem responder. Para escrever em privado ao autor, usa a opção de sugestões no fim da página.

@@ -1,0 +1,78 @@
+{# Comment section (D41). Context: thread, can_comment, comment_action (page path), owner_id (tool owner or colab author),
+   closed_note (why new comments are off, optional), intro (optional site_text block). #}
+{% import "_macros.html" as m with context %}
+
+{% macro comment_form(parent=None) -%}
+<form class="form comment-form" method="post" action="{{ url(comment_action) }}">
+  {{ m.csrf() }}
+  {% if parent %}<input type="hidden" name="parent_id" value="{{ parent.id }}">{% endif %}
+  <div class="field">
+    <label for="body-{{ parent.id if parent else 'new' }}"{% if parent %} class="visually-hidden"{% endif %}>{{ _("Resposta") if parent else _("Deixa um comentário") }}</label>
+    <textarea id="body-{{ parent.id if parent else 'new' }}" name="body" rows="{{ 2 if parent else 3 }}" minlength="2" maxlength="2000" required></textarea>
+    {% if not parent %}<p class="field__hint">{{ _("Público. Para mencionar alguém, escreve @ e o nome de utilizador (por exemplo @ana-silva). Não incluas dados de utentes.") }}</p>{% endif %}
+  </div>
+  <div class="form-actions"><button class="btn btn--primary btn--sm" type="submit">{{ icon('send') }} {{ _("Responder") if parent else _("Publicar comentário") }}</button></div>
+</form>
+{%- endmacro %}
+
+{% macro comment_item(node, top) -%}
+{% set c = node.comment %}
+<article class="comment{% if not top %} comment--reply{% endif %}{% if c.hidden_at %} comment--hidden{% endif %}" id="comment-{{ c.id }}">
+  {% if not node.show_body %}
+  <p class="comment__tombstone muted small">{% if c.deleted_at %}{{ _("Comentário eliminado.") }}{% else %}{{ _("Comentário ocultado pela moderação.") }}{% endif %}</p>
+  {% else %}
+  <header class="comment__head">
+    {{ m.avatar(c.author, "sm") }}
+    {% if c.author and c.author.handle %}<a class="comment__author" href="{{ url('/u/' ~ c.author.handle) }}">{{ c.author.display_name }}</a>
+    {% else %}<span class="comment__author">{{ c.author.display_name if c.author and c.author.display_name else _("Utilizador removido") }}</span>{% endif %}
+    {% if c.author_id and c.author_id == owner_id %}<span class="badge badge--oss">{{ _("Autor") }}</span>{% endif %}
+    {% if c.author and c.author.role in ('moderator', 'admin') %}<span class="badge badge--new">{{ icon('shield-check') }} {{ _("Moderação") }}</span>{% endif %}
+    <a class="comment__time muted xsmall" href="#comment-{{ c.id }}"><time datetime="{{ c.created_at.isoformat() }}Z">{{ c.created_at | relative }}</time></a>
+    {% if c.edited_at %}<span class="muted xsmall">· {{ _("editado") }}</span>{% endif %}
+  </header>
+  {% if c.hidden_at %}<p class="notice notice--warn small comment__hidden-note">{{ icon('eye-off') }} {{ _("Ocultado pela moderação. Só tu e a equipa de moderação o veem.") }}{% if user and user.id == c.author_id and c.hidden_reason %} {{ _("Motivo:") }} {{ c.hidden_reason }}{% endif %}</p>{% endif %}
+  <div class="comment__body">{{ thread.bodies.get(c.id, '') }}</div>
+  <footer class="comment__foot">
+    {% if not c.hidden_at %}{% with reactions=thread.reactions.get(c.id, []), can_react=(user is not none and user.social_blocked_at is none) %}{% include "community/_reactions.html" %}{% endwith %}{% endif %}
+    <div class="comment__actions small">
+      {% if top and can_comment %}
+      <details class="comment__reply">
+        <summary>{{ icon('reply') }} {{ _("Responder") }}</summary>
+        {{ comment_form(c) }}
+      </details>
+      {% endif %}
+      {% if user and user.id == c.author_id and not c.hidden_at %}<a href="{{ url('/comments/' ~ c.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar") }}</a>{% endif %}
+      {% if user and user.id == c.author_id %}<form class="inline-form" method="post" action="/comments/{{ c.id }}/delete" data-confirm="{{ _('Eliminar este comentário?') }}">{{ m.csrf() }}<button class="link-button" type="submit">{{ icon('trash') }} {{ _("Eliminar") }}</button></form>{% endif %}
+      {% if not user or user.id != c.author_id %}<a href="{{ url('/comments/' ~ c.id ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Denunciar") }}</a>{% endif %}
+      {% if user and user.is_moderator and user.id != c.author_id and user.id != owner_id %}<a href="{{ url('/mod/comments/' ~ c.id) }}">{{ icon('shield-check') }} {{ _("Moderar") }}</a>{% endif %}
+    </div>
+  </footer>
+  {% endif %}
+  {% if node.replies %}
+  <div class="comment__replies">
+    {% for reply in node.replies %}{{ comment_item(reply, False) }}{% endfor %}
+  </div>
+  {% endif %}
+</article>
+{%- endmacro %}
+
+<section class="comments" id="comentarios" aria-labelledby="comments-title">
+  <h2 id="comments-title">{{ icon('message') }} {{ _("Comentários") }} <span class="count-pill">{{ thread.count }}</span></h2>
+  {% if intro %}<div class="small muted comments__intro">{{ intro.html }}</div>{% endif %}
+  {% if can_comment %}
+    {{ comment_form() }}
+  {% elif not user %}
+    <p class="panel small"><a href="{{ url('/login', next=path ~ '#comentarios') }}">{{ _("Inicia sessão") }}</a> {{ _("para comentar, responder e reagir.") }}</p>
+  {% elif user.social_blocked_at %}
+    <p class="notice notice--warn small">{{ icon('ban') }} {{ _("A tua conta não pode comentar nem reagir, por decisão da moderação.") }}</p>
+  {% elif closed_note %}
+    <p class="muted small">{{ closed_note }}</p>
+  {% endif %}
+  {% if thread.nodes %}
+  <div class="comment-list">
+    {% for node in thread.nodes %}{{ comment_item(node, True) }}{% endfor %}
+  </div>
+  {% elif can_comment %}
+  <p class="muted small">{{ _("Ainda não há comentários. Sê a primeira pessoa a comentar.") }}</p>
+  {% endif %}
+</section>

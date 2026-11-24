@@ -1,0 +1,26 @@
+{# Reactions on one comment. Context: c (comment), reactions (list of ReactionCount), can_react. HTMX swaps this block. #}
+<div class="reactions" id="reactions-{{ c.id }}">
+  {% for r in reactions %}
+  {% if can_react %}
+  <form class="inline-form" method="post" action="/comments/{{ c.id }}/react" hx-post="/comments/{{ c.id }}/react" hx-target="#reactions-{{ c.id }}" hx-swap="outerHTML">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="emoji" value="{{ r.emoji }}">
+    <button class="reaction" type="submit" aria-pressed="{{ 'true' if r.mine else 'false' }}" title="{{ label(labels.REACTION, r.emoji) }}"><span aria-hidden="true">{{ r.char }}</span> <span class="visually-hidden">{{ label(labels.REACTION, r.emoji) }}</span>{{ r.count }}</button>
+  </form>
+  {% else %}
+  <span class="reaction reaction--static" title="{{ label(labels.REACTION, r.emoji) }}"><span aria-hidden="true">{{ r.char }}</span> <span class="visually-hidden">{{ label(labels.REACTION, r.emoji) }}</span>{{ r.count }}</span>
+  {% endif %}
+  {% endfor %}
+  {% if can_react %}
+  <details class="menu reaction-picker">
+    <summary class="reaction reaction--add" title="{{ _('Reagir') }}">{{ icon('smile') }}<span class="visually-hidden">{{ _("Reagir") }}</span></summary>
+    <div class="menu__panel reaction-picker__panel">
+      {% for key, char in labels.REACTION_EMOJI.items() %}
+      <form class="inline-form" method="post" action="/comments/{{ c.id }}/react" hx-post="/comments/{{ c.id }}/react" hx-target="#reactions-{{ c.id }}" hx-swap="outerHTML">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="emoji" value="{{ key }}">
+        <button type="submit" title="{{ label(labels.REACTION, key) }}"><span aria-hidden="true">{{ char }}</span><span class="visually-hidden">{{ label(labels.REACTION, key) }}</span></button>
+      </form>
+      {% endfor %}
+    </div>
+  </details>
+  {% endif %}
+</div>

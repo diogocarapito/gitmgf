@@ -35,6 +35,8 @@ Uma calculadora, um script ou uma folha de cálculo que resolve um problema real
 | `blog/` | Um artigo por ficheiro: `<endereço>.md` + `<endereço>_en.md`, com `title`, `date`, `author`, `summary` (e `draft: true` para esconder). `_intro.md` é o texto do topo da página do blog |
 | `emails/` | Emails enviados pelo site (ver abaixo) |
 | `notice/` | Aviso mostrado na primeira visita (responsabilidade dos autores), com `title` e `button` |
+| `colabs/` | Página Colaborações: `intro` (título e texto do topo) e `guidance` (conselhos no formulário) |
+| `comments/` | `intro`: texto por cima dos comentários na página de cada ferramenta |
 | `categories/`, `report/`, `suggest/`, `notifications/`, `stars/`, `my-tools/`, `submit/`, `onboarding/`, `delete-account/` | Textos de introdução dessas páginas |
 
 Botões, menus, campos de formulário e mensagens de erro continuam no catálogo de traduções (`app/locales`), porque estão ligados ao código.

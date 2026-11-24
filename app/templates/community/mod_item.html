@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ _("Moderar comentário") if comment else _("Moderar colaboração") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+{% set hidden = (comment and comment.hidden_at) or (colab and colab.status == 'hidden') %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/mod', tab='reports') }}">{{ _("Moderação") }}</a></p>
+    <h1>{{ _("Moderar comentário") if comment else _("Moderar colaboração") }}</h1>
+    <p>{% if comment and comment.deleted_at %}{{ _("Eliminado pelo autor") }}{% elif hidden %}<span class="badge badge--archived">{{ icon('eye-off') }} {{ _("Ocultado") }}</span>{% else %}<span class="badge badge--free">{{ _("Visível") }}</span>{% endif %}
+      · <a href="{{ url(public_path) }}{% if comment %}#comment-{{ comment.id }}{% endif %}">{{ _("Ver no site") }}</a></p>
+  </header>
+  <section class="panel">
+    <dl class="meta-list">
+      <dt>{{ _("Autor") }}</dt><dd>{% if author %}{{ author.display_name }}{% if author.handle %} (@{{ author.handle }}){% endif %} · <a href="{{ url('/mod/users/' ~ author.id) }}">{{ icon('ban') }} {{ _("Restrições da conta") }}</a>{% else %}{{ _("Utilizador removido") }}{% endif %}</dd>
+      <dt>{{ _("Publicado") }}</dt><dd>{{ (comment or colab).created_at | datetime }}</dd>
+      {% if colab %}<dt>{{ _("Tipo") }}</dt><dd>{{ label(labels.COLAB_KIND, colab.kind) }}</dd><dt>{{ _("Título") }}</dt><dd>{{ colab.title }}</dd>{% if colab.link_url %}<dt>{{ _("Ligação") }}</dt><dd>{{ colab.link_url }}</dd>{% endif %}{% endif %}
+      {% if hidden %}<dt>{{ _("Motivo da ocultação") }}</dt><dd>{{ comment.hidden_reason if comment else colab.hidden_reason }}</dd>{% endif %}
+    </dl>
+    <div class="comment__body section--tight">{{ body_html }}</div>
+  </section>
+  {% if reports %}
+  <section class="panel">
+    <h2>{{ _("Denúncias abertas") }}</h2>
+    <ul>{% for r in reports %}<li><a href="{{ url('/mod/reports/' ~ r.id) }}">#{{ r.id }} · {{ label(labels.REPORT_REASON, r.reason) }}</a> <span class="muted small">· {{ r.created_at | relative }}</span></li>{% endfor %}</ul>
+    <p class="small muted">{{ _("Depois de decidir aqui, fecha cada denúncia na respetiva página.") }}</p>
+  </section>
+  {% endif %}
+  {% if can_act %}
+    {% set base = '/mod/comments/' ~ comment.id if comment else '/mod/colabs/' ~ colab.id %}
+    {% if hidden %}
+    <form class="panel form" method="post" action="{{ base }}/unhide">{{ m.csrf() }}
+      <p class="small">{{ _("O autor é notificado de que o conteúdo voltou a estar visível.") }}</p>
+      <div class="form-actions"><button class="btn" type="submit">{{ icon('eye') }} {{ _("Tornar visível") }}</button></div>
+    </form>
+    {% elif not (comment and comment.deleted_at) %}
+    <form class="panel form" method="post" action="{{ base }}/hide">{{ m.csrf() }}
+      {{ m.textarea("reason", _("Motivo (enviado ao autor)"), values, errors, required=True, maxlength=2000, rows=3, hint=_("Explica que regra foi violada e porquê. Entre 10 e 2000 caracteres. Vai por email ao autor, como fundamentação da decisão.")) }}
+      <div class="form-actions"><button class="btn btn--danger" type="submit">{{ icon('eye-off') }} {{ _("Ocultar") }}</button></div>
+    </form>
+    {% endif %}
+  {% else %}
+  <p class="notice small">{{ icon('info') }} {{ _("Não podes moderar este conteúdo: és o autor, ou é sobre uma ferramenta ou colaboração tua.") }}</p>
+  {% endif %}
+</div>
+{% endblock %}

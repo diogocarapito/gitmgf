@@ -20,6 +20,10 @@ TOOL_CREATE_USER = "10/day"
 STAR_USER = "60/minute"
 SEARCH_IP = "120/minute"
 UPLOAD_USER = "60/hour"
+COMMENT_USER = "30/hour"
+COMMENT_USER_DAY = "100/day"
+COLAB_USER = "5/day"
+REACT_USER = "120/minute"
 
 
 def hit(rate: str, *identifiers: str) -> bool:

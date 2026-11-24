@@ -185,7 +185,7 @@ def review_report(request: Request, db: DB, user: ModDep, report_id: int) -> Res
             "report": report,
             "tool": report.tool,
             "reporter": reporter,
-            "can_act": permissions.can_moderate(user, report.tool),
+            "can_act": permissions.can_handle_report(user, report),
         },
     )
 
@@ -348,7 +348,7 @@ def report_action(
     report = db.get(Report, report_id)
     if report is None or action not in ("resolve", "dismiss"):
         raise HTTPException(status_code=404)
-    if not permissions.can_moderate(user, report.tool):
+    if not permissions.can_handle_report(user, report):
         raise HTTPException(status_code=403)
     note = form.get("note")
     report_service.close(db, report, user, action == "resolve", note if isinstance(note, str) else None)

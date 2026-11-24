@@ -153,6 +153,56 @@ NOTIFICATION_KIND = {
     "tool_unhidden": N_("Visível novamente"),
     "revision_approved": N_("Alteração aprovada"),
     "revision_rejected": N_("Alteração rejeitada"),
+    "comment_new": N_("Novo comentário"),
+    "comment_reply": N_("Resposta"),
+    "comment_mention": N_("Menção"),
+    "comment_hidden": N_("Comentário ocultado"),
+    "comment_unhidden": N_("Comentário visível novamente"),
+    "colab_hidden": N_("Colaboração ocultada"),
+    "colab_unhidden": N_("Colaboração visível novamente"),
+}
+
+COLAB_KIND = {
+    "idea": N_("Tenho uma ideia"),
+    "help": N_("Preciso de ajuda num projeto"),
+    "feedback": N_("Feedback e perguntas"),
+}
+
+COLAB_KIND_SHORT = {"idea": N_("Ideia"), "help": N_("Pedido de ajuda"), "feedback": N_("Feedback")}
+
+COLAB_KIND_HINT = {
+    "idea": N_(
+        "Tens uma ideia mas não sabes como a concretizar: pedes dicas, ajuda, ou que alguém a construa. "
+        "Por exemplo: «Alguém conseguia fazer uma ferramenta para…» ou «Gostava de ter algo que me ajudasse a…»."
+    ),
+    "help": N_(
+        "Já tens um projeto público (repositório no GitHub, um protótipo online) e precisas de ajuda para o "
+        "publicar, corrigir ou depurar."
+    ),
+    "feedback": N_(
+        "Tens uma ferramenta e queres opiniões ou quem a teste, ou tens uma pergunta para a comunidade, "
+        "por exemplo sobre o que é legal ou perigoso."
+    ),
+}
+
+COLAB_KIND_ICON = {"idea": "lightbulb", "help": "code", "feedback": "users"}
+
+COLAB_STATUS = {
+    "open": N_("Aberta"),
+    "resolved": N_("Resolvida"),
+    "hidden": N_("Ocultada"),
+    "deleted": N_("Eliminada"),
+}
+
+REACTION_EMOJI = {"thumbs_up": "👍", "heart": "❤️", "tada": "🎉", "pray": "🙏", "bulb": "💡", "eyes": "👀"}
+
+REACTION = {
+    "thumbs_up": N_("Gosto"),
+    "heart": N_("Adoro"),
+    "tada": N_("Parabéns"),
+    "pray": N_("Obrigado/a"),
+    "bulb": N_("Boa ideia"),
+    "eyes": N_("A acompanhar"),
 }
 
 REPORT_STATUS = {"open": N_("Aberta"), "resolved": N_("Resolvida"), "dismissed": N_("Arquivada sem ação")}
@@ -232,6 +282,18 @@ LICENSE_LABEL = dict(LICENSES)
 # Messages shown after a redirect (`?flash=<key>`): stateless, no flash cookie needed.
 FLASH = {
     "saved": ("ok", N_("Alterações guardadas.")),
+    "commented": ("ok", N_("Comentário publicado.")),
+    "comment_saved": ("ok", N_("Comentário atualizado.")),
+    "comment_deleted": ("ok", N_("Comentário eliminado.")),
+    "comment_hidden": ("ok", N_("Comentário ocultado. O autor foi notificado.")),
+    "comment_unhidden": ("ok", N_("Comentário visível novamente.")),
+    "colab_posted": ("ok", N_("Colaboração publicada. Boa sorte!")),
+    "colab_saved": ("ok", N_("Colaboração atualizada.")),
+    "colab_resolved": ("ok", N_("Colaboração marcada como resolvida.")),
+    "colab_reopened": ("ok", N_("Colaboração reaberta.")),
+    "colab_deleted": ("ok", N_("Colaboração eliminada.")),
+    "colab_hidden": ("ok", N_("Colaboração ocultada. O autor foi notificado.")),
+    "colab_unhidden": ("ok", N_("Colaboração visível novamente.")),
     "suggested": ("ok", N_("Sugestão enviada ao autor. Obrigado!")),
     "suggestion_deleted": ("ok", N_("Sugestão removida.")),
     "notification_deleted": ("ok", N_("Notificação removida.")),

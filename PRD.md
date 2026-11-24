@@ -42,7 +42,7 @@ Think "a curated, searchable app shelf for clinician-made tools", where:
 
 - Not a code host (no git hosting despite the name; repos stay on GitHub/GitLab/Codeberg).
 - **No hosting of tools of any kind** — no installers, zips, spreadsheets, HTML calculators or web apps are uploaded to or served by gitmgf. Listings link to where the author publishes the tool. (Screenshots are the only files users upload.)
-- No comments, public author profiles, blog/"explorations" posts, collections, or messaging (Phase 2, §12).
+- No comments, public author profiles, blog/"explorations" posts, collections, or messaging (Phase 2, §12). *Comments on tools and the Colaborações page were added after the MVP (D41).*
 - No clinical validation of tools. Moderation checks guideline compliance, not clinical correctness.
 - No payments, ads, or paid placement.
 - No native mobile app (responsive web only).

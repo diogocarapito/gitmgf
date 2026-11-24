@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-23 07:06+0000\n"
+"POT-Creation-Date: 2026-11-24 00:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -73,6 +73,9 @@ msgstr[1] "%(num)d published tools"
 msgid "1 a 3 frases: quem deve usar, para quê e com que limitações."
 msgstr "1 to 3 sentences: who should use it, for what and with which limitations."
 
+msgid "A acompanhar"
+msgstr "Following"
+
 msgid ""
 "A ferramenta envia dados para um servidor mas não tem declaração RGPD. O "
 "moderador pode pedir alterações."
@@ -118,6 +121,9 @@ msgstr ""
 "Your account was deleted. The data will be permanently erased within 30 "
 "days."
 
+msgid "A tua conta não pode comentar nem reagir, por decisão da moderação."
+msgstr "Your account can’t comment or react, following a moderation decision."
+
 msgid "A utilização prevista e o tratamento de dados são plausíveis."
 msgstr "Intended use and data handling are plausible."
 
@@ -129,6 +135,9 @@ msgstr ""
 "changes."
 
 msgid "Aberta"
+msgstr "Open"
+
+msgid "Abertas"
 msgstr "Open"
 
 msgid "Aberturas"
@@ -148,6 +157,15 @@ msgstr "External link opens"
 
 msgid "Abrir aplicação"
 msgstr "Open app"
+
+msgid "Abrir moderação da colaboração"
+msgstr "Open post moderation"
+
+msgid "Abrir moderação do comentário"
+msgstr "Open comment moderation"
+
+msgid "Abrir projeto"
+msgstr "Open project"
 
 msgid "Abrir revisão da ferramenta"
 msgstr "Open tool review"
@@ -173,6 +191,9 @@ msgstr "Administrator"
 msgid "Administração"
 msgstr "Administration"
 
+msgid "Adoro"
+msgstr "Love it"
+
 msgid "Aguarda um pouco e tenta novamente."
 msgstr "Please wait a moment and try again."
 
@@ -181,6 +202,12 @@ msgstr "You haven't starred any tools yet."
 
 msgid "Ainda não há artigos."
 msgstr "No articles yet."
+
+msgid "Ainda não há colaborações aqui. Que tal começares?"
+msgstr "No collaboration posts here yet. Why not start one?"
+
+msgid "Ainda não há comentários. Sê a primeira pessoa a comentar."
+msgstr "No comments yet. Be the first to comment."
 
 msgid "Ainda não há convites."
 msgstr "No invites yet."
@@ -198,11 +225,13 @@ msgid "Ainda não tens conta?"
 msgstr "Don't have an account yet?"
 
 msgid ""
-"Ainda não tens notificações. As decisões da moderação sobre as tuas "
-"ferramentas e as sugestões de outros utilizadores aparecem aqui."
+"Ainda não tens notificações. As decisões da moderação, as sugestões, os "
+"comentários às tuas ferramentas e colaborações, as respostas e as menções"
+" aparecem aqui."
 msgstr ""
-"No notifications yet. Moderation decisions on your tools and suggestions "
-"from other users show up here."
+"You have no notifications yet. Moderation decisions, suggestions, "
+"comments on your tools and collaboration posts, replies and mentions "
+"appear here."
 
 msgid "Ainda sem dados."
 msgstr "No data yet."
@@ -365,6 +394,9 @@ msgstr "Other open sessions for this account will be signed out."
 msgid "As palavras-passe não coincidem."
 msgstr "The passwords don't match."
 
+msgid "Assunto"
+msgstr "Subject"
+
 msgid ""
 "Atingiste o limite de submissões pendentes. Aguarda a revisão das "
 "anteriores."
@@ -431,6 +463,9 @@ msgstr "Welcome to gitmgf"
 
 msgid "Blog"
 msgstr "Blog"
+
+msgid "Boa ideia"
+msgstr "Good idea"
 
 msgid ""
 "Cada certificação declarada tem evidência que abre e corresponde à "
@@ -530,6 +565,42 @@ msgstr "Clicks from search (30 d)"
 msgid "Cliques na pesquisa"
 msgstr "Search clicks"
 
+msgid "Colaboração"
+msgstr "Collaboration post"
+
+msgid "Colaboração atualizada."
+msgstr "Post updated."
+
+msgid "Colaboração eliminada."
+msgstr "Post deleted."
+
+msgid "Colaboração marcada como resolvida."
+msgstr "Post marked as resolved."
+
+msgid "Colaboração ocultada"
+msgstr "Post hidden"
+
+msgid "Colaboração ocultada. O autor foi notificado."
+msgstr "Post hidden. The author has been notified."
+
+msgid "Colaboração publicada. Boa sorte!"
+msgstr "Post published. Good luck!"
+
+msgid "Colaboração reaberta."
+msgstr "Post reopened."
+
+msgid "Colaboração visível novamente"
+msgstr "Post visible again"
+
+msgid "Colaboração visível novamente."
+msgstr "Post visible again."
+
+msgid "Colaborações"
+msgstr "Collaborations"
+
+msgid "Colabs"
+msgstr "Colabs"
+
 #, python-format
 msgid "Com %(name)s"
 msgstr "With %(name)s"
@@ -544,8 +615,43 @@ msgstr ""
 "With an open-source licence and a public repository, the listing gets the"
 " Open source badge."
 
+msgid ""
+"Comentaste demasiadas vezes num curto espaço de tempo. Tenta novamente "
+"mais tarde."
+msgstr "You’ve commented too often in a short time. Try again later."
+
+msgid "Comentário"
+msgstr "Comment"
+
+msgid "Comentário atualizado."
+msgstr "Comment updated."
+
 msgid "Comentário da moderação:"
 msgstr "Moderation comment:"
+
+msgid "Comentário eliminado."
+msgstr "Comment deleted."
+
+msgid "Comentário ocultado"
+msgstr "Comment hidden"
+
+msgid "Comentário ocultado pela moderação."
+msgstr "Comment hidden by moderation."
+
+msgid "Comentário ocultado. O autor foi notificado."
+msgstr "Comment hidden. The author has been notified."
+
+msgid "Comentário publicado."
+msgstr "Comment published."
+
+msgid "Comentário visível novamente"
+msgstr "Comment visible again"
+
+msgid "Comentário visível novamente."
+msgstr "Comment visible again."
+
+msgid "Comentários"
+msgstr "Comments"
 
 msgid "Completar perfil"
 msgstr "Complete your profile"
@@ -570,6 +676,9 @@ msgstr "Compliance and certifications"
 
 msgid "Conjunto de dados"
 msgstr "Dataset"
+
+msgid "Conta com restrições"
+msgstr "Account restricted"
 
 msgid "Conta eliminada."
 msgstr "Account deleted."
@@ -604,6 +713,9 @@ msgstr "Incorrect or dangerous clinical content"
 
 msgid "Conteúdo ilegal"
 msgstr "Illegal content"
+
+msgid "Conteúdo já removido"
+msgstr "Content already removed"
 
 msgid "Continuar"
 msgstr "Continue"
@@ -710,6 +822,9 @@ msgstr "Settings"
 msgid "Definições do site"
 msgstr "Site settings"
 
+msgid "Deixa um comentário"
+msgstr "Leave a comment"
+
 msgid "Demasiadas tentativas. Aguarda um pouco e tenta novamente."
 msgstr "Too many attempts. Please wait a moment and try again."
 
@@ -726,6 +841,15 @@ msgstr "Too many requests. Please wait a moment and try again."
 msgid "Denunciante"
 msgstr "Reporter"
 
+msgid "Denunciar"
+msgstr "Report"
+
+msgid "Denunciar colaboração"
+msgstr "Report post"
+
+msgid "Denunciar comentário"
+msgstr "Report comment"
+
 msgid "Denúncia"
 msgstr "Report"
 
@@ -735,8 +859,14 @@ msgstr "Report closed. The reporter has been notified."
 msgid "Denúncias"
 msgstr "Reports"
 
+msgid "Denúncias abertas"
+msgstr "Open reports"
+
 msgid "Denúncias para ocultação automática"
 msgstr "Reports that trigger auto-hide"
+
+msgid "Depois de decidir aqui, fecha cada denúncia na respetiva página."
+msgstr "After deciding here, close each report on its own page."
 
 msgid ""
 "Depois de guardares o rascunho, podes adicionar até 5 capturas de ecrã "
@@ -801,6 +931,12 @@ msgstr "Duplicate: a listing for this tool already exists."
 msgid "Editar"
 msgstr "Edit"
 
+msgid "Editar colaboração"
+msgstr "Edit post"
+
+msgid "Editar comentário"
+msgstr "Edit comment"
+
 msgid "Editar ferramenta"
 msgstr "Edit tool"
 
@@ -813,6 +949,9 @@ msgstr "Deleted"
 msgid "Eliminado"
 msgstr "Deleted"
 
+msgid "Eliminado pelo autor"
+msgstr "Deleted by the author"
+
 msgid "Eliminar"
 msgstr "Delete"
 
@@ -821,6 +960,9 @@ msgstr "Delete account"
 
 msgid "Eliminar conta definitivamente"
 msgstr "Delete account permanently"
+
+msgid "Eliminar esta colaboração e os comentários?"
+msgstr "Delete this post and its comments?"
 
 msgid ""
 "Eliminar esta conta e retirar as suas ferramentas? Esta ação não pode ser"
@@ -836,6 +978,9 @@ msgid ""
 msgstr ""
 "Delete this tool? This cannot be undone: the listing and images are "
 "erased within 30 days."
+
+msgid "Eliminar este comentário?"
+msgstr "Delete this comment?"
 
 msgid "Em revisão"
 msgstr "Under review"
@@ -863,6 +1008,9 @@ msgstr "Incorrect email or password."
 msgid "Emails"
 msgstr "Emails"
 
+msgid "Emails de atividade"
+msgstr "Activity emails"
+
 msgid "Enfermeiro/a"
 msgstr "Nurse"
 
@@ -874,6 +1022,20 @@ msgstr "Sign in"
 
 msgid "Entrar na gitmgf"
 msgstr "Sign in to gitmgf"
+
+msgid ""
+"Entre 2 e 2000 caracteres. Para mencionar alguém, escreve @ e o nome de "
+"utilizador. Não incluas dados de utentes."
+msgstr ""
+"Between 2 and 2000 characters. To mention someone, type @ and their "
+"username. Don’t include patient data."
+
+msgid ""
+"Entre 30 e 4000 caracteres. As ligações ficam clicáveis e podes mencionar"
+" pessoas com @nome-de-utilizador."
+msgstr ""
+"Between 30 and 4000 characters. Links become clickable and you can "
+"mention people with @username."
 
 msgid "Envia dados para um servidor"
 msgstr "Sends data to a server"
@@ -901,6 +1063,9 @@ msgstr "Send the invite by email (only for invites with an email)"
 
 msgid "Enviar sugestão"
 msgstr "Send suggestion"
+
+msgid "Enviar-me um email por cada comentário, resposta ou menção"
+msgstr "Email me for each comment, reply or mention"
 
 msgid "Enviaste demasiadas sugestões hoje. Tenta novamente amanhã."
 msgstr "You've sent too many suggestions today. Please try again tomorrow."
@@ -963,6 +1128,9 @@ msgid ""
 "Esqueceste-te da palavra-passe? Pede uma ligação de redefinição a um "
 "administrador através do"
 msgstr "Forgot your password? Ask an administrator for a reset link through the"
+
+msgid "Esta colaboração foi ocultada pela moderação e não é pública."
+msgstr "This post was hidden by moderation and is not public."
 
 msgid ""
 "Esta ferramenta está em revisão. Para a editar, retira primeiro a "
@@ -1052,6 +1220,13 @@ msgstr "Expires"
 msgid "Expirado em %(date)s"
 msgstr "Expired on %(date)s"
 
+msgid ""
+"Explica que regra foi violada e porquê. Entre 10 e 2000 caracteres. Vai "
+"por email ao autor, como fundamentação da decisão."
+msgstr ""
+"Explain which rule was broken and why. Between 10 and 2000 characters. It"
+" is emailed to the author as the statement of reasons."
+
 msgid "Explicação"
 msgstr "Explanation"
 
@@ -1073,6 +1248,12 @@ msgstr "Required fields are missing. Review the form before submitting."
 msgid "Farmacêutico/a"
 msgstr "Pharmacist"
 
+msgid "Feedback"
+msgstr "Feedback"
+
+msgid "Feedback e perguntas"
+msgstr "Feedback and questions"
+
 msgid "Ferramenta"
 msgstr "Tool"
 
@@ -1086,6 +1267,9 @@ msgstr ""
 msgid "Ferramenta arquivada."
 msgstr "Tool archived."
 
+msgid "Ferramenta arquivada: os comentários estão fechados."
+msgstr "Archived tool: comments are closed."
+
 msgid ""
 "Ferramenta de IA: considera declarar a conformidade com o Regulamento da "
 "IA (AI Act)."
@@ -1093,6 +1277,9 @@ msgstr "AI tool: consider declaring conformity with the EU AI Act."
 
 msgid "Ferramenta eliminada."
 msgstr "Tool deleted."
+
+msgid "Ferramenta na gitmgf (opcional)"
+msgstr "Tool on gitmgf (optional)"
 
 msgid "Ferramenta ocultada. O autor foi notificado."
 msgstr "Tool hidden. The author has been notified."
@@ -1203,6 +1390,9 @@ msgstr "Generate a set-password link"
 msgid "Google Sheets"
 msgstr "Google Sheets"
 
+msgid "Gosto"
+msgstr "Like"
+
 msgid "Gratuita"
 msgstr "Free"
 
@@ -1229,6 +1419,9 @@ msgstr "AI"
 
 msgid "ID do utilizador"
 msgstr "User ID"
+
+msgid "Ideia"
+msgstr "Idea"
 
 msgid "Identificador"
 msgstr "Handle"
@@ -1302,6 +1495,9 @@ msgstr "Incomplete information: data needed to assess the tool is missing."
 msgid "Inglês"
 msgstr "English"
 
+msgid "Inicia sessão"
+msgstr "Sign in"
+
 msgid "Internato"
 msgstr "Residency"
 
@@ -1313,6 +1509,13 @@ msgstr "An account with this email already exists. Sign in."
 
 msgid "Já tens conta?"
 msgstr "Already have an account?"
+
+msgid ""
+"Já tens um projeto público (repositório no GitHub, um protótipo online) e"
+" precisas de ajuda para o publicar, corrigir ou depurar."
+msgstr ""
+"You already have a public project (a GitHub repository, an online "
+"prototype) and need help to deploy, fix or debug it."
 
 msgid ""
 "Letras minúsculas, números e hífenes (3 a 30). É o endereço do teu perfil"
@@ -1340,6 +1543,9 @@ msgstr "Licence"
 msgid "Licença no repositório"
 msgstr "Licence in the repository"
 
+msgid "Ligação"
+msgstr "Link"
+
 msgid "Ligação inválida"
 msgstr "Invalid link"
 
@@ -1348,6 +1554,9 @@ msgstr "Invalid or expired link"
 
 msgid "Ligação para definir a palavra-passe enviada por email."
 msgstr "Set-password link sent by email."
+
+msgid "Ligação para o projeto (opcional)"
+msgstr "Link to the project (optional)"
 
 msgid "Ligação quebrada"
 msgstr "Broken link"
@@ -1410,6 +1619,9 @@ msgstr "Newest"
 msgid "Mantida"
 msgstr "Maintained"
 
+msgid "Marcar como resolvida"
+msgstr "Mark as resolved"
+
 msgid "Material de abuso sexual de crianças"
 msgstr "Child sexual abuse material"
 
@@ -1434,6 +1646,9 @@ msgstr "Menu"
 msgid "Menu da conta"
 msgstr "Account menu"
 
+msgid "Menção"
+msgstr "Mention"
+
 msgid "Modelo"
 msgstr "Template"
 
@@ -1445,6 +1660,12 @@ msgstr "Moderator"
 
 msgid "Moderar"
 msgstr "Moderate"
+
+msgid "Moderar colaboração"
+msgstr "Moderate post"
+
+msgid "Moderar comentário"
+msgstr "Moderate comment"
 
 msgid "Moderação"
 msgstr "Moderation"
@@ -1460,8 +1681,17 @@ msgstr ""
 msgid "Mostrar mais"
 msgstr "Show more"
 
+msgid "Mostrar todos os tipos"
+msgstr "Show all types"
+
 msgid "Motivo"
 msgstr "Reason"
+
+msgid "Motivo (enviado ao autor)"
+msgstr "Reason (sent to the author)"
+
+msgid "Motivo da ocultação"
+msgstr "Reason for hiding"
 
 msgid "Motivo da rejeição"
 msgstr "Rejection reason"
@@ -1585,6 +1815,9 @@ msgstr "New tools"
 msgid "Novas submissões"
 msgstr "New submissions"
 
+msgid "Novo comentário"
+msgstr "New comment"
+
 msgid "Novo convite"
 msgstr "New invite"
 
@@ -1611,6 +1844,13 @@ msgstr ""
 msgid "Não podes atribuir estrela à tua própria ferramenta."
 msgstr "You can't star your own tool."
 
+msgid ""
+"Não podes moderar este conteúdo: és o autor, ou é sobre uma ferramenta ou"
+" colaboração tua."
+msgstr ""
+"You can’t moderate this content: you are its author, or it is on one of "
+"your tools or posts."
+
 msgid "Não tens permissão para fazer esta ação."
 msgstr "You don't have permission to do this."
 
@@ -1633,6 +1873,9 @@ msgstr "Number of uses"
 #, python-format
 msgid "O autor não declarou %(name)s para esta ferramenta."
 msgstr "The author has not declared %(name)s for this tool."
+
+msgid "O autor é notificado de que o conteúdo voltou a estar visível."
+msgstr "The author is notified that the content is visible again."
 
 msgid "O convite é inválido, já foi usado ou expirou. Pede um novo convite."
 msgstr ""
@@ -1670,6 +1913,9 @@ msgstr ""
 "What it does, for whom, how to use it and its limitations. Markdown is "
 "supported (headings, lists, links, tables). Don't include data that "
 "identifies patients."
+
+msgid "O que procuras?"
+msgstr "What are you looking for?"
 
 msgid "O que é open source?"
 msgstr "What is open source?"
@@ -1711,6 +1957,9 @@ msgstr "Purposes and specialties together can't exceed 5."
 msgid "Obrigado. Recebemos a tua denúncia e vamos analisá-la."
 msgstr "Thank you. We received your report and will review it."
 
+msgid "Obrigado/a"
+msgstr "Thank you"
+
 msgid "Ocultada"
 msgstr "Hidden"
 
@@ -1725,6 +1974,12 @@ msgstr ""
 
 msgid "Ocultadas / arquivadas"
 msgstr "Hidden / archived"
+
+msgid "Ocultado"
+msgstr "Hidden"
+
+msgid "Ocultado pela moderação. Só tu e a equipa de moderação o veem."
+msgstr "Hidden by moderation. Only you and the moderation team can see it."
 
 msgid "Ocultar"
 msgstr "Hide"
@@ -1752,6 +2007,15 @@ msgstr "Order changed."
 
 msgid "Ordenar"
 msgstr "Sort"
+
+msgid ""
+"Os comentários às tuas ferramentas e colaborações, as respostas aos teus "
+"comentários e as menções aparecem sempre nas Notificações. Escolhe se "
+"também os queres receber por email."
+msgstr ""
+"Comments on your tools and posts, replies to your comments and mentions "
+"always appear in Notifications. Choose whether you also want them by "
+"email."
 
 msgid ""
 "Os itens principais aparecem sempre (presentes ou riscados); os "
@@ -1824,10 +2088,20 @@ msgstr ""
 "To hide the tool, use its review page (the author receives the statement "
 "of reasons). Then close the report here."
 
+msgid ""
+"Para ocultar o conteúdo, usa a página de moderação (o autor recebe a "
+"fundamentação). Depois fecha aqui a denúncia."
+msgstr ""
+"To hide the content, use the moderation page (the author receives the "
+"statement of reasons). Then close the report here."
+
 msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, usa"
 msgstr ""
 "For security problems, dangerous content or anything against the Terms, "
 "use"
+
+msgid "Parabéns"
+msgstr "Congrats"
 
 msgid "Partilha-a"
 msgstr "Share it"
@@ -1837,6 +2111,9 @@ msgstr "Share a tool"
 
 msgid "Partilhar o meu email com o autor, para me poder responder."
 msgstr "Share my email with the author so they can reply."
+
+msgid "Pedido de ajuda"
+msgstr "Help wanted"
 
 msgid "Pedir alterações (volta a rascunho)"
 msgstr "Request changes (back to draft)"
@@ -1959,6 +2236,16 @@ msgstr "Score reset."
 msgid "Populares"
 msgstr "Popular"
 
+msgid "Por decisão da moderação, a tua conta não pode comentar nem reagir."
+msgstr "Following a moderation decision, your account can’t comment or react."
+
+msgid ""
+"Por decisão da moderação, a tua conta não pode publicar ferramentas nem "
+"colaborações."
+msgstr ""
+"Following a moderation decision, your account can’t publish tools or "
+"collaboration posts."
+
 msgid "Por fazer"
 msgstr "To do"
 
@@ -1972,6 +2259,9 @@ msgstr ""
 
 msgid "Português"
 msgstr "Portuguese"
+
+msgid "Preciso de ajuda num projeto"
+msgstr "I need help with a project"
 
 msgid "Preço"
 msgstr "Pricing"
@@ -2018,14 +2308,36 @@ msgstr "Published"
 msgid "Publicadas"
 msgstr "Published"
 
+msgid "Publicado"
+msgstr "Published"
+
+msgid "Publicar"
+msgstr "Publish"
+
+msgid "Publicar colaboração"
+msgstr "Post a collaboration"
+
+msgid "Publicar comentário"
+msgstr "Post comment"
+
 msgid "Publicar novamente"
 msgstr "Publish again"
+
+msgid "Publicaste demasiadas colaborações hoje. Tenta novamente amanhã."
+msgstr "You’ve posted too many collaborations today. Try again tomorrow."
 
 msgid "Página não encontrada"
 msgstr "Page not found"
 
 msgid "Páginas legais"
 msgstr "Legal pages"
+
+msgid ""
+"Público. Para mencionar alguém, escreve @ e o nome de utilizador (por "
+"exemplo @ana-silva). Não incluas dados de utentes."
+msgstr ""
+"Public. To mention someone, type @ and their username (for example @ana-"
+"silva). Don’t include patient data."
 
 msgid "Qualquer"
 msgstr "Any"
@@ -2054,6 +2366,12 @@ msgstr "Draft saved."
 
 msgid "Rascunhos"
 msgstr "Drafts"
+
+msgid "Reabrir"
+msgstr "Reopen"
+
+msgid "Reagir"
+msgstr "React"
 
 msgid "Recebida"
 msgstr "Received"
@@ -2130,14 +2448,29 @@ msgstr "Repository (URL)"
 msgid "Repositório arquivado"
 msgstr "Repository archived"
 
+msgid "Repositório, protótipo online ou documento público."
+msgstr "Repository, online prototype or public document."
+
 msgid "Resolver (foram tomadas medidas)"
 msgstr "Resolve (action taken)"
 
 msgid "Resolvida"
 msgstr "Resolved"
 
+msgid "Resolvidas"
+msgstr "Resolved"
+
+msgid "Responder"
+msgstr "Reply"
+
 msgid "Responder por email"
 msgstr "Reply by email"
+
+msgid "Resposta"
+msgstr "Reply"
+
+msgid "Restrições da conta"
+msgstr "Account restrictions"
 
 msgid "Resumo"
 msgstr "Summary"
@@ -2207,6 +2540,16 @@ msgstr ""
 
 msgid "Se não assinalares, o autor vê apenas o teu nome a apresentar."
 msgstr "If you leave this unticked, the author only sees your display name."
+
+msgid ""
+"Se não concordas, responde ao email que recebeste com a decisão ou usa a "
+"página de contacto."
+msgstr ""
+"If you disagree, reply to the email you received with the decision or use"
+" the contact page."
+
+msgid "Se o pedido é sobre uma ferramenta tua já publicada."
+msgstr "If the post is about one of your published tools."
 
 msgid "Seguinte"
 msgstr "Next"
@@ -2305,6 +2648,9 @@ msgstr "Only for this email (optional)"
 msgid "Também foi enviada por email para %(email)s."
 msgstr "It was also emailed to %(email)s."
 
+msgid "Tenho uma ideia"
+msgstr "I have an idea"
+
 #, python-format
 msgid "Tens %(num)d ferramenta que vai ser retirada."
 msgid_plural "Tens %(num)d ferramentas que vão ser retiradas."
@@ -2324,6 +2670,22 @@ msgid ""
 "Tens uma alteração pendente de revisão. Esta página mostra a versão "
 "publicada."
 msgstr "You have an edit pending review. This page shows the published version."
+
+msgid ""
+"Tens uma ferramenta e queres opiniões ou quem a teste, ou tens uma "
+"pergunta para a comunidade, por exemplo sobre o que é legal ou perigoso."
+msgstr ""
+"You have a tool and want opinions or testers, or you have a question for "
+"the community, for example about what is legal or dangerous."
+
+msgid ""
+"Tens uma ideia mas não sabes como a concretizar: pedes dicas, ajuda, ou "
+"que alguém a construa. Por exemplo: «Alguém conseguia fazer uma "
+"ferramenta para…» ou «Gostava de ter algo que me ajudasse a…»."
+msgstr ""
+"You have an idea but don’t know how to make it happen: ask for tips, "
+"help, or for someone to build it. For example: “Could someone build a "
+"tool to…” or “I wish I had something to help me…”."
 
 msgid ""
 "Tenta outras palavras ou retira alguns filtros. Conheces uma ferramenta "
@@ -2362,8 +2724,14 @@ msgstr "Badge text"
 msgid "Tipo"
 msgstr "Type"
 
+msgid "Tipo de colaboração"
+msgstr "Collaboration type"
+
 msgid "Tipo de ferramenta"
 msgstr "Tool type"
+
+msgid "Todas"
+msgstr "All"
 
 msgid "Todas as funções"
 msgstr "All roles"
@@ -2413,6 +2781,9 @@ msgstr ""
 " they make for clinical practice, with a focus on General Practice / "
 "Family Medicine and residency."
 
+msgid "Uma frase que resuma o pedido, entre 8 e 120 caracteres."
+msgstr "One sentence that sums up the request, between 8 and 120 characters."
+
 msgid ""
 "Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de "
 "pesquisa."
@@ -2442,6 +2813,9 @@ msgstr "User"
 
 msgid "Utilizador do GitHub (opcional)"
 msgstr "GitHub username (optional)"
+
+msgid "Utilizador removido"
+msgstr "Removed user"
 
 msgid "Utilizador suspenso."
 msgstr "User suspended."
@@ -2474,8 +2848,14 @@ msgstr "View"
 msgid "Ver código"
 msgstr "View code"
 
+msgid "Ver e responder"
+msgstr "See and reply"
+
 msgid "Ver em português"
 msgstr "View in Portuguese"
+
+msgid "Ver no site"
+msgstr "View on site"
 
 msgid "Ver o meu perfil público"
 msgstr "View my public profile"
@@ -2532,8 +2912,14 @@ msgstr "Overview"
 msgid "Visão geral do portal, para moderadores e administradores."
 msgstr "Site overview, for moderators and administrators."
 
+msgid "Visível"
+msgstr "Visible"
+
 msgid "Visível novamente"
 msgstr "Visible again"
+
+msgid "Voltar"
+msgstr "Back"
 
 msgid "Voltar a Entrar"
 msgstr "Back to sign in"
@@ -2568,8 +2954,14 @@ msgstr "certified by a third party"
 msgid "certification"
 msgstr "certification"
 
+msgid "colaboração"
+msgstr "post"
+
 msgid "com sessão"
 msgstr "signed in"
+
+msgid "comentário"
+msgstr "comment"
 
 msgid "contacto"
 msgstr "contact page"
@@ -2580,8 +2972,15 @@ msgstr "declared by the author"
 msgid "definida"
 msgstr "set"
 
+msgid "editado"
+msgstr "edited"
+
 msgid "em português"
 msgstr "in Portuguese"
+
+#, python-format
+msgid "em «%(title)s»"
+msgstr "on “%(title)s”"
 
 msgid "estrelas"
 msgstr "stars"
@@ -2603,6 +3002,9 @@ msgstr "mixed"
 
 msgid "p. ex. USF X, ULS Y"
 msgstr "e.g. USF X, ULS Y"
+
+msgid "para comentar, responder e reagir."
+msgstr "to comment, reply and react."
 
 #, python-format
 msgid "para «%(q)s»"

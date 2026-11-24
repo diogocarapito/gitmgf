@@ -22,13 +22,13 @@ def test_export_contains_all_user_data(client, db):
     svc.toggle_star(db, other, user)
     report_service.create(
         db,
-        other,
         ReportReason.broken_link,
         "A ligação principal devolve erro 404.",
         user,
         None,
         "pt",
         None,
+        tool=other,
     )
     db.commit()
     login(client, db, user)
@@ -49,13 +49,13 @@ def test_delete_account_unpublishes_tools_removes_stars_and_anonymises_reports(c
     svc.toggle_star(db, other, user)
     report_service.create(
         db,
-        other,
         ReportReason.broken_link,
         "A ligação principal devolve erro 404.",
         user,
         None,
         "pt",
         None,
+        tool=other,
     )
     db.commit()
     assert other.stars_count == 1

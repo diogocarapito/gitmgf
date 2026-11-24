@@ -38,6 +38,12 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(default=utcnow, onupdate=utcnow)
     last_login_at: Mapped[datetime | None]
+    email_on_comments: Mapped[bool] = mapped_column(default=True)  # D41 opt-out
+    # Moderator restrictions (D41): no new tools or colab posts / no comments or reactions.
+    publish_blocked_at: Mapped[datetime | None]
+    publish_blocked_reason: Mapped[str | None]
+    social_blocked_at: Mapped[datetime | None]
+    social_blocked_reason: Mapped[str | None]
     deleted_at: Mapped[datetime | None]
 
     specialty: Mapped["Category | None"] = relationship(lazy="joined")

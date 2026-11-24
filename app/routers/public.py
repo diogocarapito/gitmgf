@@ -10,7 +10,7 @@ from app import i18n
 from app.config import get_settings
 from app.deps import DB, CurrentUser, Form, UserDep
 from app.forms.search import SearchQueryParams
-from app.i18n import N_, lang_prefix
+from app.i18n import N_, labels, lang_path, lang_prefix
 from app.models import Category, Tool, ToolMedia, User, tool_categories
 from app.models.enums import EventKind, MediaState, ToolStatus
 from app.routers.auth import client_key
@@ -192,7 +192,11 @@ def tool_page_context(request: Request, db: DB, user: Any, tool: Tool) -> dict[s
         if getattr(tool, f"{kind}_url")
     ]
     media = [m for m in tool.media if m.state == MediaState.live]
+    from app.services import comments
+
     return {
+        "thread": comments.thread(db, user, tool=tool, lang=lang),
+        "can_comment": permissions.can_comment_on_tool(user, tool),
         "tool": tool,
         "badges": badges,
         "cert_panel": panel,
@@ -342,13 +346,46 @@ def _reportable(db: DB, slug: str) -> Tool:
     return tool
 
 
-def _report_page(
-    request: Request, tool: Tool, values: dict[str, Any], errors: dict[str, Any], status_code: int = 200
+def report_subject(
+    request: Request, tool: Tool | None = None, comment: Any = None, colab: Any = None
+) -> dict[str, Any]:
+    """What a report form is about (D41): a tool, a comment or a colab post."""
+    lang = request.state.lang
+    if tool is not None:
+        title, _ = i18n.localized(tool, "title", lang)
+        back = lang_path(lang, f"/t/{tool.slug}")
+        return {"kind": "tool", "title": title, "back": back, "action": f"{back}/report", "tool": tool}
+    if comment is not None:
+        from app.services.comments import link
+
+        target = comment.tool or comment.colab
+        title = i18n.localized(target, "title", lang)[0] if comment.tool else target.title
+        return {
+            "kind": "comment",
+            "title": title,
+            "back": link(comment, lang).removeprefix(get_settings().base_url.rstrip("/")),
+            "action": lang_path(lang, f"/comments/{comment.id}/report"),
+            "comment": comment,
+        }
+    back = lang_path(lang, f"/colabs/{colab.id}")
+    return {"kind": "colab", "title": colab.title, "back": back, "action": f"{back}/report", "colab": colab}
+
+
+def report_page(
+    request: Request,
+    subject: dict[str, Any],
+    values: dict[str, Any],
+    errors: dict[str, Any],
+    status_code: int = 200,
 ) -> Response:
+    from app.models.enums import ReportReason
+
+    allowed = list(ReportReason) if subject["kind"] == "tool" else list(report_service.COMMUNITY_REASONS)
+    reasons = [(k, v) for k, v in labels.REPORT_REASON.items() if ReportReason(k) in allowed]
     return render(
         request,
         "public/report.html",
-        {"tool": tool, "values": values, "errors": errors, "stamp": _form_stamp()},
+        {"subject": subject, "reasons": reasons, "values": values, "errors": errors, "stamp": _form_stamp()},
         status_code=status_code,
     )
 
@@ -427,20 +464,39 @@ def suggest_submit(
 
 @pages.get("/t/{slug}/report")
 def report_form(request: Request, db: DB, user: CurrentUser, slug: str) -> Response:
-    return _report_page(request, _reportable(db, slug), {}, {})
+    return report_page(request, report_subject(request, tool=_reportable(db, slug)), {}, {})
 
 
 @pages.post("/t/{slug}/report")
 def report_submit(
     request: Request, db: DB, user: CurrentUser, slug: str, form: Form, background: BackgroundTasks
 ) -> Response:
+    tool = _reportable(db, slug)
+    subject = report_subject(request, tool=tool)
+    done = (
+        f"{lang_prefix(request.state.lang)}/t/{tool.slug}?flash=reported"
+        if tool.status in ("published", "archived")
+        else f"{lang_prefix(request.state.lang)}/?flash=reported"
+    )
+    return handle_report(request, db, user, form, background, subject, done)
+
+
+def handle_report(
+    request: Request,
+    db: DB,
+    user: Any,
+    form: Any,
+    background: BackgroundTasks,
+    subject: dict[str, Any],
+    done: str,
+) -> Response:
+    """Shared by tool, comment and colab reports (DSA notice and action)."""
     from pydantic import ValidationError
 
     from app.forms.common import INVALID_EMAIL, errors_from, form_to_dict
     from app.forms.report import ReportForm
     from app.models.enums import ReportReason
 
-    tool = _reportable(db, slug)
     lang = request.state.lang
     raw = form_to_dict(form)
     raw["good_faith"] = form.get("good_faith") == "1"
@@ -448,9 +504,9 @@ def report_submit(
     # Spam checks without third-party CAPTCHA: honeypot + minimum fill time (PRD Q6).
     age = _stamp_age(form.get("stamp") if isinstance(form.get("stamp"), str) else None)
     if form.get("website") or age is None or age < MIN_FORM_SECONDS:
-        return _report_page(
+        return report_page(
             request,
-            tool,
+            subject,
             raw,
             {"__all__": (N_("Não foi possível enviar. Aguarda uns segundos e tenta novamente."), {})},
             422,
@@ -462,25 +518,25 @@ def report_submit(
         if "__all__" in errors or any(e.get("loc") == () for e in exc.errors()):
             errors.pop("__all__", None)
             errors["email"] = (INVALID_EMAIL, {})
-        return _report_page(request, tool, raw, errors, 422)
+        return report_page(request, subject, raw, errors, 422)
+    reason = ReportReason(data.reason)
+    if subject["kind"] != "tool" and reason not in report_service.COMMUNITY_REASONS:
+        return report_page(request, subject, raw, {"reason": (N_("Escolhe uma opção válida."), {})}, 422)
     visitor = tracking.visitor_hash(db, request)
     if not ratelimit.hit(ratelimit.REPORTS_VISITOR, "report", visitor):
         raise HTTPException(status_code=429)
     report_service.create(
         db,
-        tool,
-        ReportReason(data.reason),
+        reason,
         data.details,
         user,
         str(data.email) if data.email else None,
         lang,
         visitor,
+        tool=subject.get("tool"),
+        comment=subject.get("comment"),
+        colab=subject.get("colab"),
     )
     db.commit()
     background.add_task(email.deliver_queued)
-    target = (
-        f"{lang_prefix(lang)}/t/{tool.slug}?flash=reported"
-        if tool.status in ("published", "archived")
-        else f"{lang_prefix(lang)}/?flash=reported"
-    )
-    return RedirectResponse(target, status_code=303)
+    return RedirectResponse(done, status_code=303)

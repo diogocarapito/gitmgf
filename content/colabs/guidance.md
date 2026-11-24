@@ -1,0 +1,1 @@
+Antes de publicar: explica o problema que queres resolver e o contexto clínico, diz que tipo de ajuda procuras e o que já tentaste. **Nunca incluas dados de utentes, palavras-passe ou chaves de acesso.** A publicação fica pública de imediato e segue os [Termos](/p/terms) e as [Normas de Submissão](/p/guidelines).

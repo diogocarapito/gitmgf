@@ -9,7 +9,7 @@
   {% if items %}
   <div class="table-wrap"><table class="table">
     <thead><tr>
-      {% if tab == 'reports' %}<th scope="col">{{ _("Motivo") }}</th><th scope="col">{{ _("Ferramenta") }}</th><th scope="col">{{ _("Recebida") }}</th><th scope="col"></th>
+      {% if tab == 'reports' %}<th scope="col">{{ _("Motivo") }}</th><th scope="col">{{ _("Assunto") }}</th><th scope="col">{{ _("Recebida") }}</th><th scope="col"></th>
       {% else %}<th scope="col">{{ _("Ferramenta") }}</th><th scope="col">{{ _("Autor") }}</th><th scope="col">{{ _("Há") }}</th><th scope="col"></th>{% endif %}
     </tr></thead>
     <tbody>
@@ -21,7 +21,7 @@
       <tr><td>{{ item.tool.title_pt }}</td><td>{{ item.tool.owner.display_name }}{% if item.tool.owner_id == user.id %} <span class="status">{{ _("tua") }}</span>{% endif %}</td>
         <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/revisions/' ~ item.id) }}">{{ _("Rever") }}</a></td></tr>
       {% else %}
-      <tr><td>{{ label(labels.REPORT_REASON, item.reason) }}</td><td>{{ item.tool.title_pt }}</td>
+      <tr><td>{{ label(labels.REPORT_REASON, item.reason) }}</td><td>{% if item.comment_id %}<span class="status">{{ _("comentário") }}</span> {% elif item.colab_id %}<span class="status">{{ _("colaboração") }}</span> {% endif %}{{ item.subject_title }}</td>
         <td class="nowrap">{{ item.created_at | relative }}</td><td><a class="btn btn--sm" href="{{ url('/mod/reports/' ~ item.id) }}">{{ _("Analisar") }}</a></td></tr>
       {% endif %}
     {% endfor %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Conta com restrições") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head"><h1>{{ _("Conta com restrições") }}</h1></header>
+  <div class="notice notice--warn">{{ icon('ban') }}
+    <p>{% if what == 'publish' %}{{ _("Por decisão da moderação, a tua conta não pode publicar ferramentas nem colaborações.") }}{% if user.publish_blocked_reason %} {{ _("Motivo:") }} {{ user.publish_blocked_reason }}{% endif %}
+       {% else %}{{ _("Por decisão da moderação, a tua conta não pode comentar nem reagir.") }}{% if user.social_blocked_reason %} {{ _("Motivo:") }} {{ user.social_blocked_reason }}{% endif %}{% endif %}</p>
+  </div>
+  <p class="small muted section--tight">{{ _("Se não concordas, responde ao email que recebeste com a decisão ou usa a página de contacto.") }} <a href="{{ url('/p/contact') }}">{{ _("Contacto") }}</a></p>
+</div>
+{% endblock %}

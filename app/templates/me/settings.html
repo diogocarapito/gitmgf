@@ -14,6 +14,14 @@
     <div class="form-actions"><button class="btn btn--primary" type="submit">{{ _("Guardar") }}</button></div>
   </form>
 
+  <form class="form form-section section--tight" method="post" action="/me/email-preferences" id="emails">
+    {{ m.csrf() }}
+    <h2 class="form-section__title">{{ _("Emails de atividade") }}</h2>
+    <p class="form-section__intro">{{ _("Os comentários às tuas ferramentas e colaborações, as respostas aos teus comentários e as menções aparecem sempre nas Notificações. Escolhe se também os queres receber por email.") }}</p>
+    {{ m.checkbox("email_on_comments", _("Enviar-me um email por cada comentário, resposta ou menção"), user.email_on_comments, {}) }}
+    <div class="form-actions"><button class="btn" type="submit">{{ _("Guardar") }}</button></div>
+  </form>
+
   <section class="form-section section--tight" id="foto">
     <h2 class="form-section__title">{{ _("Foto de perfil") }}</h2>
     <div class="avatar-edit">

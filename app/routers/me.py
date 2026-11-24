@@ -83,6 +83,14 @@ def delete_avatar(request: Request, db: DB, user: UserDep) -> Response:
     return RedirectResponse(f"{lang_prefix(request.state.lang)}/me/settings?flash=avatar_removed", 303)
 
 
+@actions.post("/me/email-preferences")
+def email_preferences(request: Request, db: DB, user: UserDep, form: Form) -> Response:
+    """Opt-out of comment, reply and mention emails (D41); the in-app notifications stay."""
+    user.email_on_comments = form.get("email_on_comments") == "1"
+    db.commit()
+    return RedirectResponse(f"{lang_prefix(request.state.lang)}/me/settings?flash=saved#emails", 303)
+
+
 @pages.get("/me/settings")
 def settings_page(request: Request, db: DB, user: UserDep) -> Response:
     return _settings_page(request, db, user, _profile_values(user), {})

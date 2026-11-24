@@ -174,6 +174,37 @@ class NotificationKind(StrEnum):
     tool_unhidden = "tool_unhidden"
     revision_approved = "revision_approved"
     revision_rejected = "revision_rejected"
+    comment_new = "comment_new"  # someone commented on your tool or colab (D41)
+    comment_reply = "comment_reply"
+    comment_mention = "comment_mention"
+    comment_hidden = "comment_hidden"
+    comment_unhidden = "comment_unhidden"
+    colab_hidden = "colab_hidden"
+    colab_unhidden = "colab_unhidden"
+
+
+class ColabKind(StrEnum):
+    """Colaborações (D41)."""
+
+    idea = "idea"  # an idea: asking for tips, help, or someone to build it
+    help = "help"  # a public project that needs help to deploy, fix or debug
+    feedback = "feedback"  # feedback, testers, or questions to the community (legal, safety…)
+
+
+class ColabStatus(StrEnum):
+    open = "open"
+    resolved = "resolved"
+    hidden = "hidden"  # by a moderator
+    deleted = "deleted"  # by the author (soft, so comment notifications keep a target)
+
+
+class Reaction(StrEnum):
+    thumbs_up = "thumbs_up"
+    heart = "heart"
+    tada = "tada"
+    pray = "pray"
+    bulb = "bulb"
+    eyes = "eyes"
 
 
 class ReportStatus(StrEnum):

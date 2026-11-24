@@ -1,12 +1,12 @@
 ---
 title: Política de Privacidade
 version: "2026-11"
-last_updated: 2026-11-20
+last_updated: 2026-11-24
 ---
 
 # Política de Privacidade
 
-**Versão 2026-11 · Última atualização: 18 de novembro de 2026**
+**Versão 2026-11 · Última atualização: 24 de novembro de 2026**
 
 A gitmgf (<https://gitmgf.com>) é um portal onde profissionais de saúde e outras pessoas partilham ferramentas digitais que criaram para a prática clínica. Esta política explica que dados pessoais tratamos, porquê, com que fundamento, durante quanto tempo e quais são os seus direitos, nos termos do Regulamento (UE) 2016/679 (Regulamento Geral sobre a Proteção de Dados — **RGPD**) e da Lei n.º 58/2019, de 8 de agosto.
 
@@ -45,7 +45,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | **Conta** | Endereço de email; nome a apresentar; identificador público (*handle*); profissão; especialidade (opcional); local de trabalho (opcional); nome de utilizador no GitHub (opcional); foto de perfil (opcional); idioma preferido; versão e data de aceitação dos Termos | Fornecidos por si |
 | **Autenticação** | Palavra-passe, guardada apenas em forma cifrada irreversível (*hash* scrypt com sal); códigos de convite, códigos de confirmação de email e de redefinição de palavra-passe, ligações de redefinição e identificadores de sessão, também guardados apenas em forma irreversível; enquanto um registo aguarda confirmação, os dados do formulário (nome, email, profissão, especialidade e a palavra-passe já em *hash*); tipo de navegador da sessão; datas de início e última atividade | Fornecidos por si ou gerados pelo Serviço |
 | **Conteúdo publicado** | Fichas de ferramentas (textos, ligações, email de suporte se o indicar, licença, plataformas, declarações de tratamento de dados e de certificações), capturas de ecrã e revisões | Fornecidos por si |
-| **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta, exceto nas denúncias de abuso sexual de crianças, que são anónimas); sugestões que envia ou recebe para ferramentas (tipo, mensagem, data e se aceitou partilhar o email com o autor) | Fornecidos por si |
+| **Interações** | Estrelas que atribui; denúncias que envia (incluindo o email, se não tiver conta, exceto nas denúncias de abuso sexual de crianças, que são anónimas); sugestões que envia ou recebe para ferramentas (tipo, mensagem, data e se aceitou partilhar o email com o autor); comentários e respostas, reações com emojis e publicações em Colaborações (texto, ligação, data, edições e menções a outros utilizadores); notificações de comentários, respostas e menções, e a sua preferência de as receber por email | Fornecidos por si |
 | **Medição de utilização (pseudonimizada)** | Pesquisas efetuadas (texto, filtros, número de resultados); cliques em resultados e em ligações para ferramentas; visualizações de páginas de ferramentas — associados a um identificador diário pseudonimizado, nunca ao seu endereço IP | Gerados pela utilização do site |
 | **Registos técnicos e de segurança** | Endereço IP, data/hora, página pedida, código de resposta e tipo de navegador, nos registos do servidor | Gerados automaticamente |
 | **Comunicações** | Emails transacionais que lhe enviamos e mensagens que nos envia | Gerados pelo serviço / fornecidos por si |
@@ -63,6 +63,7 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 | Mostrar o seu perfil público e publicar as suas ferramentas, com o seu nome, foto, profissão, especialidade e ligação GitHub | Conta, conteúdo publicado | Execução do contrato (art. 6.º, n.º 1, al. b)) |
 | Rever submissões, tratar denúncias, fundamentar decisões de moderação e responder a contestações | Conteúdo, interações, moderação, comunicações | Cumprimento de obrigação jurídica — Regulamento (UE) 2022/2065, Regulamento dos Serviços Digitais (art. 6.º, n.º 1, al. c)) — e interesse legítimo em manter o portal seguro e fiável (al. f)) |
 | Enviar emails necessários ao serviço (acesso, estado das submissões, decisões, avisos de expiração de certificações) | Conta, comunicações | Execução do contrato (art. 6.º, n.º 1, al. b)) |
+| Publicar os seus comentários, reações e Colaborações com o seu nome e foto; notificar, na gitmgf e por email (pode desativar o email em Definições), o autor da ferramenta ou da Colaboração, quem recebe uma resposta e quem é mencionado | Conta, interações | Execução do contrato (art. 6.º, n.º 1, al. b)) |
 | Entregar ao autor de uma ferramenta as sugestões que lhe envia, por email e nas notificações do gitmgf; partilhar o seu email com o autor só se o autorizar | Conta, interações | Execução do contrato (art. 6.º, n.º 1, al. b)); consentimento para partilhar o email (al. a)), que pode retirar não voltando a assinalar a opção |
 | Calcular a popularidade das ferramentas e ordenar pesquisas; mostrar estatísticas agregadas aos autores; perceber que ferramentas faltam (pesquisas sem resultados) | Medição de utilização (pseudonimizada), estrelas | Interesse legítimo em oferecer pesquisa relevante e melhorar o serviço (art. 6.º, n.º 1, al. f)) |
 | Garantir a segurança, prevenir abusos e fraude (spam, manipulação de pontuações), limitar pedidos excessivos | Registos técnicos, medição de utilização, conta | Interesse legítimo na segurança do serviço e dos utilizadores (art. 6.º, n.º 1, al. f)) |
@@ -74,13 +75,15 @@ Esta política aplica-se a quem visita o site, a quem cria conta (utilizadores, 
 **Sem decisões automatizadas com efeitos significativos.** Não tomamos decisões exclusivamente automatizadas que produzam efeitos jurídicos ou que o afetem de forma significativa (art. 22.º do RGPD). Existem dois mecanismos automáticos, sempre seguidos de revisão humana:
 
 - uma ferramenta que recebe várias denúncias por conteúdo perigoso ou problema de segurança é **ocultada temporariamente** até um moderador a rever;
-- a ordenação por popularidade usa os sinais descritos nos Termos de Utilização (secção 10) e ignora cliques automáticos (*bots*) e os do próprio autor.
+- a ordenação por popularidade usa os sinais descritos nos Termos de Utilização (secção 10) e ignora cliques automáticos (*bots*), os do próprio autor e os da equipa de moderação e administração.
 
 **Não enviamos comunicações de marketing.** Se um dia quisermos enviar uma newsletter, só o faremos com o seu consentimento prévio e específico, que pode retirar a qualquer momento.
 
 ## 5. O que fica visível para outras pessoas
 
 Cada conta ativa tem um **perfil público** em `/u/<identificador>`, com o nome a apresentar, a foto de perfil (se a carregar), a profissão, a especialidade (se indicada), a ligação para o seu perfil GitHub (se indicada), a função de moderador/a ou administrador/a (se a tiver), a data de registo e as ferramentas que publicou. Os perfis sem ferramentas publicadas não são indexados pelos motores de pesquisa. Quando publica uma ferramenta, ficam também **públicos** na página dessa ferramenta o seu nome, foto, profissão, especialidade e GitHub, e todo o conteúdo da ferramenta, incluindo as certificações declaradas. O número total de estrelas é público; **quem** atribuiu as estrelas não é.
+
+Os seus **comentários, respostas e publicações em Colaborações são públicos**, com o seu nome a apresentar, foto e ligação para o perfil, tal como o número de reações de cada comentário (quem reagiu não é mostrado). Se mencionar alguém, essa pessoa é notificada.
 
 Quando envia uma sugestão, o autor da ferramenta vê o seu nome a apresentar e a mensagem; vê também o seu email **apenas se o autorizar** no formulário (nesse caso, pode responder-lhe diretamente).
 
@@ -136,7 +139,8 @@ Os nossos subcontratantes tratam os dados no Espaço Económico Europeu (EEE). N
 | Registos do servidor (incluindo endereço IP) | 14 dias |
 | Emails enviados (fila de envio) | 30 dias |
 | Sugestões enviadas a autores | 1 ano, ou até o autor as remover. Apagadas se o remetente ou o destinatário eliminar a conta |
-| Notificações das decisões da moderação sobre as suas ferramentas | 1 ano, ou até as remover. Apagadas se eliminar a conta |
+| Notificações (decisões da moderação, comentários, respostas e menções) | 1 ano, ou até as remover. Apagadas se eliminar a conta |
+| Comentários, reações e publicações em Colaborações | Enquanto estiverem publicados ou até os eliminar. Ao eliminar a conta, as reações e os comentários são apagados (um comentário com respostas de outras pessoas fica como "eliminado", sem texto nem autor) e as Colaborações são retiradas de imediato e apagadas definitivamente em 30 dias |
 | Denúncias | 2 anos após a decisão. Os dados do denunciante são anonimizados se eliminar a conta |
 | Registo de auditoria de moderação e administração | 3 anos, para demonstrar o cumprimento das regras de moderação e defender direitos. Após a eliminação de uma conta, a referência ao utilizador é pseudonimizada |
 | Cópias de segurança | Até 30 dias. Dados eliminados da base de dados desaparecem das cópias quando estas expiram |

@@ -1,12 +1,12 @@
 ---
 title: Termos de Utilização
 version: "2026-11"
-last_updated: 2026-11-16
+last_updated: 2026-11-24
 ---
 
 # Termos de Utilização
 
-**Versão 2026-11 · Última atualização: 18 de novembro de 2026**
+**Versão 2026-11 · Última atualização: 24 de novembro de 2026**
 
 Estes Termos regulam a utilização da gitmgf (<https://gitmgf.com>) (o **"Serviço"**). Ao criar conta, aceita estes Termos, as [Normas de Submissão](/p/guidelines) e toma conhecimento da [Política de Privacidade](/p/privacy). Pode consultar e usar o Serviço sem conta; nesse caso, aplicam-se as secções 4, 6.2, 9, 12, 13 e 16 a 18.
 
@@ -86,6 +86,15 @@ O Serviço é **gratuito**. Não inclui publicidade nem posições pagas nos res
 
 Se descobrir uma vulnerabilidade, comunique-a de forma responsável para [[SECURITY_EMAIL]]. Não a explore nem a divulgue antes de a corrigirmos.
 
+6.3. **Comentários, reações e Colaborações.** Com conta, pode comentar as páginas das ferramentas, responder a comentários, reagir com emojis e publicar pedidos na secção **Colaborações** (ideias, pedidos de ajuda num projeto, pedidos de feedback ou perguntas à comunidade). Estas publicações:
+
+- ficam **públicas de imediato**, com o seu nome e fotografia de perfil, sem revisão prévia, e estão sujeitas às regras do ponto 6.1 e às Normas de Submissão; podemos ocultá-las depois, nos termos da secção 8;
+- são da sua responsabilidade: não inclua dados de utentes, palavras-passe, chaves de acesso nem outros dados pessoais de terceiros;
+- ficam abrangidas pela licença do ponto 5.3, nos mesmos termos;
+- podem ser editadas ou eliminadas por si a qualquer momento. Um comentário eliminado que tenha respostas fica assinalado como "eliminado", sem texto nem autor, para que a conversa continue legível.
+
+Quando menciona alguém (@nome-de-utilizador) ou responde a um comentário, essa pessoa é notificada. A gitmgf não verifica o código, os conselhos ou a ajuda trocados entre utilizadores e não é parte em acordos que façam entre si: use-os com espírito crítico, sobretudo em contexto clínico.
+
 ## 7. Certificações e conformidade declaradas
 
 7.1. Os selos de certificação (por exemplo, CE, MDR, RGPD, normas ISO, Regulamento da IA) mostram **o que o autor declarou** e as evidências que indicou. O selo cinzento riscado significa apenas que o autor não declarou essa certificação (ou que expirou), e não que ela seja obrigatória.
@@ -101,10 +110,10 @@ Se descobrir uma vulnerabilidade, comunique-a de forma responsável para [[SECUR
 8.1. **Critérios.** Moderamos o conteúdo segundo estes Termos e as Normas de Submissão. A moderação é feita por pessoas (moderadores e administradores voluntários designados pela gitmgf), com o apoio de verificações automáticas:
 
 - validação técnica das imagens carregadas;
-- deteção de cliques automáticos e exclusão dos cliques do próprio autor no cálculo da popularidade;
+- deteção de cliques automáticos e exclusão, no cálculo da popularidade, dos cliques do próprio autor e da equipa de moderação;
 - **ocultação temporária automática** de uma ferramenta que receba [[AUTO_HIDE_THRESHOLD]] ou mais denúncias por conteúdo perigoso ou problema de segurança, até um moderador a rever.
 
-8.2. **Medidas possíveis:** pedir alterações; rejeitar uma submissão ou uma declaração de certificação; ocultar ou remover uma ferramenta; repor a pontuação de uma ferramenta; suspender ou encerrar uma conta.
+8.2. **Medidas possíveis:** pedir alterações; rejeitar uma submissão ou uma declaração de certificação; ocultar ou remover uma ferramenta; ocultar um comentário ou uma publicação em Colaborações; repor a pontuação de uma ferramenta; impedir uma conta de publicar ferramentas e Colaborações, ou de comentar e reagir; suspender ou encerrar uma conta.
 
 8.3. **Fundamentação.** Sempre que tomarmos uma destas medidas sobre o seu conteúdo ou a sua conta, comunicamos-lhe uma exposição de motivos, por email ou na sua área pessoal no Serviço,: a medida aplicada, os factos e a regra em causa, se a decisão resultou de uma denúncia ou de meios automáticos, e como pode contestá-la (artigo 17.º do Regulamento dos Serviços Digitais).
 
@@ -114,7 +123,7 @@ Se descobrir uma vulnerabilidade, comunique-a de forma responsável para [[SECUR
 
 ## 9. Denúncias
 
-9.1. **Qualquer pessoa**, com ou sem conta, pode denunciar conteúdo que considere ilegal ou contrário a estes Termos através da ligação "Reportar problema" na página de cada ferramenta (artigo 16.º do Regulamento dos Serviços Digitais).
+9.1. **Qualquer pessoa**, com ou sem conta, pode denunciar conteúdo que considere ilegal ou contrário a estes Termos através da ligação "Reportar problema" na página de cada ferramenta, ou "Denunciar" em cada comentário e publicação em Colaborações (artigo 16.º do Regulamento dos Serviços Digitais).
 
 9.2. Para podermos agir, a denúncia deve incluir: a ferramenta em causa (a denúncia é feita na página da ferramenta); o motivo e uma explicação suficiente; o seu email, se não tiver sessão iniciada; e a confirmação de que a faz de boa-fé. Nas denúncias de material de abuso sexual de crianças não é necessário identificar-se: o email não é pedido nem guardado.
 
@@ -131,7 +140,7 @@ Os resultados são ordenados por pertinência em relação à pesquisa, combinad
 - estrelas atribuídas por utilizadores com conta;
 - estrelas do repositório no GitHub, se existir.
 
-As interações mais antigas contam menos: o peso cai para metade a cada 30 dias. Cada visitante conta uma vez por dia e por ferramenta. Os cliques do próprio autor e os de *bots* não contam. Também pode ordenar por "Mais recentes", "Mais estrelas" ou "Atualizadas recentemente". **Ninguém paga para aparecer em melhor posição.**
+As interações mais antigas contam menos: o peso cai para metade a cada 30 dias. Cada visitante conta uma vez por dia e por ferramenta. Os cliques do próprio autor, os da equipa de moderação e administração e os de *bots* não contam. Também pode ordenar por "Mais recentes", "Mais estrelas" ou "Atualizadas recentemente". **Ninguém paga para aparecer em melhor posição.**
 
 ## 11. Propriedade intelectual da gitmgf
 

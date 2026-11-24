@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ _("Editar colaboração") if colab else _("Publicar colaboração") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/colabs') }}">{{ _("Colaborações") }}</a>{% if colab %} / <a href="{{ url('/colabs/' ~ colab.id) }}">{{ colab.title }}</a>{% endif %}</p>
+    <h1>{{ _("Editar colaboração") if colab else _("Publicar colaboração") }}</h1>
+    {{ site_text("colabs/guidance").html }}
+  </header>
+  {% if errors.get('__all__') %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors['__all__'][0]) }}</p></div>{% endif %}
+  <form class="form" method="post" action="{{ url('/colabs/' ~ colab.id ~ '/edit') if colab else url('/colabs/new') }}">
+    {{ m.csrf() }}
+    <fieldset class="form-section{% if errors.get('kind') %} field--invalid{% endif %}">
+      <legend>{{ _("O que procuras?") }} <span class="req" aria-hidden="true">*</span></legend>
+      <div class="kind-options">
+        {% for key, text in labels.COLAB_KIND.items() %}
+        <label class="kind-option">
+          <input type="radio" name="kind" value="{{ key }}" required{% if values.get('kind') == key %} checked{% endif %}>
+          <span class="kind-option__icon">{{ icon(labels.COLAB_KIND_ICON[key]) }}</span>
+          <span><strong>{{ _(text) }}</strong><span class="small muted">{{ _(labels.COLAB_KIND_HINT[key]) }}</span></span>
+        </label>
+        {% endfor %}
+      </div>
+      {{ m.error(errors, "kind") }}
+    </fieldset>
+    <fieldset class="form-section">
+      <legend>{{ _("Detalhes") }}</legend>
+      {{ m.text("title", _("Título"), values, errors, required=True, maxlength=120, hint=_("Uma frase que resuma o pedido, entre 8 e 120 caracteres.")) }}
+      {{ m.textarea("body", _("Descrição"), values, errors, required=True, maxlength=4000, rows=9, hint=_("Entre 30 e 4000 caracteres. As ligações ficam clicáveis e podes mencionar pessoas com @nome-de-utilizador.")) }}
+      {{ m.text("link_url", _("Ligação para o projeto (opcional)"), values, errors, type="url", maxlength=500, placeholder="https://github.com/…", hint=_("Repositório, protótipo online ou documento público.")) }}
+      {% if own_tools %}
+      {% set tool_options = [] %}{% for t in own_tools %}{% do tool_options.append((t.id, t.title_pt)) %}{% endfor %}
+      {{ m.select("tool_id", _("Ferramenta na gitmgf (opcional)"), tool_options, values, errors, empty=_("— Nenhuma —"), hint=_("Se o pedido é sobre uma ferramenta tua já publicada.")) }}
+      {% endif %}
+    </fieldset>
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{{ icon('send') }} {{ _("Guardar") if colab else _("Publicar") }}</button>
+      <a class="btn btn--ghost" href="{{ url('/colabs/' ~ colab.id) if colab else url('/colabs') }}">{{ _("Cancelar") }}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

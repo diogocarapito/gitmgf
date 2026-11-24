@@ -10,6 +10,9 @@ from sqlalchemy.orm import Session
 from app.db import utcnow
 from app.models import (
     AuditLog,
+    Colab,
+    Comment,
+    CommentReaction,
     EmailCode,
     EmailOutbox,
     InteractionEvent,
@@ -24,8 +27,8 @@ from app.models import (
     User,
     UserSession,
 )
-from app.models.enums import ReportStatus, ToolStatus, UserStatus
-from app.services import audit, certifications, email, media, sessions
+from app.models.enums import ColabStatus, ReportStatus, ToolStatus, UserStatus
+from app.services import audit, certifications, colabs, comments, email, media, sessions
 from app.services import tools as tool_service
 
 PURGE_AFTER = timedelta(days=30)
@@ -52,6 +55,13 @@ def export(db: Session, user: User) -> dict[str, Any]:
     sent = db.scalars(select(Suggestion).where(Suggestion.sender_id == user.id)).unique().all()
     received = db.scalars(select(Suggestion).where(Suggestion.recipient_id == user.id)).unique().all()
     decisions = db.scalars(select(Notification).where(Notification.user_id == user.id)).unique().all()
+    colab_posts = db.scalars(select(Colab).where(Colab.author_id == user.id)).unique().all()
+    own_comments = db.scalars(select(Comment).where(Comment.author_id == user.id)).unique().all()
+    reactions = db.execute(
+        select(CommentReaction.comment_id, CommentReaction.emoji, CommentReaction.created_at).where(
+            CommentReaction.user_id == user.id
+        )
+    ).all()
     return {
         "exported_at": utcnow().isoformat(),
         "profile": {
@@ -144,6 +154,36 @@ def export(db: Session, user: User) -> dict[str, Any]:
             }
             for n in decisions
         ],
+        "colabs": [
+            {
+                "id": c.id,
+                "kind": c.kind.value,
+                "title": c.title,
+                "body": c.body,
+                "link_url": c.link_url,
+                "tool_id": c.tool_id,
+                "status": c.status.value,
+                "created_at": _iso(c.created_at),
+            }
+            for c in colab_posts
+        ],
+        "comments": [
+            {
+                "id": c.id,
+                "tool_id": c.tool_id,
+                "colab_id": c.colab_id,
+                "parent_id": c.parent_id,
+                "body": c.body,
+                "hidden": c.hidden_at is not None,
+                "created_at": _iso(c.created_at),
+                "edited_at": _iso(c.edited_at),
+            }
+            for c in own_comments
+        ],
+        "reactions": [
+            {"comment_id": cid, "emoji": emoji.value, "created_at": _iso(at)} for cid, emoji, at in reactions
+        ],
+        "email_on_comments": user.email_on_comments,
     }
 
 
@@ -182,6 +222,15 @@ def delete_account(db: Session, user: User, actor: User) -> None:
         delete(Suggestion).where((Suggestion.sender_id == user.id) | (Suggestion.recipient_id == user.id))
     )
     db.execute(delete(Notification).where(Notification.user_id == user.id))
+    # Community (D41): reactions go, colab posts are removed with their threads, comments are deleted
+    # (a tombstone without text or author stays where other people replied).
+    db.execute(delete(CommentReaction).where(CommentReaction.user_id == user.id))
+    for colab in db.scalars(select(Colab).where(Colab.author_id == user.id)).unique().all():
+        colab.status = ColabStatus.deleted
+        colab.updated_at = utcnow()
+    own_comments = db.scalars(select(Comment).where(Comment.author_id == user.id)).unique().all()
+    for own in sorted(own_comments, key=lambda c: c.parent_id is None):  # replies first
+        comments.remove(db, own)
     marker = pseudonym(user.id)
     for entry in db.scalars(
         select(AuditLog).where(
@@ -250,6 +299,7 @@ def purge(db: Session) -> dict[str, int]:
     )
     run("audit_log", delete(AuditLog).where(AuditLog.created_at < now - AUDIT_RETENTION))
     counts["tools"] = tool_service.purge_deleted(db)
+    counts["colabs"] = colabs.purge_deleted(db)
     users = (
         db.scalars(select(User).where(User.status == UserStatus.deleted, User.deleted_at < now - PURGE_AFTER))
         .unique()

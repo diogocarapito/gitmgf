@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% set intro = site_text("colabs/intro") %}
+{% block title %}{{ intro.title }}{% endblock %}
+{% block description %}{{ intro.html | striptags | truncate(160) }}{% endblock %}
+{% block content %}
+<div class="container">
+  <header class="page-head colabs-head">
+    <div>
+      <h1>{{ intro.title }}</h1>
+      {{ intro.html }}
+    </div>
+    <a class="btn btn--primary" href="{{ url('/colabs/new') }}">{{ icon('plus') }} {{ _("Publicar colaboração") }}</a>
+  </header>
+
+  <nav class="colab-kinds" aria-label="{{ _('Tipo de colaboração') }}">
+    {% for key, text in labels.COLAB_KIND.items() %}
+    <a class="colab-kind{% if kind == key %} is-current{% endif %}" href="{{ url('/colabs', kind=('' if kind == key else key), status=(status if status != 'open' else '')) }}"{% if kind == key %} aria-current="true"{% endif %}>
+      <span class="colab-kind__icon">{{ icon(labels.COLAB_KIND_ICON[key]) }}</span>
+      <span class="colab-kind__text"><span class="colab-kind__title"><strong>{{ _(text) }}</strong> <span class="count-pill">{{ kind_counts.get(key, 0) }}</span></span><span class="small muted">{{ _(labels.COLAB_KIND_HINT[key]) }}</span></span>
+    </a>
+    {% endfor %}
+  </nav>
+
+  <div class="row colab-filters" role="group" aria-label="{{ _('Estado') }}">
+    {% for key, text in [('open', _("Abertas")), ('resolved', _("Resolvidas")), ('all', _("Todas"))] %}
+    <a class="chip{% if status == key %} chip--current{% endif %}" href="{{ url('/colabs', kind=kind, status=(key if key != 'open' else '')) }}"{% if status == key %} aria-current="true"{% endif %}>{{ text }}</a>
+    {% endfor %}
+    {% if kind %}<a class="small" href="{{ url('/colabs', status=(status if status != 'open' else '')) }}">{{ icon('x') }} {{ _("Mostrar todos os tipos") }}</a>{% endif %}
+  </div>
+
+  {% if items %}
+  <div class="colab-list">
+    {% for c in items %}
+    <article class="panel colab-card">
+      <div class="row colab-card__top">
+        <span class="badge badge--oss">{{ icon(labels.COLAB_KIND_ICON[c.kind]) }} {{ label(labels.COLAB_KIND_SHORT, c.kind) }}</span>
+        {% if c.status == 'resolved' %}<span class="badge badge--free">{{ icon('check') }} {{ label(labels.COLAB_STATUS, c.status) }}</span>{% endif %}
+      </div>
+      <h2 class="colab-card__title"><a href="{{ url('/colabs/' ~ c.id) }}">{{ c.title }}</a></h2>
+      <p class="colab-card__summary">{{ c.body | truncate(220) }}</p>
+      <footer class="row small muted colab-card__foot">
+        {{ m.avatar(c.author, "sm") }} <span>{{ c.author.display_name }}</span>
+        <span>· {{ c.created_at | relative }}</span>
+        <span class="colab-card__comments">{{ icon('message') }} {{ comment_counts.get(c.id, 0) }}</span>
+      </footer>
+    </article>
+    {% endfor %}
+  </div>
+  {{ m.pagination(page, has_next, url('/colabs', kind=kind, status=(status if status != 'open' else ''))) }}
+  {% else %}
+  <div class="empty">{{ icon('users') }}<p>{{ _("Ainda não há colaborações aqui. Que tal começares?") }}</p><a class="btn btn--primary btn--sm" href="{{ url('/colabs/new', kind=kind) }}">{{ _("Publicar colaboração") }}</a></div>
+  {% endif %}
+</div>
+{% endblock %}

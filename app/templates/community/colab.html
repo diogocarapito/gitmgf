@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ colab.title }}{% endblock %}
+{% block description %}{{ colab.body | truncate(160) }}{% endblock %}
+{% block robots %}{% if not colab.is_public %}<meta name="robots" content="noindex">{% endif %}{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head colab-head">
+    <p class="breadcrumbs"><a href="{{ url('/colabs') }}">{{ _("Colaborações") }}</a> / <a href="{{ url('/colabs', kind=colab.kind) }}">{{ label(labels.COLAB_KIND_SHORT, colab.kind) }}</a></p>
+    <div class="row">
+      <span class="badge badge--oss">{{ icon(labels.COLAB_KIND_ICON[colab.kind]) }} {{ label(labels.COLAB_KIND, colab.kind) }}</span>
+      {% if colab.status == 'resolved' %}<span class="badge badge--free">{{ icon('check') }} {{ label(labels.COLAB_STATUS, colab.status) }}</span>{% endif %}
+      {% if colab.status == 'hidden' %}<span class="badge badge--archived">{{ icon('eye-off') }} {{ label(labels.COLAB_STATUS, colab.status) }}</span>{% endif %}
+    </div>
+    <h1>{{ colab.title }}</h1>
+    <div class="author">
+      {{ m.avatar(colab.author) }}
+      <div class="small">
+        {% if colab.author.handle %}<a href="{{ url('/u/' ~ colab.author.handle) }}">{{ colab.author.display_name }}</a>{% else %}{{ colab.author.display_name }}{% endif %}
+        <span class="muted">· {{ colab.created_at | relative }}{% if colab.updated_at and (colab.updated_at - colab.created_at).total_seconds() > 60 %} · {{ _("editado") }}{% endif %}</span>
+      </div>
+    </div>
+  </header>
+
+  {% if colab.status == 'hidden' %}
+  <div class="notice notice--warn">{{ icon('eye-off') }}<p>{{ _("Esta colaboração foi ocultada pela moderação e não é pública.") }}{% if is_author and colab.hidden_reason %} {{ _("Motivo:") }} {{ colab.hidden_reason }}{% endif %}</p></div>
+  {% endif %}
+
+  <section class="panel colab-body">
+    <div class="comment__body">{{ body_html }}</div>
+    {% if colab.link_url or colab.tool %}
+    <div class="row section--tight colab-links">
+      {% if colab.link_url %}<a class="btn btn--sm" href="{{ colab.link_url }}" rel="nofollow ugc noopener noreferrer" target="_blank">{{ icon('external') }} {{ _("Abrir projeto") }} <span class="muted xsmall">{{ colab.link_url | domain }}</span></a>{% endif %}
+      {% if colab.tool and colab.tool.is_public %}<a class="btn btn--sm" href="{{ url('/t/' ~ colab.tool.slug) }}">{{ icon('layers') }} {{ localized(colab.tool, "title") }}</a>{% endif %}
+    </div>
+    {% endif %}
+    <footer class="row small colab-actions">
+      {% if can_edit %}
+      <a class="btn btn--sm btn--manage" href="{{ url('/colabs/' ~ colab.id ~ '/edit') }}">{{ icon('edit') }} {{ _("Editar") }}</a>
+      <form class="inline-form" method="post" action="/colabs/{{ colab.id }}/{{ 'reopen' if colab.status == 'resolved' else 'resolve' }}">{{ m.csrf() }}<button class="btn btn--sm btn--manage" type="submit">{% if colab.status == 'resolved' %}{{ icon('rotate') }} {{ _("Reabrir") }}{% else %}{{ icon('check') }} {{ _("Marcar como resolvida") }}{% endif %}</button></form>
+      {% endif %}
+      {% if is_author %}<form class="inline-form" method="post" action="/colabs/{{ colab.id }}/delete" data-confirm="{{ _('Eliminar esta colaboração e os comentários?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--ghost" type="submit">{{ icon('trash') }} {{ _("Eliminar") }}</button></form>{% endif %}
+      {% if can_moderate %}<a class="btn btn--sm btn--manage" href="{{ url('/mod/colabs/' ~ colab.id) }}">{{ icon('shield-check') }} {{ _("Moderar") }}</a>{% endif %}
+      {% if not is_author and colab.is_public %}<a class="colab-actions__report" href="{{ url('/colabs/' ~ colab.id ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Denunciar") }}</a>{% endif %}
+    </footer>
+  </section>
+
+  {% with comment_action='/colabs/' ~ colab.id ~ '/comments', owner_id=colab.author_id, intro=none, closed_note=none %}
+  {% include "community/_thread.html" %}
+  {% endwith %}
+</div>
+{% endblock %}

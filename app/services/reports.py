@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.db import utcnow
 from app.i18n import labels, t
-from app.models import Report, Tool, User
+from app.models import Colab, Comment, Report, Tool, User
 from app.models.enums import ReportReason, ReportStatus, Role, ToolStatus, UserStatus
 from app.services import audit, email, settings_store
 from app.services import tools as tool_service
@@ -25,18 +25,38 @@ def moderators(db: Session) -> list[User]:
     )
 
 
+# Reasons offered when the subject is a comment or a colab post (no links or certifications to check).
+COMMUNITY_REASONS = (
+    ReportReason.inappropriate,
+    ReportReason.dangerous_content,
+    ReportReason.security_privacy,
+    ReportReason.csam,
+    ReportReason.copyright,
+    ReportReason.illegal,
+    ReportReason.spam,
+    ReportReason.other,
+)
+
+
 def create(
     db: Session,
-    tool: Tool,
     reason: ReportReason,
     details: str,
     reporter: User | None,
     reporter_email: str | None,
     lang: str,
     visitor_hash: str | None,
+    tool: Tool | None = None,
+    comment: Comment | None = None,
+    colab: Colab | None = None,
 ) -> Report:
+    """A report on exactly one subject: a tool, a comment (D41) or a colab post (D41)."""
+    if sum(x is not None for x in (tool, comment, colab)) != 1:
+        raise ValueError("one subject")
     report = Report(
-        tool_id=tool.id,
+        tool_id=tool.id if tool else None,
+        comment_id=comment.id if comment else None,
+        colab_id=colab.id if colab else None,
         reporter_id=reporter.id if reporter else None,
         reporter_email=None if reporter else (reporter_email or None),
         reason=reason,
@@ -46,13 +66,16 @@ def create(
     )
     db.add(report)
     db.flush()
+    db.refresh(report)
     audit.log(
         db,
         reporter.id if reporter else None,
         "report.create",
         "report",
         report.id,
-        tool_id=tool.id,
+        tool_id=report.tool_id,
+        comment_id=report.comment_id,
+        colab_id=report.colab_id,
         reason=reason.value,
     )
     to = reporter.email if reporter else reporter_email
@@ -62,13 +85,13 @@ def create(
             to,
             "report_ack",
             {
-                "title": tool.title_pt,
+                "title": report.subject_title,
                 "reason": t(lang, labels.REPORT_REASON[reason.value]),
                 "report_id": report.id,
             },
             lang,
         )
-    if reason in AUTO_HIDE_REASONS:
+    if tool is not None and reason in AUTO_HIDE_REASONS:
         maybe_auto_hide(db, tool)
     return report
 
@@ -134,7 +157,7 @@ def close(db: Session, report: Report, actor: User, resolved: bool, note: str | 
             to,
             "report_outcome",
             {
-                "title": report.tool.title_pt,
+                "title": report.subject_title,
                 "report_id": report.id,
                 "resolved": resolved,
                 "note": report.resolution_note or "",

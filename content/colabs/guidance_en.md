@@ -1,0 +1,1 @@
+Before posting: explain the problem you want to solve and the clinical context, say what kind of help you are looking for and what you have already tried. **Never include patient data, passwords or access keys.** Your post goes public straight away and follows the [Terms](/en/p/terms) and the [Submission guidelines](/en/p/guidelines).

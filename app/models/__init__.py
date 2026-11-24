@@ -1,3 +1,4 @@
+from app.models.community import PUBLIC_COLAB_STATUSES, Colab, Comment, CommentReaction
 from app.models.moderation import AuditLog, Report
 from app.models.notification import Notification
 from app.models.suggestion import Suggestion
@@ -17,10 +18,14 @@ from app.models.tracking import InteractionEvent, SearchQuery, ToolDailyStat
 from app.models.user import EmailCode, Invite, PasswordResetToken, User, UserSession
 
 __all__ = [
+    "PUBLIC_COLAB_STATUSES",
     "PUBLIC_STATUSES",
     "AuditLog",
     "Category",
     "Certification",
+    "Colab",
+    "Comment",
+    "CommentReaction",
     "EmailCode",
     "EmailOutbox",
     "InteractionEvent",

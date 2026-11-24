@@ -723,6 +723,21 @@ Tool page panel `partials/cert_panel.html`: present items as a definition list (
 | GET | `/sitemap.xml`, `/robots.txt`, `/healthz` | |
 | GET | `/api/tags/suggest?q=` | HTMX tag autocomplete (JSON-free: returns `<option>` list) |
 
+### Community (`routers/community.py`, D41)
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/{lang}/colabs?kind=&status=` | Colaborações listing (open / resolved / all, by kind) |
+| GET/POST | `/{lang}/colabs/new`, `/{lang}/colabs/{id}/edit` | Post form (signed in, not publish-blocked) |
+| GET | `/{lang}/colabs/{id}` | Post with its comment thread |
+| POST | `/colabs/{id}/resolve\|reopen\|delete` | Author actions |
+| POST | `/{lang}/t/{slug}/comments`, `/{lang}/colabs/{id}/comments` | New comment or reply (`parent_id`) |
+| GET/POST | `/{lang}/comments/{id}/edit` | Edit own comment |
+| POST | `/comments/{id}/delete`, `/comments/{id}/react` | Delete own comment; toggle a reaction (HTMX partial) |
+| GET/POST | `/{lang}/comments/{id}/report`, `/{lang}/colabs/{id}/report` | Report forms (shared DSA flow) |
+| GET | `/{lang}/mod/comments/{id}`, `/{lang}/mod/colabs/{id}` | Moderation page (moderator+) |
+| POST | `/mod/comments/{id}/hide\|unhide`, `/mod/colabs/{id}/hide\|unhide` | Hide with reason / restore |
+
 ### Tracking (`routers/tracking.py`)
 
 `GET /r/{search_id}/{tool_id}` · `GET /go/{tool_id}/{link_kind}` · `POST /t/{tool_id}/star`

@@ -19,7 +19,25 @@
   </section>
   {% endif %}
   {% for item in items %}
-  {% if item.notification %}{% set n = item.notification %}{% set good = n.kind in ('tool_approved', 'tool_unhidden', 'revision_approved') %}
+  {% if item.notification and item.notification.kind.startswith(('comment_', 'colab_')) %}{% set n = item.notification %}
+  {% set social = n.kind in ('comment_new', 'comment_reply', 'comment_mention') %}
+  {% set target_href = (url('/t/' ~ n.tool.slug) if n.tool else (url('/colabs/' ~ n.colab.id) if n.colab else '')) %}
+  <article class="panel notification{% if item.unread %} notification--unread{% endif %}">
+    <header class="notification__head">
+      <span class="badge {{ 'badge--oss' if social else ('badge--free' if n.kind.endswith('unhidden') else 'badge--archived') }}">{{ label(labels.NOTIFICATION_KIND, n.kind) }}</span>
+      {% if item.unread %}<span class="badge badge--new">{{ _("Nova") }}</span>{% endif %}
+      {% if target_href %}<a href="{{ target_href }}{% if n.comment_id and social %}#comment-{{ n.comment_id }}{% endif %}"><strong>{{ localized(n.tool, "title") if n.tool else n.tool_title }}</strong></a>{% else %}<strong>{{ n.tool_title }}</strong>{% endif %}
+      <span class="muted small">· {{ n.created_at | datetime('short') }}</span>
+    </header>
+    {% if n.message %}{% if not social %}<p class="small muted notification__label">{{ _("Mensagem do moderador:") }}</p>{% endif %}<p class="notification__message">{{ n.message }}</p>{% endif %}
+    <footer class="notification__foot small">
+      {% if social %}<span class="notification__from">{% if n.actor %}{{ m.avatar(n.actor, "sm") }} {{ n.actor.display_name or _("Utilizador removido") }}{% else %}{{ _("Utilizador removido") }}{% endif %}</span>
+      {% if target_href and n.comment_id %}<a href="{{ target_href }}#comment-{{ n.comment_id }}">{{ icon('reply') }} {{ _("Ver e responder") }}</a>{% endif %}
+      {% else %}<span class="notification__from">{{ icon('shield-check') }} {{ _("Decisão da moderação") }}</span>{% endif %}
+      <form method="post" action="/me/notifications/decisions/{{ n.id }}/delete" data-confirm="{{ _('Remover esta notificação?') }}">{{ m.csrf() }}<button class="btn btn--sm btn--ghost" type="submit">{{ icon('trash') }} {{ _("Remover") }}</button></form>
+    </footer>
+  </article>
+  {% elif item.notification %}{% set n = item.notification %}{% set good = n.kind in ('tool_approved', 'tool_unhidden', 'revision_approved') %}
   <article class="panel notification{% if item.unread %} notification--unread{% endif %}">
     <header class="notification__head">
       <span class="badge {{ 'badge--free' if good else 'badge--archived' }}">{{ label(labels.NOTIFICATION_KIND, n.kind) }}</span>
@@ -51,7 +69,7 @@
   </article>
   {% endif %}
   {% else %}
-  <p class="muted">{{ _("Ainda não tens notificações. As decisões da moderação sobre as tuas ferramentas e as sugestões de outros utilizadores aparecem aqui.") }}</p>
+  <p class="muted">{{ _("Ainda não tens notificações. As decisões da moderação, as sugestões, os comentários às tuas ferramentas e colaborações, as respostas e as menções aparecem aqui.") }}</p>
   {% endfor %}
   {{ m.pagination(page, has_next, url('/me/notifications')) }}
 </div>

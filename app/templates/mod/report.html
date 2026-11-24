@@ -11,7 +11,10 @@
   </header>
   <section class="panel">
     <dl class="meta-list">
-      <dt>{{ _("Ferramenta") }}</dt><dd><a href="{{ url('/mod/tools/' ~ tool.id) }}">{{ tool.title_pt }}</a> · {{ m.status(tool.status, labels.TOOL_STATUS) }}</dd>
+      {% if tool %}<dt>{{ _("Ferramenta") }}</dt><dd><a href="{{ url('/mod/tools/' ~ tool.id) }}">{{ tool.title_pt }}</a> · {{ m.status(tool.status, labels.TOOL_STATUS) }}</dd>
+      {% elif report.comment %}<dt>{{ _("Comentário") }}</dt><dd><a href="{{ url('/mod/comments/' ~ report.comment.id) }}">{{ _("em «%(title)s»", title=report.subject_title) }}</a><blockquote class="quote small">{{ report.comment.body | truncate(400) }}</blockquote></dd>
+      {% elif report.colab %}<dt>{{ _("Colaboração") }}</dt><dd><a href="{{ url('/mod/colabs/' ~ report.colab.id) }}">{{ report.colab.title }}</a> · {{ label(labels.COLAB_STATUS, report.colab.status) }}</dd>
+      {% else %}<dt>{{ _("Assunto") }}</dt><dd>{{ _("Conteúdo já removido") }}</dd>{% endif %}
       <dt>{{ _("Motivo") }}</dt><dd>{{ label(labels.REPORT_REASON, report.reason) }}</dd>
       <dt>{{ _("Denunciante") }}</dt><dd>{% if reporter %}{{ reporter.display_name }} ({{ _("com sessão") }}){% elif report.reporter_email %}{{ report.reporter_email }}{% else %}{{ _("Anónimo") }}{% endif %}</dd>
       <dt>{{ _("Detalhes") }}</dt><dd>{{ report.details }}</dd>
@@ -22,11 +25,14 @@
   <form class="panel form" method="post" action="/mod/reports/{{ report.id }}/resolve">
     {{ m.csrf() }}
     <div class="field"><label for="note">{{ _("Nota para o denunciante (opcional)") }}</label><textarea id="note" name="note" rows="3" maxlength="2000"></textarea></div>
-    <p class="small muted">{{ _("Para ocultar a ferramenta, usa a página de revisão (o autor recebe a fundamentação). Depois fecha aqui a denúncia.") }}</p>
+    {% if tool %}<p class="small muted">{{ _("Para ocultar a ferramenta, usa a página de revisão (o autor recebe a fundamentação). Depois fecha aqui a denúncia.") }}</p>
+    {% else %}<p class="small muted">{{ _("Para ocultar o conteúdo, usa a página de moderação (o autor recebe a fundamentação). Depois fecha aqui a denúncia.") }}</p>{% endif %}
     <div class="row">
       <button class="btn btn--primary" type="submit">{{ _("Resolver (foram tomadas medidas)") }}</button>
       <button class="btn" type="submit" formaction="/mod/reports/{{ report.id }}/dismiss">{{ _("Arquivar sem ação") }}</button>
-      <a class="btn btn--ghost" href="{{ url('/mod/tools/' ~ tool.id) }}">{{ _("Abrir revisão da ferramenta") }}</a>
+      {% if tool %}<a class="btn btn--ghost" href="{{ url('/mod/tools/' ~ tool.id) }}">{{ _("Abrir revisão da ferramenta") }}</a>
+      {% elif report.comment %}<a class="btn btn--ghost" href="{{ url('/mod/comments/' ~ report.comment.id) }}">{{ _("Abrir moderação do comentário") }}</a>
+      {% elif report.colab %}<a class="btn btn--ghost" href="{{ url('/mod/colabs/' ~ report.colab.id) }}">{{ _("Abrir moderação da colaboração") }}</a>{% endif %}
     </div>
   </form>
   {% endif %}

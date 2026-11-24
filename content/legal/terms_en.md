@@ -1,12 +1,12 @@
 ---
 title: Terms of Use
 version: "2026-11"
-last_updated: 2026-11-16
+last_updated: 2026-11-24
 ---
 
 # Terms of Use
 
-**Version 2026-11 · Last updated: 18 November 2026**
+**Version 2026-11 · Last updated: 24 November 2026**
 
 > This is an English translation for convenience. If it differs from the Portuguese version, the Portuguese version prevails.
 
@@ -88,6 +88,15 @@ The Service is **free**. It has no advertising and no paid placement in results.
 
 If you find a vulnerability, report it responsibly to [[SECURITY_EMAIL]]. Don't exploit it or disclose it before we fix it.
 
+6.3. **Comments, reactions and Collaborations.** With an account, you can comment on tool pages, reply to comments, react with emojis and post requests in the **Collaborations** section (ideas, help with a project, requests for feedback or questions to the community). These posts:
+
+- are **public straight away**, with your name and profile photo, without prior review, and are subject to the rules in 6.1 and the Submission Guidelines; we may hide them afterwards under section 8;
+- are your responsibility: don't include patient data, passwords, access keys or other people's personal data;
+- are covered by the licence in 5.3, on the same terms;
+- can be edited or deleted by you at any time. A deleted comment that has replies stays marked as "deleted", with no text or author, so the conversation still reads.
+
+When you mention someone (@username) or reply to a comment, that person is notified. gitmgf doesn't check the code, advice or help exchanged between users and is not a party to any arrangement they make: use them critically, especially in a clinical context.
+
 ## 7. Declared certifications and compliance
 
 7.1. Certification badges (for example, CE, MDR, GDPR, ISO standards, the AI Act) show **what the author declared** and the evidence they gave. A grey slashed badge only means the author did not declare that certification (or that it has expired), not that it is required.
@@ -103,10 +112,10 @@ If you find a vulnerability, report it responsibly to [[SECURITY_EMAIL]]. Don't 
 8.1. **Criteria.** We moderate content according to these Terms and the Submission Guidelines. Moderation is done by people (volunteer moderators and administrators appointed by gitmgf), supported by automatic checks:
 
 - technical validation of uploaded images;
-- detection of automated clicks, and exclusion of the author's own clicks from the popularity calculation;
+- detection of automated clicks, and exclusion of the author's own clicks and the moderation team's clicks from the popularity calculation;
 - **automatic temporary hiding** of a tool that receives [[AUTO_HIDE_THRESHOLD]] or more reports of dangerous content or a security issue, until a moderator reviews it.
 
-8.2. **Possible measures:** requesting changes; rejecting a submission or a certification declaration; hiding or removing a tool; resetting a tool's score; suspending or closing an account.
+8.2. **Possible measures:** requesting changes; rejecting a submission or a certification declaration; hiding or removing a tool; hiding a comment or a Collaborations post; resetting a tool's score; preventing an account from publishing tools and Collaborations posts, or from commenting and reacting; suspending or closing an account.
 
 8.3. **Statement of reasons.** Whenever we take one of these measures on your content or account, we give you a statement of reasons, by email or in your personal area on the Service: the measure taken, the facts and the rule involved, whether the decision followed a report or automated means, and how you can challenge it (Article 17 of the Digital Services Act).
 
@@ -116,7 +125,7 @@ If you find a vulnerability, report it responsibly to [[SECURITY_EMAIL]]. Don't 
 
 ## 9. Reports
 
-9.1. **Anyone**, with or without an account, can report content they consider illegal or contrary to these Terms through the "Report a problem" link on each tool's page (Article 16 of the Digital Services Act).
+9.1. **Anyone**, with or without an account, can report content they consider illegal or contrary to these Terms through the "Report a problem" link on each tool's page, or "Report" on each comment and Collaborations post (Article 16 of the Digital Services Act).
 
 9.2. So that we can act, a report must include: the tool concerned (reports are made from the tool's page); the reason and a sufficient explanation; your email if you're not signed in; and confirmation that you're acting in good faith. You don't need to identify yourself when reporting child sexual abuse material: no email is asked for or kept.
 
@@ -133,7 +142,7 @@ Results are ranked by relevance to the search, combined with a popularity score.
 - stars from signed-in users;
 - the GitHub repository's stars, if there is one.
 
-Older interactions count less: their weight halves every 30 days. Each visitor counts once per day per tool. The author's own clicks and bot clicks don't count. You can also sort by "Newest", "Most starred" or "Recently updated". **Nobody pays for a better position.**
+Older interactions count less: their weight halves every 30 days. Each visitor counts once per day per tool. The author's own clicks, the moderation and admin team's clicks and bot clicks don't count. You can also sort by "Newest", "Most starred" or "Recently updated". **Nobody pays for a better position.**
 
 ## 11. gitmgf's intellectual property
 

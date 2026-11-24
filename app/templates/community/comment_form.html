@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ _("Editar comentário") if target.edit else _("Comentário") }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url(target.path) }}">{{ target.title or _("Voltar") }}</a></p>
+    <h1>{{ _("Editar comentário") if target.edit else _("Comentário") }}</h1>
+  </header>
+  {% if errors.get('__all__') %}<div class="notice notice--danger" role="alert">{{ icon('alert') }}<p>{{ _(errors['__all__'][0]) }}</p></div>{% endif %}
+  <form class="form form-section" method="post" action="{{ url(target.action) }}">
+    {{ m.csrf() }}
+    {% if values.get('parent_id') %}<input type="hidden" name="parent_id" value="{{ values.get('parent_id') }}">{% endif %}
+    {{ m.textarea("body", _("Comentário"), values, errors, required=True, maxlength=2000, rows=6, hint=_("Entre 2 e 2000 caracteres. Para mencionar alguém, escreve @ e o nome de utilizador. Não incluas dados de utentes.")) }}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{{ _("Guardar") if target.edit else _("Publicar comentário") }}</button>
+      <a class="btn btn--ghost" href="{{ url(target.path) }}">{{ _("Cancelar") }}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
