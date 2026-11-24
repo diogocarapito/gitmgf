@@ -485,7 +485,7 @@ visitor_hash = sha256(daily_salt + client_ip + user_agent)[:32]
 ```
 
 - `daily_salt` = 32 random bytes stored in `site_settings`, replaced at 00:00 UTC (old value discarded) → hashes can't be linked across days or reversed.
-- `client_ip` from `X-Forwarded-For` as set by Caddy (uvicorn `--proxy-headers --forwarded-allow-ips` limited to the Caddy container network).
+- `client_ip` from `X-Forwarded-For` as set by Caddy, which overwrites any client-supplied value with the peer address (`header_up X-Forwarded-For {remote_host}`); uvicorn `--proxy-headers --forwarded-allow-ips` trusts only private (Docker network) ranges (D44).
 - Bot filter: skip events if UA is empty or matches `/(bot|crawl|spider|slurp|preview|facebookexternalhit|curl|wget|python-requests|httpx|headless|monitor)/i`.
 
 ### 9.2 Endpoints
@@ -873,7 +873,7 @@ Coverage target ≥ 85 % for `app/services`. CI (GitHub Actions): ruff, mypy, py
 
 ### 20.1 Docker
 
-- `Dockerfile`: `python:3.12-slim`, `pip install --no-cache-dir -r requirements.txt` (copy `requirements.txt` before the source for layer caching), non-root user, `pybabel compile`, entrypoint runs `alembic upgrade head` then `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2 --proxy-headers --forwarded-allow-ips="*"` (only reachable from the Docker network).
+- `Dockerfile`: `python:3.12-slim`, `pip install --no-cache-dir -r requirements.txt` (copy `requirements.txt` before the source for layer caching), non-root user, `pybabel compile`, entrypoint runs `alembic upgrade head` then `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2 --proxy-headers --forwarded-allow-ips="${FORWARDED_ALLOW_IPS:-10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}"` (only reachable from the Docker network; never `*`, see D44).
 - `docker-compose.yml` (dev): `app` with `--reload`, mounted source, console email, SQLite in `./data`.
 - `deploy/docker-compose.prod.yml`: services `caddy`, `app`, `scheduler` (`python -m app.scheduler`), `litestream` (`litestream replicate`); volumes `data:/data`, `caddy_data`, `caddy_config`; `restart: unless-stopped`; healthchecks.
 

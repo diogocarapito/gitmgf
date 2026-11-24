@@ -40,7 +40,11 @@ www.{$DOMAIN} {
 
 	# Everything else (including /static with ?v= cache-busting) is served by the app,
 	# which also sets the CSP and other per-route headers.
+	# X-Forwarded-For is overwritten with the real peer address, never appended to a
+	# client-supplied value: per-IP rate limits and visitor hashes rely on it.
 	handle {
-		reverse_proxy app:8000
+		reverse_proxy app:8000 {
+			header_up X-Forwarded-For {remote_host}
+		}
 	}
 }
