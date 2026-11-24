@@ -15,7 +15,7 @@ from app.db import today, utcnow
 from app.forms.common import INVALID_URL, REQUIRED, FieldError, clean_url
 from app.i18n import N_
 from app.models import Certification, Tool, ToolCertification
-from app.models.enums import Assurance, ClaimState, PatientData, ToolType
+from app.models.enums import Assurance, ClaimState, PatientData
 
 NB_RE = re.compile(r"^\d{4}$")
 FORM_PREFIX = "cert_"
@@ -181,8 +181,6 @@ class ClaimCheck:
 def check_claims(
     certs: dict[str, Certification],
     raw_claims: dict[str, dict[str, str]],
-    tool_type: str | None,
-    category_slugs: list[str],
     patient_data: str | None,
     full: bool,
 ) -> ClaimCheck:
@@ -210,12 +208,6 @@ def check_claims(
             N_(
                 "A ferramenta envia dados para um servidor mas não tem declaração RGPD. O moderador pode pedir alterações."
             )
-        )
-    is_ai = tool_type == ToolType.ai_prompt.value or "inteligencia-artificial" in category_slugs
-    ai_act_available = "ai_act" in certs and certs["ai_act"].is_active
-    if is_ai and ai_act_available and "ai_act" not in clean_claims:
-        warnings.append(
-            N_("Ferramenta de IA: considera declarar a conformidade com o Regulamento da IA (AI Act).")
         )
     return ClaimCheck(clean_claims, errors, warnings)
 

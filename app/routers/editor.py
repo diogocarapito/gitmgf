@@ -128,18 +128,11 @@ def _handle_save(
     certs = certifications.by_code(db)
     active = certifications.catalogue(db)
     raw_claims = certifications.parse_form(form, active)
-    cat_slugs = (
-        [c.slug for c in db.scalars(select(Category).where(Category.id.in_(parsed.category_ids))).all()]
-        if parsed.category_ids
-        else []
-    )
     revision_mode = tool is not None and not tool_service.editable_in_place(tool)
     full = submit or revision_mode
     check = certifications.check_claims(
         certs,
         raw_claims,
-        parsed.tool_data()["tool_type"],
-        cat_slugs,
         parsed.tool_data()["patient_data"],
         full,
     )

@@ -46,8 +46,6 @@ def test_mdr_auto_enables_ce_with_legal_basis(catalogue):
     check = certs.check_claims(
         catalogue,
         {"mdr": {"class": "I", "evidence_url": "https://x.example"}},
-        "calculator",
-        [],
         "none",
         full=False,
     )
@@ -55,8 +53,6 @@ def test_mdr_auto_enables_ce_with_legal_basis(catalogue):
     check = certs.check_claims(
         catalogue,
         {"ivdr": {"class": "A", "evidence_url": "https://x.example"}},
-        "calculator",
-        [],
         "none",
         full=True,
     )
@@ -64,9 +60,15 @@ def test_mdr_auto_enables_ce_with_legal_basis(catalogue):
     assert "cert_ce__manufacturer" in check.errors  # CE now needs its own fields
 
 
-def test_warnings_for_server_data_without_rgpd_and_ai_hint(catalogue):
-    check = certs.check_claims(catalogue, {}, "ai_prompt", [], "server", full=False)
-    assert len(check.warnings) == 2
+def test_warning_for_server_data_without_rgpd(catalogue):
+    check = certs.check_claims(catalogue, {}, "server", full=False)
+    assert len(check.warnings) == 1
+
+
+def test_ai_tools_get_no_ai_act_hint(catalogue):
+    """D45: the AI Act is optional for AI tools, like every other certification."""
+    check = certs.check_claims(catalogue, {}, "none", full=False)
+    assert check.warnings == []
 
 
 def test_assurance_resolution(catalogue):

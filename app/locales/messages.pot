@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-23 07:09+0000\n"
+"POT-Creation-Date: 2026-11-24 16:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -372,10 +372,83 @@ msgstr ""
 msgid "Alteração rejeitada"
 msgstr ""
 
+msgid "Novo comentário"
+msgstr ""
+
+msgid "Resposta"
+msgstr ""
+
+msgid "Menção"
+msgstr ""
+
+msgid "Comentário ocultado"
+msgstr ""
+
+msgid "Comentário visível novamente"
+msgstr ""
+
+msgid "Colaboração ocultada"
+msgstr ""
+
+msgid "Colaboração visível novamente"
+msgstr ""
+
+msgid "Tenho uma ideia"
+msgstr ""
+
+msgid "Preciso de ajuda num projeto"
+msgstr ""
+
+msgid "Feedback e perguntas"
+msgstr ""
+
+msgid "Ideia"
+msgstr ""
+
+msgid "Pedido de ajuda"
+msgstr ""
+
+msgid "Feedback"
+msgstr ""
+
+msgid ""
+"Tens uma ideia mas não sabes como a concretizar: pedes dicas, ajuda, ou "
+"que alguém a construa. Por exemplo: «Alguém conseguia fazer uma "
+"ferramenta para…» ou «Gostava de ter algo que me ajudasse a…»."
+msgstr ""
+
+msgid ""
+"Já tens um projeto público (repositório no GitHub, um protótipo online) e"
+" precisas de ajuda para o publicar, corrigir ou depurar."
+msgstr ""
+
+msgid ""
+"Tens uma ferramenta e queres opiniões ou quem a teste, ou tens uma "
+"pergunta para a comunidade, por exemplo sobre o que é legal ou perigoso."
+msgstr ""
+
 msgid "Aberta"
 msgstr ""
 
 msgid "Resolvida"
+msgstr ""
+
+msgid "Gosto"
+msgstr ""
+
+msgid "Adoro"
+msgstr ""
+
+msgid "Parabéns"
+msgstr ""
+
+msgid "Obrigado/a"
+msgstr ""
+
+msgid "Boa ideia"
+msgstr ""
+
+msgid "A acompanhar"
 msgstr ""
 
 msgid "Arquivada sem ação"
@@ -471,6 +544,48 @@ msgstr ""
 msgid "Alterações guardadas."
 msgstr ""
 
+msgid "Comentário publicado."
+msgstr ""
+
+msgid "Restrição aplicada. A pessoa foi notificada."
+msgstr ""
+
+msgid "Restrição levantada. A pessoa foi notificada."
+msgstr ""
+
+msgid "Comentário atualizado."
+msgstr ""
+
+msgid "Comentário eliminado."
+msgstr ""
+
+msgid "Comentário ocultado. O autor foi notificado."
+msgstr ""
+
+msgid "Comentário visível novamente."
+msgstr ""
+
+msgid "Colaboração publicada. Boa sorte!"
+msgstr ""
+
+msgid "Colaboração atualizada."
+msgstr ""
+
+msgid "Colaboração marcada como resolvida."
+msgstr ""
+
+msgid "Colaboração reaberta."
+msgstr ""
+
+msgid "Colaboração eliminada."
+msgstr ""
+
+msgid "Colaboração ocultada. O autor foi notificado."
+msgstr ""
+
+msgid "Colaboração visível novamente."
+msgstr ""
+
 msgid "Sugestão enviada ao autor. Obrigado!"
 msgstr ""
 
@@ -492,7 +607,9 @@ msgstr ""
 msgid "Rascunho guardado."
 msgstr ""
 
-msgid "Ferramenta submetida para revisão. Vais receber um email com a decisão."
+msgid ""
+"Ferramenta publicada. Já está visível, assinalada «Por validar» até um "
+"moderador a rever."
 msgstr ""
 
 msgid "Alteração submetida. A versão publicada mantém-se até à aprovação."
@@ -634,6 +751,14 @@ msgstr ""
 msgid "Este identificador já está a ser usado."
 msgstr ""
 
+msgid "Publicaste demasiadas colaborações hoje. Tenta novamente amanhã."
+msgstr ""
+
+msgid ""
+"Comentaste demasiadas vezes num curto espaço de tempo. Tenta novamente "
+"mais tarde."
+msgstr ""
+
 msgid "Escolhe um ficheiro de imagem."
 msgstr ""
 
@@ -675,11 +800,6 @@ msgid ""
 "moderador pode pedir alterações."
 msgstr ""
 
-msgid ""
-"Ferramenta de IA: considera declarar a conformidade com o Regulamento da "
-"IA (AI Act)."
-msgstr ""
-
 msgid "A imagem excede 2 MB."
 msgstr ""
 
@@ -706,6 +826,11 @@ msgid ""
 msgstr ""
 
 msgid "Um utilizador"
+msgstr ""
+
+msgid ""
+"Por decisão da moderação, a tua conta não pode publicar ferramentas nem "
+"colaborações."
 msgstr ""
 
 msgid "Faltam campos obrigatórios. Revê o formulário antes de submeter."
@@ -839,6 +964,9 @@ msgstr ""
 msgid "Explorar"
 msgstr ""
 
+msgid "Colabs"
+msgstr ""
+
 msgid "Blog"
 msgstr ""
 
@@ -885,6 +1013,9 @@ msgid "Partilhar ferramenta"
 msgstr ""
 
 msgid "Menu"
+msgstr ""
+
+msgid "Colaborações"
 msgstr ""
 
 msgid "ferramentas da comunidade MGF"
@@ -1088,6 +1219,56 @@ msgid ""
 "ferramentas»."
 msgstr ""
 
+msgid "Tipos de email"
+msgstr ""
+
+#, python-format
+msgid "Enviados hoje (UTC): %(sent)s · Em fila: %(queued)s"
+msgstr ""
+
+msgid ""
+"Desativa os tipos de email de que não precisas para poupar a quota do "
+"fornecedor de email. Um tipo desativado deixa de ser criado (não fica em "
+"fila). As notificações na gitmgf continuam a funcionar. Os emails de "
+"acesso à conta não podem ser desativados."
+msgstr ""
+
+msgid "Conta"
+msgstr ""
+
+msgid "Comunidade"
+msgstr ""
+
+msgid "Denúncias"
+msgstr ""
+
+msgid "Equipa de moderação"
+msgstr ""
+
+#, python-format
+msgid "%(n)s nos últimos 30 dias"
+msgstr ""
+
+msgid "Sempre ativo"
+msgstr ""
+
+msgid ""
+"Fundamentação de uma decisão (DSA). Sem email, o autor só a vê nas "
+"notificações da gitmgf; quem denunciou sem conta não a recebe."
+msgstr ""
+
+msgid "Ativar todos"
+msgstr ""
+
+msgid "Desativar todos os emails exceto os de acesso à conta?"
+msgstr ""
+
+msgid "Desativar todos os opcionais"
+msgstr ""
+
+msgid "Últimos emails"
+msgstr ""
+
 msgid "Erro"
 msgstr ""
 
@@ -1244,6 +1425,12 @@ msgid "Eliminar esta etiqueta de todas as ferramentas?"
 msgstr ""
 
 msgid "Fundir selecionadas no destino"
+msgstr ""
+
+msgid "Restrições da conta"
+msgstr ""
+
+msgid "com restrições"
 msgstr ""
 
 msgid "Perfil"
@@ -1529,6 +1716,291 @@ msgstr ""
 msgid "Ligação inválida ou expirada"
 msgstr ""
 
+msgid "Reagir"
+msgstr ""
+
+msgid "Deixa um comentário"
+msgstr ""
+
+msgid ""
+"Público. Para mencionar alguém, escreve @ e o nome de utilizador (por "
+"exemplo @ana-silva). Não incluas dados de utentes."
+msgstr ""
+
+msgid "Responder"
+msgstr ""
+
+msgid "Publicar comentário"
+msgstr ""
+
+msgid "Comentário ocultado pela moderação."
+msgstr ""
+
+msgid "Utilizador removido"
+msgstr ""
+
+msgid "Autor"
+msgstr ""
+
+msgid "editado"
+msgstr ""
+
+msgid "Ocultado pela moderação. Só tu e a equipa de moderação o veem."
+msgstr ""
+
+msgid "Motivo:"
+msgstr ""
+
+msgid "Eliminar este comentário?"
+msgstr ""
+
+msgid "Eliminar"
+msgstr ""
+
+msgid "Denunciar"
+msgstr ""
+
+msgid "Moderar"
+msgstr ""
+
+msgid "Comentários"
+msgstr ""
+
+msgid "Inicia sessão"
+msgstr ""
+
+msgid "para comentar, responder e reagir."
+msgstr ""
+
+msgid "A tua conta não pode comentar nem reagir, por decisão da moderação."
+msgstr ""
+
+msgid "Ainda não há comentários. Sê a primeira pessoa a comentar."
+msgstr ""
+
+msgid "Conta com restrições"
+msgstr ""
+
+msgid "Por decisão da moderação, a tua conta não pode comentar nem reagir."
+msgstr ""
+
+msgid ""
+"Se não concordas, responde ao email que recebeste com a decisão ou usa a "
+"página de contacto."
+msgstr ""
+
+msgid "Esta colaboração foi ocultada pela moderação e não é pública."
+msgstr ""
+
+msgid "Abrir projeto"
+msgstr ""
+
+msgid "Reabrir"
+msgstr ""
+
+msgid "Marcar como resolvida"
+msgstr ""
+
+msgid "Eliminar esta colaboração e os comentários?"
+msgstr ""
+
+msgid "Editar comentário"
+msgstr ""
+
+msgid "Comentário"
+msgstr ""
+
+msgid "Voltar"
+msgstr ""
+
+msgid ""
+"Entre 2 e 2000 caracteres. Para mencionar alguém, escreve @ e o nome de "
+"utilizador. Não incluas dados de utentes."
+msgstr ""
+
+msgid "Cancelar"
+msgstr ""
+
+msgid "Editar colaboração"
+msgstr ""
+
+msgid "Publicar colaboração"
+msgstr ""
+
+msgid "O que procuras?"
+msgstr ""
+
+msgid "Título"
+msgstr ""
+
+msgid "Uma frase que resuma o pedido, entre 8 e 120 caracteres."
+msgstr ""
+
+msgid "Descrição"
+msgstr ""
+
+msgid ""
+"Entre 30 e 4000 caracteres. As ligações ficam clicáveis e podes mencionar"
+" pessoas com @nome-de-utilizador."
+msgstr ""
+
+msgid "Ligação para o projeto (opcional)"
+msgstr ""
+
+msgid "Repositório, protótipo online ou documento público."
+msgstr ""
+
+msgid "Ferramenta na gitmgf (opcional)"
+msgstr ""
+
+msgid "Se o pedido é sobre uma ferramenta tua já publicada."
+msgstr ""
+
+msgid "Publicar"
+msgstr ""
+
+msgid "Tipo de colaboração"
+msgstr ""
+
+msgid "Abertas"
+msgstr ""
+
+msgid "Resolvidas"
+msgstr ""
+
+msgid "Todas"
+msgstr ""
+
+msgid "Mostrar todos os tipos"
+msgstr ""
+
+msgid "Ainda não há colaborações aqui. Que tal começares?"
+msgstr ""
+
+msgid "Moderar comentário"
+msgstr ""
+
+msgid "Moderar colaboração"
+msgstr ""
+
+msgid "Eliminado pelo autor"
+msgstr ""
+
+msgid "Ocultado"
+msgstr ""
+
+msgid "Visível"
+msgstr ""
+
+msgid "Ver no site"
+msgstr ""
+
+msgid "Publicado"
+msgstr ""
+
+msgid "Ligação"
+msgstr ""
+
+msgid "Motivo da ocultação"
+msgstr ""
+
+msgid "Denúncias abertas"
+msgstr ""
+
+msgid "Depois de decidir aqui, fecha cada denúncia na respetiva página."
+msgstr ""
+
+msgid "O autor é notificado de que o conteúdo voltou a estar visível."
+msgstr ""
+
+msgid "Tornar visível"
+msgstr ""
+
+msgid "Motivo (enviado ao autor)"
+msgstr ""
+
+msgid ""
+"Explica que regra foi violada e porquê. Entre 10 e 2000 caracteres. Vai "
+"por email ao autor, como fundamentação da decisão."
+msgstr ""
+
+msgid "Ocultar"
+msgstr ""
+
+msgid ""
+"Não podes moderar este conteúdo: és o autor, ou é sobre uma ferramenta ou"
+" colaboração tua."
+msgstr ""
+
+#, python-format
+msgid "%(num)d ferramenta"
+msgid_plural "%(num)d ferramentas"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)d colaboração"
+msgid_plural "%(num)d colaborações"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)d comentário"
+msgid_plural "%(num)d comentários"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Não pode publicar ferramentas nem colaborações."
+msgstr ""
+
+msgid ""
+"Impede criar, submeter e editar ferramentas e publicar colaborações. O "
+"que já está publicado mantém-se."
+msgstr ""
+
+msgid "Comentar e reagir"
+msgstr ""
+
+msgid "Não pode comentar nem reagir."
+msgstr ""
+
+msgid ""
+"Impede novos comentários, respostas e reações em toda a gitmgf. Os "
+"comentários existentes mantêm-se; oculta-os um a um se for preciso."
+msgstr ""
+
+#, python-format
+msgid "Desde %(date)s."
+msgstr ""
+
+msgid "Levantar restrição"
+msgstr ""
+
+msgid "Motivo (enviado à pessoa)"
+msgstr ""
+
+msgid ""
+"Explica que regras foram violadas e porquê. Vai por email, como "
+"fundamentação da decisão."
+msgstr ""
+
+msgid "Aplicar esta restrição?"
+msgstr ""
+
+msgid "Aplicar restrição"
+msgstr ""
+
+msgid "Sem restrições."
+msgstr ""
+
+msgid ""
+"Não podes restringir esta conta: só os administradores restringem "
+"moderadores, e ninguém restringe a própria conta ou um administrador."
+msgstr ""
+
+msgid "Comentários recentes"
+msgstr ""
+
 #, python-format
 msgid ""
 "Email automático da gitmgf (%(url)s). Recebes este email porque tens "
@@ -1585,9 +2057,6 @@ msgstr ""
 msgid "Eliminar conta definitivamente"
 msgstr ""
 
-msgid "Cancelar"
-msgstr ""
-
 msgid "Por fazer"
 msgstr ""
 
@@ -1612,16 +2081,19 @@ msgstr[1] ""
 msgid "Mensagem do moderador:"
 msgstr ""
 
-msgid "Decisão da moderação"
+msgid "Ver e responder"
 msgstr ""
 
-msgid "Editar ficha"
+msgid "Decisão da moderação"
 msgstr ""
 
 msgid "Remover esta notificação?"
 msgstr ""
 
 msgid "Remover"
+msgstr ""
+
+msgid "Editar ficha"
 msgstr ""
 
 msgid "De"
@@ -1637,8 +2109,21 @@ msgid "Remover esta sugestão?"
 msgstr ""
 
 msgid ""
-"Ainda não tens notificações. As decisões da moderação sobre as tuas "
-"ferramentas e as sugestões de outros utilizadores aparecem aqui."
+"Ainda não tens notificações. As decisões da moderação, as sugestões, os "
+"comentários às tuas ferramentas e colaborações, as respostas e as menções"
+" aparecem aqui."
+msgstr ""
+
+msgid "Emails de atividade"
+msgstr ""
+
+msgid ""
+"Os comentários às tuas ferramentas e colaborações, as respostas aos teus "
+"comentários e as menções aparecem sempre nas Notificações. Escolhe se "
+"também os queres receber por email."
+msgstr ""
+
+msgid "Enviar-me um email por cada comentário, resposta ou menção"
 msgstr ""
 
 msgid "Foto de perfil"
@@ -1736,18 +2221,12 @@ msgstr ""
 msgid "Informação básica"
 msgstr ""
 
-msgid "Título"
-msgstr ""
-
 msgid "Resumo"
 msgstr ""
 
 msgid ""
 "Uma frase, até 200 caracteres. Aparece nos cartões e nos resultados de "
 "pesquisa."
-msgstr ""
-
-msgid "Descrição"
 msgstr ""
 
 msgid ""
@@ -1895,9 +2374,6 @@ msgid ""
 "imagens são apagadas em 30 dias."
 msgstr ""
 
-msgid "Eliminar"
-msgstr ""
-
 msgid ""
 "Contagens pseudonimizadas: cada visitante conta uma vez por dia e por "
 "tipo. As tuas próprias visitas não contam."
@@ -1954,9 +2430,6 @@ msgstr ""
 msgid "Alteração pendente de revisão"
 msgstr ""
 
-msgid "Motivo:"
-msgstr ""
-
 msgid "O repositório GitHub não foi encontrado."
 msgstr ""
 
@@ -2010,16 +2483,13 @@ msgstr ""
 msgid "Alterações"
 msgstr ""
 
-msgid "Denúncias"
-msgstr ""
-
 msgid "Mais antigos primeiro. Não podes moderar as tuas próprias ferramentas."
 msgstr ""
 
-msgid "Recebida"
+msgid "Assunto"
 msgstr ""
 
-msgid "Autor"
+msgid "Recebida"
 msgstr ""
 
 msgid "Há"
@@ -2031,6 +2501,12 @@ msgstr ""
 msgid "Rever"
 msgstr ""
 
+msgid "comentário"
+msgstr ""
+
+msgid "colaboração"
+msgstr ""
+
 msgid "Analisar"
 msgstr ""
 
@@ -2038,6 +2514,16 @@ msgid "Nada pendente nesta fila."
 msgstr ""
 
 msgid "Denúncia"
+msgstr ""
+
+#, python-format
+msgid "em «%(title)s»"
+msgstr ""
+
+msgid "Colaboração"
+msgstr ""
+
+msgid "Conteúdo já removido"
 msgstr ""
 
 msgid "Denunciante"
@@ -2057,6 +2543,11 @@ msgid ""
 "fundamentação). Depois fecha aqui a denúncia."
 msgstr ""
 
+msgid ""
+"Para ocultar o conteúdo, usa a página de moderação (o autor recebe a "
+"fundamentação). Depois fecha aqui a denúncia."
+msgstr ""
+
 msgid "Resolver (foram tomadas medidas)"
 msgstr ""
 
@@ -2064,6 +2555,12 @@ msgid "Arquivar sem ação"
 msgstr ""
 
 msgid "Abrir revisão da ferramenta"
+msgstr ""
+
+msgid "Abrir moderação do comentário"
+msgstr ""
+
+msgid "Abrir moderação da colaboração"
 msgstr ""
 
 msgid "Rever alteração"
@@ -2149,12 +2646,6 @@ msgstr ""
 msgid "Ocultar ferramenta"
 msgstr ""
 
-msgid "Ocultar"
-msgstr ""
-
-msgid "Tornar visível"
-msgstr ""
-
 msgid "Repor a pontuação de popularidade a zero?"
 msgstr ""
 
@@ -2193,12 +2684,6 @@ msgid "Mostrar mais"
 msgstr ""
 
 #, python-format
-msgid "%(num)d ferramenta"
-msgid_plural "%(num)d ferramentas"
-msgstr[0] ""
-msgstr[1] ""
-
-#, python-format
 msgid "para «%(q)s»"
 msgstr ""
 
@@ -2225,13 +2710,16 @@ msgstr ""
 msgid "Dar estrela"
 msgstr ""
 
+msgid "Ainda não validada por um moderador"
+msgstr ""
+
+msgid "Por validar"
+msgstr ""
+
 msgid "Disponível apenas em português"
 msgstr ""
 
 msgid "estrelas"
-msgstr ""
-
-msgid "O que é open source?"
 msgstr ""
 
 msgid "Pesquisar: risco cardiovascular, vacinação, ICPC-2…"
@@ -2276,6 +2764,12 @@ msgid "Ainda não publicou ferramentas."
 msgstr ""
 
 msgid "Reportar problema"
+msgstr ""
+
+msgid "Denunciar comentário"
+msgstr ""
+
+msgid "Denunciar colaboração"
 msgstr ""
 
 msgid "Explicação"
@@ -2379,7 +2873,20 @@ msgstr ""
 msgid "Para problemas de segurança, conteúdo perigoso ou que viole os Termos, usa"
 msgstr ""
 
-msgid "Moderar"
+msgid "Por validar."
+msgstr ""
+
+msgid ""
+"Esta ferramenta foi publicada pelo autor e ainda não foi validada por um "
+"moderador. Usa-a com cuidado e denuncia qualquer problema."
+msgstr ""
+
+msgid "Em revisão."
+msgstr ""
+
+msgid ""
+"A moderação pediu alterações ao autor antes de validar esta ferramenta. "
+"Usa-a com cuidado."
 msgstr ""
 
 msgid ""
@@ -2446,6 +2953,12 @@ msgid "Atualizada"
 msgstr ""
 
 msgid "Contactar suporte"
+msgstr ""
+
+msgid "Os comentários abrem quando a ferramenta for validada por um moderador."
+msgstr ""
+
+msgid "Ferramenta arquivada: os comentários estão fechados."
 msgstr ""
 
 msgid "Visão geral"

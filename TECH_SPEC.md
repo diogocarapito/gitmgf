@@ -578,7 +578,7 @@ def is_present(tc: ToolCertification, today: date) -> bool                  # st
   - MDR or IVDR checked → CE auto-checked with `legal_basis` = MDR/IVDR (author can't uncheck CE while MDR/IVDR is checked).
   - MDR class ∈ {IIa, IIb, III} or IVDR class ∈ {B, C, D} without NB number/certificate → blocking error.
   - `patient_data = server` and RGPD absent → warning (non-blocking) shown to author and on the moderator screen.
-  - `tool_type = ai_prompt` or category `inteligencia-artificial` → hint suggesting the AI Act item.
+  - AI tools get no AI Act hint: the item is optional like any other (D45).
 - New tool / draft: claims saved as `tool_certifications` with `state=pending`.
 - Published tool: **additions or changes** go into the revision snapshot (`certifications` list); **removals** are applied immediately (row deleted, audit-logged, FTS untouched).
 

@@ -478,8 +478,6 @@ def submission_problems(db: Session, tool: Tool) -> dict[str, Any]:
             }
             for c in data["certifications"]
         },
-        data["tool_type"],
-        [c.slug for c in tool.categories],
         data["patient_data"],
         full=True,
     )

@@ -120,8 +120,6 @@ def review_tool(request: Request, db: DB, user: ModDep, tool_id: int) -> Respons
     check = certifications.check_claims(
         certifications.by_code(db),
         {c["code"]: {k: str(v) for k, v in c["details"].items()} for c in data["certifications"]},
-        data["tool_type"],
-        [c.slug for c in tool.categories],
         data["patient_data"],
         full=False,
     )
