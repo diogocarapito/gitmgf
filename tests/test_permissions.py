@@ -37,11 +37,12 @@ MATRIX = [
     ("GET", "/", dict.fromkeys(ACTORS, 200)),
     ("GET", "/search?q=publicada", dict.fromkeys(ACTORS, 200)),
     ("GET", "/t/{published}", dict.fromkeys(ACTORS, 200)),
-    ("GET", "/t/{pending}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
+    ("GET", "/t/{pending}", dict.fromkeys(ACTORS, 200)),  # public before validation (D43)
     ("GET", "/t/{draft}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
     ("GET", "/t/{hidden}", {"visitor": 404, "user": 404, "owner": 200, "mod": 200, "admin": 200}),
     ("GET", "/t/{published}/report", dict.fromkeys(ACTORS, 200)),
-    ("GET", "/t/{pending}/report", dict.fromkeys(ACTORS, 404)),
+    ("GET", "/t/{pending}/report", dict.fromkeys(ACTORS, 200)),
+    ("GET", "/t/{draft}/report", dict.fromkeys(ACTORS, 404)),
     ("POST", "/t/{published_id}/star", {"visitor": 303, "user": 303, "owner": 403, "mod": 303, "admin": 303}),
     ("GET", "/me/tools", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
     ("GET", "/me/stars", {"visitor": 303, "user": 200, "owner": 200, "mod": 200, "admin": 200}),
@@ -137,5 +138,5 @@ def test_moderator_cannot_approve_own_tool_via_route(client, db):
 def test_hidden_resources_return_404_not_403(client, db, world):
     people, tools = world
     login(client, db, people["user"])
-    assert client.get(f"/t/{tools['pending'].slug}").status_code == 404
+    assert client.get(f"/t/{tools['draft'].slug}").status_code == 404
     assert client.get("/admin/users").status_code == 404

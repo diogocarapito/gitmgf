@@ -49,7 +49,7 @@ def category_counts(db: DB) -> list[tuple[Category, int]]:
     rows = db.execute(
         select(Category, func.count(Tool.id))
         .outerjoin(tool_categories, tool_categories.c.category_id == Category.id)
-        .outerjoin(Tool, (Tool.id == tool_categories.c.tool_id) & (Tool.status == ToolStatus.published))
+        .outerjoin(Tool, (Tool.id == tool_categories.c.tool_id) & Tool.listed_clause())
         .where(Category.is_active.is_(True))
         .group_by(Category.id)
         .order_by(Category.sort_order, Category.name_pt)
@@ -77,7 +77,16 @@ def home(request: Request, db: DB, user: CurrentUser) -> Response:
         if redirect is not None:
             return redirect
     popular = _published(db, Tool.score.desc(), 6)
-    newest = _published(db, Tool.published_at.desc(), 6)
+    newest = list(
+        db.scalars(
+            select(Tool)
+            .where(Tool.listed_clause())
+            .order_by(func.coalesce(Tool.published_at, Tool.submitted_at).desc(), Tool.id.desc())
+            .limit(6)
+        )
+        .unique()
+        .all()
+    )  # includes tools awaiting validation, with their badge (D43)
     lang = request.state.lang
     badges = certifications.badges_for(db, list({t.id for t in popular + newest}), lang)
     cats = [(c, n) for c, n in category_counts(db) if n > 0 or not c.is_specialty][:18]
@@ -341,7 +350,7 @@ def _stamp_age(value: str | None) -> float | None:
 
 def _reportable(db: DB, slug: str) -> Tool:
     tool = db.scalar(select(Tool).where(Tool.slug == slug))
-    if tool is None or not tool.is_public:
+    if tool is None or not tool.is_visible:  # unvalidated tools must be reportable too (D43)
         raise HTTPException(status_code=404)
     return tool
 
@@ -475,7 +484,7 @@ def report_submit(
     subject = report_subject(request, tool=tool)
     done = (
         f"{lang_prefix(request.state.lang)}/t/{tool.slug}?flash=reported"
-        if tool.status in ("published", "archived")
+        if tool.is_visible
         else f"{lang_prefix(request.state.lang)}/?flash=reported"
     )
     return handle_report(request, db, user, form, background, subject, done)

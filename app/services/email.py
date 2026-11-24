@@ -40,6 +40,7 @@ GROUPS: dict[str, tuple[str, ...]] = {
         "welcome",
         "account_deleted",
         "avatar_removed",
+        "account_restricted",
     ),
     "tools": (
         "submission_received",
@@ -67,6 +68,7 @@ STATEMENTS = frozenset(
         "report_ack",
         "report_outcome",
         "avatar_removed",
+        "account_restricted",
     }
 )
 DISABLED_KEY = "email.disabled"

@@ -13,8 +13,8 @@ def is_moderator(user: User | None) -> bool:
 
 
 def can_view_tool(user: User | None, tool: Tool) -> bool:
-    if tool.status in (ToolStatus.published, ToolStatus.archived):
-        return True
+    if tool.status in (ToolStatus.published, ToolStatus.archived) or tool.is_unvalidated:
+        return True  # unvalidated: public from submission, with a banner (D43)
     if tool.status == ToolStatus.deleted:
         return False
     return is_owner(user, tool) or is_moderator(user)
@@ -154,6 +154,15 @@ def can_moderate_comment(user: User | None, comment: Comment) -> bool:
 
 def can_react(user: User | None, comment: Comment) -> bool:
     return _social(user) and comment.is_visible
+
+
+def can_restrict(actor: User | None, target: User) -> bool:
+    """Moderators restrict regular users; admins also restrict moderators. Never yourself or an admin."""
+    if not is_moderator(actor) or actor is None or actor.id == target.id or target.deleted_at is not None:
+        return False
+    if target.role == Role.user:
+        return True
+    return target.role == Role.moderator and actor.role == Role.admin
 
 
 def can_handle_report(user: User | None, report: Report) -> bool:

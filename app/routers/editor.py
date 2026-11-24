@@ -101,6 +101,8 @@ def my_tools(request: Request, db: DB, user: UserDep) -> Response:
 
 @pages.get("/me/tools/new")
 def new_tool_page(request: Request, db: DB, user: UserDep) -> Response:
+    if not permissions.can_publish(user):  # restricted by a moderator (D41)
+        return render(request, "community/blocked.html", {"what": "publish"}, status_code=403)
     return editor_page(request, db, None, {"tool_languages": ["pt"], "platforms": []}, {})
 
 
@@ -118,6 +120,8 @@ def _handle_save(
     request: Request, db: DB, user: User, tool: Tool | None, form: Any, background: BackgroundTasks
 ) -> Response:
     lang = request.state.lang
+    if not permissions.can_publish(user):  # no new tools, submissions or edits while restricted (D41)
+        return render(request, "community/blocked.html", {"what": "publish"}, status_code=403)
     parsed, errors, raw = parse_tool_form(form)
     submit = form.get("intent") == "submit"
     declarations = all(raw.get(name) for name in DECLARATIONS)

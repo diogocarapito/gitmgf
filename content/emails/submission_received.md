@@ -3,9 +3,11 @@ subject: Recebemos a tua submissão: {{ title }}
 ---
 Olá,
 
-Recebemos a ficha «{{ title }}». Um moderador vai revê-la e vais receber um email com a decisão.
+Recebemos a ficha «{{ title }}». Já está visível para todos, assinalada como «Por validar», e um moderador vai revê-la. Vais receber um email com a decisão.
 
-Enquanto estiver em revisão, a ficha não é pública. Podes acompanhar o estado em:
+Ver a ficha: {{ base_url }}{{ lang_prefix }}/t/{{ slug }}
+
+Podes acompanhar o estado em:
 {{ base_url }}{{ lang_prefix }}/me/tools
 
 Obrigado por partilhares o teu trabalho.

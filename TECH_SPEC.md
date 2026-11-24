@@ -737,6 +737,8 @@ Tool page panel `partials/cert_panel.html`: present items as a definition list (
 | GET/POST | `/{lang}/comments/{id}/report`, `/{lang}/colabs/{id}/report` | Report forms (shared DSA flow) |
 | GET | `/{lang}/mod/comments/{id}`, `/{lang}/mod/colabs/{id}` | Moderation page (moderator+) |
 | POST | `/mod/comments/{id}/hide\|unhide`, `/mod/colabs/{id}/hide\|unhide` | Hide with reason / restore |
+| GET | `/{lang}/mod/users/{id}` | Account restrictions (moderator+, D41/D43) |
+| POST | `/mod/users/{id}/restrict\|lift/publish\|social` | Restrict with reason / lift |
 
 ### Tracking (`routers/tracking.py`)
 

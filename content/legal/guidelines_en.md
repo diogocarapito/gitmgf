@@ -8,7 +8,7 @@ last_updated: 2026-11-16
 
 **Version 2026-11 · Last updated: 16 November 2026**
 
-These guidelines complement the [Terms of Use](/en/p/terms) and explain what can be published on gitmgf and how to prepare a listing that passes review the first time. Every listing is reviewed by a moderator before it goes public.
+These guidelines complement the [Terms of Use](/en/p/terms) and explain what can be published on gitmgf and how to prepare a listing that passes review the first time. Every listing is visible as soon as it is submitted, marked “Awaiting validation”, and is reviewed by a moderator; if it is not approved, it is taken down.
 
 ## 1. What we accept
 

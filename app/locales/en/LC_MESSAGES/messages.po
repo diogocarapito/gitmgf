@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-24 00:10+0000\n"
+"POT-Creation-Date: 2026-11-24 00:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -43,6 +43,18 @@ msgid "%(num)d alteração por rever"
 msgid_plural "%(num)d alterações por rever"
 msgstr[0] "%(num)d edit to review"
 msgstr[1] "%(num)d edits to review"
+
+#, python-format
+msgid "%(num)d colaboração"
+msgid_plural "%(num)d colaborações"
+msgstr[0] "%(num)d collaboration post"
+msgstr[1] "%(num)d collaboration posts"
+
+#, python-format
+msgid "%(num)d comentário"
+msgid_plural "%(num)d comentários"
+msgstr[0] "%(num)d comment"
+msgstr[1] "%(num)d comments"
 
 #, python-format
 msgid "%(num)d denúncia aberta."
@@ -92,6 +104,13 @@ msgstr "The image is larger than 2 MB."
 
 msgid "A licença é coerente com o repositório."
 msgstr "The licence matches the repository."
+
+msgid ""
+"A moderação pediu alterações ao autor antes de validar esta ferramenta. "
+"Usa-a com cuidado."
+msgstr ""
+"Moderation asked the author for changes before validating this tool. Use "
+"it with care."
 
 msgid "A palavra-passe atual está incorreta."
 msgstr "The current password is incorrect."
@@ -237,6 +256,9 @@ msgstr ""
 "comments on your tools and collaboration posts, replies and mentions "
 "appear here."
 
+msgid "Ainda não validada por um moderador"
+msgstr "Not yet validated by a moderator"
+
 msgid "Ainda sem dados."
 msgstr "No data yet."
 
@@ -315,8 +337,14 @@ msgstr "Anonymous"
 msgid "Aparece nas páginas das tuas ferramentas."
 msgstr "Shown on your tools' pages."
 
+msgid "Aplicar esta restrição?"
+msgstr "Apply this restriction?"
+
 msgid "Aplicar filtros"
 msgstr "Apply filters"
+
+msgid "Aplicar restrição"
+msgstr "Apply restriction"
 
 msgid "Aplicação de computador"
 msgstr "Desktop app"
@@ -622,6 +650,9 @@ msgstr ""
 "With an open-source licence and a public repository, the listing gets the"
 " Open source badge."
 
+msgid "Comentar e reagir"
+msgstr "Comment and react"
+
 msgid ""
 "Comentaste demasiadas vezes num curto espaço de tempo. Tenta novamente "
 "mais tarde."
@@ -659,6 +690,9 @@ msgstr "Comment visible again."
 
 msgid "Comentários"
 msgstr "Comments"
+
+msgid "Comentários recentes"
+msgstr "Recent comments"
 
 msgid "Completar perfil"
 msgstr "Complete your profile"
@@ -928,6 +962,10 @@ msgstr "Description (PT)"
 msgid "Descrição disponível apenas em português."
 msgstr "Description available in Portuguese only."
 
+#, python-format
+msgid "Desde %(date)s."
+msgstr "Since %(date)s."
+
 msgid "Desktop"
 msgstr "Desktop"
 
@@ -1014,6 +1052,9 @@ msgstr "Delete this comment?"
 
 msgid "Em revisão"
 msgstr "Under review"
+
+msgid "Em revisão."
+msgstr "In review."
 
 msgid "Email"
 msgstr "Email"
@@ -1175,6 +1216,13 @@ msgid ""
 msgstr "This tool is under review. To edit it, withdraw the submission first."
 
 msgid ""
+"Esta ferramenta foi publicada pelo autor e ainda não foi validada por um "
+"moderador. Usa-a com cuidado e denuncia qualquer problema."
+msgstr ""
+"This tool was published by its author and has not yet been validated by a"
+" moderator. Use it with care and report any problem."
+
+msgid ""
 "Esta ligação é inválida, já foi usada ou expirou. Pede uma nova a um "
 "administrador."
 msgstr ""
@@ -1264,6 +1312,13 @@ msgstr ""
 "Explain which rule was broken and why. Between 10 and 2000 characters. It"
 " is emailed to the author as the statement of reasons."
 
+msgid ""
+"Explica que regras foram violadas e porquê. Vai por email, como "
+"fundamentação da decisão."
+msgstr ""
+"Explain which rules were broken and why. It is emailed as the statement "
+"of reasons."
+
 msgid "Explicação"
 msgstr "Explanation"
 
@@ -1324,8 +1379,12 @@ msgstr "Tool hidden. The author has been notified."
 msgid "Ferramenta publicada novamente."
 msgstr "Tool published again."
 
-msgid "Ferramenta submetida para revisão. Vais receber um email com a decisão."
-msgstr "Tool submitted for review. You'll receive an email with the decision."
+msgid ""
+"Ferramenta publicada. Já está visível, assinalada «Por validar» até um "
+"moderador a rever."
+msgstr ""
+"Tool published. It is visible now, marked “Awaiting validation” until a "
+"moderator reviews it."
 
 msgid "Ferramenta visível novamente."
 msgstr "Tool visible again."
@@ -1497,6 +1556,20 @@ msgstr "Image"
 msgid "Imagem do cartão"
 msgstr "Card image"
 
+msgid ""
+"Impede criar, submeter e editar ferramentas e publicar colaborações. O "
+"que já está publicado mantém-se."
+msgstr ""
+"Stops creating, submitting and editing tools and posting collaborations. "
+"What is already published stays up."
+
+msgid ""
+"Impede novos comentários, respostas e reações em toda a gitmgf. Os "
+"comentários existentes mantêm-se; oculta-os um a um se for preciso."
+msgstr ""
+"Stops new comments, replies and reactions across gitmgf. Existing "
+"comments stay; hide them one by one if needed."
+
 msgid "Inativa"
 msgstr "Inactive"
 
@@ -1567,6 +1640,9 @@ msgid ""
 msgstr ""
 "Lowercase letters, numbers and hyphens (3 to 30). It's the address of "
 "your public profile: gitmgf.com/u/handle."
+
+msgid "Levantar restrição"
+msgstr "Lift restriction"
 
 msgid "Levantar suspensão"
 msgstr "Lift suspension"
@@ -1734,6 +1810,9 @@ msgstr "Reason"
 msgid "Motivo (enviado ao autor)"
 msgstr "Reason (sent to the author)"
 
+msgid "Motivo (enviado à pessoa)"
+msgstr "Reason (sent to the person)"
+
 msgid "Motivo da ocultação"
 msgstr "Reason for hiding"
 
@@ -1885,6 +1964,12 @@ msgstr ""
 "No email server is configured: notifications stay here and are not sent. "
 "Authors see status and reasons in “My tools”."
 
+msgid "Não pode comentar nem reagir."
+msgstr "Can’t comment or react."
+
+msgid "Não pode publicar ferramentas nem colaborações."
+msgstr "Can’t publish tools or collaboration posts."
+
 msgid "Não podes atribuir estrela à tua própria ferramenta."
 msgstr "You can't star your own tool."
 
@@ -1894,6 +1979,13 @@ msgid ""
 msgstr ""
 "You can’t moderate this content: you are its author, or it is on one of "
 "your tools or posts."
+
+msgid ""
+"Não podes restringir esta conta: só os administradores restringem "
+"moderadores, e ninguém restringe a própria conta ou um administrador."
+msgstr ""
+"You can’t restrict this account: only admins restrict moderators, and "
+"nobody restricts their own account or an admin."
 
 msgid "Não tens permissão para fazer esta ação."
 msgstr "You don't have permission to do this."
@@ -2051,6 +2143,9 @@ msgstr "Order changed."
 
 msgid "Ordenar"
 msgstr "Sort"
+
+msgid "Os comentários abrem quando a ferramenta for validada por um moderador."
+msgstr "Comments open once a moderator validates the tool."
 
 msgid ""
 "Os comentários às tuas ferramentas e colaborações, as respostas aos teus "
@@ -2301,6 +2396,12 @@ msgstr ""
 "By default, no certification is declared. Switch on only what the tool "
 "really has and give the evidence: each claim is checked by a moderator."
 
+msgid "Por validar"
+msgstr "Awaiting validation"
+
+msgid "Por validar."
+msgstr "Awaiting validation."
+
 msgid "Português"
 msgstr "Portuguese"
 
@@ -2513,6 +2614,12 @@ msgstr "Reply by email"
 msgid "Resposta"
 msgstr "Reply"
 
+msgid "Restrição aplicada. A pessoa foi notificada."
+msgstr "Restriction applied. The person has been notified."
+
+msgid "Restrição levantada. A pessoa foi notificada."
+msgstr "Restriction lifted. The person has been notified."
+
 msgid "Restrições da conta"
 msgstr "Account restrictions"
 
@@ -2615,6 +2722,9 @@ msgstr "No content differences."
 
 msgid "Sem publicidade nem spam."
 msgstr "No advertising or spam."
+
+msgid "Sem restrições."
+msgstr "No restrictions."
 
 msgid "Sem resultados"
 msgstr "No results"
@@ -3006,6 +3116,9 @@ msgstr "certification"
 
 msgid "colaboração"
 msgstr "post"
+
+msgid "com restrições"
+msgstr "restricted"
 
 msgid "com sessão"
 msgstr "signed in"

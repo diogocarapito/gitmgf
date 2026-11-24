@@ -85,10 +85,17 @@ def test_filters(db, corpus):
     assert set(ids(db, cat=["cardiologia"])) == {score2.id, diabetes.id, vacinas.id}
 
 
-def test_only_published_tools_are_found(db):
+def test_published_and_unvalidated_tools_are_found_but_not_drafts(db):
     make_tool(db, status="draft", title_pt="Rascunho secreto")
-    make_tool(db, status="pending", title_pt="Pendente secreto")
-    assert ids(db, q="secreto") == []
+    pending = make_tool(db, status="pending", title_pt="Pendente secreto")
+    rejected_before = make_tool(db, status="pending", title_pt="Rejeitada antes secreto")
+    from app.db import utcnow
+    from app.services import search
+
+    rejected_before.rejected_at = utcnow()  # resubmitted after a rejection: hidden until approved (D43)
+    db.commit()
+    search.reindex_tool(db, rejected_before.id)
+    assert ids(db, q="secreto") == [pending.id]
 
 
 def test_ranking_blends_popularity(db):

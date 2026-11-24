@@ -3,7 +3,7 @@ subject: {% if returned_to_draft %}Alterações pedidas: {{ title }}{% else %}Su
 ---
 Olá,
 
-{% if returned_to_draft %}Medida: a ficha «{{ title }}» não foi publicada e voltou a rascunho, para que a possas corrigir.{% else %}Medida: a ficha «{{ title }}» não foi aprovada para publicação.{% endif %}
+{% if returned_to_draft %}Medida: a ficha «{{ title }}» ainda não foi validada e voltou a rascunho, para que a possas corrigir. Continua visível, com o aviso «Em revisão», até a submeteres de novo.{% else %}Medida: a ficha «{{ title }}» não foi aprovada e deixou de estar visível ao público.{% endif %}
 
 Motivo e factos:
 {{ reason }}

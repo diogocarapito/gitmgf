@@ -181,11 +181,16 @@ def transition(
     ctx["checklist"] = _checklist_text(checklist, owner.locale.value) if checklist else ""
 
     if action == "submit":
+        if not permissions.can_publish(actor):
+            raise ToolError(
+                N_("Por decisão da moderação, a tua conta não pode publicar ferramentas nem colaborações.")
+            )
         errors = submission_problems(db, tool)
         if errors:
             raise ToolError(N_("Faltam campos obrigatórios. Revê o formulário antes de submeter."))
         check_pending_limit(db, tool.owner_id)
         tool.submitted_at = now
+        tool.changes_requested_at = None
         tool.rejection_reason = None
         email.enqueue(db, owner.email, "submission_received", ctx, owner.locale.value)
     elif action == "approve":
@@ -193,12 +198,18 @@ def transition(
         tool.published_at = tool.published_at or now
         tool.last_content_update_at = now
         tool.rejection_reason = None
+        tool.changes_requested_at = None
+        tool.rejected_at = None
         ctx["rejected_claims"] = _claims_text(db, rejected, owner.locale.value)
         ctx["suggestions"] = reason or ""  # optional moderator advice; approval never requires a reason
         email.enqueue(db, owner.email, "tool_approved", ctx, owner.locale.value)
         notifications.notify(db, owner, NotificationKind.tool_approved, tool, reason)
     elif action in ("reject", "request_changes"):
         tool.rejection_reason = reason
+        # Changes requested: the page stays up as "in review" (D43). Rejected: taken down until approved.
+        tool.changes_requested_at = now if action == "request_changes" else None
+        if action == "reject":
+            tool.rejected_at = now
         ctx["returned_to_draft"] = action == "request_changes"
         email.enqueue(db, owner.email, "tool_rejected", ctx, owner.locale.value)
         kind = (
@@ -223,12 +234,11 @@ def transition(
         ):
             _close_revision(db, revision, RevisionStatus.withdrawn, actor_id, None)
 
+    if action == "withdraw":
+        tool.changes_requested_at = None  # the author took it back: private draft again
     tool.status = target
     db.flush()
-    if target == ToolStatus.published:
-        search.reindex_tool(db, tool.id)
-    elif previous == ToolStatus.published:
-        search.remove_tool(db, tool.id)
+    search.reindex_tool(db, tool.id)  # indexes published and still-unvalidated tools, removes the rest
     if ToolStatus.published in (target, previous):
         refresh_tag_counts(db, {tag.id for tag in tool.tags})
     audit.log(
@@ -392,13 +402,15 @@ def save_edit(
         raise InvalidTransition("cannot edit")
     certs = certifications.by_code(db)
     if editable_in_place(tool):
-        if tool.published_at is None:
+        if tool.published_at is None and tool.submitted_at is None:  # the URL is stable once it was public
             tool.slug = unique_slug(db, data["title_pt"], tool.id)
         apply_data(db, tool, data)
         certifications.save_draft_claims(db, tool, claims, certs)
         if declarations:
             tool.declarations_accepted_at = utcnow()
         tool.updated_at = utcnow()
+        db.flush()
+        search.reindex_tool(db, tool.id)  # a draft sent back for changes is still listed (D43)
         return "in_place"
     if tool.status not in REVISION_STATUSES:
         raise ToolError(N_("Retira a submissão para a poderes editar."))

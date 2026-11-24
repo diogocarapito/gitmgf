@@ -42,7 +42,7 @@ Bringing these tools together in one place helps people who need them find them,
 ## How it works
 
 1. **Publish.** Anyone can create an account and submit a listing with a description, licence, data handling and links to where the tool is published.
-2. **Review.** A moderator reviews every listing before it goes public. Review checks the [Submission Guidelines](/en/p/guidelines), not clinical correctness.
+2. **Review.** Every listing is visible as soon as it is submitted, marked “Awaiting validation”, and a moderator reviews it. Review checks the [Submission Guidelines](/en/p/guidelines), not clinical correctness.
 3. **Discover.** Search works in Portuguese and English, with or without accents. Ranking blends text relevance with real use: clicks from search, outbound clicks, stars and GitHub activity, with more weight on recent use.
 4. **Collaborate.** Anyone who uses a tool can star it and send suggestions or feature requests to its author, who receives them by email and in their notifications. For open-source tools, anyone can also contribute directly in the repository.
 

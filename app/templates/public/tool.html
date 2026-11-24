@@ -36,6 +36,11 @@
         {% for kind, href in links[1:] %}
         <a class="btn" href="/go/{{ tool.id }}/{{ kind }}" rel="nofollow noopener" target="_blank">{{ icon({'download': 'download', 'repo': 'code', 'docs': 'book', 'website': 'external'}[kind]) }} {{ _(labels.LINK_KIND[kind]) }} <span class="muted xsmall">{{ href | domain }}</span></a>
         {% endfor %}
+        {% elif tool.is_unvalidated %}
+        {# Not validated yet (D43): plain links, never through /go/, so gitmgf.com never redirects to an unreviewed URL #}
+        {% for kind, href in links %}
+        <a class="btn{% if loop.first %} btn--primary{% endif %}" href="{{ href }}" rel="nofollow ugc noopener noreferrer" target="_blank">{{ icon({'download': 'download', 'repo': 'code', 'docs': 'book', 'website': 'external'}[kind]) }} {{ _(labels.LINK_KIND[kind]) }} <span class="xsmall{% if not loop.first %} muted{% endif %}">{{ href | domain }}</span></a>
+        {% endfor %}
         {% endif %}
         {% if tool.status == 'published' %}
           {% if user %}{% include "partials/star_button.html" %}
@@ -49,7 +54,11 @@
         {% endif %}
       </div>
     </div>
-    {% if tool.status == 'archived' %}
+    {% if tool.is_unvalidated and tool.status == 'pending' %}
+    <div class="notice notice--warn status-banner">{{ icon('clock') }}<p><strong>{{ _("Por validar.") }}</strong> {{ _("Esta ferramenta foi publicada pelo autor e ainda não foi validada por um moderador. Usa-a com cuidado e denuncia qualquer problema.") }}</p></div>
+    {% elif tool.is_unvalidated %}
+    <div class="notice notice--warn status-banner">{{ icon('clock') }}<p><strong>{{ _("Em revisão.") }}</strong> {{ _("A moderação pediu alterações ao autor antes de validar esta ferramenta. Usa-a com cuidado.") }}</p></div>
+    {% elif tool.status == 'archived' %}
     <div class="notice notice--warn status-banner">{{ icon('archive') }}<p>{{ _("Ferramenta arquivada pelo autor: pode já não ser mantida. Não aparece nas listagens nem na pesquisa.") }}</p></div>
     {% elif tool.status != 'published' %}
     <div class="notice notice--warn status-banner">{{ icon('eye-off') }}<p>{{ _("Esta página não é pública.") }} {{ _("Estado:") }} {{ m.status(tool.status, labels.TOOL_STATUS) }}</p></div>
@@ -108,7 +117,9 @@
         <p class="cert-disclaimer">{{ _("Informação declarada pelo autor. A gitmgf verifica a existência das evidências indicadas, mas não certifica nem garante a conformidade da ferramenta.") }}</p>
       </section>
 
-      {% if tool.is_public %}
+      {% if tool.is_unvalidated %}
+      <p class="muted small section--tight">{{ icon('message') }} {{ _("Os comentários abrem quando a ferramenta for validada por um moderador.") }}</p>
+      {% elif tool.is_public %}
       {% with comment_action='/t/' ~ tool.slug ~ '/comments', owner_id=tool.owner_id, intro=site_text("comments/intro"),
               closed_note=(_("Ferramenta arquivada: os comentários estão fechados.") if tool.status == 'archived' else none) %}
       {% include "community/_thread.html" %}
@@ -165,7 +176,7 @@
           {% if tool.published_at %}<dt>{{ _("Publicada") }}</dt><dd>{{ tool.published_at | date }}</dd>{% endif %}
           {% if tool.last_content_update_at %}<dt>{{ _("Atualizada") }}</dt><dd>{{ tool.last_content_update_at | date }}</dd>{% endif %}
         </dl>
-        {% if tool.is_public %}<p class="small section--tight tool-help">
+        {% if tool.is_visible %}<p class="small section--tight tool-help">
           {%- if tool.support_email %}<a href="mailto:{{ tool.support_email }}" title="{{ tool.support_email }}">{{ icon('mail') }} {{ _("Contactar suporte") }}</a>{% endif -%}
           {%- if can_suggest %}<a href="{{ url('/t/' ~ tool.slug ~ '/suggest') }}" rel="nofollow">{{ icon('lightbulb') }} {{ _("Sugerir melhoria") }}</a>{% endif %}
           <a href="{{ url('/t/' ~ tool.slug ~ '/report') }}" rel="nofollow">{{ icon('flag') }} {{ _("Reportar problema") }}</a>

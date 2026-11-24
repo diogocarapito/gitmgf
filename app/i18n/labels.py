@@ -283,6 +283,8 @@ LICENSE_LABEL = dict(LICENSES)
 FLASH = {
     "saved": ("ok", N_("Alterações guardadas.")),
     "commented": ("ok", N_("Comentário publicado.")),
+    "restricted": ("ok", N_("Restrição aplicada. A pessoa foi notificada.")),
+    "unrestricted": ("ok", N_("Restrição levantada. A pessoa foi notificada.")),
     "comment_saved": ("ok", N_("Comentário atualizado.")),
     "comment_deleted": ("ok", N_("Comentário eliminado.")),
     "comment_hidden": ("ok", N_("Comentário ocultado. O autor foi notificado.")),
@@ -301,7 +303,10 @@ FLASH = {
     "avatar_removed": ("ok", N_("Foto de perfil removida.")),
     "signed_out_all": ("ok", N_("Sessão terminada em todos os dispositivos.")),
     "draft_saved": ("ok", N_("Rascunho guardado.")),
-    "submitted": ("ok", N_("Ferramenta submetida para revisão. Vais receber um email com a decisão.")),
+    "submitted": (
+        "ok",
+        N_("Ferramenta publicada. Já está visível, assinalada «Por validar» até um moderador a rever."),
+    ),
     "revision_submitted": ("ok", N_("Alteração submetida. A versão publicada mantém-se até à aprovação.")),
     "revision_withdrawn": ("ok", N_("Alteração pendente retirada.")),
     "withdrawn": ("ok", N_("Submissão retirada. A ferramenta voltou a rascunho.")),

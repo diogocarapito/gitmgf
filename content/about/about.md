@@ -42,7 +42,7 @@ Reunir estas ferramentas num só lugar ajuda quem precisa a encontrá-las, dá c
 ## Como funciona
 
 1. **Publicar.** Qualquer pessoa cria conta e submete uma ficha com a descrição, a licença, o tratamento de dados e as ligações para onde publica a ferramenta.
-2. **Rever.** Um moderador revê cada ficha antes de ficar pública. A revisão verifica as [Normas de Submissão](/p/guidelines), não a correção clínica.
+2. **Rever.** Cada ficha fica visível logo após a submissão, assinalada como «Por validar», e um moderador revê-a. A revisão verifica as [Normas de Submissão](/p/guidelines), não a correção clínica.
 3. **Descobrir.** A pesquisa funciona em português e em inglês, com ou sem acentos. A ordenação combina a relevância do texto com a popularidade real: cliques a partir da pesquisa, aberturas de ligações, estrelas e atividade no GitHub, com mais peso para a utilização recente.
 4. **Colaborar.** Quem usa uma ferramenta pode dar-lhe uma estrela e enviar sugestões ou pedidos de funcionalidades ao autor, que os recebe por email e nas notificações. Nas ferramentas de código aberto, qualquer pessoa pode também contribuir diretamente no repositório.
 

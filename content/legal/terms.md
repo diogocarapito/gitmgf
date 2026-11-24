@@ -48,7 +48,7 @@ O Serviço é **gratuito**. Não inclui publicidade nem posições pagas nos res
 
 ## 5. Publicar ferramentas
 
-5.1. **Revisão prévia.** Todas as ferramentas novas e as alterações a ferramentas publicadas são revistas por um moderador antes de ficarem públicas. Podemos aprovar, pedir alterações ou rejeitar uma submissão, sempre com indicação do motivo.
+5.1. **Revisão.** As ferramentas novas ficam visíveis logo após a submissão, assinaladas como «Por validar», e são revistas por um moderador. Podemos aprovar, pedir alterações (a ficha continua visível, assinalada como «Em revisão») ou rejeitar uma submissão (a ficha deixa de estar visível), sempre com indicação do motivo. Enquanto não for validada, uma ferramenta não recebe estrelas nem comentários e não entra na ordenação por popularidade. As alterações a ferramentas já publicadas continuam a ser revistas antes de ficarem visíveis.
 
 5.2. **Garantias do autor.** Ao submeter, declara que:
 

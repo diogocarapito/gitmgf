@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ _("Restrições da conta") }}: {{ target.display_name }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="container container--narrow">
+  <header class="page-head">
+    <p class="breadcrumbs"><a href="{{ url('/mod', tab='reports') }}">{{ _("Moderação") }}</a></p>
+    <h1>{{ _("Restrições da conta") }}</h1>
+    <div class="author">
+      {{ m.avatar(target, "lg") }}
+      <div>
+        <div class="author__name">{% if target.handle %}<a href="{{ url('/u/' ~ target.handle) }}">{{ target.display_name }}</a> <span class="muted small">@{{ target.handle }}</span>{% else %}{{ target.display_name }}{% endif %}</div>
+        <div class="small muted">{{ label(labels.ROLE, target.role) }} · {{ _("Registo") }} {{ target.created_at | date }}{% if not target.is_active %} · {{ label(labels.USER_STATUS, target.status) }}{% endif %}</div>
+        <div class="small muted">{{ ngettext("%(num)d ferramenta", "%(num)d ferramentas", counts.tools) }} · {{ ngettext("%(num)d colaboração", "%(num)d colaborações", counts.colabs) }} · {{ ngettext("%(num)d comentário", "%(num)d comentários", counts.comments) }}</div>
+      </div>
+    </div>
+  </header>
+
+  {% for kind, title, on_text, hint in [
+      ('publish', _("Publicar"), _("Não pode publicar ferramentas nem colaborações."), _("Impede criar, submeter e editar ferramentas e publicar colaborações. O que já está publicado mantém-se.")),
+      ('social', _("Comentar e reagir"), _("Não pode comentar nem reagir."), _("Impede novos comentários, respostas e reações em toda a gitmgf. Os comentários existentes mantêm-se; oculta-os um a um se for preciso."))] %}
+  {% set since = target[kind ~ '_blocked_at'] %}
+  <section class="panel">
+    <h2>{{ icon('ban') }} {{ title }}</h2>
+    {% if since %}
+    <p class="notice notice--warn small">{{ on_text }} {{ _("Desde %(date)s.", date=since | date) }} {{ _("Motivo:") }} {{ target[kind ~ '_blocked_reason'] }}</p>
+    {% if can_act %}<form method="post" action="/mod/users/{{ target.id }}/lift/{{ kind }}">{{ m.csrf() }}<button class="btn" type="submit">{{ icon('check') }} {{ _("Levantar restrição") }}</button></form>{% endif %}
+    {% elif can_act %}
+    <p class="small muted">{{ hint }}</p>
+    <form class="form" method="post" action="/mod/users/{{ target.id }}/restrict/{{ kind }}">{{ m.csrf() }}
+      <div class="field">
+        <label for="reason-{{ kind }}">{{ _("Motivo (enviado à pessoa)") }}</label>
+        <textarea id="reason-{{ kind }}" name="reason" rows="3" minlength="10" maxlength="2000" required></textarea>
+        <p class="field__hint">{{ _("Explica que regras foram violadas e porquê. Vai por email, como fundamentação da decisão.") }}</p>
+      </div>
+      <div class="form-actions"><button class="btn btn--danger" type="submit" data-confirm="{{ _('Aplicar esta restrição?') }}">{{ icon('ban') }} {{ _("Aplicar restrição") }}</button></div>
+    </form>
+    {% else %}
+    <p class="small muted">{{ _("Sem restrições.") }}</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+  {% if not can_act %}<p class="notice small">{{ icon('info') }} {{ _("Não podes restringir esta conta: só os administradores restringem moderadores, e ninguém restringe a própria conta ou um administrador.") }}</p>{% endif %}
+
+  {% if recent %}
+  <section class="panel">
+    <h2>{{ _("Comentários recentes") }}</h2>
+    <ul class="plain-list">
+      {% for c in recent %}
+      <li class="small"><a href="{{ url('/mod/comments/' ~ c.id) }}">{{ c.created_at | relative }}</a>{% if c.hidden_at %} <span class="badge badge--archived">{{ _("Ocultado") }}</span>{% endif %} — {{ c.body | truncate(160) }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

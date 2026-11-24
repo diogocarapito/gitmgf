@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session
 from app.db import today, utcnow
 from app.models import Category, SearchQuery, Tag, Tool, tool_categories
 from app.models.enums import ToolStatus
+from app.models.tool import UNVALIDATED_SQL
 from app.services import markdown, settings_store
 
 PAGE_SIZE = 20
@@ -52,10 +53,10 @@ def remove_tool(db: Session, tool_id: int) -> None:
 
 
 def reindex_tool(db: Session, tool_id: int) -> None:
-    """Only published tools are indexed; anything else is removed from the index."""
+    """Published tools and tools awaiting validation (D43) are indexed; anything else is removed."""
     remove_tool(db, tool_id)
     tool = db.get(Tool, tool_id)
-    if tool is None or tool.status != ToolStatus.published:
+    if tool is None or not (tool.status == ToolStatus.published or tool.is_unvalidated):
         return
     db.execute(
         text(
@@ -74,7 +75,7 @@ def reindex_tools(db: Session, tool_ids: list[int]) -> None:
 
 def rebuild(db: Session) -> int:
     db.execute(text("DELETE FROM tool_search"))
-    ids = db.scalars(select(Tool.id).where(Tool.status == ToolStatus.published)).all()
+    ids = db.scalars(select(Tool.id).where(Tool.listed_clause())).all()
     for tool_id in ids:
         reindex_tool(db, tool_id)
     return len(ids)
@@ -152,7 +153,7 @@ class SearchResult:
 
 
 def _filters_sql(params: SearchParams, on: date) -> tuple[list[str], dict[str, Any]]:
-    where = ["t.status = 'published'"]
+    where = [f"(t.status = 'published' OR {UNVALIDATED_SQL})"]
     bind: dict[str, Any] = {}
 
     def in_list(prefix: str, values: list[str]) -> str:
@@ -199,9 +200,9 @@ def _filters_sql(params: SearchParams, on: date) -> tuple[list[str], dict[str, A
 
 ORDER_BY = {
     "popular": "t.score DESC, t.id DESC",
-    "new": "t.published_at DESC, t.id DESC",
+    "new": "COALESCE(t.published_at, t.submitted_at) DESC, t.id DESC",
     "stars": "t.stars_count DESC, t.id DESC",
-    "updated": "COALESCE(t.last_content_update_at, t.published_at) DESC, t.id DESC",
+    "updated": "COALESCE(t.last_content_update_at, t.published_at, t.submitted_at) DESC, t.id DESC",
 }
 
 

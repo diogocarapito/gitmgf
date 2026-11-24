@@ -10,7 +10,8 @@
   </div>
   <div class="card__top">
     <span class="icon-tile">{{ icon(labels.TOOL_TYPE_ICON.get(t.tool_type or 'other', 'box')) }}</span>
-    {% if t.tool_type %}<span class="type-badge">{{ label(labels.TOOL_TYPE_SHORT, t.tool_type) }}</span>{% endif %}
+    {% if t.is_unvalidated %}<span class="badge badge--archived" title="{{ _('Ainda não validada por um moderador') }}">{{ icon('clock') }} {{ _("Por validar") }}</span>
+    {% elif t.tool_type %}<span class="type-badge">{{ label(labels.TOOL_TYPE_SHORT, t.tool_type) }}</span>{% endif %}
   </div>
   <h3 class="card__title"><a href="{{ href }}"{% if href.startswith('/r/') %} rel="nofollow"{% endif %}>{{ title }}</a>{% if is_fallback(t, "title") %} <span class="lang-pill" title="{{ _('Disponível apenas em português') }}">PT</span>{% endif %}</h3>
   <p class="card__summary"{% if is_fallback(t, "summary") %} lang="pt-PT"{% endif %}>{{ summary }}</p>

@@ -6,7 +6,8 @@
 {% set active = 'users' %}
 <div class="container">
   <header class="page-head"><p class="breadcrumbs"><a href="{{ url('/admin/users') }}">{{ _("Utilizadores") }}</a></p><h1>{{ target.display_name or target.email }}</h1>
-    <p>{{ target.email }} · {{ label(labels.ROLE, target.role) }} · {{ m.status(target.status, labels.USER_STATUS) }}</p></header>
+    <p>{{ target.email }} · {{ label(labels.ROLE, target.role) }} · {{ m.status(target.status, labels.USER_STATUS) }}
+      · <a href="{{ url('/mod/users/' ~ target.id) }}">{{ icon('ban') }} {{ _("Restrições da conta") }}</a>{% if target.publish_blocked_at or target.social_blocked_at %} <span class="badge badge--archived">{{ _("com restrições") }}</span>{% endif %}</p></header>
   {% include "admin/_nav.html" %}
   <div class="two-col">
     <section class="panel">

@@ -508,3 +508,77 @@ def mod_colab_action(
     db.commit()
     background.add_task(email.deliver_queued)
     return _go(request, f"/mod/colabs/{colab.id}", "colab_hidden" if action == "hide" else "colab_unhidden")
+
+
+# ---------- account restrictions (moderator+) ----------
+
+
+@pages.get("/mod/users/{user_id}")
+def mod_user(request: Request, db: DB, user: ModDep, user_id: int) -> Response:
+    from sqlalchemy import func
+
+    from app.models import User
+
+    target = db.get(User, user_id)
+    if target is None or target.deleted_at is not None:
+        raise HTTPException(status_code=404)
+    recent = list(
+        db.scalars(
+            select(Comment)
+            .where(Comment.author_id == target.id, Comment.deleted_at.is_(None))
+            .order_by(Comment.created_at.desc())
+            .limit(10)
+        )
+        .unique()
+        .all()
+    )
+    counts = {
+        "tools": db.scalar(select(func.count()).select_from(Tool).where(Tool.owner_id == target.id)) or 0,
+        "colabs": db.scalar(select(func.count()).select_from(Colab).where(Colab.author_id == target.id)) or 0,
+        "comments": db.scalar(select(func.count()).select_from(Comment).where(Comment.author_id == target.id))
+        or 0,
+    }
+    return render(
+        request,
+        "community/mod_user.html",
+        {
+            "target": target,
+            "recent": recent,
+            "counts": counts,
+            "can_act": permissions.can_restrict(user, target),
+            "values": {},
+            "errors": {},
+        },
+    )
+
+
+@actions.post("/mod/users/{user_id}/{action}/{kind}")
+def mod_user_action(
+    request: Request,
+    db: DB,
+    user: ModDep,
+    user_id: int,
+    action: str,
+    kind: str,
+    form: Form,
+    background: BackgroundTasks,
+) -> Response:
+    from app.models import User
+    from app.services import restrictions
+
+    target = db.get(User, user_id)
+    if target is None or action not in ("restrict", "lift") or kind not in restrictions.KINDS:
+        raise HTTPException(status_code=404)
+    try:
+        if action == "restrict":
+            data = ReasonForm.model_validate(form_to_dict(form))
+            restrictions.restrict(db, user, target, kind, data.reason)  # type: ignore[arg-type]
+        else:
+            restrictions.lift(db, user, target, kind)  # type: ignore[arg-type]
+    except ValidationError:
+        return _go(request, f"/mod/users/{target.id}", "reason_required")
+    except restrictions.RestrictionError as exc:
+        raise HTTPException(status_code=403) from exc
+    db.commit()
+    background.add_task(email.deliver_queued)
+    return _go(request, f"/mod/users/{target.id}", "restricted" if action == "restrict" else "unrestricted")

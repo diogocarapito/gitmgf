@@ -15,8 +15,8 @@ def public_tools(db: Session, user: User) -> list[Tool]:
     return list(
         db.scalars(
             select(Tool)
-            .where(Tool.owner_id == user.id, Tool.status.in_(PUBLIC_STATUSES))
-            .order_by(Tool.published_at.desc())
+            .where(Tool.owner_id == user.id, Tool.status.in_(PUBLIC_STATUSES) | Tool.unvalidated_clause())
+            .order_by(Tool.published_at.desc().nulls_first(), Tool.submitted_at.desc())
         )
         .unique()
         .all()

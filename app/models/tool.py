@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Any
 
-from sqlalchemy import ForeignKey, Index, String, Text, UniqueConstraint, text
+from sqlalchemy import ColumnElement, ForeignKey, Index, String, Text, UniqueConstraint, and_, or_, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base, utcnow
@@ -21,6 +21,9 @@ from app.models.taxonomy import Category, Tag, tool_categories, tool_tags
 from app.models.user import User
 
 PUBLIC_STATUSES = (ToolStatus.published, ToolStatus.archived)
+# Visible before a moderator validates them (D43): submitted tools, and tools sent back for changes, as long as
+# they were never rejected. Keep in sync with Tool.is_unvalidated and Tool.unvalidated_clause().
+UNVALIDATED_SQL = "(t.rejected_at IS NULL AND (t.status = 'pending' OR (t.status = 'draft' AND t.changes_requested_at IS NOT NULL)))"
 
 
 class Tool(Base):
@@ -67,6 +70,8 @@ class Tool(Base):
     created_at: Mapped[datetime] = mapped_column(default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(default=utcnow, onupdate=utcnow)
     submitted_at: Mapped[datetime | None]
+    changes_requested_at: Mapped[datetime | None]  # sent back by a moderator; still visible (D43)
+    rejected_at: Mapped[datetime | None]  # once rejected, never visible again before approval (D43)
     published_at: Mapped[datetime | None]
     last_content_update_at: Mapped[datetime | None]
     deleted_at: Mapped[datetime | None]
@@ -90,7 +95,36 @@ class Tool(Base):
 
     @property
     def is_public(self) -> bool:
+        """Validated and public: published or archived."""
         return self.status in PUBLIC_STATUSES
+
+    @property
+    def is_unvalidated(self) -> bool:
+        """Public but not yet validated by a moderator (D43)."""
+        if self.rejected_at is not None:
+            return False
+        return self.status == ToolStatus.pending or (
+            self.status == ToolStatus.draft and self.changes_requested_at is not None
+        )
+
+    @property
+    def is_visible(self) -> bool:
+        return self.is_public or self.is_unvalidated
+
+    @classmethod
+    def unvalidated_clause(cls) -> ColumnElement[bool]:
+        return and_(
+            cls.rejected_at.is_(None),
+            or_(
+                cls.status == ToolStatus.pending,
+                and_(cls.status == ToolStatus.draft, cls.changes_requested_at.is_not(None)),
+            ),
+        )
+
+    @classmethod
+    def listed_clause(cls) -> ColumnElement[bool]:
+        """Shown in listings: published, or visible before validation (D43)."""
+        return or_(cls.status == ToolStatus.published, cls.unvalidated_clause())
 
     @property
     def live_media(self) -> list["ToolMedia"]:

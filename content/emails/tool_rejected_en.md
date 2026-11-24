@@ -3,7 +3,7 @@ subject: {% if returned_to_draft %}Changes requested: {{ title }}{% else %}Submi
 ---
 Hello,
 
-{% if returned_to_draft %}Measure: the listing “{{ title }}” was not published and went back to draft so you can fix it.{% else %}Measure: the listing “{{ title }}” was not approved for publication.{% endif %}
+{% if returned_to_draft %}Measure: the listing “{{ title }}” has not been validated yet and went back to draft so you can fix it. It stays visible, marked “In review”, until you submit it again.{% else %}Measure: the listing “{{ title }}” was not approved and is no longer visible to the public.{% endif %}
 
 Reason and facts:
 {{ reason }}

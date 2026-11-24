@@ -16,6 +16,7 @@
         {% if person.role != 'user' %}<span class="badge badge--oss">{{ icon('shield-check') }} {{ label(labels.ROLE, person.role) }}</span>{% endif %}
         {% if person.github_username %}<a class="small" href="https://github.com/{{ person.github_username }}" rel="nofollow noopener">{{ icon('github') }} {{ person.github_username }}</a>{% endif %}
         <span class="small muted">{{ _("No gitmgf desde %(date)s", date=person.created_at | date) }}</span>
+        {% if user and user.is_moderator and user.id != person.id %}<a class="btn btn--sm btn--manage" href="{{ url('/mod/users/' ~ person.id) }}">{{ icon('ban') }} {{ _("Restrições da conta") }}</a>{% endif %}
       </div>
       <p class="xsmall muted section--tight">{{ _("Profissão e especialidade declaradas pelo próprio, não verificadas.") }}</p>
     </div>

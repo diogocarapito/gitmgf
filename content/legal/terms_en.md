@@ -50,7 +50,7 @@ The Service is **free**. It has no advertising and no paid placement in results.
 
 ## 5. Publishing tools
 
-5.1. **Prior review.** Every new tool and every change to a published tool is reviewed by a moderator before it goes public. We may approve, request changes to or reject a submission, always with a stated reason.
+5.1. **Review.** New tools are visible as soon as they are submitted, marked “Awaiting validation”, and are reviewed by a moderator. We may approve, request changes (the listing stays visible, marked “In review”) or reject a submission (the listing is taken down), always with a stated reason. Until it is validated, a tool can't receive stars or comments and is not ranked by popularity. Changes to tools that are already published are still reviewed before they go live.
 
 5.2. **Author warranties.** By submitting, you confirm that:
 

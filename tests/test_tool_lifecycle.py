@@ -58,7 +58,7 @@ def test_allowed_transitions(db, people, start, action, actor_key, end):
     tool = make_tool(db, owner, status=start, moderator=mod)
     svc.transition(db, tool, action, actors[actor_key], reason="Motivo de teste.")
     assert tool.status == ToolStatus(end)
-    assert in_index(db, tool.id) == (end == "published")
+    assert in_index(db, tool.id) == (end == "published" or tool.is_unvalidated)
 
 
 def test_every_undeclared_transition_raises(db, people):
@@ -175,18 +175,22 @@ def test_revision_diff_marks_changes(db, people):
     assert "novo" in diffs["tags"].added
 
 
-def test_draft_is_invisible_to_public_and_pending_visible_to_owner_and_mods(client, db, people):
-    owner, mod, _, other = people
+def test_drafts_are_private_and_submitted_tools_are_public_before_validation(client, db, people):
+    owner, _, _, other = people
     draft = make_tool(db, owner, status="draft", title_pt="Rascunho")
     pending = make_tool(db, owner, status="pending", title_pt="Pendente")
-    for tool in (draft, pending):
-        assert client.get(f"/t/{tool.slug}").status_code == 404
+    assert client.get(f"/t/{draft.slug}").status_code == 404
+    page = client.get(f"/t/{pending.slug}")
+    assert (
+        page.status_code == 200
+        and "Por validar." in page.text
+        and 'name="robots" content="noindex"' in page.text
+    )
+    assert f"/go/{pending.id}/" not in page.text and 'href="https://example.org/score2"' in page.text
     login(client, db, other)
-    assert client.get(f"/t/{pending.slug}").status_code == 404
+    assert client.get(f"/t/{draft.slug}").status_code == 404
     login(client, db, owner)
-    assert client.get(f"/t/{pending.slug}").status_code == 200
-    login(client, db, mod)
-    assert client.get(f"/t/{pending.slug}").status_code == 200
+    assert client.get(f"/t/{draft.slug}").status_code == 200
 
 
 def test_form_submit_flow_and_validation(client, db, people):

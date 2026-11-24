@@ -34,7 +34,7 @@ def search_click(
     request: Request, db: DB, user: CurrentUser, search_id: str, tool_id: int, pos: int | None = None
 ) -> Response:
     tool = db.get(Tool, tool_id)
-    if tool is None or tool.status not in PUBLIC_STATUSES:
+    if tool is None or not tool.is_visible:  # internal redirect; unvalidated tools are listed too (D43)
         raise HTTPException(status_code=404)
     if search.ULID_RE.match(search_id) and db.get(SearchQuery, search_id) is not None:
         tracking.record(db, request, tool, EventKind.search_click, user, search_id=search_id, position=pos)
