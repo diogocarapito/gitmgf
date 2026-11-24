@@ -29,7 +29,7 @@ Uma calculadora, um script ou uma folha de cálculo que resolve um problema real
 
 | Pasta | O que tem |
 |---|---|
-| `home/` | Página inicial: `hero` (destaque no topo), `open-source` (nota do asterisco), `featured`, `newest`, `how-it-works` + `step-1..3`, `cta` |
+| `home/` | Página inicial: `hero` (destaque no topo), `featured`, `newest`, `how-it-works` + `step-1..3`, `cta` |
 | `about/`, `contact/` | Páginas Sobre e Contacto (`/p/about`, `/p/contact`) |
 | `legal/` | Termos, Privacidade, Aviso Legal e Normas de Submissão. `[[CHAVE]]` são dados preenchidos nas definições do site (ver `legal/NOTES.md`). Mudanças que obriguem a nova aceitação: atualizar `version` em `legal/terms.md` e a definição `terms.current_version` |
 | `blog/` | Um artigo por ficheiro: `<endereço>.md` + `<endereço>_en.md`, com `title`, `date`, `author`, `summary` (e `draft: true` para esconder). `_intro.md` é o texto do topo da página do blog |

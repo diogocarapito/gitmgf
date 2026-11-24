@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitmgf VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-24 00:24+0000\n"
+"POT-Creation-Date: 2026-11-24 00:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -2052,9 +2052,6 @@ msgstr ""
 
 msgid "O que procuras?"
 msgstr "What are you looking for?"
-
-msgid "O que é open source?"
-msgstr "What is open source?"
 
 msgid "O registo está aberto a todos: os convites não são obrigatórios."
 msgstr "Registration is open to everyone: invites are not required."

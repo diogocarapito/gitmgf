@@ -8,7 +8,7 @@
   <div class="container">
     <span class="eyebrow">{{ icon('users') }} {{ hero.eyebrow }}</span>
     <h1>{{ hero.title }}</h1>
-    <p class="hero__lead">{{ hero.inline }}<a class="hero__mark" href="#open-source" aria-label="{{ _('O que é open source?') }}">*</a></p>
+    <p class="hero__lead">{{ hero.inline }}</p>
     <form class="search-box" action="{{ url('/search') }}" method="get" role="search">
       {{ icon('search') }}
       <label class="visually-hidden" for="hero-q">{{ _("Pesquisar ferramentas") }}</label>
@@ -23,7 +23,6 @@
       <a class="chip" href="{{ url('/search', type='script') }}">{{ _("Scripts") }}</a>
       <a class="chip" href="{{ url('/c/internato') }}">{{ _("Internato") }}</a>
     </div>
-    <p class="hero__note" id="open-source"><span aria-hidden="true">* </span>{{ site_text("home/open-source").inline }}</p>
   </div>
 </section>
 

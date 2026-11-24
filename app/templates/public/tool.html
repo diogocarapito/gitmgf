@@ -117,14 +117,6 @@
         <p class="cert-disclaimer">{{ _("Informação declarada pelo autor. A gitmgf verifica a existência das evidências indicadas, mas não certifica nem garante a conformidade da ferramenta.") }}</p>
       </section>
 
-      {% if tool.is_unvalidated %}
-      <p class="muted small section--tight">{{ icon('message') }} {{ _("Os comentários abrem quando a ferramenta for validada por um moderador.") }}</p>
-      {% elif tool.is_public %}
-      {% with comment_action='/t/' ~ tool.slug ~ '/comments', owner_id=tool.owner_id, intro=site_text("comments/intro"),
-              closed_note=(_("Ferramenta arquivada: os comentários estão fechados.") if tool.status == 'archived' else none) %}
-      {% include "community/_thread.html" %}
-      {% endwith %}
-      {% endif %}
     </div>
 
     <aside>
@@ -184,5 +176,20 @@
       </section>
     </aside>
   </div>
+
+  {# Comments sit below the whole listing, separated from it, on every screen size (D41) #}
+  {% if tool.is_visible %}
+  <hr class="comments-divider">
+  <div class="tool-comments">
+    {% if tool.is_unvalidated %}
+    <p class="muted small">{{ icon('message') }} {{ _("Os comentários abrem quando a ferramenta for validada por um moderador.") }}</p>
+    {% elif tool.is_public %}
+    {% with comment_action='/t/' ~ tool.slug ~ '/comments', owner_id=tool.owner_id, intro=site_text("comments/intro"),
+            closed_note=(_("Ferramenta arquivada: os comentários estão fechados.") if tool.status == 'archived' else none) %}
+    {% include "community/_thread.html" %}
+    {% endwith %}
+    {% endif %}
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
